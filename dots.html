@@ -117,6 +117,11 @@ function buildDots(img) {
       const a = data[idx + 3];
       if (a < 20) continue;
 
+      // Skip near-black pixels: invisible against the dark background,
+      // so drawing them just wastes render time.
+      const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      if (luminance < 18) continue;
+
       const homeX = offsetX + x + spacing / 2;
       const homeY = offsetY + y + spacing / 2;
       newDots.push({

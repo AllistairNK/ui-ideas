@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Particle Photo</title>
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: #111;
+    color: #eee;
+    font-family: system-ui, sans-serif;
+    overflow: hidden;
+  }
+  #controls {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    background: rgba(0,0,0,0.5);
+    padding: 10px 14px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  #controls label { font-size: 13px; }
+  #controls select {
+    background: #222;
+    color: #eee;
+    border: 1px solid #555;
+    border-radius: 4px;
+    font-size: 13px;
+    padding: 2px 4px;
+  }
+  #controls button {
+    background: #222;
+    color: #eee;
+    border: 1px solid #555;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  #controls button:hover { background: #333; }
+  #spacingValue { font-size: 13px; min-width: 2ch; text-align: center; display: inline-block; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+
+<div id="controls">
+  <input type="file" id="fileInput" accept="image/*">
+  <label>Mode
+    <select id="modeSelect">
+      <option value="dots">Dots</option>
+      <option value="waves">Waves</option>
+      <option value="flames">Flames</option>
+      <option value="flames2">Flames (Color)</option>
+      <option value="comet">Comet</option>
+    </select>
+  </label>
+  <label>Dot size
+    <button type="button" id="spacingDown">-</button>
+    <input type="range" id="spacing" min="4" max="60" value="16">
+    <button type="button" id="spacingUp">+</button>
+    <span id="spacingValue">16</span>
+  </label>
+</div>
+
+<canvas id="canvas"></canvas>
+
+<script>
+const fileInput = document.getElementById('fileInput');
+const modeSelect = document.getElementById('modeSelect');
+const spacingInput = document.getElementById('spacing');
+const spacingValue = document.getElementById('spacingValue');
+const spacingUp = document.getElementById('spacingUp');
+const spacingDown = document.getElementById('spacingDown');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+  const dpr = window.devicePixelRatio || 1;
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+  canvas.width = Math.round(window.innerWidth * dpr);
+  canvas.height = Math.round(window.innerHeight * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+resizeCanvas();
+
+let dots = [];
+let embers = [];
+let cometParticles = [];
+let mode = 'dots';
+let mouse = { x: -9999, y: -9999 };
+const REPEL_RADIUS = 60;
+const REPEL_STRENGTH = 30;
+const SPRING = 0.08;
+const FRICTION = 0.85;
+const PULSE_RADIUS = 220;
+const PULSE_STRENGTH = 260;
+const MAX_EMBERS = 300;
+const MAX_COMET_PARTICLES = 300;
+// Tail streams up-and-right, matching the reference comet photo.
+const COMET_DIR = { x: 0.85, y: -0.53 };
+
+// Standard RGB -> HSL conversion (h in degrees, s/l in 0-1).
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h, s;
+  const l = (max + min) / 2;
+  if (max === min) {
+    h = s = 0;
+  } else {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      default: h = (r - g) / d + 4; break;
+    }
+    h *= 60;
+  }
+  return { h, s, l };
+}
+
+// Fire-like colors sit in the red/orange/yellow hue band with enough
+// saturation and lightness to be visually distinct from soot/highlights.
+function isFireColor(r, g, b) {
+  const { h, s, l } = rgbToHsl(r, g, b);
+  return (h <= 55 || h >= 345) && s > 0.28 && l > 0.15 && l < 0.9;
+}
+
+// Comet tails and comae read as icy white/cyan/blue against the dark sky —
+// bright, low-to-mid saturation, hue in the cyan-blue band (or near-white).
+function isCometColor(r, g, b) {
+  const { h, s, l } = rgbToHsl(r, g, b);
+  if (l < 0.45) return false;
+  if (s < 0.12) return true; // near-white/grey highlights
+  return h >= 150 && h <= 260;
+}
+
+function buildDots(img) {
+  const spacing = parseInt(spacingInput.value, 10);
+
+  // Draw the image to an offscreen canvas scaled to fit the window,
+  // so we can sample pixel colors at each dot's grid location.
+  const off = document.createElement('canvas');
+  const maxW = window.innerWidth;
+  const maxH = window.innerHeight;
+  let scale = Math.min(maxW / img.width, maxH / img.height, 1);
+  const drawW = Math.round(img.width * scale);
+  const drawH = Math.round(img.height * scale);
+  off.width = drawW;
+  off.height = drawH;
+  const offCtx = off.getContext('2d');
+  offCtx.drawImage(img, 0, 0, drawW, drawH);
+
+  const imageData = offCtx.getImageData(0, 0, drawW, drawH);
+  const data = imageData.data;
+
+  const offsetX = (maxW - drawW) / 2;
+  const offsetY = (maxH - drawH) / 2;
+
+  const newDots = [];
+  for (let y = 0; y < drawH; y += spacing) {
+    for (let x = 0; x < drawW; x += spacing) {
+      const px = Math.floor(x);
+      const py = Math.floor(y);
+      const idx = (py * drawW + px) * 4;
+      const r = data[idx];
+      const g = data[idx + 1];
+      const b = data[idx + 2];
+      const a = data[idx + 3];
+      if (a < 20) continue;
+
+      // Skip near-black pixels: invisible against the dark background,
+      // so drawing them just wastes render time.
+      const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      if (luminance < 18) continue;
+
+      const homeX = offsetX + x + spacing / 2;
+      const homeY = offsetY + y + spacing / 2;
+      newDots.push({
+        homeX, homeY,
+        x: homeX, y: homeY,
+        vx: 0, vy: 0,
+        r, g, b,
+        luminance,
+        isFire: isFireColor(r, g, b),
+        isComet: isCometColor(r, g, b),
+        seed: Math.random() * 1000,
+        radius: spacing * 0.4
+      });
+    }
+  }
+  dots = newDots;
+  embers = [];
+  cometParticles = [];
+}
+
+// Per-mode hook: returns { targetX, targetY, dr, dg, db } for a dot at time t.
+// Dots mode just springs back to its home position with its sampled color.
+// Waves adds a horizontal sine ripple to the home position, tinted cooler.
+// Flames adds upward-biased flicker and remaps color into a fire palette.
+function applyMode(d, t) {
+  if (mode === 'waves') {
+    const wave = Math.sin(t * 1.5 + d.homeX * 0.02 + d.seed) * 14;
+    return {
+      targetX: d.homeX,
+      targetY: d.homeY + wave,
+      dr: d.r * 0.6,
+      dg: d.g * 0.8 + 30,
+      db: Math.min(255, d.b + 60)
+    };
+  }
+  if (mode === 'flames') {
+    const flicker = Math.sin(t * 6 + d.seed * 10) * 6 + Math.cos(t * 3.7 + d.seed) * 4;
+    const rise = Math.abs(Math.sin(t * 2 + d.seed * 5)) * 8;
+    const heat = 0.5 + 0.5 * Math.sin(t * 4 + d.seed * 7);
+    return {
+      targetX: d.homeX + flicker,
+      targetY: d.homeY - rise,
+      dr: 255,
+      dg: Math.max(50, Math.min(200, 70 + d.luminance * 0.4 + heat * 70)),
+      db: Math.max(0, 40 * heat - 20)
+    };
+  }
+  if (mode === 'flames2') {
+    // Only pixels that were already fire-colored in the source image get
+    // the flicker treatment; everything else stays put as a plain dot so
+    // the rest of the picture reads normally.
+    if (!d.isFire) {
+      return { targetX: d.homeX, targetY: d.homeY, dr: d.r, dg: d.g, db: d.b };
+    }
+    const flicker = Math.sin(t * 6 + d.seed * 10) * 6 + Math.cos(t * 3.7 + d.seed) * 4;
+    const rise = Math.abs(Math.sin(t * 2 + d.seed * 5)) * 8;
+    const heat = 0.5 + 0.5 * Math.sin(t * 5 + d.seed * 7);
+    // Blend the original sampled color with a hotter version of itself
+    // instead of forcing a fixed fire palette, so hue variation survives.
+    return {
+      targetX: d.homeX + flicker,
+      targetY: d.homeY - rise,
+      dr: Math.min(255, d.r + heat * 60),
+      dg: Math.min(255, d.g * (0.7 + heat * 0.5)),
+      db: d.b * (0.4 + heat * 0.2)
+    };
+  }
+  if (mode === 'comet') {
+    // Only pixels already reading as icy white/cyan/blue get streamed along
+    // the tail direction; everything else stays put, same trick as flames2.
+    if (!d.isComet) {
+      return { targetX: d.homeX, targetY: d.homeY, dr: d.r, dg: d.g, db: d.b };
+    }
+    const shimmer = Math.sin(t * 6 + d.seed * 10) * 3 + Math.cos(t * 3.7 + d.seed) * 2;
+    const stream = (0.5 + 0.5 * Math.sin(t * 2 + d.seed * 5)) * 10;
+    const heat = 0.5 + 0.5 * Math.sin(t * 5 + d.seed * 7);
+    return {
+      targetX: d.homeX + COMET_DIR.x * stream + COMET_DIR.y * shimmer,
+      targetY: d.homeY + COMET_DIR.y * stream - COMET_DIR.x * shimmer,
+      dr: Math.min(255, d.r * (0.6 + heat * 0.3)),
+      dg: Math.min(255, d.g + heat * 40),
+      db: Math.min(255, d.b + 40 + heat * 40)
+    };
+  }
+  return { targetX: d.homeX, targetY: d.homeY, dr: d.r, dg: d.g, db: d.b };
+}
+
+// Small glowing particles that spawn at fire-colored dots, drift upward,
+// and shrink away — layered on top of the dot grid in flames2 mode.
+function spawnEmbers() {
+  for (const d of dots) {
+    if (!d.isFire) continue;
+    if (embers.length >= MAX_EMBERS) break;
+    if (Math.random() < 0.01) {
+      embers.push({
+        x: d.x,
+        y: d.y,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: -0.6 - Math.random() * 1.2,
+        seed: Math.random() * 1000,
+        size: 1.5 + Math.random() * 2.5,
+        startSize: 0,
+        life: 0,
+        maxLife: 50 + Math.random() * 70,
+        r: Math.min(255, d.r + 40),
+        g: Math.max(80, d.g),
+        b: Math.max(0, d.b * 0.5)
+      });
+    }
+  }
+  for (let i = embers.length - 1; i >= 0; i--) {
+    const e = embers[i];
+    e.startSize = e.startSize || e.size;
+    e.life++;
+    const t = e.life / e.maxLife;
+    if (t >= 1) {
+      embers.splice(i, 1);
+      continue;
+    }
+    e.x += e.vx + Math.sin(performance.now() / 300 + e.seed) * 0.3;
+    e.y += e.vy;
+    e.vy *= 0.995;
+
+    const size = e.startSize * (1 - t);
+    const alpha = 1 - t;
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(${e.r | 0},${e.g | 0},${e.b | 0},${alpha.toFixed(2)})`;
+    ctx.arc(e.x, e.y, Math.max(0, size), 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+// Small icy sparkle particles that spawn at comet-colored dots and drift
+// off along the tail direction, shrinking away — the comet-mode analog of
+// spawnEmbers().
+function spawnCometParticles() {
+  for (const d of dots) {
+    if (!d.isComet) continue;
+    if (cometParticles.length >= MAX_COMET_PARTICLES) break;
+    if (Math.random() < 0.01) {
+      const speed = 0.6 + Math.random() * 1.4;
+      cometParticles.push({
+        x: d.x,
+        y: d.y,
+        vx: COMET_DIR.x * speed + (Math.random() - 0.5) * 0.3,
+        vy: COMET_DIR.y * speed + (Math.random() - 0.5) * 0.3,
+        seed: Math.random() * 1000,
+        size: 1.2 + Math.random() * 2.2,
+        startSize: 0,
+        life: 0,
+        maxLife: 50 + Math.random() * 70,
+        r: Math.min(255, d.r + 20),
+        g: Math.min(255, d.g + 40),
+        b: Math.min(255, d.b + 60)
+      });
+    }
+  }
+  for (let i = cometParticles.length - 1; i >= 0; i--) {
+    const p = cometParticles[i];
+    p.startSize = p.startSize || p.size;
+    p.life++;
+    const t = p.life / p.maxLife;
+    if (t >= 1) {
+      cometParticles.splice(i, 1);
+      continue;
+    }
+    p.x += p.vx + Math.sin(performance.now() / 300 + p.seed) * 0.2;
+    p.y += p.vy;
+    p.vx *= 0.998;
+    p.vy *= 0.998;
+
+    const size = p.startSize * (1 - t);
+    const alpha = 1 - t;
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(${p.r | 0},${p.g | 0},${p.b | 0},${alpha.toFixed(2)})`;
+    ctx.arc(p.x, p.y, Math.max(0, size), 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  const t = performance.now() / 1000;
+
+  for (const d of dots) {
+    const { targetX, targetY, dr, dg, db } = applyMode(d, t);
+
+    const dx = d.x - mouse.x;
+    const dy = d.y - mouse.y;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 0.001;
+
+    if (dist < REPEL_RADIUS) {
+      const force = (REPEL_RADIUS - dist) / REPEL_RADIUS * REPEL_STRENGTH;
+      d.vx += (dx / dist) * force;
+      d.vy += (dy / dist) * force;
+    }
+
+    // spring back toward the mode's target position (home, or a
+    // wave/flame-displaced variant of it)
+    d.vx += (targetX - d.x) * SPRING;
+    d.vy += (targetY - d.y) * SPRING;
+
+    d.vx *= FRICTION;
+    d.vy *= FRICTION;
+
+    d.x += d.vx;
+    d.y += d.vy;
+
+    ctx.beginPath();
+    ctx.fillStyle = `rgb(${dr | 0},${dg | 0},${db | 0})`;
+    ctx.arc(d.x, d.y, d.radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  if (mode === 'flames2') spawnEmbers();
+  if (mode === 'comet') spawnCometParticles();
+
+  requestAnimationFrame(animate);
+}
+
+window.addEventListener('mousemove', (e) => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+window.addEventListener('mouseleave', () => {
+  mouse.x = -9999;
+  mouse.y = -9999;
+});
+window.addEventListener('click', (e) => {
+  const cx = e.clientX;
+  const cy = e.clientY;
+  for (const d of dots) {
+    const dx = d.x - cx;
+    const dy = d.y - cy;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 0.001;
+    if (dist < PULSE_RADIUS) {
+      const force = (PULSE_RADIUS - dist) / PULSE_RADIUS * PULSE_STRENGTH;
+      d.vx += (dx / dist) * force;
+      d.vy += (dy / dist) * force;
+    }
+  }
+});
+
+let currentImg = null;
+
+modeSelect.addEventListener('change', () => {
+  mode = modeSelect.value;
+  embers = [];
+  cometParticles = [];
+});
+
+spacingInput.addEventListener('input', () => {
+  spacingValue.textContent = spacingInput.value;
+  if (currentImg) buildDots(currentImg);
+});
+
+spacingUp.addEventListener('click', () => {
+  spacingInput.value = Math.min(parseInt(spacingInput.value, 10) + 1, parseInt(spacingInput.max, 10));
+  spacingInput.dispatchEvent(new Event('input'));
+});
+
+spacingDown.addEventListener('click', () => {
+  spacingInput.value = Math.max(parseInt(spacingInput.value, 10) - 1, parseInt(spacingInput.min, 10));
+  spacingInput.dispatchEvent(new Event('input'));
+});
+
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const img = new Image();
+  img.onload = () => {
+    currentImg = img;
+    buildDots(img);
+  };
+  img.src = URL.createObjectURL(file);
+});
+
+window.addEventListener('resize', () => {
+  resizeCanvas();
+  if (currentImg) buildDots(currentImg);
+});
+
+animate();
+</script>
+</body>
+</html>
