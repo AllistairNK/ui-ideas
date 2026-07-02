@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dot Photo</title>
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: #111;
+    color: #eee;
+    font-family: system-ui, sans-serif;
+    overflow: hidden;
+  }
+  #controls {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    background: rgba(0,0,0,0.5);
+    padding: 10px 14px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  #controls label { font-size: 13px; }
+  #controls button {
+    background: #222;
+    color: #eee;
+    border: 1px solid #555;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  #controls button:hover { background: #333; }
+  #spacingValue { font-size: 13px; min-width: 2ch; text-align: center; display: inline-block; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+
+<div id="controls">
+  <input type="file" id="fileInput" accept="image/*">
+  <label>Dot size
+    <button type="button" id="spacingDown">-</button>
+    <input type="range" id="spacing" min="4" max="60" value="16">
+    <button type="button" id="spacingUp">+</button>
+    <span id="spacingValue">16</span>
+  </label>
+</div>
+
+<canvas id="canvas"></canvas>
+
+<script>
+const fileInput = document.getElementById('fileInput');
+const spacingInput = document.getElementById('spacing');
+const spacingValue = document.getElementById('spacingValue');
+const spacingUp = document.getElementById('spacingUp');
+const spacingDown = document.getElementById('spacingDown');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+  const dpr = window.devicePixelRatio || 1;
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+  canvas.width = Math.round(window.innerWidth * dpr);
+  canvas.height = Math.round(window.innerHeight * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+resizeCanvas();
+
+let dots = [];
+let mouse = { x: -9999, y: -9999 };
+const REPEL_RADIUS = 60;
+const REPEL_STRENGTH = 30;
+const SPRING = 0.08;
+const FRICTION = 0.85;
+const PULSE_RADIUS = 220;
+const PULSE_STRENGTH = 260;
+
+function buildDots(img) {
+  const spacing = parseInt(spacingInput.value, 10);
+
+  // Draw the image to an offscreen canvas scaled to fit the window,
+  // so we can sample pixel colors at each dot's grid location.
+  const off = document.createElement('canvas');
+  const maxW = window.innerWidth;
+  const maxH = window.innerHeight;
+  let scale = Math.min(maxW / img.width, maxH / img.height, 1);
+  const drawW = Math.round(img.width * scale);
+  const drawH = Math.round(img.height * scale);
+  off.width = drawW;
+  off.height = drawH;
+  const offCtx = off.getContext('2d');
+  offCtx.drawImage(img, 0, 0, drawW, drawH);
+
+  const imageData = offCtx.getImageData(0, 0, drawW, drawH);
+  const data = imageData.data;
+
+  const offsetX = (maxW - drawW) / 2;
+  const offsetY = (maxH - drawH) / 2;
+
+  const newDots = [];
+  for (let y = 0; y < drawH; y += spacing) {
+    for (let x = 0; x < drawW; x += spacing) {
+      const px = Math.floor(x);
+      const py = Math.floor(y);
+      const idx = (py * drawW + px) * 4;
+      const r = data[idx];
+      const g = data[idx + 1];
+      const b = data[idx + 2];
+      const a = data[idx + 3];
+      if (a < 20) continue;
+
+      const homeX = offsetX + x + spacing / 2;
+      const homeY = offsetY + y + spacing / 2;
+      newDots.push({
+        homeX, homeY,
+        x: homeX, y: homeY,
+        vx: 0, vy: 0,
+        r, g, b,
+        radius: spacing * 0.4
+      });
+    }
+  }
+  dots = newDots;
+}
+
+function animate() {
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+  for (const d of dots) {
+    const dx = d.x - mouse.x;
+    const dy = d.y - mouse.y;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 0.001;
+
+    if (dist < REPEL_RADIUS) {
+      const force = (REPEL_RADIUS - dist) / REPEL_RADIUS * REPEL_STRENGTH;
+      d.vx += (dx / dist) * force;
+      d.vy += (dy / dist) * force;
+    }
+
+    // spring back toward home position
+    d.vx += (d.homeX - d.x) * SPRING;
+    d.vy += (d.homeY - d.y) * SPRING;
+
+    d.vx *= FRICTION;
+    d.vy *= FRICTION;
+
+    d.x += d.vx;
+    d.y += d.vy;
+
+    ctx.beginPath();
+    ctx.fillStyle = `rgb(${d.r},${d.g},${d.b})`;
+    ctx.arc(d.x, d.y, d.radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  requestAnimationFrame(animate);
+}
+
+window.addEventListener('mousemove', (e) => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+window.addEventListener('mouseleave', () => {
+  mouse.x = -9999;
+  mouse.y = -9999;
+});
+window.addEventListener('click', (e) => {
+  const cx = e.clientX;
+  const cy = e.clientY;
+  for (const d of dots) {
+    const dx = d.x - cx;
+    const dy = d.y - cy;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 0.001;
+    if (dist < PULSE_RADIUS) {
+      const force = (PULSE_RADIUS - dist) / PULSE_RADIUS * PULSE_STRENGTH;
+      d.vx += (dx / dist) * force;
+      d.vy += (dy / dist) * force;
+    }
+  }
+});
+
+let currentImg = null;
+
+spacingInput.addEventListener('input', () => {
+  spacingValue.textContent = spacingInput.value;
+  if (currentImg) buildDots(currentImg);
+});
+
+spacingUp.addEventListener('click', () => {
+  spacingInput.value = Math.min(parseInt(spacingInput.value, 10) + 1, parseInt(spacingInput.max, 10));
+  spacingInput.dispatchEvent(new Event('input'));
+});
+
+spacingDown.addEventListener('click', () => {
+  spacingInput.value = Math.max(parseInt(spacingInput.value, 10) - 1, parseInt(spacingInput.min, 10));
+  spacingInput.dispatchEvent(new Event('input'));
+});
+
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const img = new Image();
+  img.onload = () => {
+    currentImg = img;
+    buildDots(img);
+  };
+  img.src = URL.createObjectURL(file);
+});
+
+window.addEventListener('resize', () => {
+  resizeCanvas();
+  if (currentImg) buildDots(currentImg);
+});
+
+animate();
+</script>
+</body>
+</html>
