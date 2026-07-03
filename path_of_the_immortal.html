@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Path of the Immortal - Xianxia Isometric Cultivation</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom elegant fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Sans+SC:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #0b0f19;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        .xianxia-title {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.15em;
+            text-shadow: 0 0 10px rgba(180, 150, 80, 0.5);
+        }
+        /* Custom Glowing and Glassmorphism */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(147, 197, 253, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.57);
+        }
+        .border-jade {
+            border-color: rgba(52, 211, 153, 0.3);
+        }
+        .text-gold {
+            color: #f59e0b;
+        }
+        .bg-gold {
+            background-color: #f59e0b;
+        }
+        /* Glowing effects */
+        .glow-gold {
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+        }
+        .glow-blue {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+        .glow-jade {
+            box-shadow: 0 0 15px rgba(52, 211, 153, 0.3);
+        }
+        /* Animated scanlines/lightning effect for tribulation */
+        @keyframes tribulation-flash {
+            0%, 100% { background-color: rgba(0,0,0,0); }
+            50% { background-color: rgba(255, 255, 255, 0.15); }
+        }
+        .tribulation-active {
+            animation: tribulation-flash 1s infinite;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="h-screen w-screen flex flex-col overflow-hidden select-none">
+
+    <!-- Header Section -->
+    <header class="h-16 shrink-0 glass-panel border-b border-jade px-6 flex items-center justify-between z-20">
+        <div class="flex items-center space-x-3">
+            <span class="text-3xl text-emerald-400">☯</span>
+            <div>
+                <h1 class="xianxia-title text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-amber-300 to-sky-400">
+                    PATH OF THE IMMORTAL
+                </h1>
+                <p class="text-xs text-slate-400 tracking-wider">修仙之路: 凡人觅长生</p>
+            </div>
+        </div>
+        
+        <!-- Top Realm Indicator -->
+        <div class="flex items-center space-x-4 bg-slate-900/60 px-4 py-1.5 rounded-full border border-slate-700/50">
+            <div class="flex flex-col items-end">
+                <span id="header-realm-text" class="text-amber-400 font-bold text-sm tracking-wide">Qi Condensation I</span>
+                <span class="text-[10px] text-emerald-400 tracking-widest uppercase">Realm Status (境界)</span>
+            </div>
+            <div class="h-8 w-[1px] bg-slate-700"></div>
+            <div class="flex items-center space-x-2">
+                <span class="text-xs text-sky-400">Spirit Stones (灵石):</span>
+                <span id="spirit-stone-count" class="text-amber-300 font-bold text-sm">100</span>
+            </div>
+        </div>
+
+        <!-- Mute/Unmute & Sound Settings -->
+        <div class="flex items-center space-x-3">
+            <button id="audio-toggle" class="p-2 rounded bg-slate-800 border border-slate-700 hover:border-amber-400 transition" title="Toggle Sound Synth">
+                <i data-lucide="volume-2" class="w-5 h-5 text-emerald-400"></i>
+            </button>
+            <button id="show-guide-btn" class="px-3 py-1.5 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs hover:bg-amber-500/20 transition">
+                Dao Guide
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Game Window -->
+    <div class="flex-1 flex overflow-hidden relative">
+
+        <!-- LEFT BAR: Cultivator State & Stats -->
+        <aside class="w-80 shrink-0 glass-panel border-r border-jade flex flex-col p-4 space-y-4 overflow-y-auto z-10">
+            <!-- Cultivator Profile Box -->
+            <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 flex flex-col space-y-3 relative overflow-hidden">
+                <div class="absolute -top-12 -right-12 w-28 h-28 bg-emerald-500/5 rounded-full blur-2xl"></div>
+                
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-full border-2 border-emerald-400 flex items-center justify-center bg-slate-950/80 shadow-md">
+                        <span id="cultivator-avatar" class="text-2xl">🧘</span>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-100 flex items-center space-x-1">
+                            <span id="cultivator-name">Daoist Chen</span>
+                            <span class="text-xs px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-700/40">Rogue</span>
+                        </h2>
+                        <span id="realm-label" class="text-xs text-amber-400">Qi Condensation - Level 1</span>
+                    </div>
+                </div>
+
+                <!-- Life Energy & Qi Progress -->
+                <div class="space-y-2 pt-2 border-t border-slate-800">
+                    <!-- HP Bar -->
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-slate-400">Vitality (生命)</span>
+                            <span id="hp-text" class="text-emerald-300 font-semibold">100 / 100</span>
+                        </div>
+                        <div class="w-full h-2 bg-slate-950 rounded-full overflow-hidden border border-slate-800/80">
+                            <div id="hp-fill" class="h-full bg-gradient-to-r from-emerald-500 to-green-400 transition-all duration-300 w-full"></div>
+                        </div>
+                    </div>
+
+                    <!-- Cultivation Qi Bar -->
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-sky-300 font-semibold flex items-center gap-1">
+                                Qi Essence (灵气) <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                            </span>
+                            <span id="qi-text" class="text-sky-300 font-semibold">0 / 100</span>
+                        </div>
+                        <div class="w-full h-3.5 bg-slate-950 rounded-full overflow-hidden border border-sky-950 p-[2px]">
+                            <div id="qi-fill" class="h-full bg-gradient-to-r from-sky-500 via-blue-400 to-indigo-500 rounded-full transition-all duration-100 glow-blue" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between text-xs text-slate-400 pt-1">
+                        <span>Passive Absorption:</span>
+                        <span id="absorption-rate" class="text-sky-300">+1.0 Qi/sec</span>
+                    </div>
+                </div>
+
+                <!-- Action Button for Meditation -->
+                <button id="meditate-btn" class="w-full py-3.5 rounded-lg font-semibold tracking-wider text-sm transition duration-300 flex items-center justify-center space-x-2 glow-blue bg-blue-600 hover:bg-blue-500 text-white">
+                    <i data-lucide="eye" class="w-4 h-4 animate-spin-slow"></i>
+                    <span>MEDITATE (START ACCUMULATION)</span>
+                </button>
+            </div>
+
+            <!-- Detailed Cultivator Attributes -->
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/50 space-y-3">
+                <h3 class="text-xs uppercase font-bold tracking-widest text-slate-400 border-b border-slate-800 pb-2 flex justify-between">
+                    <span>Dao Attributes (五行/基础)</span>
+                    <i data-lucide="swords" class="w-3.5 h-3.5 text-amber-500"></i>
+                </h3>
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                    <div class="bg-slate-950/40 p-2 rounded border border-slate-800/40">
+                        <span class="text-slate-400 block">Cultivation Speed</span>
+                        <strong id="attr-speed" class="text-slate-200 text-sm">1.0x</strong>
+                    </div>
+                    <div class="bg-slate-950/40 p-2 rounded border border-slate-800/40">
+                        <span class="text-slate-400 block">Sword Damage</span>
+                        <strong id="attr-sword-dmg" class="text-red-400 text-sm">15 Base</strong>
+                    </div>
+                    <div class="bg-slate-950/40 p-2 rounded border border-slate-800/40">
+                        <span class="text-slate-400 block">Ethereal Shield</span>
+                        <strong id="attr-shield" class="text-sky-300 text-sm">0 Max</strong>
+                    </div>
+                    <div class="bg-slate-950/40 p-2 rounded border border-slate-800/40">
+                        <span class="text-slate-400 block">Tribulation Resistance</span>
+                        <strong id="attr-resistance" class="text-amber-400 text-sm">0%</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Breakthrough Cultivation Button -->
+            <div class="pt-2">
+                <button id="breakthrough-btn" class="w-full py-4 rounded-xl font-bold tracking-widest transition duration-300 flex flex-col items-center justify-center border border-slate-800 bg-slate-800/30 text-slate-500 cursor-not-allowed" disabled>
+                    <span class="text-sm">ATTEMPT ASCENSION</span>
+                    <span id="breakthrough-pill-warning" class="text-[10px] text-red-400 mt-1 font-normal uppercase hidden">Requires breakthrough Pill</span>
+                </button>
+            </div>
+
+            <!-- Active Technique display -->
+            <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-800/80">
+                <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400 block mb-2">Equipped Qi Art (功法)</span>
+                <div class="flex items-center space-x-3 bg-slate-950/50 p-2 rounded">
+                    <span class="text-xl">📜</span>
+                    <div>
+                        <h4 id="equipped-technique" class="text-xs font-semibold text-emerald-400">Basic Daoist Sutra</h4>
+                        <p class="text-[10px] text-slate-400">Absorb elemental Qi slowly.</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- CENTER: Isometric Visual Sandbox Map -->
+        <main class="flex-1 flex flex-col relative bg-slate-950 overflow-hidden">
+            <!-- Instruction overlay -->
+            <div class="absolute top-4 left-4 z-10 glass-panel px-3 py-2 rounded-lg text-xs pointer-events-none border border-slate-700/40">
+                <p class="font-bold text-amber-400 flex items-center gap-1">
+                    <i data-lucide="mouse-pointer" class="w-3.5 h-3.5"></i> Isometric Realm Exploration
+                </p>
+                <ul class="text-slate-300 mt-1 list-disc list-inside space-y-0.5">
+                    <li>Use <strong class="text-white">WASD</strong> or <strong class="text-white">Click Ground</strong> to navigate</li>
+                    <li>Move close to <strong class="text-sky-300">Qi Wells</strong> to instantly increase absorption speed</li>
+                    <li>Gather <strong class="text-emerald-400">Spirit Herbs</strong> on the floor</li>
+                    <li>Defeat nearby <strong class="text-red-400">Demonic Beasts</strong> (autotargeted by flying sword)</li>
+                </ul>
+            </div>
+
+            <!-- Dynamic UI notifications in-world -->
+            <div id="game-toast-container" class="absolute top-4 right-4 z-10 flex flex-col space-y-2 pointer-events-none"></div>
+
+            <!-- CANVAS FOR ISOMETRIC WORLD -->
+            <div class="flex-1 w-full h-full relative" id="canvas-container">
+                <canvas id="gameCanvas" class="block w-full h-full"></canvas>
+                
+                <!-- Tribulation Alert Overlays -->
+                <div id="tribulation-alert" class="hidden absolute inset-0 pointer-events-none border-4 border-red-500/50 bg-red-950/15 flex flex-col items-center justify-center">
+                    <div class="glass-panel p-6 rounded-2xl border-2 border-amber-400 text-center glow-gold max-w-sm animate-pulse">
+                        <span class="text-4xl block mb-2">⚡</span>
+                        <h3 class="text-xl font-extrabold text-amber-400 uppercase tracking-widest font-serif mb-1">Heavenly Tribulation</h3>
+                        <p class="text-xs text-red-200">Dodge the falling lightning strikes! Your breakthrough depends on survival!</p>
+                        <div class="mt-4 flex justify-between items-center bg-slate-950/80 px-4 py-1.5 rounded-full border border-red-900">
+                            <span class="text-[10px] text-slate-400 uppercase">Tribulation Clock</span>
+                            <span id="tribulation-timer" class="text-amber-400 font-bold text-sm">15s remaining</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Interactive Hotbar: Actions & Info -->
+            <div class="h-16 shrink-0 bg-slate-900 border-t border-slate-800 flex items-center justify-between px-6 z-10">
+                <div class="flex space-x-6 items-center text-xs">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span class="text-slate-300">Spiritual Array Condition:</span>
+                        <strong class="text-emerald-400">Primal & Rich</strong>
+                    </div>
+                    <div class="h-6 w-[1px] bg-slate-800"></div>
+                    <div class="flex items-center space-x-3">
+                        <span class="text-slate-400">Auto-Combat:</span>
+                        <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800/30 font-bold">Sword-Aura Enabled</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="text-xs text-slate-400">
+                        Gathered Herbs: <strong id="herb-inventory-counter" class="text-emerald-400 font-bold">0 / 50</strong>
+                    </div>
+                    <div class="text-xs text-slate-400">
+                        Beast Cores: <strong id="beast-core-counter" class="text-red-400 font-bold">0</strong>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- RIGHT BAR: Alchemy Cauldron & Sacred Manual Store -->
+        <aside class="w-80 shrink-0 glass-panel border-l border-jade flex flex-col p-4 space-y-4 overflow-y-auto z-10">
+            <!-- Alchemy Pavilion -->
+            <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-3 relative overflow-hidden">
+                <div class="absolute -top-12 -left-12 w-28 h-28 bg-amber-500/5 rounded-full blur-2xl"></div>
+                
+                <h3 class="text-sm font-extrabold text-amber-300 uppercase tracking-widest flex items-center gap-1.5">
+                    🔮 Alchemy Cauldron (丹炉)
+                </h3>
+                <p class="text-xs text-slate-400">Refine natural ingredients into Elixirs to break through bottleneck realms safely.</p>
+                
+                <div class="bg-slate-950/80 p-3 rounded-lg border border-slate-800/80 space-y-3">
+                    <div class="flex justify-between items-center text-xs text-slate-300">
+                        <span class="flex items-center gap-1"><span class="text-emerald-400">🌿</span> Spirit Grass:</span>
+                        <span id="alchemy-grass-count" class="font-bold text-slate-100">0 / 3</span>
+                    </div>
+                    <div class="flex justify-between items-center text-xs text-slate-300">
+                        <span class="flex items-center gap-1"><span class="text-red-400">🔴</span> Beast Cores:</span>
+                        <span id="alchemy-core-count" class="font-bold text-slate-100">0 / 1</span>
+                    </div>
+
+                    <!-- Selected pill descriptor -->
+                    <div class="bg-slate-900/40 p-2 rounded text-[11px] border border-slate-800/50">
+                        <span class="text-amber-400 font-semibold block" id="pill-craft-name">Foundation Pill (筑基丹)</span>
+                        <p class="text-slate-400" id="pill-craft-desc">Essential pill for breaking through Qi Condensation. Protects the dantian.</p>
+                    </div>
+
+                    <button id="refine-elixir-btn" class="w-full py-2 bg-gradient-to-r from-amber-600 to-yellow-500 hover:from-amber-500 hover:to-yellow-400 text-white rounded font-bold text-xs shadow transition duration-300 flex items-center justify-center space-x-1.5">
+                        <i data-lucide="flame" class="w-3.5 h-3.5 animate-bounce"></i>
+                        <span>REFINE PILL</span>
+                    </button>
+                </div>
+
+                <!-- Crafted Pill stash -->
+                <div class="flex items-center justify-between text-xs pt-1 border-t border-slate-800">
+                    <span class="text-slate-400">Your Cultivation Pills:</span>
+                    <div class="flex space-x-1">
+                        <span id="pill-foundation-stash" class="px-2 py-0.5 rounded bg-amber-950/80 text-amber-400 border border-amber-800 text-[10px] font-bold">
+                            Foundation Pill: 0
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sacred Technique Shop & Array Manuals -->
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/50 space-y-3 flex-1 flex flex-col overflow-hidden">
+                <h3 class="text-sm font-extrabold text-sky-300 uppercase tracking-widest flex items-center gap-1.5 pb-2 border-b border-slate-800 shrink-0">
+                    📖 Cultivation Manuals (功法阁)
+                </h3>
+                
+                <div class="space-y-3 overflow-y-auto flex-1 pr-1" id="shop-items-container">
+                    <!-- Dynamic Shop Items loaded from JS -->
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- Daoist Guide & Introduction Modal -->
+    <div id="guide-modal" class="fixed inset-0 z-50 bg-slate-950/90 flex items-center justify-center p-4">
+        <div class="bg-slate-900 border-2 border-emerald-400/50 rounded-2xl p-6 max-w-md w-full relative glow-jade">
+            <h2 class="xianxia-title text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-300 text-center mb-1">
+                PATH OF THE IMMORTAL
+            </h2>
+            <p class="text-center text-xs text-slate-400 tracking-wider mb-4">Cultivation and Heavenly Tribulation Guide</p>
+            
+            <div class="space-y-3 text-xs text-slate-300">
+                <div class="bg-slate-950/80 p-3 rounded-lg border border-slate-800/80">
+                    <h4 class="font-bold text-amber-300 mb-1">1. Gathering Qi</h4>
+                    <p>Sit in meditative lotus position or locate glowing blue <strong class="text-sky-300">Spiritual Springs</strong> in the world to boost your passive cultivation rate enormously.</p>
+                </div>
+                <div class="bg-slate-950/80 p-3 rounded-lg border border-slate-800/80">
+                    <h4 class="font-bold text-amber-300 mb-1">2. Beast Hunt & Alchemy</h4>
+                    <p>Move near Demonic beasts to strike them with your <strong class="text-cyan-300">Flying Sword</strong>. Defeated beasts drop Cores; gather Spirit Grass too. Combine them in the Alchemy Cauldron to craft breakthrough pills!</p>
+                </div>
+                <div class="bg-slate-950/80 p-3 rounded-lg border border-slate-800/80">
+                    <h4 class="font-bold text-amber-300 mb-1">3. Surviving Heavenly Tribulation</h4>
+                    <p>Once your Qi reaches maximum, acquire the necessary Pill, and trigger the breakthrough. Avoid the flashing red circles—lightning will strike them! Survive the storm to advance your Realm status.</p>
+                </div>
+            </div>
+
+            <div class="mt-6 text-center">
+                <button id="close-guide-btn" class="px-8 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white rounded-lg font-bold text-xs tracking-widest shadow-md glow-jade transition">
+                    BEGIN ASCENSION
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Game Logic -->
+    <script>
+        // --- PRODUCERAL WEB AUDIO SYNTHESIS FOR XIANXIA SOUNDS ---
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        let soundEnabled = true;
+
+        function playSound(type) {
+            if (!soundEnabled) return;
+            try {
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+                const osc = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                osc.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                switch(type) {
+                    case 'slash': // Flying sword strike
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(250, audioContext.currentTime);
+                        osc.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.15);
+                        gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+                        gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.15);
+                        osc.start();
+                        osc.stop(audioContext.currentTime + 0.15);
+                        break;
+                    case 'coin': // Buying/Leveling Up
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(440, audioContext.currentTime);
+                        osc.frequency.setValueAtTime(880, audioContext.currentTime + 0.1);
+                        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                        gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.25);
+                        osc.start();
+                        osc.stop(audioContext.currentTime + 0.25);
+                        break;
+                    case 'lightning': // Heavenly Tribulation Bolt
+                        osc.type = 'sawtooth';
+                        osc.frequency.setValueAtTime(90, audioContext.currentTime);
+                        osc.frequency.exponentialRampToValueAtTime(10, audioContext.currentTime + 0.45);
+                        gainNode.gain.setValueAtTime(0.4, audioContext.currentTime);
+                        gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.5);
+                        osc.start();
+                        osc.stop(audioContext.currentTime + 0.5);
+                        break;
+                    case 'alch': // Bubbling alchemy process
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(600, audioContext.currentTime);
+                        osc.frequency.linearRampToValueAtTime(150, audioContext.currentTime + 0.3);
+                        gainNode.gain.setValueAtTime(0.12, audioContext.currentTime);
+                        gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.3);
+                        osc.start();
+                        osc.stop(audioContext.currentTime + 0.3);
+                        break;
+                    case 'meditation_chord': // Calming Dao chord
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(329.63, audioContext.currentTime); // E4
+                        gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+                        gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.8);
+                        osc.start();
+                        osc.stop(audioContext.currentTime + 0.8);
+                        break;
+                }
+            } catch (e) {
+                console.warn("Web Audio blocked or unsupported", e);
+            }
+        }
+
+        // --- CULTIVATOR STATE ---
+        const gameState = {
+            name: "Daoist Chen",
+            currentQi: 0,
+            maxQi: 100,
+            vitality: 100,
+            maxVitality: 100,
+            shield: 0,
+            maxShield: 0,
+            realmIndex: 0, // 0: Qi Condensation, 1: Foundation Establishment, etc.
+            realmSubstage: 1, // 1 to 10 for Qi Condensation; 1 to 3 for major realms
+            spiritStones: 200,
+            isMeditating: false,
+            absorptionSpeedMultiplier: 1.0,
+            swordDamage: 15,
+            tribulationResistance: 0, // Percentage reduction
+            isTribulating: false,
+            tribulationTimeRemaining: 15,
+            herbs: 4,
+            beastCores: 1,
+            foundationPills: 0,
+            hasPill: false,
+            equippedTechniqueId: 'basic_sutra'
+        };
+
+        const REALMS = [
+            { name: "Qi Condensation", maxLevel: 10, label: "炼气期" },
+            { name: "Foundation Establishment", maxLevel: 3, label: "筑基期" },
+            { name: "Golden Core", maxLevel: 3, label: "金丹期" },
+            { name: "Nascent Soul", maxLevel: 3, label: "元婴期" },
+            { name: "Soul Transformation", maxLevel: 3, label: "化神期" }
+        ];
+
+        // Sacred Techniques Database
+        const TECHNIQUES = [
+            { id: 'basic_sutra', name: "Basic Daoist Sutra", cost: 0, desc: "+1 Qi absorption", bonusSpeed: 1, bonusDmg: 0, equipped: true },
+            { id: 'wind_walk', name: "Windwalk Steps", cost: 100, desc: "Slightly increase player movement speed", bonusSpeed: 1.5, bonusDmg: 0, equipped: false },
+            { id: 'thunder_sword', name: "Nine Heavens Thunder Blade", cost: 250, desc: "Imbues your flying sword. +15 Damage", bonusSpeed: 1, bonusDmg: 15, equipped: false },
+            { id: 'daoist_shield', name: "Ethereal Heart Aura", cost: 500, desc: "Gain massive defensive Qi shield.", bonusSpeed: 2, bonusDmg: 5, equipped: false }
+        ];
+
+        // --- INITIALIZE GRAPHICS ENGINE ---
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const container = document.getElementById('canvas-container');
+
+        let width = canvas.width = container.clientWidth;
+        let height = canvas.height = container.clientHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = container.clientWidth;
+            height = canvas.height = container.clientHeight;
+        });
+
+        // --- ISOMETRIC MATHEMATICS ---
+        const tileWidth = 64;
+        const tileHeight = 32;
+
+        // Camera Offset
+        let cameraX = width / 2;
+        let cameraY = height / 2 - 100;
+
+        // Convert Map Coordinate (x, y) to Isometric Screen coordinate
+        function toIso(mapX, mapY) {
+            const screenX = (mapX - mapY) * (tileWidth / 2);
+            const screenY = (mapX + mapY) * (tileHeight / 2);
+            return { x: screenX + cameraX, y: screenY + cameraY };
+        }
+
+        // Convert Screen coordinate to Map coordinate
+        function toMap(screenX, screenY) {
+            const relativeX = screenX - cameraX;
+            const relativeY = screenY - cameraY;
+            const mapX = (relativeX / (tileWidth / 2) + relativeY / (tileHeight / 2)) / 2;
+            const mapY = (relativeY / (tileHeight / 2) - relativeX / (tileWidth / 2)) / 2;
+            return { x: mapX, y: mapY };
+        }
+
+        // Map Size
+        const mapSize = 16;
+        const map = [];
+
+        // Generate Map Grid with procedural elements
+        for (let x = 0; x < mapSize; x++) {
+            map[x] = [];
+            for (let y = 0; y < mapSize; y++) {
+                let type = 'grass';
+                // Create custom Sect pathing
+                if (x >= 4 && x <= 6 && y >= 4 && y <= 6) {
+                    type = 'temple';
+                } else if (x === 5 || y === 5) {
+                    type = 'stone_path';
+                } else if (Math.random() < 0.08) {
+                    type = 'qi_well';
+                } else if (Math.random() < 0.1) {
+                    type = 'rock_or_shrub';
+                }
+                map[x][y] = { type };
+            }
+        }
+
+        // Always place main cauldron on stone path
+        map[5][5].type = 'alchemy_altar';
+
+        // --- ENTITIES & IN-GAME ASSETS ---
+        const player = {
+            x: 5,
+            y: 5,
+            targetX: 5,
+            targetY: 5,
+            speed: 0.05,
+            size: 20,
+            flyingSword: { x: 5, y: 5, currentTarget: null, state: 'orbit', angle: 0 }
+        };
+
+        const beasts = [];
+        const herbs = [];
+        const dynamicProjectiles = [];
+        const floatingTexts = [];
+
+        // Spawn a Demonic beast
+        function spawnBeast() {
+            if (beasts.length >= 6) return;
+            // Spawn beasts further away from central sect
+            const bx = Math.floor(Math.random() * (mapSize - 4)) + 3;
+            const by = Math.floor(Math.random() * (mapSize - 4)) + 3;
+            if (bx === 5 && by === 5) return; // Don't spawn on top of alchemy altar
+
+            const beastTypes = [
+                { name: "SaberWolf", color: "#f87171", hp: 30, maxHp: 30, icon: "🐺" },
+                { name: "Fox Spirit", color: "#fb923c", hp: 45, maxHp: 45, icon: "🦊" },
+                { name: "Viper Beast", color: "#a7f3d0", hp: 60, maxHp: 60, icon: "🐍" }
+            ];
+            const chosenType = beastTypes[Math.floor(Math.random() * beastTypes.length)];
+
+            beasts.push({
+                x: bx,
+                y: by,
+                targetX: bx,
+                targetY: by,
+                ...chosenType,
+                movementTimer: 0
+            });
+        }
+
+        // Spawn Spirit Grass / Herbs
+        function spawnHerb() {
+            if (herbs.length >= 8) return;
+            const hx = Math.floor(Math.random() * mapSize);
+            const hy = Math.floor(Math.random() * mapSize);
+            // Don't spawn inside structures
+            if (map[hx][hy].type !== 'rock_or_shrub' && map[hx][hy].type !== 'alchemy_altar') {
+                herbs.push({ x: hx, y: hy, collected: false });
+            }
+        }
+
+        // Seed initial items
+        for (let i = 0; i < 5; i++) {
+            spawnBeast();
+            spawnHerb();
+        }
+
+        // Active Heavenly Tribulation Lightning Bolts
+        const lightningStrikes = [];
+
+        // Trigger a glowing dynamic floating text in-world
+        function spawnFloatingText(text, x, y, color = '#f59e0b') {
+            floatingTexts.push({
+                x, y, text, color,
+                opacity: 1.0,
+                life: 60 // frames
+            });
+        }
+
+        // --- CONTROLS / INTERACTIVE ---
+        let clickedGroundPos = null;
+
+        canvas.addEventListener('mousedown', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            // Map position from click
+            const mapPos = toMap(mouseX, mouseY);
+            
+            // Limit bounds
+            if (mapPos.x >= 0 && mapPos.x < mapSize && mapPos.y >= 0 && mapPos.y < mapSize) {
+                player.targetX = Math.max(0, Math.min(mapSize - 1, mapPos.x));
+                player.targetY = Math.max(0, Math.min(mapSize - 1, mapPos.y));
+                gameState.isMeditating = false; // Interrupt meditation if moving
+                document.getElementById('meditate-btn').classList.remove('glow-jade', 'bg-emerald-600');
+                document.getElementById('meditate-btn').classList.add('glow-blue', 'bg-blue-600');
+                document.getElementById('meditate-btn').innerHTML = `<i data-lucide="eye" class="w-4 h-4"></i><span>MEDITATE (START ACCUMULATION)</span>`;
+                lucide.createIcons();
+            }
+        });
+
+        // Keyboard Controls
+        const keys = {};
+        window.addEventListener('keydown', (e) => {
+            keys[e.key.toLowerCase()] = true;
+            gameState.isMeditating = false; // Interrupted
+        });
+        window.addEventListener('keyup', (e) => {
+            keys[e.key.toLowerCase()] = false;
+        });
+
+        function handleKeyboardInput() {
+            let dx = 0;
+            let dy = 0;
+            if (keys['w'] || keys['arrowup']) { dx -= player.speed; dy -= player.speed; }
+            if (keys['s'] || keys['arrowdown']) { dx += player.speed; dy += player.speed; }
+            if (keys['a'] || keys['arrowleft']) { dx -= player.speed; dy += player.speed; }
+            if (keys['d'] || keys['arrowright']) { dx += player.speed; dy -= player.speed; }
+
+            if (dx !== 0 || dy !== 0) {
+                player.x = Math.max(0, Math.min(mapSize - 1, player.x + dx));
+                player.y = Math.max(0, Math.min(mapSize - 1, player.y + dy));
+                player.targetX = player.x;
+                player.targetY = player.y;
+            }
+        }
+
+        // --- RENDERING ROUTINES ---
+        function renderTile(x, y, type) {
+            const iso = toIso(x, y);
+
+            // Depth sorting anchor (render standard tiles)
+            ctx.lineWidth = 1;
+            
+            // Render basic tile isometric plane
+            ctx.beginPath();
+            ctx.moveTo(iso.x, iso.y);
+            ctx.lineTo(iso.x + tileWidth / 2, iso.y + tileHeight / 2);
+            ctx.lineTo(iso.x, iso.y + tileHeight);
+            ctx.lineTo(iso.x - tileWidth / 2, iso.y + tileHeight / 2);
+            ctx.closePath();
+
+            // Set Tile Color palette
+            switch (type) {
+                case 'temple':
+                    ctx.fillStyle = '#1e293b'; // Paved Slate tiles
+                    ctx.strokeStyle = '#475569';
+                    ctx.fill();
+                    ctx.stroke();
+                    break;
+                case 'stone_path':
+                    ctx.fillStyle = '#334155';
+                    ctx.strokeStyle = '#475569';
+                    ctx.fill();
+                    ctx.stroke();
+                    break;
+                case 'qi_well':
+                    ctx.fillStyle = '#0f172a';
+                    ctx.strokeStyle = '#0284c7';
+                    ctx.fill();
+                    ctx.stroke();
+                    
+                    // Magical glowing center
+                    ctx.beginPath();
+                    ctx.ellipse(iso.x, iso.y + tileHeight/2, tileWidth/4, tileHeight/4, 0, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(14, 165, 233, 0.4)';
+                    ctx.fill();
+                    break;
+                case 'alchemy_altar':
+                    ctx.fillStyle = '#0f172a';
+                    ctx.strokeStyle = '#eab308';
+                    ctx.fill();
+                    ctx.stroke();
+                    break;
+                case 'grass':
+                default:
+                    ctx.fillStyle = '#064e3b'; // Deep spiritual evergreen/grass
+                    ctx.strokeStyle = '#065f46';
+                    ctx.fill();
+                    ctx.stroke();
+                    break;
+            }
+        }
+
+        // Render elevated entities on top of tiles
+        function renderHeightObjects(x, y, type) {
+            const iso = toIso(x, y);
+
+            if (type === 'rock_or_shrub') {
+                // Procedural crystal tree / ancient rock
+                ctx.beginPath();
+                ctx.moveTo(iso.x, iso.y + tileHeight/2);
+                ctx.lineTo(iso.x - 10, iso.y - 30);
+                ctx.lineTo(iso.x, iso.y - 50);
+                ctx.lineTo(iso.x + 10, iso.y - 30);
+                ctx.closePath();
+                ctx.fillStyle = '#0284c7'; // Magical cyan stone crystal
+                ctx.strokeStyle = '#38bdf8';
+                ctx.fill();
+                ctx.stroke();
+            } else if (type === 'alchemy_altar') {
+                // Render beautiful Golden Alchemical Cauldron / Pagoda base
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(iso.x - 12, iso.y - 12, 24, 24);
+                // Roof
+                ctx.beginPath();
+                ctx.moveTo(iso.x - 16, iso.y - 12);
+                ctx.lineTo(iso.x, iso.y - 42);
+                ctx.lineTo(iso.x + 16, iso.y - 12);
+                ctx.closePath();
+                ctx.fillStyle = '#eab308'; // Glowing gold roof
+                ctx.fill();
+                
+                // Smoke particles (cauldron effect)
+                if (Math.random() < 0.15) {
+                    floatingTexts.push({
+                        x: x, y: y,
+                        text: "💨",
+                        color: "#a1a1aa",
+                        opacity: 0.9,
+                        life: 40
+                    });
+                }
+            } else if (type === 'qi_well') {
+                // Glow beam ascending
+                const gradient = ctx.createLinearGradient(iso.x, iso.y + 16, iso.x, iso.y - 100);
+                gradient.addColorStop(0, 'rgba(56, 189, 248, 0.4)');
+                gradient.addColorStop(1, 'rgba(56, 189, 248, 0)');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(iso.x - 8, iso.y - 100, 16, 116);
+            }
+        }
+
+        // --- GAME LOOP ---
+        let lastTime = 0;
+        function update(currentTime) {
+            const deltaTime = currentTime - lastTime;
+            lastTime = currentTime;
+
+            // Handle Input & Movement physics
+            handleKeyboardInput();
+            
+            // Move player smoothly towards target coordinate if clicked
+            if (player.x !== player.targetX || player.y !== player.targetY) {
+                const dx = player.targetX - player.x;
+                const dy = player.targetY - player.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist > 0.08) {
+                    player.x += (dx / dist) * player.speed;
+                    player.y += (dy / dist) * player.speed;
+                } else {
+                    player.x = player.targetX;
+                    player.y = player.targetY;
+                }
+            }
+
+            // Check if player is near any Qi springs / wells
+            let standingOnQiWell = false;
+            const pxCell = Math.floor(player.x);
+            const pyCell = Math.floor(player.y);
+            if (pxCell >= 0 && pxCell < mapSize && pyCell >= 0 && pyCell < mapSize) {
+                if (map[pxCell][pyCell].type === 'qi_well') {
+                    standingOnQiWell = true;
+                }
+            }
+
+            // Passive Cultivation Rate calculation
+            let qSpeed = 0.15 * gameState.absorptionSpeedMultiplier;
+            if (standingOnQiWell) {
+                qSpeed *= 5.0; // Multiplied standing on well!
+                if (Math.random() < 0.05) {
+                    spawnFloatingText("+5.0 Qi Well Bonus!", player.x, player.y - 0.5, '#38bdf8');
+                }
+            }
+            if (gameState.isMeditating) {
+                qSpeed *= 2.5; // Meditating speed boost!
+            }
+
+            // Update absorption text in sidebar
+            document.getElementById('absorption-rate').innerText = `+${qSpeed.toFixed(1)} Qi/sec`;
+
+            // Absorb Qi
+            if (gameState.currentQi < gameState.maxQi) {
+                gameState.currentQi = Math.min(gameState.maxQi, gameState.currentQi + (qSpeed / 60));
+                updateUI();
+            } else {
+                // Enable Ascension Button
+                const bBtn = document.getElementById('breakthrough-btn');
+                bBtn.disabled = false;
+                bBtn.classList.remove('bg-slate-800/30', 'text-slate-500', 'cursor-not-allowed');
+                bBtn.classList.add('bg-gradient-to-r', 'from-amber-500', 'to-yellow-500', 'hover:from-amber-400', 'hover:to-yellow-400', 'text-slate-950', 'glow-gold', 'cursor-pointer');
+                
+                // Show pill warning if needed
+                if (gameState.realmIndex > 0 && !gameState.hasPill) {
+                    document.getElementById('breakthrough-pill-warning').classList.remove('hidden');
+                } else {
+                    document.getElementById('breakthrough-pill-warning').classList.add('hidden');
+                }
+            }
+
+            // --- BEAST BEHAVIOR & FLYING SWORD COMBAT ---
+            // Let beasts wander around slightly
+            beasts.forEach(beast => {
+                beast.movementTimer += 1;
+                if (beast.movementTimer > 150) { // Every few seconds
+                    beast.movementTimer = 0;
+                    if (Math.random() < 0.5) {
+                        const bdx = (Math.random() > 0.5 ? 1 : -1) * (Math.floor(Math.random() * 2) + 1);
+                        const bdy = (Math.random() > 0.5 ? 1 : -1) * (Math.floor(Math.random() * 2) + 1);
+                        beast.targetX = Math.max(2, Math.min(mapSize - 2, beast.x + bdx));
+                        beast.targetY = Math.max(2, Math.min(mapSize - 2, beast.y + bdy));
+                    }
+                }
+
+                // Move beast
+                const dx = beast.targetX - beast.x;
+                const dy = beast.targetY - beast.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist > 0.05) {
+                    beast.x += (dx / dist) * 0.02;
+                    beast.y += (dy / dist) * 0.02;
+                }
+            });
+
+            // Target nearest beast for our Divine Cultivator Sword
+            let nearestBeast = null;
+            let minDist = 4.5; // Auto-aggro dynamic distance
+            beasts.forEach(beast => {
+                const d = Math.hypot(beast.x - player.x, beast.y - player.y);
+                if (d < minDist) {
+                    minDist = d;
+                    nearestBeast = beast;
+                }
+            });
+
+            // Flying Sword Logic
+            const fs = player.flyingSword;
+            if (nearestBeast) {
+                // Pursue Beast and strike
+                fs.state = 'strike';
+                const fdx = nearestBeast.x - fs.x;
+                const fdy = nearestBeast.y - fs.y;
+                const fDist = Math.hypot(fdx, fdy);
+                if (fDist > 0.15) {
+                    fs.x += (fdx / fDist) * 0.15;
+                    fs.y += (fdy / fDist) * 0.15;
+                } else {
+                    // Deal damage!
+                    nearestBeast.hp -= gameState.swordDamage;
+                    playSound('slash');
+                    spawnFloatingText(`-${gameState.swordDamage} Sword Aura!`, nearestBeast.x, nearestBeast.y - 0.4, '#ef4444');
+                    // Bounce back toward player
+                    fs.x = player.x + (Math.random() - 0.5);
+                    fs.y = player.y + (Math.random() - 0.5);
+                }
+            } else {
+                // Orbit/Meditate around Player
+                fs.state = 'orbit';
+                fs.angle += 0.06;
+                const targetOrbitX = player.x + Math.cos(fs.angle) * 0.8;
+                const targetOrbitY = player.y + Math.sin(fs.angle) * 0.8;
+                fs.x += (targetOrbitX - fs.x) * 0.2;
+                fs.y += (targetOrbitY - fs.y) * 0.2;
+            }
+
+            // Sweep dead beasts & distribute rewards
+            for (let i = beasts.length - 1; i >= 0; i--) {
+                if (beasts[i].hp <= 0) {
+                    // Cultivator gains rewards
+                    const deadBeast = beasts[i];
+                    const coreChance = Math.random() < 0.6;
+                    const stonesAwarded = Math.floor(Math.random() * 15) + 10;
+                    gameState.spiritStones += stonesAwarded;
+                    
+                    spawnFloatingText(`+${stonesAwarded} Spirit Stones`, deadBeast.x, deadBeast.y - 0.5, '#f59e0b');
+                    if (coreChance) {
+                        gameState.beastCores++;
+                        spawnFloatingText(`+1 Beast Core!`, deadBeast.x, deadBeast.y - 0.8, '#f87171');
+                    }
+
+                    beasts.splice(i, 1);
+                    updateUI();
+                    
+                    // Respawn new beast later
+                    setTimeout(spawnBeast, 6000);
+                }
+            }
+
+            // Gather Spirit Herbs
+            herbs.forEach(herb => {
+                const d = Math.hypot(herb.x - player.x, herb.y - player.y);
+                if (d < 0.6) { // Pick up distance
+                    gameState.herbs++;
+                    herb.x = -100; // Trash it off world
+                    spawnFloatingText("+1 Spirit Grass!", player.x, player.y - 0.5, '#34d399');
+                    updateUI();
+                    setTimeout(spawnHerb, 5000);
+                }
+            });
+
+            // Update floating texts
+            floatingTexts.forEach(ft => {
+                ft.y -= 0.01;
+                ft.opacity -= 0.02;
+                ft.life--;
+            });
+            // Cleanup expired floating texts
+            for (let i = floatingTexts.length - 1; i >= 0; i--) {
+                if (floatingTexts[i].life <= 0) {
+                    floatingTexts.splice(i, 1);
+                }
+            }
+
+            // --- HEAVENLY TRIBULATION ACTIVE CYCLE ---
+            if (gameState.isTribulating) {
+                // Occasional lightning spawning
+                if (Math.random() < 0.08) {
+                    const tx = player.x + (Math.random() * 5 - 2.5);
+                    const ty = player.y + (Math.random() * 5 - 2.5);
+                    lightningStrikes.push({
+                        x: tx, y: ty,
+                        warningRadius: 40,
+                        warningTime: 45, // frames
+                        struck: false,
+                        damageDealt: false
+                    });
+                }
+
+                // Process tribulation lighting warning circles
+                lightningStrikes.forEach(strike => {
+                    strike.warningTime--;
+                    if (strike.warningTime <= 0 && !strike.struck) {
+                        strike.struck = true;
+                        playSound('lightning');
+                        
+                        // Check if player stood inside lightning radius
+                        const d = Math.hypot(player.x - strike.x, player.y - strike.y);
+                        if (d < 1.0) { // inside impact range
+                            const rawDmg = Math.floor(Math.random() * 20) + 15;
+                            const finalDmg = Math.max(1, Math.floor(rawDmg * (1 - gameState.tribulationResistance / 100)));
+                            
+                            gameState.vitality -= finalDmg;
+                            spawnFloatingText(`⚡ Tribulation Strike! -${finalDmg} HP`, player.x, player.y - 0.8, '#ef4444');
+                            
+                            // Check if died
+                            if (gameState.vitality <= 0) {
+                                failBreakthrough();
+                            }
+                        }
+                    }
+                });
+
+                // Clear struck lightning elements after visual finish
+                for (let i = lightningStrikes.length - 1; i >= 0; i--) {
+                    if (lightningStrikes[i].struck && lightningStrikes[i].warningTime < -15) {
+                        lightningStrikes.splice(i, 1);
+                    }
+                }
+            }
+
+            // Draw game frame
+            drawGame();
+
+            requestAnimationFrame(update);
+        }
+
+        // Render everything onto canvas
+        function drawGame() {
+            ctx.clearRect(0, 0, width, height);
+
+            // 1. Draw elegant background sky with ink-wash watercolor hues
+            const bgGrad = ctx.createLinearGradient(0, 0, 0, height);
+            bgGrad.addColorStop(0, '#090d16');
+            bgGrad.addColorStop(1, '#111827');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, width, height);
+
+            // Draw a subtle golden grid background to suggest structural formation
+            ctx.strokeStyle = 'rgba(234, 179, 8, 0.02)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < width; i += 40) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, height);
+                ctx.stroke();
+            }
+
+            // Dynamic Tribulation sky darkening
+            if (gameState.isTribulating) {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+                ctx.fillRect(0, 0, width, height);
+            }
+
+            // Draw active lightning strike Warning Circles underneath players/tiles
+            lightningStrikes.forEach(strike => {
+                if (!strike.struck) {
+                    const iso = toIso(strike.x, strike.y);
+                    ctx.beginPath();
+                    // Draw isometric flattened warning ellipse
+                    ctx.ellipse(iso.x, iso.y + tileHeight/2, tileWidth, tileHeight, 0, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(239, 68, 68, 0.25)';
+                    ctx.strokeStyle = '#ef4444';
+                    ctx.lineWidth = 2;
+                    ctx.fill();
+                    ctx.stroke();
+                }
+            });
+
+            // 2. Render Isometric Ground Tiles
+            for (let x = 0; x < mapSize; x++) {
+                for (let y = 0; y < mapSize; y++) {
+                    renderTile(x, y, map[x][y].type);
+                }
+            }
+
+            // 3. Render elevated objects (Sect pillars, Cauldron, Crystals, Herbs)
+            for (let x = 0; x < mapSize; x++) {
+                for (let y = 0; y < mapSize; y++) {
+                    renderHeightObjects(x, y, map[x][y].type);
+                }
+            }
+
+            // Render Herbs on Floor
+            herbs.forEach(herb => {
+                if (herb.x >= 0) {
+                    const iso = toIso(herb.x, herb.y);
+                    ctx.font = '16px serif';
+                    ctx.fillText('🌿', iso.x - 8, iso.y + tileHeight/2 - 2);
+                    
+                    // Add jade halo glowing
+                    ctx.beginPath();
+                    ctx.ellipse(iso.x, iso.y + tileHeight/2, tileWidth/4, tileHeight/4, 0, 0, Math.PI * 2);
+                    ctx.strokeStyle = 'rgba(52, 211, 153, 0.4)';
+                    ctx.stroke();
+                }
+            });
+
+            // 4. Render Beasts
+            beasts.forEach(beast => {
+                const iso = toIso(beast.x, beast.y);
+                // Draw Beast Icon
+                ctx.font = '22px serif';
+                ctx.fillText(beast.icon, iso.x - 11, iso.y + tileHeight/2 - 5);
+                
+                // Draw tiny HP Bar above beast
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(iso.x - 16, iso.y - 18, 32, 4);
+                ctx.fillStyle = '#ef4444';
+                const hpPercent = beast.hp / beast.maxHp;
+                ctx.fillRect(iso.x - 16, iso.y - 18, 32 * hpPercent, 4);
+            });
+
+            // 5. Draw Player Character
+            const pIso = toIso(player.x, player.y);
+            
+            // Draw meditation light circles if active
+            if (gameState.isMeditating) {
+                ctx.beginPath();
+                ctx.ellipse(pIso.x, pIso.y + tileHeight/2, tileWidth * 0.7, tileHeight * 0.7, 0, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(56, 189, 248, 0.5)';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+            }
+
+            // Cultivator representation
+            ctx.font = '26px serif';
+            ctx.fillText(gameState.isMeditating ? '🧘' : '🚶', pIso.x - 13, pIso.y + tileHeight/2 - 8);
+
+            // Draw floating glowing sword
+            const fsIso = toIso(player.flyingSword.x, player.flyingSword.y);
+            
+            ctx.save();
+            ctx.translate(fsIso.x, fsIso.y + tileHeight/2 - 12);
+            // Spin sword based on combat direction or state
+            if (player.flyingSword.state === 'strike') {
+                ctx.rotate(Math.PI / 4);
+            } else {
+                ctx.rotate(player.flyingSword.angle * 1.5);
+            }
+            // Draw ancient Chinese glowing sword via custom path
+            ctx.beginPath();
+            ctx.moveTo(0, -18);
+            ctx.lineTo(3, -4);
+            ctx.lineTo(1, 4);
+            ctx.lineTo(-1, 4);
+            ctx.lineTo(-3, -4);
+            ctx.closePath();
+            ctx.fillStyle = '#38bdf8'; // Ethereal Cyan
+            ctx.fill();
+            ctx.strokeStyle = '#e0f2fe';
+            ctx.stroke();
+            ctx.restore();
+
+            // 6. Draw Heavenly Tribulation Lightning Strikes Down
+            lightningStrikes.forEach(strike => {
+                if (strike.struck && strike.warningTime > -10) {
+                    const iso = toIso(strike.x, strike.y);
+                    
+                    // Draw a brilliant bolt of golden heavenly lightning
+                    ctx.beginPath();
+                    ctx.moveTo(iso.x, 0); // Origin at top sky
+                    ctx.lineTo(iso.x - 20, iso.y / 2);
+                    ctx.lineTo(iso.x + 15, iso.y / 1.5);
+                    ctx.lineTo(iso.x, iso.y + tileHeight/2);
+                    ctx.strokeStyle = '#fbbf24'; // Vivid Golden Yellow
+                    ctx.lineWidth = 4;
+                    ctx.stroke();
+
+                    // White lightning core
+                    ctx.strokeStyle = '#ffffff';
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+
+                    // Ground shockwave
+                    ctx.beginPath();
+                    ctx.ellipse(iso.x, iso.y + tileHeight/2, tileWidth * 0.8, tileHeight * 0.8, 0, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(251, 191, 36, 0.2)';
+                    ctx.fill();
+                }
+            });
+
+            // 7. Render dynamic floating status/damage texts
+            floatingTexts.forEach(ft => {
+                const ftIso = toIso(ft.x, ft.y);
+                ctx.save();
+                ctx.globalAlpha = ft.opacity;
+                ctx.fillStyle = ft.color;
+                ctx.font = 'bold 12px sans-serif';
+                ctx.fillText(ft.text, ftIso.x - ctx.measureText(ft.text).width/2, ftIso.y);
+                ctx.restore();
+            });
+        }
+
+        // --- GAME ACTIONS & TRIGGERS ---
+
+        // Meditate State Toggle
+        document.getElementById('meditate-btn').addEventListener('click', () => {
+            gameState.isMeditating = !gameState.isMeditating;
+            const mBtn = document.getElementById('meditate-btn');
+            if (gameState.isMeditating) {
+                playSound('meditation_chord');
+                mBtn.classList.remove('glow-blue', 'bg-blue-600');
+                mBtn.classList.add('glow-jade', 'bg-emerald-600');
+                mBtn.innerHTML = `<i data-lucide="eye-off" class="w-4 h-4"></i><span>MEDITATING... (CLICK TO WAKE)</span>`;
+            } else {
+                mBtn.classList.remove('glow-jade', 'bg-emerald-600');
+                mBtn.classList.add('glow-blue', 'bg-blue-600');
+                mBtn.innerHTML = `<i data-lucide="eye" class="w-4 h-4"></i><span>MEDITATE (START ACCUMULATION)</span>`;
+            }
+            lucide.createIcons();
+        });
+
+        // Refine breakthrough Elixir Pills
+        document.getElementById('refine-elixir-btn').addEventListener('click', () => {
+            if (gameState.herbs >= 3 && gameState.beastCores >= 1) {
+                gameState.herbs -= 3;
+                gameState.beastCores -= 1;
+                gameState.foundationPills++;
+                gameState.hasPill = true;
+                playSound('alch');
+                showNotification("Success!", "You refined a high-grade Foundation Pill!", "success");
+                updateUI();
+            } else {
+                showNotification("Insufficient Ingredients", "Requires 3 Spirit Grass and 1 Beast Core.", "error");
+            }
+        });
+
+        // Attempt breakthrough
+        document.getElementById('breakthrough-btn').addEventListener('click', () => {
+            // Cannot breakthrough without necessary elixir pill if past level 1
+            if (gameState.realmIndex > 0 && !gameState.hasPill) {
+                showNotification("Danger of Backfire!", "You must craft and consume a Pill to protect your meridians!", "error");
+                return;
+            }
+
+            // Start Heavenly Tribulation
+            startTribulation();
+        });
+
+        function startTribulation() {
+            gameState.isMeditating = false;
+            gameState.isTribulating = true;
+            gameState.tribulationTimeRemaining = 12; // survive 12 seconds
+            
+            // Deduct pill if required
+            if (gameState.realmIndex > 0) {
+                gameState.foundationPills = Math.max(0, gameState.foundationPills - 1);
+                gameState.hasPill = (gameState.foundationPills > 0);
+            }
+
+            // Show UI Warning Overlay
+            document.getElementById('tribulation-alert').classList.remove('hidden');
+            document.body.classList.add('tribulation-active');
+            
+            // Sound cue
+            playSound('lightning');
+
+            // Countdown timer interval
+            const tTimer = setInterval(() => {
+                gameState.tribulationTimeRemaining--;
+                document.getElementById('tribulation-timer').innerText = `${gameState.tribulationTimeRemaining}s remaining`;
+
+                if (gameState.tribulationTimeRemaining <= 0) {
+                    clearInterval(tTimer);
+                    succeedBreakthrough();
+                }
+                
+                // If player dies during tribulation, end interval
+                if (!gameState.isTribulating) {
+                    clearInterval(tTimer);
+                }
+            }, 1000);
+        }
+
+        function succeedBreakthrough() {
+            gameState.isTribulating = false;
+            document.getElementById('tribulation-alert').classList.add('hidden');
+            document.body.classList.remove('tribulation-active');
+
+            // Increase Realm Status
+            gameState.realmSubstage++;
+            if (gameState.realmSubstage > REALMS[gameState.realmIndex].maxLevel) {
+                // Advance to major next realm
+                gameState.realmIndex = Math.min(REALMS.length - 1, gameState.realmIndex + 1);
+                gameState.realmSubstage = 1;
+            }
+
+            // Reset Cultivation Qi
+            gameState.currentQi = 0;
+            gameState.maxQi = Math.floor(gameState.maxQi * 2.5); // Exponential requirement
+            
+            // Stat growth
+            gameState.maxVitality = Math.floor(gameState.maxVitality * 1.5);
+            gameState.vitality = gameState.maxVitality;
+            gameState.swordDamage = Math.floor(gameState.swordDamage * 1.8);
+
+            // Award Spirit Stones bonus
+            gameState.spiritStones += 150;
+
+            playSound('coin');
+            showNotification("Realm Ascension Completed!", `Successfully ascended to ${REALMS[gameState.realmIndex].name} - Level ${gameState.realmSubstage}!`, "success");
+
+            // Reset ascension button
+            const bBtn = document.getElementById('breakthrough-btn');
+            bBtn.disabled = true;
+            bBtn.classList.remove('bg-gradient-to-r', 'from-amber-500', 'to-yellow-500', 'hover:from-amber-400', 'hover:to-yellow-400', 'text-slate-950', 'glow-gold', 'cursor-pointer');
+            bBtn.classList.add('bg-slate-800/30', 'text-slate-500', 'cursor-not-allowed');
+
+            updateUI();
+        }
+
+        function failBreakthrough() {
+            gameState.isTribulating = false;
+            document.getElementById('tribulation-alert').classList.add('hidden');
+            document.body.classList.remove('tribulation-active');
+
+            // Reset status
+            gameState.vitality = Math.floor(gameState.maxVitality * 0.2); // Left with critical vitality
+            gameState.currentQi = Math.floor(gameState.currentQi * 0.5); // lose some cultivation speed progress
+            
+            showNotification("Ascension Backfired!", "Your breakthrough failed! Recover your life essence and try again.", "error");
+            
+            updateUI();
+        }
+
+        // --- SACRED SHOP / TECHNIQUE LOADING ---
+        const shopContainer = document.getElementById('shop-items-container');
+
+        function loadShopManuals() {
+            shopContainer.innerHTML = '';
+            TECHNIQUES.forEach(t => {
+                const btnContent = t.equipped 
+                    ? `<span class="text-xs font-bold text-emerald-400 px-3 py-1 bg-emerald-950 rounded border border-emerald-700/40">Active</span>`
+                    : `<button onclick="purchaseManual('${t.id}')" class="px-3 py-1 bg-sky-600 hover:bg-sky-500 text-white rounded font-bold text-xs transition duration-300">
+                        Acquire (${t.cost} L.S.)
+                       </button>`;
+
+                const div = document.createElement('div');
+                div.className = "bg-slate-950/70 p-3 rounded-lg border border-slate-800 flex items-center justify-between";
+                div.innerHTML = `
+                    <div class="flex-1 pr-2">
+                        <h4 class="text-xs font-bold text-slate-100">${t.name}</h4>
+                        <p class="text-[10px] text-slate-400 mt-0.5">${t.desc}</p>
+                    </div>
+                    <div>
+                        ${btnContent}
+                    </div>
+                `;
+                shopContainer.appendChild(div);
+            });
+        }
+
+        window.purchaseManual = function(id) {
+            const t = TECHNIQUES.find(x => x.id === id);
+            if (!t) return;
+
+            if (gameState.spiritStones >= t.cost) {
+                gameState.spiritStones -= t.cost;
+                
+                // Unequip previous
+                TECHNIQUES.forEach(x => x.equipped = false);
+                t.equipped = true;
+                
+                // Apply bonuses
+                gameState.equippedTechniqueId = t.id;
+                gameState.absorptionSpeedMultiplier = t.bonusSpeed;
+                gameState.swordDamage += t.bonusDmg;
+
+                // Set attributes UI
+                document.getElementById('attr-speed').innerText = `${t.bonusSpeed}x`;
+                document.getElementById('equipped-technique').innerText = t.name;
+
+                playSound('coin');
+                showNotification("Manual Mastered!", `You acquired & equipped ${t.name}!`, "success");
+                
+                updateUI();
+                loadShopManuals();
+            } else {
+                showNotification("Lacking Cultivation Funds", "You do not possess enough Spirit Stones for this secret technique.", "error");
+            }
+        };
+
+        // --- CORE UI SYNCHRONIZER ---
+        function updateUI() {
+            // Realm labels
+            const realmObj = REALMS[gameState.realmIndex];
+            const currentRealmText = `${realmObj.name} (Stage ${gameState.realmSubstage})`;
+            
+            document.getElementById('header-realm-text').innerText = currentRealmText;
+            document.getElementById('realm-label').innerText = `${realmObj.name} - Level ${gameState.realmSubstage}`;
+            
+            // Spirit Stones
+            document.getElementById('spirit-stone-count').innerText = gameState.spiritStones;
+
+            // Health / Vitality
+            document.getElementById('hp-text').innerText = `${Math.max(0, gameState.vitality)} / ${gameState.maxVitality}`;
+            const hpPct = Math.max(0, (gameState.vitality / gameState.maxVitality) * 100);
+            document.getElementById('hp-fill').style.width = `${hpPct}%`;
+
+            // Qi progress bar
+            document.getElementById('qi-text').innerText = `${Math.floor(gameState.currentQi)} / ${gameState.maxQi}`;
+            const qiPct = (gameState.currentQi / gameState.maxQi) * 100;
+            document.getElementById('qi-fill').style.width = `${qiPct}%`;
+
+            // Counters
+            document.getElementById('herb-inventory-counter').innerText = `${gameState.herbs} / 50`;
+            document.getElementById('beast-core-counter').innerText = gameState.beastCores;
+
+            // Alchemy ingredients
+            document.getElementById('alchemy-grass-count').innerText = `${gameState.herbs} / 3`;
+            document.getElementById('alchemy-core-count').innerText = `${gameState.beastCores} / 1`;
+            document.getElementById('pill-foundation-stash').innerText = `Foundation Pill: ${gameState.foundationPills}`;
+
+            // Passive healing outside tribulation
+            if (!gameState.isTribulating && gameState.vitality < gameState.maxVitality) {
+                gameState.vitality = Math.min(gameState.maxVitality, gameState.vitality + 0.1);
+            }
+        }
+
+        // Toast alert notifications
+        function showNotification(title, message, type = 'info') {
+            const container = document.getElementById('game-toast-container');
+            const toast = document.createElement('div');
+            
+            const colorClass = type === 'success' ? 'border-emerald-500 text-emerald-400' : 'border-red-500 text-red-400';
+            
+            toast.className = `glass-panel px-4 py-2.5 rounded-xl border-l-4 ${colorClass} text-xs transition duration-300 transform translate-x-12 opacity-0 shadow-lg flex flex-col`;
+            toast.innerHTML = `
+                <strong class="font-extrabold uppercase tracking-wide text-slate-100">${title}</strong>
+                <span class="text-slate-300 mt-0.5">${message}</span>
+            `;
+
+            container.appendChild(toast);
+            
+            // Animate In
+            setTimeout(() => {
+                toast.classList.remove('translate-x-12', 'opacity-0');
+            }, 10);
+
+            // Out
+            setTimeout(() => {
+                toast.classList.add('translate-x-12', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 4000);
+        }
+
+        // --- INITIAL RUNNERS & MODAL SETUP ---
+        spawnBeast();
+        spawnBeast();
+        spawnHerb();
+        updateUI();
+        requestAnimationFrame(update);
+
+        document.getElementById('audio-toggle').addEventListener('click', () => {
+            soundEnabled = !soundEnabled;
+            const btn = document.getElementById('audio-toggle');
+            if (soundEnabled) {
+                btn.innerHTML = `<i data-lucide="volume-2" class="w-5 h-5 text-emerald-400"></i>`;
+                audioContext.resume();
+            } else {
+                btn.innerHTML = `<i data-lucide="volume-x" class="w-5 h-5 text-red-400"></i>`;
+            }
+            lucide.createIcons();
+        });
+
+        document.getElementById('show-guide-btn').addEventListener('click', () => {
+            document.getElementById('guide-modal').classList.remove('hidden');
+        });
+
+        document.getElementById('close-guide-btn').addEventListener('click', () => {
+            document.getElementById('guide-modal').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
