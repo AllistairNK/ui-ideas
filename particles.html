@@ -61,6 +61,10 @@
       <option value="flames">Flames</option>
       <option value="flames2">Flames (Color)</option>
       <option value="comet">Comet</option>
+      <option value="snow">Snow</option>
+      <option value="shatter">Shatter</option>
+      <option value="magnetic">Magnetic</option>
+      <option value="ascii">ASCII</option>
     </select>
   </label>
   <label>Dot size
@@ -96,16 +100,27 @@ resizeCanvas();
 let dots = [];
 let embers = [];
 let cometParticles = [];
+let snowflakes = [];
 let mode = 'dots';
-let mouse = { x: -9999, y: -9999 };
+let mouse = { x: -9999, y: -9999, vx: 0, vy: 0, leftDown: false, rightDown: false };
 const REPEL_RADIUS = 60;
 const REPEL_STRENGTH = 30;
 const SPRING = 0.08;
 const FRICTION = 0.85;
 const PULSE_RADIUS = 220;
 const PULSE_STRENGTH = 260;
+const GRAB_RADIUS = 90;
+const GRAB_STRENGTH = 0.22;
+const ATTRACT_STRENGTH = 30;
+const WIND_RADIUS = 70;
+const WIND_STRENGTH = 0.35;
+const WIND_DECAY = 0.9;
 const MAX_EMBERS = 300;
 const MAX_COMET_PARTICLES = 300;
+const MAX_SNOWFLAKES = 300;
+const GRAVITY = 0.4;
+const AIR_FRICTION = 0.99;
+const ASCII_RAMP = ' .:-=+*#%@';
 // Tail streams up-and-right, matching the reference comet photo.
 const COMET_DIR = { x: 0.85, y: -0.53 };
 
@@ -196,13 +211,17 @@ function buildDots(img) {
         isFire: isFireColor(r, g, b),
         isComet: isCometColor(r, g, b),
         seed: Math.random() * 1000,
-        radius: spacing * 0.4
+        radius: spacing * 0.4,
+        shattered: false,
+        angle: 0,
+        angularVelocity: 0
       });
     }
   }
   dots = newDots;
   embers = [];
   cometParticles = [];
+  snowflakes = [];
 }
 
 // Per-mode hook: returns { targetX, targetY, dr, dg, db } for a dot at time t.
@@ -268,6 +287,29 @@ function applyMode(d, t) {
       dg: Math.min(255, d.g + heat * 40),
       db: Math.min(255, d.b + 40 + heat * 40)
     };
+  }
+  if (mode === 'snow') {
+    const targetX = d.homeX + Math.sin(t * 0.6 + d.seed) * 20;
+    const span = window.innerHeight + 40;
+    const targetY = ((d.homeY + t * 40 + d.seed * 50) % span) - 20;
+    return {
+      targetX,
+      targetY,
+      dr: d.r * 0.8,
+      dg: Math.min(255, d.g * 0.85 + 20),
+      db: Math.min(255, d.b + 50)
+    };
+  }
+  if (mode === 'magnetic') {
+    // Field lines radiate from the mouse (or canvas center if the mouse is
+    // off-screen); dots hold their home position but orient tangent to the
+    // field, bending slightly with distance to read as curved lines.
+    const originX = mouse.x > -9000 ? mouse.x : window.innerWidth / 2;
+    const originY = mouse.y > -9000 ? mouse.y : window.innerHeight / 2;
+    const dx = d.homeX - originX;
+    const dy = d.homeY - originY;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 0.001;
+    return { targetX: d.homeX, targetY: d.homeY, dr: d.r, dg: d.g, db: d.b, fieldAngle: Math.atan2(dy, dx) + Math.sin(dist * 0.02) * 0.6 };
   }
   return { targetX: d.homeX, targetY: d.homeY, dr: d.r, dg: d.g, db: d.b };
 }
@@ -365,21 +407,101 @@ function spawnCometParticles() {
   }
 }
 
+// Small drifting snowflake particles that spawn from bright pixels and fall
+// away with sway, shrinking out — the snow-mode analog of spawnEmbers().
+function spawnSnowflakes() {
+  for (const d of dots) {
+    if (d.luminance <= 180) continue;
+    if (snowflakes.length >= MAX_SNOWFLAKES) break;
+    if (Math.random() < 0.01) {
+      snowflakes.push({
+        x: d.x,
+        y: d.y,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: 0.6 + Math.random() * 1.0,
+        seed: Math.random() * 1000,
+        size: 1.2 + Math.random() * 2,
+        startSize: 0,
+        life: 0,
+        maxLife: 60 + Math.random() * 80
+      });
+    }
+  }
+  for (let i = snowflakes.length - 1; i >= 0; i--) {
+    const s = snowflakes[i];
+    s.startSize = s.startSize || s.size;
+    s.life++;
+    const t = s.life / s.maxLife;
+    if (t >= 1) {
+      snowflakes.splice(i, 1);
+      continue;
+    }
+    s.x += s.vx + Math.sin(performance.now() / 300 + s.seed) * 0.3;
+    s.y += s.vy;
+
+    const size = s.startSize * (1 - t);
+    const alpha = 1 - t;
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(255,255,255,${alpha.toFixed(2)})`;
+    ctx.arc(s.x, s.y, Math.max(0, size), 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
 function animate() {
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   const t = performance.now() / 1000;
 
   for (const d of dots) {
-    const { targetX, targetY, dr, dg, db } = applyMode(d, t);
+    if (d.shattered) {
+      // Broken free of the grid: pure gravity + rotation, no spring-back.
+      d.vy += GRAVITY;
+      d.vx *= AIR_FRICTION;
+      d.vy *= AIR_FRICTION;
+      d.angle += d.angularVelocity;
+      d.x += d.vx;
+      d.y += d.vy;
+
+      if (d.y - d.radius > window.innerHeight) continue; // fallen off-screen, stop drawing
+
+      ctx.save();
+      ctx.translate(d.x, d.y);
+      ctx.rotate(d.angle);
+      ctx.fillStyle = `rgb(${d.r | 0},${d.g | 0},${d.b | 0})`;
+      ctx.fillRect(-d.radius, -d.radius, d.radius * 2, d.radius * 2);
+      ctx.restore();
+      continue;
+    }
+
+    const { targetX, targetY, dr, dg, db, fieldAngle } = applyMode(d, t);
 
     const dx = d.x - mouse.x;
     const dy = d.y - mouse.y;
     const dist = Math.sqrt(dx * dx + dy * dy) || 0.001;
 
-    if (dist < REPEL_RADIUS) {
-      const force = (REPEL_RADIUS - dist) / REPEL_RADIUS * REPEL_STRENGTH;
-      d.vx += (dx / dist) * force;
-      d.vy += (dy / dist) * force;
+    if (mouse.leftDown && dist < GRAB_RADIUS) {
+      // Grab: pull the dot toward the cursor and drag it along with the
+      // cursor's own motion, overriding the passive hover-repel.
+      d.vx += (-dx) * GRAB_STRENGTH + mouse.vx * 0.5;
+      d.vy += (-dy) * GRAB_STRENGTH + mouse.vy * 0.5;
+    } else if (mouse.rightDown && dist < REPEL_RADIUS) {
+      // Attract: same falloff as hover-repel, force inverted toward the cursor.
+      const force = (REPEL_RADIUS - dist) / REPEL_RADIUS * ATTRACT_STRENGTH;
+      d.vx -= (dx / dist) * force;
+      d.vy -= (dy / dist) * force;
+    } else {
+      if (mode !== 'magnetic' && dist < REPEL_RADIUS) {
+        const force = (REPEL_RADIUS - dist) / REPEL_RADIUS * REPEL_STRENGTH;
+        d.vx += (dx / dist) * force;
+        d.vy += (dy / dist) * force;
+      }
+      // Wind trail: fast mouse motion sweeps nearby dots along its direction,
+      // independent of button state, fading out as the cursor slows/stops.
+      const windSpeed = Math.abs(mouse.vx) + Math.abs(mouse.vy);
+      if (windSpeed > 1.5 && dist < WIND_RADIUS) {
+        d.vx += mouse.vx * WIND_STRENGTH;
+        d.vy += mouse.vy * WIND_STRENGTH;
+      }
     }
 
     // spring back toward the mode's target position (home, or a
@@ -393,25 +515,63 @@ function animate() {
     d.x += d.vx;
     d.y += d.vy;
 
-    ctx.beginPath();
-    ctx.fillStyle = `rgb(${dr | 0},${dg | 0},${db | 0})`;
-    ctx.arc(d.x, d.y, d.radius, 0, Math.PI * 2);
-    ctx.fill();
+    if (mode === 'ascii') {
+      const idx = Math.min(ASCII_RAMP.length - 1, Math.floor((d.luminance / 255) * ASCII_RAMP.length));
+      const char = ASCII_RAMP[idx];
+      ctx.font = `${Math.max(6, d.radius * 2.5)}px monospace`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = `rgb(${dr | 0},${dg | 0},${db | 0})`;
+      ctx.fillText(char, d.x, d.y);
+    } else if (mode === 'magnetic') {
+      ctx.save();
+      ctx.translate(d.x, d.y);
+      ctx.rotate(fieldAngle);
+      ctx.fillStyle = `rgb(${dr | 0},${dg | 0},${db | 0})`;
+      ctx.fillRect(-d.radius, -1, d.radius * 2, 2);
+      ctx.restore();
+    } else {
+      ctx.beginPath();
+      ctx.fillStyle = `rgb(${dr | 0},${dg | 0},${db | 0})`;
+      ctx.arc(d.x, d.y, d.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
   }
 
   if (mode === 'flames2') spawnEmbers();
   if (mode === 'comet') spawnCometParticles();
+  if (mode === 'snow') spawnSnowflakes();
+
+  mouse.vx *= WIND_DECAY;
+  mouse.vy *= WIND_DECAY;
 
   requestAnimationFrame(animate);
 }
 
 window.addEventListener('mousemove', (e) => {
+  if (mouse.x > -9000) {
+    mouse.vx = e.clientX - mouse.x;
+    mouse.vy = e.clientY - mouse.y;
+  }
   mouse.x = e.clientX;
   mouse.y = e.clientY;
 });
 window.addEventListener('mouseleave', () => {
   mouse.x = -9999;
   mouse.y = -9999;
+  mouse.leftDown = false;
+  mouse.rightDown = false;
+});
+window.addEventListener('mousedown', (e) => {
+  if (e.button === 0) mouse.leftDown = true;
+  if (e.button === 2) mouse.rightDown = true;
+});
+window.addEventListener('mouseup', (e) => {
+  if (e.button === 0) mouse.leftDown = false;
+  if (e.button === 2) mouse.rightDown = false;
+});
+canvas.addEventListener('contextmenu', (e) => {
+  e.preventDefault();
 });
 window.addEventListener('click', (e) => {
   const cx = e.clientX;
@@ -424,6 +584,10 @@ window.addEventListener('click', (e) => {
       const force = (PULSE_RADIUS - dist) / PULSE_RADIUS * PULSE_STRENGTH;
       d.vx += (dx / dist) * force;
       d.vy += (dy / dist) * force;
+      if (mode === 'shatter') {
+        d.shattered = true;
+        d.angularVelocity = (Math.random() - 0.5) * 0.4;
+      }
     }
   }
 });
@@ -434,6 +598,12 @@ modeSelect.addEventListener('change', () => {
   mode = modeSelect.value;
   embers = [];
   cometParticles = [];
+  snowflakes = [];
+  for (const d of dots) {
+    d.shattered = false;
+    d.angle = 0;
+    d.angularVelocity = 0;
+  }
 });
 
 spacingInput.addEventListener('input', () => {
