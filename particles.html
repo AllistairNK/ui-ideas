@@ -66,6 +66,7 @@
       <option value="magnetic">Magnetic</option>
       <option value="ascii">ASCII</option>
       <option value="cube">Cube (3D)</option>
+      <option value="cubeAscii">Cube (ASCII)</option>
     </select>
   </label>
   <label>Dot size
@@ -154,7 +155,11 @@ function project3d(p, cx, cy) {
 // Wireframe cube made of dots sampled along each edge, rotated each frame
 // and rendered with a simple perspective projection + painter's-algorithm
 // depth sort so the far side of the cube reads behind the near side.
-function drawCube() {
+// When useAscii is true, each point is drawn as a character from
+// ASCII_RAMP instead of a dot, picked by its normalized depth so the
+// near side of the cube reads "denser" and the far side "lighter" -
+// a cheap stand-in for real lighting.
+function drawCube(useAscii) {
   const size = Math.min(window.innerWidth, window.innerHeight) * 0.28;
   const cx = window.innerWidth / 2;
   const cy = window.innerHeight / 2;
@@ -177,6 +182,28 @@ function drawCube() {
   }
 
   projected.sort((p1, p2) => p1.z - p2.z);
+
+  if (useAscii) {
+    let scaleMin = Infinity, scaleMax = -Infinity;
+    for (const p of projected) {
+      if (p.scale < scaleMin) scaleMin = p.scale;
+      if (p.scale > scaleMax) scaleMax = p.scale;
+    }
+    const range = (scaleMax - scaleMin) || 1;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    for (const p of projected) {
+      const brightness = (p.scale - scaleMin) / range;
+      const idx = Math.min(ASCII_RAMP.length - 1, Math.floor(brightness * ASCII_RAMP.length));
+      const char = ASCII_RAMP[idx];
+      const alpha = Math.min(1, 0.35 + brightness * 0.65);
+      ctx.font = `${Math.max(8, 14 * p.scale)}px monospace`;
+      ctx.fillStyle = `rgba(120,200,255,${alpha.toFixed(2)})`;
+      ctx.fillText(char, p.x, p.y);
+    }
+    return;
+  }
+
   for (const p of projected) {
     const r = Math.max(1.5, 3.5 * p.scale);
     const alpha = Math.min(1, 0.4 + p.scale * 0.6);
@@ -517,7 +544,7 @@ function animate() {
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   const t = performance.now() / 1000;
 
-  if (mode === 'cube') {
+  if (mode === 'cube' || mode === 'cubeAscii') {
     if (mouse.leftDown) {
       cubeRotY += mouse.vx * 0.005;
       cubeRotX += mouse.vy * 0.005;
@@ -525,7 +552,7 @@ function animate() {
       cubeRotY += 0.006;
       cubeRotX += 0.002;
     }
-    drawCube();
+    drawCube(mode === 'cubeAscii');
     mouse.vx *= WIND_DECAY;
     mouse.vy *= WIND_DECAY;
     requestAnimationFrame(animate);
