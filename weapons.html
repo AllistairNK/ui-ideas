@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Weapon Forge</title>
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: #0a0a0f;
+    color: #eee;
+    font-family: system-ui, sans-serif;
+    overflow: hidden;
+  }
+  #controls {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    background: rgba(0,0,0,0.55);
+    padding: 10px 14px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    max-width: calc(100vw - 40px);
+  }
+  #controls label { font-size: 13px; display: flex; align-items: center; gap: 6px; }
+  #controls select {
+    background: #1a1a22;
+    color: #eee;
+    border: 1px solid #555;
+    border-radius: 4px;
+    font-size: 13px;
+    padding: 3px 6px;
+  }
+  #controls button {
+    background: linear-gradient(#2a2a35, #1a1a22);
+    color: #eee;
+    border: 1px solid #666;
+    border-radius: 6px;
+    font-size: 13px;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+  #controls button:hover { background: #333; border-color: #999; }
+  #title {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    font-size: 22px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 0 12px currentColor, 0 0 4px #000;
+    pointer-events: none;
+    text-align: center;
+  }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+
+<div id="title"></div>
+
+<div id="controls">
+  <label>Weapon
+    <select id="weaponSelect"></select>
+  </label>
+  <label>Effect
+    <select id="effectSelect"></select>
+  </label>
+  <button type="button" id="randomizeBtn">🎲 Randomize</button>
+</div>
+
+<canvas id="canvas"></canvas>
+
+<script>
+const weaponSelect = document.getElementById('weaponSelect');
+const effectSelect = document.getElementById('effectSelect');
+const randomizeBtn = document.getElementById('randomizeBtn');
+const titleEl = document.getElementById('title');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+  const dpr = window.devicePixelRatio || 1;
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+  canvas.width = Math.round(window.innerWidth * dpr);
+  canvas.height = Math.round(window.innerHeight * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+resizeCanvas();
+
+// ---------------------------------------------------------------------
+// Weapon silhouettes: each is drawn once onto an offscreen canvas, then
+// sampled into a dot grid (same trick particles.html uses for photos),
+// so every weapon renders with the same glowing-dot aesthetic.
+// activeFraction marks how much of the shape (measured from the tip,
+// relY = 0..1) counts as the "business end" that effects emit from.
+// ---------------------------------------------------------------------
+const WEAPONS = {
+  sword: {
+    name: 'Sword',
+    activeFraction: 0.6,
+    draw(c, W, H) {
+      const cx = W / 2;
+      c.fillStyle = 'rgb(205,208,215)';
+      c.beginPath();
+      c.moveTo(cx, 16);
+      c.lineTo(cx - 18, 210);
+      c.lineTo(cx + 18, 210);
+      c.closePath();
+      c.fill();
+      c.fillStyle = 'rgb(90,90,100)';
+      c.fillRect(cx - 40, 210, 80, 14);
+      c.fillStyle = 'rgb(120,80,50)';
+      c.fillRect(cx - 9, 224, 18, 90);
+      c.fillStyle = 'rgb(90,90,100)';
+      c.beginPath();
+      c.arc(cx, 322, 14, 0, Math.PI * 2);
+      c.fill();
+    }
+  },
+  axe: {
+    name: 'Axe',
+    activeFraction: 0.42,
+    draw(c, W, H) {
+      const cx = W / 2;
+      c.fillStyle = 'rgb(120,80,50)';
+      c.fillRect(cx - 8, 60, 16, 270);
+      c.fillStyle = 'rgb(200,203,210)';
+      c.beginPath();
+      c.moveTo(cx, 40);
+      c.quadraticCurveTo(cx - 90, 30, cx - 95, 110);
+      c.quadraticCurveTo(cx - 60, 150, cx, 130);
+      c.closePath();
+      c.fill();
+      c.beginPath();
+      c.moveTo(cx, 40);
+      c.quadraticCurveTo(cx + 60, 30, cx + 65, 100);
+      c.quadraticCurveTo(cx + 40, 130, cx, 130);
+      c.closePath();
+      c.fill();
+    }
+  },
+  bow: {
+    name: 'Bow',
+    // Business end is the arrowhead, off to the right at mid-height -- not
+    // the top of the shape -- so this weapon marks its active zone with an
+    // activePoint (radius-based falloff) instead of the top-down activeFraction
+    // the other weapons use.
+    activePoint: { x: 255, y: 180, radius: 90 },
+    draw(c, W, H) {
+      const cx = W / 2 - 20;
+      const topY = 40, botY = 320, midY = 180;
+      const topTip = { x: cx, y: topY };
+      const botTip = { x: cx, y: botY };
+      const nock = { x: cx - 60, y: midY };
+      const ctrl = { x: cx + 140, y: midY };
+
+      // Limb (stave): a single curve bulging right, tips top/bottom on the same x --
+      // a kite/diamond outline like a traditional recurve bow.
+      c.strokeStyle = 'rgb(150,100,55)';
+      c.lineWidth = 10;
+      c.lineCap = 'round';
+      c.beginPath();
+      c.moveTo(topTip.x, topTip.y);
+      c.quadraticCurveTo(ctrl.x, ctrl.y, botTip.x, botTip.y);
+      c.stroke();
+
+      // Grip wraps where the belly is thickest.
+      c.strokeStyle = 'rgb(90,55,25)';
+      c.lineWidth = 13;
+      c.beginPath();
+      c.moveTo(cx + 68, midY - 28);
+      c.lineTo(cx + 88, midY - 16);
+      c.stroke();
+      c.beginPath();
+      c.moveTo(cx + 68, midY + 28);
+      c.lineTo(cx + 88, midY + 16);
+      c.stroke();
+
+      // Tip nubs.
+      c.fillStyle = 'rgb(150,100,55)';
+      c.beginPath(); c.arc(topTip.x, topTip.y - 4, 8, 0, Math.PI * 2); c.fill();
+      c.beginPath(); c.arc(botTip.x, botTip.y + 4, 8, 0, Math.PI * 2); c.fill();
+
+      // Taut string, bent inward at the nock -- draws the bow's diamond outline.
+      c.strokeStyle = 'rgb(55,40,30)';
+      c.lineWidth = 2;
+      c.beginPath();
+      c.moveTo(topTip.x, topTip.y);
+      c.lineTo(nock.x, nock.y);
+      c.lineTo(botTip.x, botTip.y);
+      c.stroke();
+
+      // Arrow shaft, running through the nock and out past the bow's belly.
+      c.strokeStyle = 'rgb(190,190,198)';
+      c.lineWidth = 4;
+      c.beginPath();
+      c.moveTo(cx - 90, midY);
+      c.lineTo(cx + 118, midY);
+      c.stroke();
+
+      // Arrowhead.
+      c.fillStyle = 'rgb(190,190,200)';
+      c.beginPath();
+      c.moveTo(cx + 145, midY);
+      c.lineTo(cx + 118, midY - 14);
+      c.lineTo(cx + 118, midY + 14);
+      c.closePath();
+      c.fill();
+
+      // Fletching, red, at the nock end.
+      c.fillStyle = 'rgb(200,40,40)';
+      c.beginPath();
+      c.moveTo(cx - 90, midY);
+      c.lineTo(cx - 62, midY - 16);
+      c.lineTo(cx - 76, midY);
+      c.closePath();
+      c.fill();
+      c.beginPath();
+      c.moveTo(cx - 90, midY);
+      c.lineTo(cx - 62, midY + 16);
+      c.lineTo(cx - 76, midY);
+      c.closePath();
+      c.fill();
+    }
+  },
+  staff: {
+    name: 'Staff',
+    activeFraction: 0.3,
+    draw(c, W, H) {
+      const cx = W / 2;
+      c.fillStyle = 'rgb(120,80,50)';
+      c.fillRect(cx - 7, 70, 14, 300);
+      c.fillStyle = 'rgb(150,110,190)';
+      c.beginPath();
+      c.arc(cx, 46, 30, 0, Math.PI * 2);
+      c.fill();
+      c.fillStyle = 'rgba(230,210,255,0.7)';
+      c.beginPath();
+      c.arc(cx, 46, 15, 0, Math.PI * 2);
+      c.fill();
+    }
+  },
+  dagger: {
+    name: 'Dagger',
+    activeFraction: 0.55,
+    draw(c, W, H) {
+      const cx = W / 2;
+      c.fillStyle = 'rgb(210,213,220)';
+      c.beginPath();
+      c.moveTo(cx, 90);
+      c.lineTo(cx - 12, 190);
+      c.lineTo(cx + 12, 190);
+      c.closePath();
+      c.fill();
+      c.fillStyle = 'rgb(90,90,100)';
+      c.fillRect(cx - 24, 190, 48, 10);
+      c.fillStyle = 'rgb(120,80,50)';
+      c.fillRect(cx - 7, 200, 14, 60);
+      c.fillStyle = 'rgb(90,90,100)';
+      c.beginPath();
+      c.arc(cx, 268, 10, 0, Math.PI * 2);
+      c.fill();
+    }
+  },
+  hammer: {
+    name: 'Hammer',
+    activeFraction: 0.35,
+    draw(c, W, H) {
+      const cx = W / 2;
+      c.fillStyle = 'rgb(120,80,50)';
+      c.fillRect(cx - 8, 90, 16, 260);
+      c.fillStyle = 'rgb(140,140,150)';
+      c.fillRect(cx - 70, 40, 140, 60);
+      c.fillStyle = 'rgb(100,100,110)';
+      c.fillRect(cx - 70, 40, 140, 14);
+    }
+  },
+  spear: {
+    name: 'Spear',
+    activeFraction: 0.28,
+    draw(c, W, H) {
+      const cx = W / 2;
+      c.fillStyle = 'rgb(120,80,50)';
+      c.fillRect(cx - 6, 90, 12, 300);
+      c.fillStyle = 'rgb(90,90,100)';
+      c.fillRect(cx - 16, 88, 32, 10);
+      c.fillStyle = 'rgb(210,213,220)';
+      c.beginPath();
+      c.moveTo(cx, 16);
+      c.lineTo(cx - 14, 90);
+      c.lineTo(cx + 14, 90);
+      c.closePath();
+      c.fill();
+    }
+  }
+};
+
+// ---------------------------------------------------------------------
+// Effects: each has a display name/adjective, a per-dot recolor+offset
+// function (mirrors applyMode() in particles.html), and its own ambient
+// particle spawner for the extra floating layer on top of the dots.
+// ---------------------------------------------------------------------
+const EFFECTS = {
+  fire: { name: 'Fire', adjective: 'Flaming', glow: '#ff8a3d' },
+  ice: { name: 'Ice', adjective: 'Frozen', glow: '#8fd6ff' },
+  lightning: { name: 'Lightning', adjective: 'Storm-Charged', glow: '#c9e8ff' },
+  poison: { name: 'Poison', adjective: 'Venomous', glow: '#9dff5c' },
+  holy: { name: 'Holy', adjective: 'Blessed', glow: '#ffe9a8' },
+  void: { name: 'Void', adjective: 'Cursed', glow: '#b06bff' },
+  wind: { name: 'Wind', adjective: 'Windforged', glow: '#d8f5ff' }
+};
+
+for (const key in WEAPONS) {
+  const opt = document.createElement('option');
+  opt.value = key;
+  opt.textContent = WEAPONS[key].name;
+  weaponSelect.appendChild(opt);
+}
+for (const key in EFFECTS) {
+  const opt = document.createElement('option');
+  opt.value = key;
+  opt.textContent = EFFECTS[key].name;
+  effectSelect.appendChild(opt);
+}
+
+let dots = [];
+let particles = [];
+let weaponKey = 'sword';
+let effectKey = 'fire';
+let boundsW = 260, boundsH = 360, boundsCx = 0, boundsCy = 0;
+
+function buildWeaponDots() {
+  const spec = WEAPONS[weaponKey];
+  const W = boundsW, H = boundsH;
+  const off = document.createElement('canvas');
+  off.width = W;
+  off.height = H;
+  const offCtx = off.getContext('2d');
+  spec.draw(offCtx, W, H);
+
+  const imageData = offCtx.getImageData(0, 0, W, H);
+  const data = imageData.data;
+
+  const scale = Math.min(window.innerWidth, window.innerHeight) / 460;
+  const spacing = 5;
+  const cx = window.innerWidth / 2;
+  const cy = window.innerHeight / 2;
+  boundsCx = cx;
+  boundsCy = cy;
+
+  const newDots = [];
+  for (let y = 0; y < H; y += spacing) {
+    for (let x = 0; x < W; x += spacing) {
+      const idx = (y * W + x) * 4;
+      const a = data[idx + 3];
+      if (a < 40) continue;
+      const r = data[idx], g = data[idx + 1], b = data[idx + 2];
+      const homeX = cx + (x - W / 2) * scale;
+      const homeY = cy + (y - H * 0.55) * scale;
+      const relY = y / H;
+
+      let isActive, activeWeight;
+      if (spec.activePoint) {
+        // Falloff by distance from a fixed point (e.g. an arrowhead off to
+        // one side) instead of a top-down cutoff, for weapons whose "business
+        // end" isn't simply "near the top" of the shape.
+        const dist = Math.hypot(x - spec.activePoint.x, y - spec.activePoint.y);
+        activeWeight = Math.max(0, 1 - dist / spec.activePoint.radius);
+        isActive = activeWeight > 0;
+      } else {
+        isActive = relY <= spec.activeFraction;
+        activeWeight = spec.activeFraction > 0 ? Math.max(0, 1 - relY / spec.activeFraction) : 0;
+      }
+
+      newDots.push({
+        homeX, homeY, x: homeX, y: homeY,
+        vx: 0, vy: 0,
+        r, g, b,
+        relY,
+        isActive,
+        activeWeight,
+        seed: Math.random() * 1000,
+        radius: Math.max(1.4, spacing * 0.42 * scale * 1.6)
+      });
+    }
+  }
+  dots = newDots;
+  particles = [];
+}
+
+// --- per-effect dot coloring / motion, mirrors applyMode() in particles.html ---
+function applyEffect(d, t) {
+  const sway = Math.sin(t * 0.5) * 8;
+  const bob = Math.sin(t * 1.1 + d.seed * 0.01) * 3;
+  const base = { targetX: d.homeX + sway * (1 - d.relY), targetY: d.homeY + bob, dr: d.r, dg: d.g, db: d.b, alpha: 1 };
+
+  if (!d.isActive) return base;
+  const w = d.activeWeight;
+
+  switch (effectKey) {
+    case 'fire': {
+      const flicker = Math.sin(t * 6 + d.seed * 10) * 4 * w;
+      const rise = Math.abs(Math.sin(t * 2 + d.seed * 5)) * 6 * w;
+      const heat = 0.5 + 0.5 * Math.sin(t * 5 + d.seed * 7);
+      return {
+        targetX: base.targetX + flicker,
+        targetY: base.targetY - rise,
+        dr: 255,
+        dg: Math.min(255, 90 + heat * 110 * w),
+        db: Math.max(0, d.b * (1 - w) + 20 * heat * (1 - w)),
+        alpha: 1
+      };
+    }
+    case 'ice': {
+      const jitter = Math.sin(t * 10 + d.seed * 8) * 1.2 * w;
+      const glint = 0.5 + 0.5 * Math.sin(t * 3 + d.seed * 4);
+      return {
+        targetX: base.targetX + jitter,
+        targetY: base.targetY,
+        dr: Math.min(255, d.r * (1 - w) + 190 * w),
+        dg: Math.min(255, d.g * (1 - w) + 230 * w),
+        db: 255,
+        alpha: 0.75 + 0.25 * glint
+      };
+    }
+    case 'lightning': {
+      const spike = (Math.sin(t * 14 + d.seed * 13) + Math.sin(t * 23 + d.seed * 3)) / 2;
+      const flash = spike > 0.85 ? 1 : 0;
+      return {
+        targetX: base.targetX + (flash ? (Math.random() - 0.5) * 3 : 0),
+        targetY: base.targetY,
+        dr: Math.min(255, d.r * (1 - w) + (200 + flash * 55) * w),
+        dg: Math.min(255, d.g * (1 - w) + (220 + flash * 35) * w),
+        db: 255,
+        alpha: flash ? 1 : 0.7 + 0.3 * w
+      };
+    }
+    case 'poison': {
+      const pulse = 0.5 + 0.5 * Math.sin(t * 2.4 + d.seed * 6);
+      return {
+        targetX: base.targetX,
+        targetY: base.targetY - pulse * 2 * w,
+        dr: Math.min(255, d.r * (1 - w) + 60 * w),
+        dg: Math.min(255, d.g * (1 - w) + (140 + pulse * 100) * w),
+        db: Math.max(0, d.b * (1 - w) + 40 * w),
+        alpha: 1
+      };
+    }
+    case 'holy': {
+      const glow = 0.5 + 0.5 * Math.sin(t * 1.6 + d.seed * 5);
+      return {
+        targetX: base.targetX,
+        targetY: base.targetY - glow * 3 * w,
+        dr: Math.min(255, d.r * (1 - w) + 255 * w),
+        dg: Min255(d.g * (1 - w) + (220 + glow * 35) * w),
+        db: Min255(d.b * (1 - w) + (170 + glow * 60) * w),
+        alpha: 0.8 + 0.2 * glow
+      };
+    }
+    case 'void': {
+      const drift = Math.sin(t * 0.8 + d.seed * 9) * 2 * w;
+      const glint = Math.sin(t * 5 + d.seed * 11) > 0.9 ? 1 : 0;
+      return {
+        targetX: base.targetX + drift,
+        targetY: base.targetY,
+        dr: Min255(30 * (1 - w) + (70 + glint * 100) * w + d.r * (1 - w)),
+        dg: Min255(d.g * (1 - w) + (10 + glint * 40) * w),
+        db: Min255(d.b * (1 - w) + (110 + glint * 120) * w),
+        alpha: 0.75 + 0.25 * w
+      };
+    }
+    case 'wind': {
+      const streak = Math.sin(t * 3 + d.seed * 2) * 5 * w;
+      return {
+        targetX: base.targetX + streak + w * 4,
+        targetY: base.targetY + Math.cos(t * 2 + d.seed) * 1.5 * w,
+        dr: Min255(d.r * (1 - w) + 220 * w),
+        dg: Min255(d.g * (1 - w) + 245 * w),
+        db: 255,
+        alpha: 0.6 + 0.4 * w
+      };
+    }
+    default:
+      return base;
+  }
+}
+function Min255(v) { return Math.max(0, Math.min(255, v)); }
+
+// --- ambient particle layers per effect, mirrors spawnEmbers() etc. in particles.html ---
+function spawnParticles(t) {
+  const chance = { fire: 0.05, ice: 0.02, lightning: 0.015, poison: 0.02, holy: 0.03, void: 0.025, wind: 0.03 }[effectKey];
+  for (const d of dots) {
+    if (!d.isActive) continue;
+    if (particles.length >= 400) break;
+    if (Math.random() > chance * (0.3 + d.activeWeight)) continue;
+    particles.push(makeParticle(d, t));
+  }
+
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.life++;
+    const lt = p.life / p.maxLife;
+    if (lt >= 1) { particles.splice(i, 1); continue; }
+    stepParticle(p, t);
+    drawParticle(p, lt);
+  }
+}
+
+function makeParticle(d, t) {
+  const common = { x: d.x, y: d.y, seed: Math.random() * 1000, life: 0, kind: effectKey };
+  switch (effectKey) {
+    case 'fire':
+      return Object.assign(common, {
+        vx: (Math.random() - 0.5) * 0.5, vy: -0.7 - Math.random() * 1.3,
+        size: 1.5 + Math.random() * 2.5, maxLife: 45 + Math.random() * 60,
+        r: 255, g: 110 + Math.random() * 90, b: 20
+      });
+    case 'ice':
+      return Object.assign(common, {
+        vx: (Math.random() - 0.5) * 0.3, vy: 0.2 + Math.random() * 0.4,
+        size: 1 + Math.random() * 2, maxLife: 60 + Math.random() * 60,
+        r: 200, g: 235, b: 255
+      });
+    case 'lightning':
+      return Object.assign(common, {
+        vx: (Math.random() - 0.5) * 6, vy: (Math.random() - 0.5) * 6,
+        size: 1, maxLife: 8 + Math.random() * 8,
+        r: 220, g: 235, b: 255, spark: true,
+        x2: d.x + (Math.random() - 0.5) * 30, y2: d.y + (Math.random() - 0.5) * 30
+      });
+    case 'poison':
+      return Object.assign(common, {
+        vx: (Math.random() - 0.5) * 0.3, vy: -0.3 - Math.random() * 0.5,
+        size: 1.5 + Math.random() * 2.5, maxLife: 55 + Math.random() * 55,
+        r: 120, g: 200, b: 60
+      });
+    case 'holy':
+      return Object.assign(common, {
+        vx: (Math.random() - 0.5) * 0.25, vy: -0.4 - Math.random() * 0.5,
+        size: 1.2 + Math.random() * 2, maxLife: 70 + Math.random() * 70,
+        r: 255, g: 235, b: 190, twinkle: true
+      });
+    case 'void':
+      return Object.assign(common, {
+        angle: Math.random() * Math.PI * 2, radius: 10 + Math.random() * 30,
+        cx: d.x, cy: d.y - 20, vy: -0.15 - Math.random() * 0.2,
+        size: 2 + Math.random() * 3, maxLife: 60 + Math.random() * 60,
+        r: 90, g: 20, b: 130, orbit: true
+      });
+    case 'wind':
+      return Object.assign(common, {
+        vx: 2 + Math.random() * 2.5, vy: (Math.random() - 0.5) * 0.6,
+        size: 0.8, maxLife: 25 + Math.random() * 20,
+        r: 220, g: 245, b: 255, streak: true
+      });
+    default:
+      return Object.assign(common, { vx: 0, vy: 0, size: 2, maxLife: 40, r: 255, g: 255, b: 255 });
+  }
+}
+
+function stepParticle(p, t) {
+  if (p.orbit) {
+    p.angle += 0.06;
+    p.cy += p.vy;
+    p.x = p.cx + Math.cos(p.angle) * p.radius;
+    p.y = p.cy + Math.sin(p.angle) * p.radius * 0.5;
+    return;
+  }
+  p.x += p.vx + Math.sin(performance.now() / 300 + p.seed) * 0.2;
+  p.y += p.vy;
+  if (p.kind === 'fire' || p.kind === 'holy' || p.kind === 'poison') p.vy *= 0.995;
+}
+
+function drawParticle(p, lt) {
+  const fade = 1 - lt;
+  if (p.spark) {
+    ctx.save();
+    ctx.strokeStyle = `rgba(${p.r},${p.g},${p.b},${fade.toFixed(2)})`;
+    ctx.lineWidth = 1.5;
+    ctx.shadowColor = 'rgba(180,220,255,0.9)';
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+    ctx.lineTo(p.x2, p.y2);
+    ctx.stroke();
+    ctx.restore();
+    return;
+  }
+  if (p.streak) {
+    ctx.save();
+    ctx.strokeStyle = `rgba(${p.r},${p.g},${p.b},${(fade * 0.7).toFixed(2)})`;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+    ctx.lineTo(p.x - p.vx * 4, p.y - p.vy * 4);
+    ctx.stroke();
+    ctx.restore();
+    return;
+  }
+  let alpha = fade;
+  if (p.twinkle) alpha *= 0.5 + 0.5 * Math.sin(performance.now() / 150 + p.seed);
+  const size = p.size * (p.kind === 'poison' ? (0.6 + lt * 0.8) : (1 - lt * 0.3));
+  ctx.beginPath();
+  ctx.fillStyle = `rgba(${p.r | 0},${p.g | 0},${p.b | 0},${Math.max(0, alpha).toFixed(2)})`;
+  ctx.arc(p.x, p.y, Math.max(0, size), 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function animate() {
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  const t = performance.now() / 1000;
+
+  for (const d of dots) {
+    const { targetX, targetY, dr, dg, db, alpha } = applyEffect(d, t);
+    d.vx += (targetX - d.x) * 0.15;
+    d.vy += (targetY - d.y) * 0.15;
+    d.vx *= 0.8;
+    d.vy *= 0.8;
+    d.x += d.vx;
+    d.y += d.vy;
+
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(${dr | 0},${dg | 0},${db | 0},${(alpha ?? 1).toFixed(2)})`;
+    ctx.arc(d.x, d.y, d.radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  spawnParticles(t);
+
+  requestAnimationFrame(animate);
+}
+
+function updateTitle() {
+  const w = WEAPONS[weaponKey];
+  const e = EFFECTS[effectKey];
+  titleEl.textContent = `${e.adjective} ${w.name}`;
+  titleEl.style.color = e.glow;
+}
+
+function rebuild() {
+  weaponKey = weaponSelect.value;
+  effectKey = effectSelect.value;
+  updateTitle();
+  buildWeaponDots();
+}
+
+weaponSelect.addEventListener('change', rebuild);
+effectSelect.addEventListener('change', rebuild);
+
+randomizeBtn.addEventListener('click', () => {
+  const weaponKeys = Object.keys(WEAPONS);
+  const effectKeys = Object.keys(EFFECTS);
+  weaponSelect.value = weaponKeys[Math.floor(Math.random() * weaponKeys.length)];
+  effectSelect.value = effectKeys[Math.floor(Math.random() * effectKeys.length)];
+  rebuild();
+});
+
+window.addEventListener('resize', () => {
+  resizeCanvas();
+  buildWeaponDots();
+});
+
+weaponSelect.value = weaponKey;
+effectSelect.value = effectKey;
+updateTitle();
+buildWeaponDots();
+animate();
+</script>
+</body>
+</html>
