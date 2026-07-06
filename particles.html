@@ -65,6 +65,7 @@
       <option value="shatter">Shatter</option>
       <option value="magnetic">Magnetic</option>
       <option value="ascii">ASCII</option>
+      <option value="cube">Cube (3D)</option>
     </select>
   </label>
   <label>Dot size
@@ -121,6 +122,70 @@ const MAX_SNOWFLAKES = 300;
 const GRAVITY = 0.4;
 const AIR_FRICTION = 0.99;
 const ASCII_RAMP = ' .:-=+*#%@';
+// Cube mode: rotation angles persist across frames so drag/auto-spin can
+// both accumulate into the same state.
+let cubeRotX = 0.5;
+let cubeRotY = 0.6;
+
+const CUBE_VERTS = [
+  [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1],
+  [-1, -1, 1], [1, -1, 1], [1, 1, 1], [-1, 1, 1]
+];
+const CUBE_EDGES = [
+  [0, 1], [1, 2], [2, 3], [3, 0],
+  [4, 5], [5, 6], [6, 7], [7, 4],
+  [0, 4], [1, 5], [2, 6], [3, 7]
+];
+
+function rotatePoint(p, rx, ry) {
+  const y1 = p.y * Math.cos(rx) - p.z * Math.sin(rx);
+  const z1 = p.y * Math.sin(rx) + p.z * Math.cos(rx);
+  const x2 = p.x * Math.cos(ry) + z1 * Math.sin(ry);
+  const z2 = -p.x * Math.sin(ry) + z1 * Math.cos(ry);
+  return { x: x2, y: y1, z: z2 };
+}
+
+function project3d(p, cx, cy) {
+  const perspective = 600;
+  const factor = perspective / (perspective + p.z);
+  return { x: cx + p.x * factor, y: cy + p.y * factor, scale: factor };
+}
+
+// Wireframe cube made of dots sampled along each edge, rotated each frame
+// and rendered with a simple perspective projection + painter's-algorithm
+// depth sort so the far side of the cube reads behind the near side.
+function drawCube() {
+  const size = Math.min(window.innerWidth, window.innerHeight) * 0.28;
+  const cx = window.innerWidth / 2;
+  const cy = window.innerHeight / 2;
+  const dotSpacing = Math.max(6, parseInt(spacingInput.value, 10) * 0.6);
+  const dotsPerEdge = Math.max(4, Math.round((size * 2) / dotSpacing));
+
+  const projected = [];
+  for (const [a, b] of CUBE_EDGES) {
+    const va = CUBE_VERTS[a];
+    const vb = CUBE_VERTS[b];
+    for (let i = 0; i <= dotsPerEdge; i++) {
+      const t = i / dotsPerEdge;
+      const px = va[0] + (vb[0] - va[0]) * t;
+      const py = va[1] + (vb[1] - va[1]) * t;
+      const pz = va[2] + (vb[2] - va[2]) * t;
+      const rotated = rotatePoint({ x: px, y: py, z: pz }, cubeRotX, cubeRotY);
+      const proj = project3d({ x: rotated.x * size, y: rotated.y * size, z: rotated.z * size }, cx, cy);
+      projected.push({ x: proj.x, y: proj.y, z: rotated.z, scale: proj.scale });
+    }
+  }
+
+  projected.sort((p1, p2) => p1.z - p2.z);
+  for (const p of projected) {
+    const r = Math.max(1.5, 3.5 * p.scale);
+    const alpha = Math.min(1, 0.4 + p.scale * 0.6);
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(120,200,255,${alpha.toFixed(2)})`;
+    ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
 // Tail streams up-and-right, matching the reference comet photo.
 const COMET_DIR = { x: 0.85, y: -0.53 };
 
@@ -451,6 +516,21 @@ function spawnSnowflakes() {
 function animate() {
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   const t = performance.now() / 1000;
+
+  if (mode === 'cube') {
+    if (mouse.leftDown) {
+      cubeRotY += mouse.vx * 0.005;
+      cubeRotX += mouse.vy * 0.005;
+    } else {
+      cubeRotY += 0.006;
+      cubeRotX += 0.002;
+    }
+    drawCube();
+    mouse.vx *= WIND_DECAY;
+    mouse.vy *= WIND_DECAY;
+    requestAnimationFrame(animate);
+    return;
+  }
 
   for (const d of dots) {
     if (d.shattered) {
