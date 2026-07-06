@@ -137,6 +137,22 @@ const CUBE_EDGES = [
   [4, 5], [5, 6], [6, 7], [7, 4],
   [0, 4], [1, 5], [2, 6], [3, 7]
 ];
+// One entry per face: outward normal, plus which axis is held fixed
+// (the other two vary across the face's u/v sampling grid).
+const CUBE_FACES = [
+  { normal: [0, 0, -1], fixed: 'z', value: -1 },
+  { normal: [0, 0, 1], fixed: 'z', value: 1 },
+  { normal: [-1, 0, 0], fixed: 'x', value: -1 },
+  { normal: [1, 0, 0], fixed: 'x', value: 1 },
+  { normal: [0, -1, 0], fixed: 'y', value: -1 },
+  { normal: [0, 1, 0], fixed: 'y', value: 1 }
+];
+
+function facePoint(face, u, v) {
+  if (face.fixed === 'z') return { x: u, y: v, z: face.value };
+  if (face.fixed === 'x') return { x: face.value, y: u, z: v };
+  return { x: u, y: face.value, z: v };
+}
 
 function rotatePoint(p, rx, ry) {
   const y1 = p.y * Math.cos(rx) - p.z * Math.sin(rx);
@@ -167,6 +183,9 @@ function drawCube(useAscii) {
   const dotsPerEdge = Math.max(4, Math.round((size * 2) / dotSpacing));
 
   const projected = [];
+
+  // Edges: brightness here just tracks proximity to camera (via projected
+  // scale), so the wireframe still reads with some depth cueing.
   for (const [a, b] of CUBE_EDGES) {
     const va = CUBE_VERTS[a];
     const vb = CUBE_VERTS[b];
@@ -177,26 +196,41 @@ function drawCube(useAscii) {
       const pz = va[2] + (vb[2] - va[2]) * t;
       const rotated = rotatePoint({ x: px, y: py, z: pz }, cubeRotX, cubeRotY);
       const proj = project3d({ x: rotated.x * size, y: rotated.y * size, z: rotated.z * size }, cx, cy);
-      projected.push({ x: proj.x, y: proj.y, z: rotated.z, scale: proj.scale });
+      const brightness = Math.min(1, Math.max(0.15, (proj.scale - 0.7) / 0.6));
+      projected.push({ x: proj.x, y: proj.y, z: rotated.z, scale: proj.scale, brightness });
+    }
+  }
+
+  // Faces: sample a grid across each face, cull the ones facing away from
+  // the camera, and light the rest with a simple headlight model - a face
+  // pointed straight at the camera is brightest, one seen edge-on is dark.
+  const faceSpacing = dotSpacing * 2.2;
+  const faceSteps = Math.min(45, Math.max(3, Math.round((size * 2) / faceSpacing)));
+  for (const face of CUBE_FACES) {
+    const n = rotatePoint({ x: face.normal[0], y: face.normal[1], z: face.normal[2] }, cubeRotX, cubeRotY);
+    if (n.z >= -0.001) continue; // facing away from camera
+    const lightBrightness = Math.min(1, Math.max(0.12, -n.z));
+    for (let i = 0; i <= faceSteps; i++) {
+      for (let j = 0; j <= faceSteps; j++) {
+        const u = -1 + (2 * i) / faceSteps;
+        const v = -1 + (2 * j) / faceSteps;
+        const local = facePoint(face, u, v);
+        const rotated = rotatePoint(local, cubeRotX, cubeRotY);
+        const proj = project3d({ x: rotated.x * size, y: rotated.y * size, z: rotated.z * size }, cx, cy);
+        projected.push({ x: proj.x, y: proj.y, z: rotated.z, scale: proj.scale, brightness: lightBrightness });
+      }
     }
   }
 
   projected.sort((p1, p2) => p1.z - p2.z);
 
   if (useAscii) {
-    let scaleMin = Infinity, scaleMax = -Infinity;
-    for (const p of projected) {
-      if (p.scale < scaleMin) scaleMin = p.scale;
-      if (p.scale > scaleMax) scaleMax = p.scale;
-    }
-    const range = (scaleMax - scaleMin) || 1;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     for (const p of projected) {
-      const brightness = (p.scale - scaleMin) / range;
-      const idx = Math.min(ASCII_RAMP.length - 1, Math.floor(brightness * ASCII_RAMP.length));
+      const idx = Math.min(ASCII_RAMP.length - 1, Math.floor(p.brightness * ASCII_RAMP.length));
       const char = ASCII_RAMP[idx];
-      const alpha = Math.min(1, 0.35 + brightness * 0.65);
+      const alpha = Math.min(1, 0.35 + p.brightness * 0.65);
       ctx.font = `${Math.max(8, 14 * p.scale)}px monospace`;
       ctx.fillStyle = `rgba(120,200,255,${alpha.toFixed(2)})`;
       ctx.fillText(char, p.x, p.y);
@@ -206,7 +240,7 @@ function drawCube(useAscii) {
 
   for (const p of projected) {
     const r = Math.max(1.5, 3.5 * p.scale);
-    const alpha = Math.min(1, 0.4 + p.scale * 0.6);
+    const alpha = Math.min(1, 0.25 + p.brightness * 0.75);
     ctx.beginPath();
     ctx.fillStyle = `rgba(120,200,255,${alpha.toFixed(2)})`;
     ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
