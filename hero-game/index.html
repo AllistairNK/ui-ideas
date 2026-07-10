@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raise One Hero</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="toastContainer" class="toast-container"></div>
+<div id="combatModal" class="modal-root hidden"></div>
+<div id="classChoiceModal" class="modal-root hidden"></div>
+
+<div id="firstRunScreen" class="first-run hidden">
+  <div class="first-run-box">
+    <h1>Your Hero Has Arrived</h1>
+    <div id="firstRunDetails"></div>
+    <button type="button" id="beginJourneyBtn">Begin Your Journey</button>
+  </div>
+</div>
+
+<div id="app" class="app hidden">
+  <header class="header-bar">
+    <span id="headerName"></span>
+    <span id="headerClassLevel"></span>
+    <span id="headerGold"></span>
+    <button type="button" id="startOverBtn" class="start-over-btn">Start Over</button>
+  </header>
+
+  <main class="layout">
+    <section id="petView" class="panel pet-panel"></section>
+    <section id="characterSheet" class="panel sheet-panel"></section>
+    <section id="activityPanel" class="panel activity-panel-container"></section>
+    <section id="inventoryPanel" class="panel inventory-panel-container"></section>
+  </main>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
