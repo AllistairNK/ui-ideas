@@ -158,12 +158,12 @@ function tickLoop() {
 
 function handleStartOver() {
   if (!confirm('This will permanently delete your current hero. Continue?')) return;
+  character = null;
   clearSave();
   location.reload();
 }
 
-function showFirstRunScreen(newCharacter) {
-  const screen = document.getElementById('firstRunScreen');
+function renderFirstRunDetails(newCharacter) {
   const details = document.getElementById('firstRunDetails');
   const classDef = CLASSES[newCharacter.class];
   details.innerHTML = `
@@ -175,7 +175,18 @@ function showFirstRunScreen(newCharacter) {
         <div class="attr-cell"><span class="attr-name">${k}</span><span class="attr-value">${v}</span></div>`).join('')}
     </div>
   `;
+}
+
+function showFirstRunScreen(newCharacter) {
+  const screen = document.getElementById('firstRunScreen');
+  renderFirstRunDetails(newCharacter);
   screen.classList.remove('hidden');
+
+  document.getElementById('randomizeBtn').addEventListener('click', () => {
+    character = generateCharacter();
+    renderFirstRunDetails(character);
+  });
+
   document.getElementById('beginJourneyBtn').addEventListener('click', () => {
     screen.classList.add('hidden');
     document.getElementById('app').classList.remove('hidden');

@@ -158,6 +158,7 @@ button:hover:not(:disabled) { background: #383842; }
 }
 .first-run-box { background: #22222a; border: 1px solid #444; border-radius: 12px; padding: 30px; width: 380px; max-width: 90vw; text-align: center; }
 .first-run-box h1 { font-size: 20px; margin-top: 0; }
+.first-run-actions { display: flex; gap: 10px; justify-content: center; margin-top: 16px; }
 
 /* --- class choice --- */
 .class-choice-list { display: grid; gap: 10px; }
