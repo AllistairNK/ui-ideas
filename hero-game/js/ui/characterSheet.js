@@ -1,4 +1,5 @@
 import { CLASSES } from '../data/classes.js';
+import { HIDDEN_TRAITS } from '../data/traits.js';
 
 export function renderCharacterSheet(character) {
   const root = document.getElementById('characterSheet');
@@ -43,7 +44,32 @@ export function renderCharacterSheet(character) {
     </div>
 
     <div class="gold-row">Gold: <b>${Math.floor(character.currency.gold)}</b></div>
+
+    ${renderTraitsRow(character)}
   `;
+}
+
+function renderTraitsRow(character) {
+  const traits = character.traits || [];
+  if (!traits.length) return '';
+
+  const discovered = traits.filter((t) => t.discovered);
+  const hiddenCount = traits.length - discovered.length;
+
+  const chips = discovered.map((t) => {
+    const def = HIDDEN_TRAITS[t.id];
+    if (!def) return '';
+    return `<span class="trait-chip" title="${def.flavor}">${def.name}</span>`;
+  }).join('');
+
+  const hiddenChip = hiddenCount > 0
+    ? `<span class="trait-chip trait-chip-hidden">? ${hiddenCount} hidden trait${hiddenCount > 1 ? 's' : ''} sensed</span>`
+    : '';
+
+  return `
+    <div class="traits-row">
+      ${chips}${hiddenChip}
+    </div>`;
 }
 
 function pct(value, max) {

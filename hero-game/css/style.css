@@ -77,6 +77,10 @@ button:hover:not(:disabled) { background: #383842; }
 .derived-grid div { background: #2a2a32; border-radius: 6px; padding: 6px; text-align: center; }
 .gold-row { font-size: 13px; color: #f0d060; }
 
+.traits-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.trait-chip { background: #2a2a32; border: 1px solid #4a4a56; border-radius: 999px; padding: 4px 10px; font-size: 11px; color: #d8c98a; cursor: default; }
+.trait-chip-hidden { color: #888; border-style: dashed; }
+
 /* --- pet view --- */
 .pet-stage { text-align: center; }
 .pet-sprite { cursor: pointer; display: inline-block; }
@@ -165,3 +169,7 @@ button:hover:not(:disabled) { background: #383842; }
 .class-choice-btn { display: flex; flex-direction: column; align-items: flex-start; padding: 10px; gap: 2px; }
 .class-choice-name { font-weight: 600; }
 .class-choice-req { font-size: 11px; color: #999; }
+.class-choice-btn.secret { border-color: #c9a24a; box-shadow: 0 0 8px rgba(201, 162, 74, 0.35); }
+.class-choice-btn.secret .class-choice-name { color: #e8c979; }
+.class-choice-btn.secret .class-choice-name::before { content: '\2726  '; }
+.class-choice-btn.secret .class-choice-req { font-style: italic; color: #b9ab84; }
