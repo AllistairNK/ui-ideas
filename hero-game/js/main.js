@@ -214,6 +214,13 @@ function boot() {
   }
 
   document.getElementById('startOverBtn').addEventListener('click', handleStartOver);
+  document.getElementById('levelUpBtn').addEventListener('click', () => {
+    addXp(character, character.xpToNext);
+    character.derived = computeDerivedStats(character);
+    persist();
+    renderAll();
+    maybePromptClassChoice();
+  });
 
   setInterval(tickLoop, 1000);
   setInterval(() => { if (character && character.activity) persist(); }, 30000);
