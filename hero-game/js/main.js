@@ -5,14 +5,14 @@ import { equipItem, unequipItem, addToInventory, createItemInstance, rollLoot } 
 import { generateOpponent, resolveCombat } from './core/combat.js';
 import { ITEM_TEMPLATES } from './data/items.js';
 import { ACTIVITIES } from './data/activities.js';
-import { CLASSES, CLASS_CHOICE_LEVEL } from './data/classes.js';
+import { CLASSES } from './data/classes.js';
 
 import { renderCharacterSheet } from './ui/characterSheet.js';
 import { renderActivityPanel } from './ui/activityPanel.js';
 import { renderInventoryPanel } from './ui/inventoryPanel.js';
 import { renderPetView } from './ui/petView.js';
 import { showCombatModal } from './ui/combatModal.js';
-import { showClassChoiceModal } from './ui/classChoiceModal.js';
+import { renderClassPanel, isClassAdvancementAvailable } from './ui/classPanel.js';
 import { showToast } from './ui/toast.js';
 
 let character = null;
@@ -33,23 +33,20 @@ function renderAll() {
     onUnequip: handleUnequip,
     onBuy: handleBuy
   });
+  renderClassPanel(character, { onChoose: handleChooseClass });
 }
 
 function persist() {
   saveGame(character);
 }
 
-function maybePromptClassChoice() {
-  if (character.class === 'peasant' && character.level >= CLASS_CHOICE_LEVEL) {
-    showClassChoiceModal(character, (classId) => {
-      character.class = classId;
-      character.flags.unlockedClasses.push(classId);
-      character.derived = computeDerivedStats(character);
-      showToast(`You have become a ${CLASSES[classId].name}!`, 'success');
-      persist();
-      renderAll();
-    });
-  }
+function handleChooseClass(classId) {
+  character.class = classId;
+  character.flags.unlockedClasses.push(classId);
+  character.derived = computeDerivedStats(character);
+  showToast(`You have become a ${CLASSES[classId].name}!`, 'success');
+  persist();
+  renderAll();
 }
 
 function handleAssignActivity(activityId) {
@@ -98,7 +95,9 @@ function runSpar() {
     rewardsSummary = `+${activity.rewards.xp}xp, +${activity.rewards.gold}g${lootLine}`;
     if (levelResult.leveledUp) {
       showToast(`Level up! Now level ${character.level}.`, 'success');
+      notifyIfClassAdvancementAvailable();
     }
+    notifyGainedTraits(levelResult.gainedTraits);
   } else if (result.outcome === 'loss') {
     character.derived.hp = Math.max(1, result.heroHpRemaining);
     const goldLoss = Math.min(character.currency.gold, 5);
@@ -113,9 +112,20 @@ function runSpar() {
     onClose: () => {
       persist();
       renderAll();
-      maybePromptClassChoice();
     }
   });
+}
+
+function notifyIfClassAdvancementAvailable() {
+  if (isClassAdvancementAvailable(character)) {
+    showToast('Class advancement available — check the Class panel.', 'success');
+  }
+}
+
+function notifyGainedTraits(gainedTraits) {
+  for (const def of gainedTraits || []) {
+    showToast(`New trait discovered: ${def.name}!`, 'success');
+  }
 }
 
 function handleEquip(instanceId) {
@@ -149,8 +159,9 @@ function tickLoop() {
     renderAll();
     if (summary.leveledUp) {
       showToast(`Level up! Now level ${character.level}.`, 'success');
-      maybePromptClassChoice();
+      notifyIfClassAdvancementAvailable();
     }
+    notifyGainedTraits(summary.gainedTraits);
   } else {
     renderActivityPanel(character, { onAssign: handleAssignActivity, onCancel: handleCancelActivity });
   }
@@ -207,7 +218,6 @@ function boot() {
     if (idleSummary && idleSummary.cycles > 0) {
       showToast(`While you were away: +${Math.round(idleSummary.xp)}xp, +${Math.round(idleSummary.gold)}g`, 'success');
     }
-    maybePromptClassChoice();
   } else {
     character = generateCharacter();
     showFirstRunScreen(character);
@@ -215,11 +225,12 @@ function boot() {
 
   document.getElementById('startOverBtn').addEventListener('click', handleStartOver);
   document.getElementById('levelUpBtn').addEventListener('click', () => {
-    addXp(character, character.xpToNext);
+    const levelResult = addXp(character, character.xpToNext);
     character.derived = computeDerivedStats(character);
     persist();
     renderAll();
-    maybePromptClassChoice();
+    notifyIfClassAdvancementAvailable();
+    notifyGainedTraits(levelResult.gainedTraits);
   });
 
   setInterval(tickLoop, 1000);

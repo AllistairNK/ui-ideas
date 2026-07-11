@@ -1,4 +1,4 @@
-import { CLASSES, CLASS_CHOICES, SECRET_CLASS_IDS } from '../data/classes.js';
+import { CLASSES, CLASS_CHOICES, CLASS_CHOICE_LEVEL, SECRET_CLASS_IDS } from '../data/classes.js';
 import { HIDDEN_TRAITS } from '../data/traits.js';
 
 function meetsAttributeReqs(character, reqs) {
@@ -24,9 +24,31 @@ function revealTraits(character, visibleSecretClassIds) {
   }
 }
 
-export function showClassChoiceModal(character, onChoose) {
-  const root = document.getElementById('classChoiceModal');
+export function isClassAdvancementAvailable(character) {
+  return character.class === 'peasant' && character.level >= CLASS_CHOICE_LEVEL;
+}
+
+export function renderClassPanel(character, { onChoose }) {
+  const root = document.getElementById('classPanel');
   if (!root) return;
+
+  if (character.class !== 'peasant') {
+    const def = CLASSES[character.class];
+    root.innerHTML = `
+      <div class="panel-title">Class</div>
+      <div class="sheet-sub">${def.name}</div>
+      <div class="sheet-flavor">Your path is chosen.</div>
+    `;
+    return;
+  }
+
+  if (character.level < CLASS_CHOICE_LEVEL) {
+    root.innerHTML = `
+      <div class="panel-title">Class Advancement</div>
+      <div class="sheet-flavor">Unlocks at level ${CLASS_CHOICE_LEVEL} (currently level ${character.level}).</div>
+    `;
+    return;
+  }
 
   const secretClassIds = getEligibleSecretClasses(character);
   revealTraits(character, secretClassIds);
@@ -53,23 +75,13 @@ export function showClassChoiceModal(character, onChoose) {
       </button>`;
   }).join('');
 
-  const options = mainlineOptions + secretOptions;
-
   root.innerHTML = `
-    <div class="modal-backdrop">
-      <div class="modal-box">
-        <div class="modal-title">Choose Your Path</div>
-        <div class="class-choice-list">${options}</div>
-      </div>
-    </div>
+    <div class="panel-title">Class Advancement</div>
+    <div class="sheet-flavor">Advance whenever you're ready. No rush.</div>
+    <div class="class-choice-list">${mainlineOptions}${secretOptions}</div>
   `;
-  root.classList.remove('hidden');
 
   root.querySelectorAll('[data-class]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      root.classList.add('hidden');
-      root.innerHTML = '';
-      onChoose(btn.dataset.class);
-    });
+    btn.addEventListener('click', () => onChoose(btn.dataset.class));
   });
 }

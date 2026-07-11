@@ -79,6 +79,23 @@ export function rollHiddenTraits(attributes) {
   return weightedSample(eligible, count).map((t) => ({ id: t.id, discovered: false }));
 }
 
+// Grants any trait whose requirement is currently met but not yet owned.
+// Called whenever attributes change, so secret-class traits (and their
+// classes) become reachable through stat growth, not just the initial roll.
+export function grantEligibleTraits(character) {
+  character.traits = character.traits || [];
+  const owned = new Set(character.traits.map((t) => t.id));
+  const gained = [];
+  for (const def of Object.values(HIDDEN_TRAITS)) {
+    if (owned.has(def.id)) continue;
+    if (def.requirement(character.attributes)) {
+      character.traits.push({ id: def.id, discovered: true });
+      gained.push(def);
+    }
+  }
+  return gained;
+}
+
 export function sumTraitBonuses(character) {
   const totals = {};
   for (const trait of character.traits || []) {

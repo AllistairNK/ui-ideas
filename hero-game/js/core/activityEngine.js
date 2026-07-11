@@ -36,9 +36,10 @@ function applyOneCycle(character, activity) {
   character.derived.stamina = Math.max(0, character.derived.stamina - activity.costs.stamina);
   character.currency.gold = Math.max(0, character.currency.gold - activity.costs.gold);
 
+  let gainedTraits = [];
   const rewards = activity.rewards;
   if (rewards.attributeTraining && Object.keys(rewards.attributeTraining).length) {
-    applyAttributeTraining(character, rewards.attributeTraining);
+    gainedTraits = gainedTraits.concat(applyAttributeTraining(character, rewards.attributeTraining));
   }
   if (rewards.staminaDelta) {
     character.derived.stamina = Math.min(character.derived.maxStamina, character.derived.stamina + rewards.staminaDelta);
@@ -48,9 +49,9 @@ function applyOneCycle(character, activity) {
   }
   character.currency.gold += rewards.gold || 0;
 
-  let levelUpResult = { leveledUp: false, levelsGained: 0 };
+  let levelUpResult = { leveledUp: false, levelsGained: 0, gainedTraits: [] };
   if (rewards.xp) levelUpResult = addXp(character, rewards.xp);
-  return levelUpResult;
+  return { ...levelUpResult, gainedTraits: gainedTraits.concat(levelUpResult.gainedTraits) };
 }
 
 // Called on a ~1s tick while an activity is assigned. Returns a summary of
@@ -64,7 +65,7 @@ export function tickActivity(character, now = Date.now()) {
   const cyclesCompleted = Math.floor(elapsedMs / (activity.durationSeconds * 1000));
   if (cyclesCompleted <= 0) return null;
 
-  const summary = { activityId: activity.id, cycles: 0, xp: 0, gold: 0, leveledUp: false, levelsGained: 0 };
+  const summary = { activityId: activity.id, cycles: 0, xp: 0, gold: 0, leveledUp: false, levelsGained: 0, gainedTraits: [] };
   for (let i = 0; i < cyclesCompleted; i++) {
     const check = canStartActivity(character, activity.id);
     if (!check.ok) break;
@@ -76,6 +77,7 @@ export function tickActivity(character, now = Date.now()) {
       summary.leveledUp = true;
       summary.levelsGained += result.levelsGained;
     }
+    summary.gainedTraits = summary.gainedTraits.concat(result.gainedTraits);
   }
   character.activity.startedAt += summary.cycles * activity.durationSeconds * 1000;
   if (summary.cycles === 0) character.activity = null; // couldn't afford another cycle

@@ -1,7 +1,7 @@
 import { NAME_POOL, BACKGROUNDS } from '../data/names.js';
 import { CLASSES } from '../data/classes.js';
 import { sumEquipmentBonuses } from './equipment.js';
-import { rollHiddenTraits, sumTraitBonuses } from '../data/traits.js';
+import { rollHiddenTraits, sumTraitBonuses, grantEligibleTraits } from '../data/traits.js';
 
 let nextInstanceId = 1;
 export function newInstanceId() {
@@ -85,10 +85,11 @@ export function computeDerivedStats(character) {
   };
 }
 
-// Returns { leveledUp: boolean, levelsGained: number }
+// Returns { leveledUp: boolean, levelsGained: number, gainedTraits: array }
 export function addXp(character, amount) {
   character.xp += amount;
   let levelsGained = 0;
+  let gainedTraits = [];
   while (character.xp >= character.xpToNext) {
     character.xp -= character.xpToNext;
     character.level += 1;
@@ -97,16 +98,19 @@ export function addXp(character, amount) {
     for (const attr of Object.keys(character.attributes)) {
       character.attributes[attr] += 1;
     }
+    gainedTraits = gainedTraits.concat(grantEligibleTraits(character));
     character.derived = computeDerivedStats(character);
     character.derived.hp = character.derived.maxHp;
     character.derived.stamina = character.derived.maxStamina;
   }
-  return { leveledUp: levelsGained > 0, levelsGained };
+  return { leveledUp: levelsGained > 0, levelsGained, gainedTraits };
 }
 
 export function applyAttributeTraining(character, attributeTraining) {
   for (const [attr, amount] of Object.entries(attributeTraining || {})) {
     character.attributes[attr] = (character.attributes[attr] || 0) + amount;
   }
+  const gainedTraits = grantEligibleTraits(character);
   character.derived = computeDerivedStats(character);
+  return gainedTraits;
 }
