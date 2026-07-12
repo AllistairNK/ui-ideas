@@ -38,6 +38,16 @@ export const HIDDEN_TRAITS = {
     weight: 2,
     statBonuses: { critChance: 3 }
   },
+  clockworkMind: {
+    id: 'clockworkMind',
+    name: 'Clockwork Mind',
+    flavor: 'Gears turn behind your eyes -- you see the mechanism inside every problem.',
+    tags: ['tinkerer'],
+    secretClass: 'tinkerer',
+    requirement: (a) => a.intellect >= 6 && a.agility >= 6,
+    weight: 2,
+    statBonuses: { attack: 2, critChance: 2 }
+  },
   ironLungs: {
     id: 'ironLungs',
     name: 'Iron Lungs',

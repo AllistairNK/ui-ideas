@@ -64,9 +64,19 @@ export const CLASSES = {
     statScaling: { attack: 0.7, defense: 0.4, magicPower: 0.2, critChance: 1.4 },
     allowedWeaponTypes: ['dagger', 'bow'],
     bonusActivityIds: []
+  },
+  tinkerer: {
+    id: 'tinkerer',
+    name: 'Tinkerer',
+    unlockLevel: 5,
+    unlockAttributeReqs: { intellect: 6, agility: 6 },
+    requiredTrait: 'clockworkMind',
+    statScaling: { attack: 0.6, defense: 0.5, magicPower: 0.6, critChance: 0.7 },
+    allowedWeaponTypes: ['dagger', 'bow', 'staff'],
+    bonusActivityIds: ['study']
   }
 };
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'tinkerer'];
