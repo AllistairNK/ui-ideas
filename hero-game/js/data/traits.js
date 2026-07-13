@@ -38,6 +38,16 @@ export const HIDDEN_TRAITS = {
     weight: 2,
     statBonuses: { critChance: 3 }
   },
+  clockworkMind: {
+    id: 'clockworkMind',
+    name: 'Clockwork Mind',
+    flavor: 'Gears turn behind your eyes -- you see the mechanism inside every problem.',
+    tags: ['tinkerer'],
+    secretClass: 'tinkerer',
+    requirement: (a) => a.intellect >= 6 && a.agility >= 6,
+    weight: 2,
+    statBonuses: { attack: 2, critChance: 2 }
+  },
   ironLungs: {
     id: 'ironLungs',
     name: 'Iron Lungs',
@@ -77,6 +87,23 @@ export function rollHiddenTraits(attributes) {
   if (!eligible.length) return [];
   const count = Math.min(eligible.length, rollTraitCount());
   return weightedSample(eligible, count).map((t) => ({ id: t.id, discovered: false }));
+}
+
+// Grants any trait whose requirement is currently met but not yet owned.
+// Called whenever attributes change, so secret-class traits (and their
+// classes) become reachable through stat growth, not just the initial roll.
+export function grantEligibleTraits(character) {
+  character.traits = character.traits || [];
+  const owned = new Set(character.traits.map((t) => t.id));
+  const gained = [];
+  for (const def of Object.values(HIDDEN_TRAITS)) {
+    if (owned.has(def.id)) continue;
+    if (def.requirement(character.attributes)) {
+      character.traits.push({ id: def.id, discovered: true });
+      gained.push(def);
+    }
+  }
+  return gained;
 }
 
 export function sumTraitBonuses(character) {
