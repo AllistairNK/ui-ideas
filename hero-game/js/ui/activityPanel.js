@@ -1,6 +1,18 @@
 import { ACTIVITIES } from '../data/activities.js';
 import { isActivityUnlocked, canStartActivity } from '../core/activityEngine.js';
 
+// Debug aid: shows which attributes each activity trains, right in the button
+// tooltip. Flip to false before shipping so players discover this on their own.
+const DEBUG_SHOW_ACTIVITY_EFFECTS = true;
+
+function describeActivityEffects(activity) {
+  const parts = Object.entries(activity.rewards.attributeTraining || {})
+    .map(([attr, amount]) => `${attr} +${amount}`);
+  if (activity.rewards.hpDelta) parts.push(`hp +${activity.rewards.hpDelta}`);
+  if (activity.rewards.staminaDelta) parts.push(`stamina +${activity.rewards.staminaDelta}`);
+  return parts.length ? `[DEBUG] Trains: ${parts.join(', ')}` : '';
+}
+
 export function renderActivityPanel(character, handlers) {
   const root = document.getElementById('activityPanel');
   if (!root) return;
@@ -25,10 +37,12 @@ export function renderActivityPanel(character, handlers) {
     const check = canStartActivity(character, activity.id);
     const isCurrent = current && current.id === activity.id;
     const disabled = !unlocked || (!check.ok && !isCurrent);
+    const baseTitle = !unlocked ? 'Locked' : (!check.ok ? check.reason : activity.description);
+    const debugSuffix = DEBUG_SHOW_ACTIVITY_EFFECTS ? ` \n${describeActivityEffects(activity)}` : '';
     return `
       <button type="button" class="activity-btn ${isCurrent ? 'activity-active' : ''}"
         data-action="assign" data-activity="${activity.id}" ${disabled ? 'disabled' : ''}
-        title="${!unlocked ? 'Locked' : (!check.ok ? check.reason : activity.description)}">
+        title="${baseTitle}${debugSuffix}">
         <span class="activity-name">${activity.name}</span>
         <span class="activity-desc">${unlocked ? activity.description : 'Locked'}</span>
       </button>`;

@@ -2,12 +2,22 @@ export const ACTIVITIES = {
   train: {
     id: 'train',
     name: 'Train',
-    description: 'Drill strength and endurance in the yard.',
+    description: 'Build strength and endurance with heavy conditioning work.',
     category: 'training',
     durationSeconds: 20,
     requirements: { minLevel: 1, classWhitelist: null },
     costs: { stamina: 15, gold: 0 },
     rewards: { xp: 8, gold: 0, attributeTraining: { strength: 0.15, vitality: 0.1 }, staminaDelta: 0, lootTableId: null }
+  },
+  footwork: {
+    id: 'footwork',
+    name: 'Footwork',
+    description: 'Run footwork and reflex drills around the yard.',
+    category: 'training',
+    durationSeconds: 20,
+    requirements: { minLevel: 1, classWhitelist: null },
+    costs: { stamina: 15, gold: 0 },
+    rewards: { xp: 8, gold: 0, attributeTraining: { agility: 0.15 }, staminaDelta: 0, lootTableId: null }
   },
   study: {
     id: 'study',
@@ -51,4 +61,4 @@ export const ACTIVITIES = {
   }
 };
 
-export const IDLE_ELIGIBLE_ACTIVITY_IDS = ['train', 'study', 'work', 'rest'];
+export const IDLE_ELIGIBLE_ACTIVITY_IDS = ['train', 'footwork', 'study', 'work', 'rest'];
