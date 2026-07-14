@@ -63,7 +63,7 @@ export function renderClassPanel(character, { onChoose }) {
     root.innerHTML = `
       <div class="panel-title">Class</div>
       <div class="sheet-sub">${def.name}</div>
-      <div class="sheet-flavor">Your path is chosen.</div>
+      <div class="sheet-flavor">${def.flavor || 'Your path is chosen.'}</div>
     `;
     return;
   }

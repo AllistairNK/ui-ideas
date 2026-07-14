@@ -79,8 +79,51 @@ button:hover:not(:disabled) { background: #383842; }
 .gold-row { font-size: 13px; color: #f0d060; }
 
 .traits-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-.trait-chip { background: #2a2a32; border: 1px solid #4a4a56; border-radius: 999px; padding: 4px 10px; font-size: 11px; color: #d8c98a; cursor: default; }
+.trait-chip { position: relative; background: #2a2a32; border: 1px solid #4a4a56; border-radius: 999px; padding: 4px 10px; font-size: 11px; color: #d8c98a; cursor: default; }
 .trait-chip-hidden { color: #888; border-style: dashed; }
+
+.trait-chip[data-tooltip]:hover::after,
+.trait-chip[data-tooltip]:focus::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 9px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #14141a;
+  color: #e8e8ec;
+  border: 1px solid #4a4a56;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+  white-space: normal;
+  width: max-content;
+  max-width: 220px;
+  text-align: left;
+  z-index: 20;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  animation: tooltipIn 0.12s ease-out;
+}
+.trait-chip[data-tooltip]:hover::before,
+.trait-chip[data-tooltip]:focus::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 3px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #4a4a56;
+  z-index: 20;
+}
+@keyframes tooltipIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .trait-chip[data-tooltip]:hover::after, .trait-chip[data-tooltip]:focus::after { animation: none; }
+}
 
 /* --- pet view --- */
 .pet-stage { text-align: center; }
@@ -114,6 +157,40 @@ button:hover:not(:disabled) { background: #383842; }
 .activity-name { font-weight: 600; font-size: 13px; }
 .activity-desc { font-size: 11px; color: #999; }
 .activity-active { border-color: #7ac96f; }
+
+.activity-branch {
+  display: grid; gap: 8px;
+  padding: 8px; border-radius: 8px;
+  border: 1px dashed #444;
+  background: rgba(255, 255, 255, 0.03);
+  animation: branchExpand 0.16s ease-out;
+}
+.branch-back {
+  flex-direction: row; align-items: center; gap: 6px;
+  color: #999; font-size: 12px; padding: 4px 10px;
+  border-style: dashed;
+}
+.activity-branch .activity-btn {
+  animation: branchItemIn 0.18s ease-out backwards;
+}
+.activity-branch .activity-btn:nth-child(1) { animation-delay: 0s; }
+.activity-branch .activity-btn:nth-child(2) { animation-delay: 0.03s; }
+.activity-branch .activity-btn:nth-child(3) { animation-delay: 0.06s; }
+.activity-branch .activity-btn:nth-child(4) { animation-delay: 0.09s; }
+.activity-branch .activity-btn:nth-child(5) { animation-delay: 0.12s; }
+
+@keyframes branchExpand {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes branchItemIn {
+  from { opacity: 0; transform: translateX(-6px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .activity-branch, .activity-branch .activity-btn { animation: none; }
+}
 
 /* --- inventory / equipment --- */
 .equip-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-bottom: 14px; }

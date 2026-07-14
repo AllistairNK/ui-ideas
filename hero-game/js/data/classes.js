@@ -2,6 +2,7 @@ export const CLASSES = {
   peasant: {
     id: 'peasant',
     name: 'Peasant',
+    flavor: 'No trade, no title -- just grit and whatever the day demands.',
     unlockLevel: 1,
     unlockAttributeReqs: null,
     statScaling: { attack: 0.6, defense: 0.5, magicPower: 0.4, critChance: 0.4 },
@@ -11,6 +12,7 @@ export const CLASSES = {
   fighter: {
     id: 'fighter',
     name: 'Fighter',
+    flavor: 'Steel, muscle, and the will to close the distance -- you fight so others don\'t have to.',
     unlockLevel: 5,
     unlockAttributeReqs: { strength: 6 },
     statScaling: { attack: 1.1, defense: 0.9, magicPower: 0.2, critChance: 0.5 },
@@ -20,6 +22,7 @@ export const CLASSES = {
   mage: {
     id: 'mage',
     name: 'Mage',
+    flavor: 'Theory made real -- you bend the world through study most would find unreadable.',
     unlockLevel: 5,
     unlockAttributeReqs: { intellect: 6 },
     statScaling: { attack: 0.3, defense: 0.4, magicPower: 1.2, critChance: 0.5 },
@@ -29,6 +32,7 @@ export const CLASSES = {
   rogue: {
     id: 'rogue',
     name: 'Rogue',
+    flavor: 'Quick hands, quicker feet -- you win fights before anyone notices they started.',
     unlockLevel: 5,
     unlockAttributeReqs: { agility: 6 },
     statScaling: { attack: 0.9, defense: 0.5, magicPower: 0.3, critChance: 1.1 },
@@ -38,6 +42,7 @@ export const CLASSES = {
   battlemage: {
     id: 'battlemage',
     name: 'Battlemage',
+    flavor: 'Blade in one hand, spell in the other -- your luck and your learning found each other.',
     unlockLevel: 5,
     unlockAttributeReqs: { strength: 6, intellect: 6 },
     requiredTrait: 'arcaneFortune',
@@ -48,6 +53,7 @@ export const CLASSES = {
   warden: {
     id: 'warden',
     name: 'Warden',
+    flavor: 'Where others break, you set like stone -- an immovable line nothing gets past.',
     unlockLevel: 5,
     unlockAttributeReqs: { strength: 6, vitality: 7 },
     requiredTrait: 'stonewoken',
@@ -58,6 +64,7 @@ export const CLASSES = {
   trickster: {
     id: 'trickster',
     name: 'Trickster',
+    flavor: 'Every fight has an opening -- you just happen to see all of them.',
     unlockLevel: 5,
     unlockAttributeReqs: { agility: 6, luck: 6 },
     requiredTrait: 'silverTongue',
@@ -68,6 +75,7 @@ export const CLASSES = {
   novicemechanic: {
     id: 'novicemechanic',
     name: 'Novice Mechanic',
+    flavor: 'Gears and grease over spellbooks -- you\'re still learning the trade, but the mechanism makes sense to you.',
     unlockLevel: 5,
     unlockAttributeReqs: { intellect: 6, agility: 6 },
     requiredTrait: 'clockworkMind',
@@ -79,6 +87,7 @@ export const CLASSES = {
   engineer: {
     id: 'engineer',
     name: 'Engineer',
+    flavor: 'The apprenticeship is behind you -- now you build the machines, instead of just fixing them.',
     tier: 2,
     evolvesFrom: 'novicemechanic',
     statScaling: { attack: 0.8, defense: 0.6, magicPower: 0.8, critChance: 0.9 },

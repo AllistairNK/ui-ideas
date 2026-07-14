@@ -49,6 +49,10 @@ export function renderCharacterSheet(character) {
   `;
 }
 
+function escapeAttr(str) {
+  return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+}
+
 function renderTraitsRow(character) {
   const traits = character.traits || [];
   if (!traits.length) return '';
@@ -59,11 +63,11 @@ function renderTraitsRow(character) {
   const chips = discovered.map((t) => {
     const def = HIDDEN_TRAITS[t.id];
     if (!def) return '';
-    return `<span class="trait-chip" title="${def.flavor}">${def.name}</span>`;
+    return `<span class="trait-chip" tabindex="0" data-tooltip="${escapeAttr(def.flavor)}">${def.name}</span>`;
   }).join('');
 
   const hiddenChip = hiddenCount > 0
-    ? `<span class="trait-chip trait-chip-hidden">? ${hiddenCount} hidden trait${hiddenCount > 1 ? 's' : ''} sensed</span>`
+    ? `<span class="trait-chip trait-chip-hidden" tabindex="0" data-tooltip="A trait you possess but haven't discovered yet. Keep playing to reveal it.">? ${hiddenCount} hidden trait${hiddenCount > 1 ? 's' : ''} sensed</span>`
     : '';
 
   return `

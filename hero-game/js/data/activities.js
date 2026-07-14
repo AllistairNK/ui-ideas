@@ -29,6 +29,18 @@ export const ACTIVITIES = {
     costs: { stamina: 15, gold: 0 },
     rewards: { xp: 8, gold: 0, attributeTraining: { intellect: 0.2 }, staminaDelta: 0, lootTableId: null }
   },
+  apprentice_factory: {
+    id: 'apprentice_factory',
+    name: 'Factory Apprentice',
+    branchId: 'apprentice',
+    branchLabel: 'Factory',
+    description: 'Take on apprentice work at the factory, picking up practical technical knowledge.',
+    category: 'training',
+    durationSeconds: 20,
+    requirements: { minLevel: 1, classWhitelist: null },
+    costs: { stamina: 15, gold: 0 },
+    rewards: { xp: 8, gold: 2, attributeTraining: { intellect: 0.15, agility: 0.1 }, staminaDelta: 0, lootTableId: null }
+  },
   work: {
     id: 'work',
     name: 'Work',
@@ -61,4 +73,16 @@ export const ACTIVITIES = {
   }
 };
 
-export const IDLE_ELIGIBLE_ACTIVITY_IDS = ['train', 'footwork', 'study', 'work', 'rest'];
+export const IDLE_ELIGIBLE_ACTIVITY_IDS = ['train', 'footwork', 'study', 'apprentice_factory', 'work', 'rest'];
+
+// A branch groups several concrete activities (variantIds, each a real entry
+// in ACTIVITIES) behind one sponsor-choice menu in the UI. Add more
+// variantIds here as new apprenticeship sponsors (store, job, person) are built.
+export const ACTIVITY_BRANCHES = {
+  apprentice: {
+    id: 'apprentice',
+    name: 'Apprentice',
+    description: 'Take on apprentice work under a sponsor.',
+    variantIds: ['apprentice_factory']
+  }
+};
