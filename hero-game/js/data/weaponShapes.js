@@ -143,6 +143,48 @@ export const WEAPONS = {
       c.closePath();
       c.fill();
     }
+  },
+  gauntlet: {
+    name: 'Gauntlet',
+    draw(c, W, H) {
+      const cx = W / 2;
+      c.fillStyle = 'rgb(120,80,50)';
+      c.fillRect(cx - W * 0.1, H * 0.82, W * 0.2, H * 0.12);
+      c.fillStyle = 'rgb(150,153,162)';
+      c.fillRect(cx - W * 0.16, H * 0.34, W * 0.32, H * 0.5);
+      c.fillStyle = 'rgb(110,113,122)';
+      c.fillRect(cx - W * 0.2, H * 0.24, W * 0.4, H * 0.14);
+      c.fillStyle = 'rgb(90,90,100)';
+      for (let i = -1; i <= 1; i++) {
+        c.beginPath();
+        c.arc(cx + i * W * 0.13, H * 0.3, W * 0.045, 0, Math.PI * 2);
+        c.fill();
+      }
+    }
+  },
+  gun: {
+    name: 'Gun',
+    draw(c, W, H) {
+      const cx = W / 2;
+      c.fillStyle = 'rgb(90,90,100)';
+      c.fillRect(cx - W * 0.32, H * 0.42, W * 0.5, H * 0.14);
+      c.fillStyle = 'rgb(60,60,68)';
+      c.fillRect(cx + W * 0.16, H * 0.4, W * 0.12, H * 0.18);
+      c.strokeStyle = 'rgb(150,200,255)';
+      c.lineWidth = Math.max(1, W * 0.02);
+      c.beginPath();
+      c.moveTo(cx - W * 0.3, H * 0.49);
+      c.lineTo(cx - W * 0.05, H * 0.49);
+      c.stroke();
+      c.fillStyle = 'rgb(120,80,50)';
+      c.beginPath();
+      c.moveTo(cx - W * 0.18, H * 0.56);
+      c.lineTo(cx - W * 0.05, H * 0.56);
+      c.lineTo(cx - W * 0.08, H * 0.86);
+      c.lineTo(cx - W * 0.2, H * 0.86);
+      c.closePath();
+      c.fill();
+    }
   }
 };
 

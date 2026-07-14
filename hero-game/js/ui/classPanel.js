@@ -51,7 +51,7 @@ export function renderClassPanel(character, { onChoose }) {
         <div class="class-choice-list">
           <button type="button" class="class-choice-btn" data-class="${nextDef.id}">
             <span class="class-choice-name">${nextDef.name}</span>
-            <span class="class-choice-req">Tier 2 advancement</span>
+            <span class="class-choice-req">${nextDef.tier === 6 ? 'Godhood' : `Tier ${nextDef.tier} advancement`}</span>
           </button>
         </div>
       `;

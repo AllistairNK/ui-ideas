@@ -82,8 +82,9 @@ button:hover:not(:disabled) { background: #383842; }
 .trait-chip { position: relative; background: #2a2a32; border: 1px solid #4a4a56; border-radius: 999px; padding: 4px 10px; font-size: 11px; color: #d8c98a; cursor: default; }
 .trait-chip-hidden { color: #888; border-style: dashed; }
 
-.trait-chip[data-tooltip]:hover::after,
-.trait-chip[data-tooltip]:focus::after {
+[data-tooltip] { position: relative; }
+[data-tooltip]:hover::after,
+[data-tooltip]:focus::after {
   content: attr(data-tooltip);
   position: absolute;
   bottom: calc(100% + 9px);
@@ -97,7 +98,7 @@ button:hover:not(:disabled) { background: #383842; }
   font-size: 11px;
   font-weight: 400;
   line-height: 1.4;
-  white-space: normal;
+  white-space: pre-line;
   width: max-content;
   max-width: 220px;
   text-align: left;
@@ -106,8 +107,8 @@ button:hover:not(:disabled) { background: #383842; }
   pointer-events: none;
   animation: tooltipIn 0.12s ease-out;
 }
-.trait-chip[data-tooltip]:hover::before,
-.trait-chip[data-tooltip]:focus::before {
+[data-tooltip]:hover::before,
+[data-tooltip]:focus::before {
   content: '';
   position: absolute;
   bottom: calc(100% + 3px);
@@ -122,7 +123,7 @@ button:hover:not(:disabled) { background: #383842; }
   to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .trait-chip[data-tooltip]:hover::after, .trait-chip[data-tooltip]:focus::after { animation: none; }
+  [data-tooltip]:hover::after, [data-tooltip]:focus::after { animation: none; }
 }
 
 /* --- pet view --- */

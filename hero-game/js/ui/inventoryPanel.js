@@ -3,9 +3,16 @@ import { renderItemIconDataUrl } from '../core/itemIcon.js';
 
 const SLOT_ORDER = ['weapon', 'offhand', 'head', 'body', 'hands', 'legs', 'accessory'];
 
+function escapeAttr(str) {
+  return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+}
+
 function itemTooltip(template) {
   const bonuses = Object.entries(template.statBonuses || {}).map(([k, v]) => `${k} +${v}`).join(', ');
-  return `${template.name} (${template.rarity})\n${bonuses}`;
+  const parts = [`${template.name} (${template.rarity})`];
+  if (template.flavor) parts.push(template.flavor);
+  parts.push(bonuses);
+  return escapeAttr(parts.join('\n'));
 }
 
 export function renderInventoryPanel(character, handlers) {
@@ -17,7 +24,7 @@ export function renderInventoryPanel(character, handlers) {
     const template = instance ? ITEM_TEMPLATES[instance.templateId] : null;
     const iconUrl = template ? renderItemIconDataUrl(template.id, 48) : '';
     return `
-      <div class="equip-slot" data-slot="${slot}" title="${template ? itemTooltip(template) : slot}">
+      <div class="equip-slot" data-slot="${slot}" tabindex="0" data-tooltip="${template ? itemTooltip(template) : slot}">
         <div class="slot-label">${slot}</div>
         ${template ? `<img src="${iconUrl}" class="item-icon" data-action="unequip" data-slot="${slot}" />` : '<div class="slot-empty">-</div>'}
       </div>`;
@@ -28,7 +35,7 @@ export function renderInventoryPanel(character, handlers) {
     if (!template) return '';
     const iconUrl = renderItemIconDataUrl(template.id, 48);
     return `
-      <div class="inv-item" data-action="equip" data-instance="${instance.instanceId}" title="${itemTooltip(template)}">
+      <div class="inv-item" data-action="equip" data-instance="${instance.instanceId}" tabindex="0" data-tooltip="${itemTooltip(template)}">
         <img src="${iconUrl}" class="item-icon" />
       </div>`;
   }).join('');
@@ -37,7 +44,7 @@ export function renderInventoryPanel(character, handlers) {
     const template = ITEM_TEMPLATES[itemId];
     const iconUrl = renderItemIconDataUrl(itemId, 40);
     return `
-      <div class="shop-item" data-action="buy" data-item="${itemId}" title="${itemTooltip(template)}">
+      <div class="shop-item" data-action="buy" data-item="${itemId}" tabindex="0" data-tooltip="${itemTooltip(template)}">
         <img src="${iconUrl}" class="item-icon" />
         <span class="shop-price">${template.value}g</span>
       </div>`;
