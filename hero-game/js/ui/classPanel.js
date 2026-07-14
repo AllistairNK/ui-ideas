@@ -24,8 +24,15 @@ function revealTraits(character, visibleSecretClassIds) {
   }
 }
 
+function getAvailableEvolution(character) {
+  const def = CLASSES[character.class];
+  if (!def || !def.evolution) return null;
+  return character.level >= def.evolution.unlockLevel ? def.evolution : null;
+}
+
 export function isClassAdvancementAvailable(character) {
-  return character.class === 'peasant' && character.level >= CLASS_CHOICE_LEVEL;
+  if (character.class === 'peasant') return character.level >= CLASS_CHOICE_LEVEL;
+  return !!getAvailableEvolution(character);
 }
 
 export function renderClassPanel(character, { onChoose }) {
@@ -34,6 +41,25 @@ export function renderClassPanel(character, { onChoose }) {
 
   if (character.class !== 'peasant') {
     const def = CLASSES[character.class];
+    const evolution = getAvailableEvolution(character);
+    if (evolution) {
+      const nextDef = CLASSES[evolution.classId];
+      root.innerHTML = `
+        <div class="panel-title">Class Advancement</div>
+        <div class="sheet-sub">${def.name}</div>
+        <div class="sheet-flavor">You've grown beyond your training.</div>
+        <div class="class-choice-list">
+          <button type="button" class="class-choice-btn" data-class="${nextDef.id}">
+            <span class="class-choice-name">${nextDef.name}</span>
+            <span class="class-choice-req">Tier 2 advancement</span>
+          </button>
+        </div>
+      `;
+      root.querySelectorAll('[data-class]').forEach((btn) => {
+        btn.addEventListener('click', () => onChoose(btn.dataset.class));
+      });
+      return;
+    }
     root.innerHTML = `
       <div class="panel-title">Class</div>
       <div class="sheet-sub">${def.name}</div>

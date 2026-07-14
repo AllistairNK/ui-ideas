@@ -65,13 +65,23 @@ export const CLASSES = {
     allowedWeaponTypes: ['dagger', 'bow'],
     bonusActivityIds: []
   },
-  tinkerer: {
-    id: 'tinkerer',
-    name: 'Tinkerer',
+  novicemechanic: {
+    id: 'novicemechanic',
+    name: 'Novice Mechanic',
     unlockLevel: 5,
     unlockAttributeReqs: { intellect: 6, agility: 6 },
     requiredTrait: 'clockworkMind',
     statScaling: { attack: 0.6, defense: 0.5, magicPower: 0.6, critChance: 0.7 },
+    allowedWeaponTypes: ['dagger', 'bow', 'staff'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'engineer', unlockLevel: 15 }
+  },
+  engineer: {
+    id: 'engineer',
+    name: 'Engineer',
+    tier: 2,
+    evolvesFrom: 'novicemechanic',
+    statScaling: { attack: 0.8, defense: 0.6, magicPower: 0.8, critChance: 0.9 },
     allowedWeaponTypes: ['dagger', 'bow', 'staff'],
     bonusActivityIds: ['study']
   }
@@ -79,4 +89,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'tinkerer'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic'];

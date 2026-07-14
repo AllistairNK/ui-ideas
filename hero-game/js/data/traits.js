@@ -42,8 +42,8 @@ export const HIDDEN_TRAITS = {
     id: 'clockworkMind',
     name: 'Clockwork Mind',
     flavor: 'Gears turn behind your eyes -- you see the mechanism inside every problem.',
-    tags: ['tinkerer'],
-    secretClass: 'tinkerer',
+    tags: ['novicemechanic'],
+    secretClass: 'novicemechanic',
     requirement: (a) => a.intellect >= 6 && a.agility >= 6,
     weight: 2,
     statBonuses: { attack: 2, critChance: 2 }
