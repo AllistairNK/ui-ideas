@@ -4,11 +4,16 @@ import { ACTIVITIES } from '../data/activities.js';
 import { createPetAIState, tickPetAI, createBall, tickBall, isBallCaught, GROUND_INSET } from '../core/petAI.js';
 import { loadDots, stepAndDrawParticles, PARTICLE_MODES } from './petParticleBg.js';
 
-const BG_IMAGE_SRC = '../../assets/images/backgrounds/autumn%20trees.png';
+const BACKGROUNDS = [
+  { id: 'autumn', label: 'Autumn', src: '../../assets/images/backgrounds/autumn%20trees.png' },
+  { id: 'winter', label: 'Winter', src: '../../assets/images/backgrounds/winter%20cliffs.png' },
+  { id: 'courtyard', label: 'Courtyard', src: '../../assets/images/backgrounds/chinese%20courtyard.png' }
+];
 const BG_SPACING_MIN = 3;
 const BG_SPACING_MAX = 20;
 const BG_SPACING_DEFAULT = 5;
 const BG_MODE_LABELS = { dots: 'Static', waves: 'Waves', flames: 'Flicker', snow: 'Snow' };
+const LEAF_THEME_CLASS = { autumn: 'leaf-autumn', winter: 'leaf-snow', courtyard: 'leaf-maple' };
 
 const REACTIONS = [
   "Not now, I'm busy.", "Hm?", "*nods*", "Feels good.",
@@ -44,6 +49,7 @@ let rafId = null;
 let lastFrameAt = null;
 let activePetCharacter = null;
 let bgDots = null; // sampled once per stage size/spacing, cached inside petParticleBg
+let bgImageId = BACKGROUNDS[0].id;
 let bgMode = 'dots';
 let bgSpacing = BG_SPACING_DEFAULT;
 let bgHoverEnabled = false;
@@ -144,14 +150,21 @@ function showBubble(root, text) {
 
 const LEAF_COUNT = 7;
 
-function renderSceneBackground() {
+function renderSceneBackground(themeClass) {
   return Array.from({ length: LEAF_COUNT }, (_, i) => {
     const left = 6 + (i * (88 / (LEAF_COUNT - 1)));
     const duration = 6 + (i % 4) * 1.5;
     const delay = -(i * 1.7);
     const drift = i % 2 === 0 ? 26 : -22;
-    return `<div class="pet-leaf" style="left:${left}%; animation-duration:${duration}s; animation-delay:${delay}s; --leaf-drift:${drift}px;"></div>`;
+    return `<div class="pet-leaf ${themeClass}" style="left:${left}%; animation-duration:${duration}s; animation-delay:${delay}s; --leaf-drift:${drift}px;"></div>`;
   }).join('');
+}
+
+function applyLeafTheme(stageEl, themeClass) {
+  for (const el of stageEl.querySelectorAll('.pet-leaf')) {
+    for (const cls of Object.values(LEAF_THEME_CLASS)) el.classList.remove(cls);
+    el.classList.add(themeClass);
+  }
 }
 
 function stageBounds(stageEl) {
@@ -227,7 +240,7 @@ export function renderPetView(character, handlers) {
   root.innerHTML = `
     <div class="pet-stage" id="petStage">
       <canvas class="pet-bg-canvas" id="petBgCanvas"></canvas>
-      ${renderSceneBackground()}
+      ${renderSceneBackground(LEAF_THEME_CLASS[bgImageId])}
       <div class="pet-ground" id="petGround"></div>
       <div class="pet-sprite" id="petSprite" title="${character.name} - ${statusText}">
         <div class="pet-anim-inner"></div>
@@ -237,10 +250,15 @@ export function renderPetView(character, handlers) {
         ${PARTICLE_MODES.map(m => `<button type="button" class="pet-bg-mode-btn${m === bgMode ? ' active' : ''}" data-mode="${m}">${BG_MODE_LABELS[m]}</button>`).join('')}
       </div>
       <div class="pet-bg-controls" id="petBgControls">
-        <button type="button" class="pet-bg-mode-btn${bgHoverEnabled ? ' active' : ''}" id="petBgHoverToggle">Hover</button>
-        <label class="pet-bg-density">Density
-          <input type="range" id="petBgDensity" min="${BG_SPACING_MIN}" max="${BG_SPACING_MAX}" value="${bgSpacing}">
-        </label>
+        <div class="pet-bg-controls-row">
+          <button type="button" class="pet-bg-mode-btn${bgHoverEnabled ? ' active' : ''}" id="petBgHoverToggle">Hover</button>
+          <label class="pet-bg-density">Density
+            <input type="range" id="petBgDensity" min="${BG_SPACING_MIN}" max="${BG_SPACING_MAX}" value="${bgSpacing}">
+          </label>
+        </div>
+        <div class="pet-bg-controls-row" id="petBgPicker">
+          ${BACKGROUNDS.map(bg => `<button type="button" class="pet-bg-mode-btn${bg.id === bgImageId ? ' active' : ''}" data-bg="${bg.id}">${bg.label}</button>`).join('')}
+        </div>
       </div>
       <div class="pet-status">${statusText}</div>
       <div class="pet-bubble hidden" id="petBubble"></div>
@@ -256,6 +274,7 @@ export function renderPetView(character, handlers) {
   const bgControlsEl = root.querySelector('#petBgControls');
   const bgHoverToggleEl = root.querySelector('#petBgHoverToggle');
   const bgDensityEl = root.querySelector('#petBgDensity');
+  const bgPickerEl = root.querySelector('#petBgPicker');
   const animEl = spriteEl.querySelector('.pet-anim-inner');
 
   groundEl.style.bottom = `${GROUND_INSET}px`;
@@ -264,10 +283,13 @@ export function renderPetView(character, handlers) {
   bgCanvas.width = bounds0.width;
   bgCanvas.height = bounds0.height;
 
+  let bgLoadToken = 0;
   function reloadBgDots() {
     bgDots = null;
-    loadDots(BG_IMAGE_SRC, bgCanvas.width, bgCanvas.height, bgSpacing).then((dots) => {
-      bgDots = dots;
+    const token = ++bgLoadToken;
+    const src = BACKGROUNDS.find(bg => bg.id === bgImageId).src;
+    loadDots(src, bgCanvas.width, bgCanvas.height, bgSpacing).then((dots) => {
+      if (token === bgLoadToken) bgDots = dots;
     });
   }
   reloadBgDots();
@@ -288,6 +310,15 @@ export function renderPetView(character, handlers) {
   bgDensityEl.addEventListener('input', () => {
     bgSpacing = parseInt(bgDensityEl.value, 10);
     reloadBgDots();
+  });
+
+  bgPickerEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('.pet-bg-mode-btn');
+    if (!btn) return;
+    bgImageId = btn.dataset.bg;
+    for (const el of bgPickerEl.querySelectorAll('.pet-bg-mode-btn')) el.classList.toggle('active', el === btn);
+    reloadBgDots();
+    applyLeafTheme(stageEl, LEAF_THEME_CLASS[bgImageId]);
   });
 
   stageEl.addEventListener('mousemove', (e) => {
