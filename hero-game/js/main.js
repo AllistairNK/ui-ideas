@@ -18,6 +18,9 @@ import { showToast } from './ui/toast.js';
 let character = null;
 
 function renderAll() {
+  if (!CLASSES[character.class]) {
+    character.class = 'peasant';
+  }
   document.getElementById('headerName').textContent = character.name;
   document.getElementById('headerClassLevel').textContent = `${CLASSES[character.class].name} · Lv ${character.level}`;
   document.getElementById('headerGold').textContent = `${Math.floor(character.currency.gold)}g`;
