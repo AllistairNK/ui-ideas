@@ -9,6 +9,12 @@ const DEBUG_SHOW_ACTIVITY_EFFECTS = true;
 // since the panel is fully re-rendered on every tick.
 let expandedBranchId = null;
 
+// The default task list is just the slum-themed activities (see
+// STORYLINE.md) -- the older generic Train/Work/Study/etc. set stays hidden
+// until the player opts into it here. Module-level for the same reason as
+// expandedBranchId above.
+let showAllActivities = false;
+
 function describeActivityEffects(activity) {
   const parts = Object.entries(activity.rewards.attributeTraining || {})
     .map(([attr, amount]) => `${attr} +${amount}`);
@@ -78,15 +84,33 @@ export function renderActivityPanel(character, handlers) {
   }
 
   const branchRows = Object.values(ACTIVITY_BRANCHES)
+    .filter((branch) => showAllActivities || branch.theme === 'slums')
     .map((branch) => renderBranchButton(character, branch, current))
     .join('');
 
   const rows = Object.values(ACTIVITIES)
     .filter((activity) => !activity.branchId)
+    .filter((activity) => showAllActivities || activity.theme === 'slums')
+    .filter((activity) => !activity.hidden || isActivityUnlocked(character, activity.id))
     .map((activity) => renderActivityButton(character, activity, current))
     .join('');
 
-  root.innerHTML = `${progressHtml}<div class="activity-list">${branchRows}${rows}</div>`;
+  const toggleHtml = `
+    <label class="activity-toggle-row">
+      <input type="checkbox" id="activityShowAllToggle" ${showAllActivities ? 'checked' : ''}>
+      Show all tasks
+    </label>`;
+
+  // Resting is a standalone toggle, not a slotted activity -- it just boosts
+  // the passive stamina/HP regen (see activityEngine.js) while it's on, and
+  // doesn't block whatever else is currently assigned.
+  const restToggleHtml = `
+    <button type="button" class="activity-btn rest-toggle-btn${character.resting ? ' activity-active' : ''}" data-action="toggle-rest">
+      <span class="activity-name">${character.resting ? 'Resting by the fire' : 'Rest by the fire'}</span>
+      <span class="activity-desc">${character.resting ? 'Stamina and wounds are recovering faster.' : "Sit and let stamina/HP recover faster -- doesn't stop whatever else you're doing."}</span>
+    </button>`;
+
+  root.innerHTML = `${progressHtml}${restToggleHtml}${toggleHtml}<div class="activity-list">${branchRows}${rows}</div>`;
 
   root.querySelectorAll('[data-action="assign"]').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -107,4 +131,13 @@ export function renderActivityPanel(character, handlers) {
   });
   const cancelBtn = root.querySelector('[data-action="cancel"]');
   if (cancelBtn) cancelBtn.addEventListener('click', () => handlers.onCancel());
+
+  const toggleEl = root.querySelector('#activityShowAllToggle');
+  if (toggleEl) toggleEl.addEventListener('change', () => {
+    showAllActivities = toggleEl.checked;
+    renderActivityPanel(character, handlers);
+  });
+
+  const restToggleBtn = root.querySelector('[data-action="toggle-rest"]');
+  if (restToggleBtn) restToggleBtn.addEventListener('click', () => handlers.onToggleRest());
 }

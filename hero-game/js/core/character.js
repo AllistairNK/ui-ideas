@@ -49,8 +49,9 @@ export function generateCharacter() {
     inventory: [],
     currency: { gold: 10 },
     activity: null,
+    resting: false,
     combatLog: [],
-    flags: { unlockedClasses: ['peasant'], tutorialSeen: false }
+    flags: { unlockedClasses: ['peasant'], tutorialSeen: false, foundItemIds: [] }
   };
 
   character.derived = computeDerivedStats(character);

@@ -46,7 +46,14 @@ export const HIDDEN_TRAITS = {
     secretClass: 'novicemechanic',
     requirement: (a) => a.intellect >= 6 && a.agility >= 6,
     weight: 2,
-    statBonuses: { attack: 2, critChance: 2 }
+    statBonuses: { attack: 2, critChance: 2 },
+    // Not eligible for the passive roll/auto-grant below -- this one is only
+    // handed out by finishing the "Tinker with the Cog" activity, which
+    // itself only appears once a Bent Cog turns up from Scavenge. The
+    // attribute requirement above still gates the actual class unlock
+    // (checked separately in classPanel.js), so stats still matter -- this
+    // trait is just the "you noticed the thing" half of it.
+    manualOnly: true
   },
   ironLungs: {
     id: 'ironLungs',
@@ -83,7 +90,7 @@ function weightedSample(candidates, count) {
 }
 
 export function rollHiddenTraits(attributes) {
-  const eligible = Object.values(HIDDEN_TRAITS).filter((t) => t.requirement(attributes));
+  const eligible = Object.values(HIDDEN_TRAITS).filter((t) => !t.manualOnly && t.requirement(attributes));
   if (!eligible.length) return [];
   const count = Math.min(eligible.length, rollTraitCount());
   return weightedSample(eligible, count).map((t) => ({ id: t.id, discovered: false }));
@@ -97,6 +104,7 @@ export function grantEligibleTraits(character) {
   const owned = new Set(character.traits.map((t) => t.id));
   const gained = [];
   for (const def of Object.values(HIDDEN_TRAITS)) {
+    if (def.manualOnly) continue;
     if (owned.has(def.id)) continue;
     if (def.requirement(character.attributes)) {
       character.traits.push({ id: def.id, discovered: true });
@@ -104,6 +112,19 @@ export function grantEligibleTraits(character) {
     }
   }
   return gained;
+}
+
+// For traits that skip the passive requirement-based grant above (see
+// manualOnly) -- called directly by whatever one-off event earns them (e.g.
+// an activity's rewards.grantsTraitId). Returns the trait def if newly
+// granted, or null if already owned / unknown.
+export function grantTrait(character, traitId) {
+  character.traits = character.traits || [];
+  if (character.traits.some((t) => t.id === traitId)) return null;
+  const def = HIDDEN_TRAITS[traitId];
+  if (!def) return null;
+  character.traits.push({ id: traitId, discovered: true });
+  return def;
 }
 
 export function sumTraitBonuses(character) {

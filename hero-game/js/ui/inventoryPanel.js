@@ -86,8 +86,9 @@ export function renderInventoryPanel(character, handlers) {
     const template = ITEM_TEMPLATES[instance.templateId];
     if (!template) return '';
     const iconUrl = renderItemIconDataUrl(template.id, 48);
+    const equipAction = template.questItem ? '' : 'data-action="equip"';
     return `
-      <div class="inv-item" data-action="equip" data-instance="${instance.instanceId}" tabindex="0" ${itemTooltipAttrs(template)}>
+      <div class="inv-item${template.questItem ? ' inv-item-quest' : ''}" ${equipAction} data-instance="${instance.instanceId}" tabindex="0" ${itemTooltipAttrs(template)}>
         <img src="${iconUrl}" class="item-icon" />
       </div>`;
   }).join('');
@@ -111,10 +112,12 @@ export function renderInventoryPanel(character, handlers) {
       const template = ITEM_TEMPLATES[itemId];
       const iconUrl = renderItemIconDataUrl(itemId, 40);
       const owned = ownedTemplateIds.has(itemId);
+      const affordable = character.currency.gold >= template.value;
+      const priceClass = owned ? '' : (affordable ? '' : ' shop-price-unaffordable');
       return `
         <div class="shop-item${owned ? ' shop-item-owned' : ''}" data-action="buy" data-item="${itemId}" tabindex="0" ${itemTooltipAttrs(template)}>
           <img src="${iconUrl}" class="item-icon" />
-          <span class="shop-price">${owned ? 'Owned' : `${template.value}g`}</span>
+          <span class="shop-price${priceClass}">${owned ? 'Owned' : `${template.value}g`}</span>
         </div>`;
     }).join('');
     return `

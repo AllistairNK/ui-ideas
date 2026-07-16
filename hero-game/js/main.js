@@ -1,6 +1,6 @@
 import { generateCharacter, computeDerivedStats, addXp } from './core/character.js';
 import { saveGame, loadGame, clearSave } from './core/save.js';
-import { assignActivity, cancelActivity, tickActivity, computeIdleCatchUp, canStartActivity } from './core/activityEngine.js';
+import { assignActivity, cancelActivity, tickActivity, computeIdleCatchUp, canStartActivity, toggleResting, applyPassiveRegen, MAX_IDLE_CATCHUP_MS } from './core/activityEngine.js';
 import { equipItem, unequipItem, addToInventory, createItemInstance, rollLoot } from './core/equipment.js';
 import { generateOpponent, resolveCombat } from './core/combat.js';
 import { ITEM_TEMPLATES } from './data/items.js';
@@ -29,7 +29,8 @@ function renderAll() {
   renderCharacterSheet(character);
   renderActivityPanel(character, {
     onAssign: handleAssignActivity,
-    onCancel: handleCancelActivity
+    onCancel: handleCancelActivity,
+    onToggleRest: handleToggleRest
   });
   renderInventoryPanel(character, {
     onEquip: handleEquip,
@@ -53,8 +54,8 @@ function handleChooseClass(classId) {
 }
 
 function handleAssignActivity(activityId) {
-  if (activityId === 'spar') {
-    runSpar();
+  if (ACTIVITIES[activityId] && ACTIVITIES[activityId].category === 'combat') {
+    runSpar(activityId);
     return;
   }
   const result = assignActivity(character, activityId);
@@ -72,13 +73,19 @@ function handleCancelActivity() {
   renderAll();
 }
 
-function runSpar() {
-  const check = canStartActivity(character, 'spar');
+function handleToggleRest() {
+  toggleResting(character);
+  persist();
+  renderAll();
+}
+
+function runSpar(activityId) {
+  const check = canStartActivity(character, activityId);
   if (!check.ok) {
     showToast(check.reason, 'error');
     return;
   }
-  const activity = ACTIVITIES.spar;
+  const activity = ACTIVITIES[activityId];
   character.derived.stamina = Math.max(0, character.derived.stamina - activity.costs.stamina);
 
   const opponent = generateOpponent(character.level);
@@ -131,6 +138,13 @@ function notifyGainedTraits(gainedTraits) {
   }
 }
 
+function notifyGainedItems(gainedItems) {
+  for (const item of gainedItems || []) {
+    const template = ITEM_TEMPLATES[item.templateId];
+    if (template) showToast(`Found: ${template.name}`, 'success');
+  }
+}
+
 function handleEquip(instanceId) {
   const ok = equipItem(character, instanceId, computeDerivedStats);
   if (ok) { persist(); renderAll(); }
@@ -161,8 +175,10 @@ function handleBuy(itemId) {
 }
 
 function tickLoop() {
-  if (!character || !character.activity) return;
-  const summary = tickActivity(character);
+  if (!character) return;
+  applyPassiveRegen(character, 1000);
+
+  const summary = character.activity ? tickActivity(character) : null;
   if (summary && summary.cycles > 0) {
     persist();
     renderAll();
@@ -171,8 +187,10 @@ function tickLoop() {
       notifyIfClassAdvancementAvailable();
     }
     notifyGainedTraits(summary.gainedTraits);
+    notifyGainedItems(summary.gainedItems);
   } else {
-    renderActivityPanel(character, { onAssign: handleAssignActivity, onCancel: handleCancelActivity });
+    renderCharacterSheet(character);
+    renderActivityPanel(character, { onAssign: handleAssignActivity, onCancel: handleCancelActivity, onToggleRest: handleToggleRest });
   }
 }
 
@@ -220,12 +238,15 @@ function boot() {
   if (saved && saved.character) {
     character = saved.character;
     character.derived = computeDerivedStats(character);
+    applyPassiveRegen(character, Math.min(Date.now() - saved.lastSavedAt, MAX_IDLE_CATCHUP_MS));
     const idleSummary = computeIdleCatchUp(character, saved.lastSavedAt);
     document.getElementById('app').classList.remove('hidden');
     persist();
     renderAll();
     if (idleSummary && idleSummary.cycles > 0) {
       showToast(`While you were away: +${Math.round(idleSummary.xp)}xp, +${Math.round(idleSummary.gold)}g`, 'success');
+      notifyGainedTraits(idleSummary.gainedTraits);
+      notifyGainedItems(idleSummary.gainedItems);
     }
   } else {
     character = generateCharacter();
@@ -243,7 +264,7 @@ function boot() {
   });
 
   setInterval(tickLoop, 1000);
-  setInterval(() => { if (character && character.activity) persist(); }, 30000);
+  setInterval(() => { if (character && (character.activity || character.resting)) persist(); }, 30000);
   window.addEventListener('visibilitychange', () => { if (document.hidden && character) persist(); });
   window.addEventListener('beforeunload', () => { if (character) persist(); });
 }

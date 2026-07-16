@@ -152,6 +152,11 @@ button:hover:not(:disabled) { background: #383842; }
   width: 4px; height: 4px; border-radius: 50%;
   background: #cbb17a; opacity: 0.6;
 }
+.pet-leaf.leaf-ember {
+  top: auto; bottom: 4px; width: 3px; height: 3px; border-radius: 50%;
+  background: #ff9a3c; box-shadow: 0 0 5px 1px rgba(255, 130, 40, 0.8);
+  animation-name: emberRise; animation-timing-function: ease-out;
+}
 
 .pet-sprite {
   position: absolute; top: 0; left: 0; width: 96px; height: 96px;
@@ -204,6 +209,12 @@ button:hover:not(:disabled) { background: #383842; }
   100% { transform: translate(var(--leaf-drift, 24px), 280px) rotate(340deg); opacity: 0.6; }
 }
 
+@keyframes emberRise {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+  70% { opacity: 0.75; }
+  100% { transform: translate(var(--leaf-drift, 12px), -180px) scale(0.3); opacity: 0; }
+}
+
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 @keyframes swing { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(6deg); } }
 @keyframes work { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(4px); } }
@@ -218,6 +229,11 @@ button:hover:not(:disabled) { background: #383842; }
 
 /* --- activities --- */
 .current-activity { margin-bottom: 12px; display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.activity-toggle-row {
+  display: flex; align-items: center; gap: 6px; margin-bottom: 10px;
+  font-size: 12px; color: #999; cursor: pointer;
+}
+.rest-toggle-btn { width: 100%; margin-bottom: 10px; }
 .activity-list { display: grid; gap: 8px; }
 .activity-btn {
   display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
@@ -270,6 +286,7 @@ button:hover:not(:disabled) { background: #383842; }
 
 .inv-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
 .inv-item { background: #2a2a32; border-radius: 8px; padding: 4px; cursor: pointer; }
+.inv-item-quest { cursor: default; box-shadow: 0 0 0 1px rgba(180, 130, 60, 0.5) inset; }
 .inv-empty { color: #666; font-size: 12px; }
 
 .shop-grid { display: flex; flex-direction: column; gap: 8px; }
@@ -295,6 +312,7 @@ button.shop-tier-toggle:hover { background: #2f2f38; color: #fff; }
 .shop-item-owned { cursor: default; opacity: 0.5; }
 .shop-price { display: block; color: #f0d060; margin-top: 2px; }
 .shop-item-owned .shop-price { color: #888; }
+.shop-price-unaffordable { color: #d9534f; }
 
 /* --- rich item tooltips (support colored HTML, unlike [data-tooltip]) --- */
 .rich-tooltip {

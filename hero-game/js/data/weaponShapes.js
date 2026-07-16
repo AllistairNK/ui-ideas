@@ -246,6 +246,30 @@ export const ARMOR_SHAPES = {
       c.fill();
     }
   },
+  quest: {
+    name: 'Cog',
+    draw(c, W, H) {
+      c.fillStyle = 'rgb(180,130,60)';
+      c.save();
+      c.translate(W / 2, H / 2);
+      const teeth = 8;
+      const outerR = W * 0.34;
+      const innerR = W * 0.24;
+      c.beginPath();
+      for (let i = 0; i < teeth * 2; i++) {
+        const r = i % 2 === 0 ? outerR : outerR * 0.82;
+        const angle = (Math.PI * 2 * i) / (teeth * 2);
+        c.lineTo(Math.cos(angle) * r, Math.sin(angle) * r);
+      }
+      c.closePath();
+      c.fill();
+      c.fillStyle = 'rgb(40,30,20)';
+      c.beginPath();
+      c.arc(0, 0, innerR * 0.4, 0, Math.PI * 2);
+      c.fill();
+      c.restore();
+    }
+  },
   accessory: {
     name: 'Amulet',
     draw(c, W, H) {

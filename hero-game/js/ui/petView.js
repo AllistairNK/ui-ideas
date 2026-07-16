@@ -8,13 +8,14 @@ const BACKGROUNDS = [
   { id: 'autumn', label: 'Autumn', src: '../../assets/images/backgrounds/autumn%20trees.png' },
   { id: 'winter', label: 'Winter', src: '../../assets/images/backgrounds/winter%20cliffs.png' },
   { id: 'courtyard', label: 'Courtyard', src: '../../assets/images/backgrounds/chinese%20courtyard.png' },
-  { id: 'castle', label: 'Castle', src: '../../assets/images/backgrounds/castle%20training.png' }
+  { id: 'castle', label: 'Castle', src: '../../assets/images/backgrounds/castle%20training.png' },
+  { id: 'slums', label: 'Slums', src: '../../assets/images/backgrounds/slums.png' }
 ];
 const BG_SPACING_MIN = 3;
 const BG_SPACING_MAX = 20;
-const BG_SPACING_DEFAULT = 5;
+const BG_SPACING_DEFAULT = 3;
 const BG_MODE_LABELS = { dots: 'Static', waves: 'Waves', flames: 'Flicker', snow: 'Snow' };
-const LEAF_THEME_CLASS = { autumn: 'leaf-autumn', winter: 'leaf-snow', courtyard: 'leaf-maple', castle: 'leaf-dust' };
+const LEAF_THEME_CLASS = { autumn: 'leaf-autumn', winter: 'leaf-snow', courtyard: 'leaf-maple', castle: 'leaf-dust', slums: 'leaf-ember' };
 
 const REACTIONS = [
   "Not now, I'm busy.", "Hm?", "*nods*", "Feels good.",
@@ -37,7 +38,7 @@ const AI_ANIMATION_CLASS = {
 };
 
 const SPRITE_SIZE = 96;
-const FOOT_Y_FRACTION = 0.94; // where the drawn legs end within the canvas -- matches drawBody()
+const FOOT_Y_FRACTION = 1; // sprite image is drawn bottom-anchored, filling the canvas height
 const BALL_SIZE = 14;
 const CATCH_REACTIONS = ["Got it!", "Ha!", "Mine.", "Easy."];
 
@@ -49,19 +50,41 @@ let ballState = null;
 let rafId = null;
 let lastFrameAt = null;
 let activePetCharacter = null;
+let lastHandlers = null;
 let bgDots = null; // sampled once per stage size/spacing, cached inside petParticleBg
-let bgImageId = BACKGROUNDS[0].id;
+let bgImageId = 'slums';
 let bgMode = 'dots';
 let bgSpacing = BG_SPACING_DEFAULT;
 let bgHoverEnabled = false;
 let bgMousePos = null; // stage-local coords, or null when the pointer is outside/absent
 let bgStartedAt = null;
 
+// The hero's sprite art. Loaded once at module scope and re-drawn into every
+// canvas produced by renderSprite() once ready; until then drawBody() falls
+// back to a plain procedural silhouette.
+const characterSpriteImg = new Image();
+let characterSpriteLoaded = false;
+characterSpriteImg.onload = () => {
+  characterSpriteLoaded = true;
+  if (activePetCharacter) renderPetView(activePetCharacter, lastHandlers);
+};
+characterSpriteImg.src = '../../assets/images/character.png';
+
 function hueFromSeed(seed) {
   return seed % 360;
 }
 
 function drawBody(ctx, size, hue) {
+  if (characterSpriteLoaded) {
+    const scale = size / characterSpriteImg.height;
+    const w = characterSpriteImg.width * scale;
+    // source art faces the wrong way for our default (unflipped) facing
+    ctx.save();
+    ctx.scale(-1, 1);
+    ctx.drawImage(characterSpriteImg, -(size / 2 + w / 2), 0, w, size);
+    ctx.restore();
+    return;
+  }
   const cx = size / 2;
   ctx.fillStyle = `hsl(${hue}, 40%, 55%)`;
   // head
@@ -117,7 +140,8 @@ function renderSprite(character, size = SPRITE_SIZE) {
   return canvas;
 }
 
-function currentAnimClass(aiState, activity) {
+function currentAnimClass(aiState, activity, character) {
+  if (character && character.resting) return 'pet-anim-resting';
   const aiClass = AI_ANIMATION_CLASS[aiState.state];
   if (aiClass) return aiClass;
   return ACTIVITY_ANIMATION_CLASS[activity ? activity.category : 'idle'] || 'pet-anim-idle';
@@ -150,8 +174,30 @@ function showBubble(root, text) {
 }
 
 const LEAF_COUNT = 7;
+const EMBER_COUNT = 8;
+
+// Where the campfire itself sits in slums.png, as a fraction of the stage --
+// derived from the source image's fire position mapped through the stage's
+// bottom-anchored cover-fit crop, not just "somewhere on the left".
+const EMBER_ORIGIN_LEFT_PCT = 15;
+const EMBER_SPREAD_PCT = 3;
+const EMBER_ORIGIN_BOTTOM_PX = 14;
+
+function renderEmbers(themeClass) {
+  // Narrow spawn band pinned to the fire, drifting upward -- unlike the
+  // other themes' particles, which spread full-width and fall.
+  return Array.from({ length: EMBER_COUNT }, (_, i) => {
+    const left = EMBER_ORIGIN_LEFT_PCT + ((i % 4) - 1.5) * (EMBER_SPREAD_PCT / 1.5);
+    const bottom = EMBER_ORIGIN_BOTTOM_PX + (i % 3) * 3;
+    const duration = 2.6 + (i % 4) * 0.9;
+    const delay = -(i * 1.1);
+    const drift = i % 2 === 0 ? 10 : -12;
+    return `<div class="pet-leaf ${themeClass}" style="left:${left}%; bottom:${bottom}px; animation-duration:${duration}s; animation-delay:${delay}s; --leaf-drift:${drift}px;"></div>`;
+  }).join('');
+}
 
 function renderSceneBackground(themeClass) {
+  if (themeClass === 'leaf-ember') return renderEmbers(themeClass);
   return Array.from({ length: LEAF_COUNT }, (_, i) => {
     const left = 6 + (i * (88 / (LEAF_COUNT - 1)));
     const duration = 6 + (i % 4) * 1.5;
@@ -159,13 +205,6 @@ function renderSceneBackground(themeClass) {
     const drift = i % 2 === 0 ? 26 : -22;
     return `<div class="pet-leaf ${themeClass}" style="left:${left}%; animation-duration:${duration}s; animation-delay:${delay}s; --leaf-drift:${drift}px;"></div>`;
   }).join('');
-}
-
-function applyLeafTheme(stageEl, themeClass) {
-  for (const el of stageEl.querySelectorAll('.pet-leaf')) {
-    for (const cls of Object.values(LEAF_THEME_CLASS)) el.classList.remove(cls);
-    el.classList.add(themeClass);
-  }
 }
 
 function stageBounds(stageEl) {
@@ -216,7 +255,7 @@ function stepLoop(timestamp) {
   applyBallTransform(ballEl, ballState);
   const animEl = spriteEl.querySelector('.pet-anim-inner');
   if (animEl) {
-    const wantedClass = currentAnimClass(petAIState, activity);
+    const wantedClass = currentAnimClass(petAIState, activity, activePetCharacter);
     for (const cls of Object.values(ACTIVITY_ANIMATION_CLASS)) animEl.classList.remove(cls);
     animEl.classList.add(wantedClass);
   }
@@ -234,14 +273,15 @@ export function renderPetView(character, handlers) {
     ballState = null;
   }
   activePetCharacter = character;
+  lastHandlers = handlers;
 
   const activity = character.activity ? ACTIVITIES[character.activity.id] : null;
-  const statusText = activity ? activity.name : 'Idle';
+  const statusText = activity ? activity.name : (character.resting ? 'Resting' : 'Idle');
 
   root.innerHTML = `
     <div class="pet-stage" id="petStage">
       <canvas class="pet-bg-canvas" id="petBgCanvas"></canvas>
-      ${renderSceneBackground(LEAF_THEME_CLASS[bgImageId])}
+      <div class="pet-scene-fx" id="petSceneFx">${renderSceneBackground(LEAF_THEME_CLASS[bgImageId])}</div>
       <div class="pet-ground" id="petGround"></div>
       <div class="pet-sprite" id="petSprite" title="${character.name} - ${statusText}">
         <div class="pet-anim-inner"></div>
@@ -276,6 +316,7 @@ export function renderPetView(character, handlers) {
   const bgHoverToggleEl = root.querySelector('#petBgHoverToggle');
   const bgDensityEl = root.querySelector('#petBgDensity');
   const bgPickerEl = root.querySelector('#petBgPicker');
+  const sceneFxEl = root.querySelector('#petSceneFx');
   const animEl = spriteEl.querySelector('.pet-anim-inner');
 
   groundEl.style.bottom = `${GROUND_INSET}px`;
@@ -319,7 +360,7 @@ export function renderPetView(character, handlers) {
     bgImageId = btn.dataset.bg;
     for (const el of bgPickerEl.querySelectorAll('.pet-bg-mode-btn')) el.classList.toggle('active', el === btn);
     reloadBgDots();
-    applyLeafTheme(stageEl, LEAF_THEME_CLASS[bgImageId]);
+    sceneFxEl.innerHTML = renderSceneBackground(LEAF_THEME_CLASS[bgImageId]);
   });
 
   stageEl.addEventListener('mousemove', (e) => {
@@ -338,7 +379,7 @@ export function renderPetView(character, handlers) {
   }
   applySpriteTransform(spriteEl, petAIState);
   applyBallTransform(ballEl, ballState);
-  animEl.classList.add(currentAnimClass(petAIState, activity));
+  animEl.classList.add(currentAnimClass(petAIState, activity, character));
 
   stageEl.addEventListener('click', (e) => {
     if (spriteEl.contains(e.target) || bgModesEl.contains(e.target) || bgControlsEl.contains(e.target)) return;

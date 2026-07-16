@@ -71,6 +71,15 @@ export const ITEM_TEMPLATES = {
     statBonuses: { critChance: 5 }, levelRequirement: 2, value: 12
   },
 
+  // --- Quest items: not equippable, not sold in the shop (see
+  // SHOP_ITEM_IDS below) -- found and consumed through activities instead.
+  bent_cog: {
+    id: 'bent_cog', name: 'Bent Cog', slot: 'quest', weaponType: null,
+    rarity: 'common', element: 'none', tier: 0,
+    flavor: "Still faintly warm, and heavier than it looks. It doesn't seem to belong to anything -- yet.",
+    statBonuses: {}, levelRequirement: 1, value: 0, questItem: true, unique: true
+  },
+
   // --- Tier 2 ---
   storm_axe: {
     id: 'storm_axe', name: 'Storm Axe', slot: 'weapon', weaponType: 'axe',
@@ -276,6 +285,12 @@ export const ITEM_TEMPLATES = {
 };
 
 export const LOOT_TABLES = {
+  // Rare, quiet find from Scavenge the Alleys -- deliberately low weight so
+  // it reads as a discovery, not a guaranteed drip-feed.
+  scavengeFind: [
+    { itemId: 'bent_cog', weight: 2 },
+    { itemId: null, weight: 150 }
+  ],
   common: [
     { itemId: 'rusty_sword', weight: 10 },
     { itemId: 'hunting_bow', weight: 10 },
@@ -295,4 +310,4 @@ export const LOOT_TABLES = {
   ]
 };
 
-export const SHOP_ITEM_IDS = Object.keys(ITEM_TEMPLATES);
+export const SHOP_ITEM_IDS = Object.keys(ITEM_TEMPLATES).filter((id) => !ITEM_TEMPLATES[id].questItem);
