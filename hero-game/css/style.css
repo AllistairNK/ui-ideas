@@ -148,6 +148,10 @@ button:hover:not(:disabled) { background: #383842; }
   width: 6px; height: 6px; border-radius: 50%;
   background: #eaf6ff; box-shadow: 0 0 4px rgba(210, 235, 255, 0.7);
 }
+.pet-leaf.leaf-dust {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: #cbb17a; opacity: 0.6;
+}
 
 .pet-sprite {
   position: absolute; top: 0; left: 0; width: 96px; height: 96px;
@@ -288,7 +292,9 @@ button.shop-tier-toggle:hover { background: #2f2f38; color: #fff; }
   max-height: 0; opacity: 0; margin: 0; pointer-events: none;
 }
 .shop-item { background: #2a2a32; border-radius: 8px; padding: 4px 8px; text-align: center; cursor: pointer; font-size: 11px; }
+.shop-item-owned { cursor: default; opacity: 0.5; }
 .shop-price { display: block; color: #f0d060; margin-top: 2px; }
+.shop-item-owned .shop-price { color: #888; }
 
 /* --- rich item tooltips (support colored HTML, unlike [data-tooltip]) --- */
 .rich-tooltip {
@@ -334,14 +340,14 @@ button.shop-tier-toggle:hover { background: #2f2f38; color: #fff; }
 .rt-sparkle {
   position: absolute; width: 3px; height: 3px; border-radius: 50%;
   background: #ffe9a8; box-shadow: 0 0 4px 1px rgba(255, 214, 120, 0.9);
-  opacity: 0; animation: rtSparkle 1.8s ease-in-out infinite;
+  opacity: 0; animation: rtSparkle 0.9s ease-in-out infinite;
 }
-.rt-sparkle:nth-child(1) { left: 8%; top: 22%; animation-delay: 0s; }
-.rt-sparkle:nth-child(2) { left: 24%; top: 72%; animation-delay: 0.3s; }
-.rt-sparkle:nth-child(3) { left: 44%; top: 15%; animation-delay: 0.6s; }
-.rt-sparkle:nth-child(4) { left: 63%; top: 60%; animation-delay: 0.9s; }
-.rt-sparkle:nth-child(5) { left: 82%; top: 28%; animation-delay: 1.2s; }
-.rt-sparkle:nth-child(6) { left: 92%; top: 78%; animation-delay: 1.5s; }
+.rt-sparkle:nth-child(1) { left: 3%; top: 6%; animation-delay: 0s; }
+.rt-sparkle:nth-child(2) { left: 97%; top: 10%; animation-delay: 0.15s; }
+.rt-sparkle:nth-child(3) { left: 4%; top: 90%; animation-delay: 0.3s; }
+.rt-sparkle:nth-child(4) { left: 96%; top: 86%; animation-delay: 0.45s; }
+.rt-sparkle:nth-child(5) { left: 50%; top: 4%; animation-delay: 0.6s; }
+.rt-sparkle:nth-child(6) { left: 50%; top: 94%; animation-delay: 0.75s; }
 @keyframes rtSparkle {
   0%, 100% { opacity: 0; transform: translateY(0) scale(0.6); }
   50% { opacity: 1; transform: translateY(-4px) scale(1.15); }
@@ -350,14 +356,14 @@ button.shop-tier-toggle:hover { background: #2f2f38; color: #fff; }
 .rt-star {
   position: absolute; width: 2px; height: 2px; border-radius: 50%;
   background: #fff; box-shadow: 0 0 3px 1px rgba(200, 170, 255, 0.9);
-  opacity: 0; animation: rtTwinkle 2.4s ease-in-out infinite;
+  opacity: 0; animation: rtTwinkle 1.2s ease-in-out infinite;
 }
-.rt-star:nth-child(1) { left: 14%; top: 20%; animation-delay: 0s; }
-.rt-star:nth-child(2) { left: 30%; top: 68%; animation-delay: 0.4s; }
-.rt-star:nth-child(3) { left: 50%; top: 35%; animation-delay: 0.8s; }
-.rt-star:nth-child(4) { left: 68%; top: 78%; animation-delay: 1.2s; }
-.rt-star:nth-child(5) { left: 85%; top: 22%; animation-delay: 1.6s; }
-.rt-star:nth-child(6) { left: 94%; top: 55%; animation-delay: 2s; }
+.rt-star:nth-child(1) { left: 6%; top: 8%; animation-delay: 0s; }
+.rt-star:nth-child(2) { left: 92%; top: 6%; animation-delay: 0.2s; }
+.rt-star:nth-child(3) { left: 2%; top: 50%; animation-delay: 0.4s; }
+.rt-star:nth-child(4) { left: 98%; top: 52%; animation-delay: 0.6s; }
+.rt-star:nth-child(5) { left: 10%; top: 92%; animation-delay: 0.8s; }
+.rt-star:nth-child(6) { left: 88%; top: 94%; animation-delay: 1s; }
 @keyframes rtTwinkle {
   0%, 100% { opacity: 0; transform: scale(0.5); }
   50% { opacity: 1; transform: scale(1.4); }

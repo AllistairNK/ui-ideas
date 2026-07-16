@@ -144,6 +144,12 @@ function handleUnequip(slot) {
 function handleBuy(itemId) {
   const template = ITEM_TEMPLATES[itemId];
   if (!template) return;
+  const alreadyOwned = character.inventory.some((i) => i.templateId === itemId)
+    || Object.values(character.equipment).some((i) => i && i.templateId === itemId);
+  if (alreadyOwned) {
+    showToast('You already own this item.', 'error');
+    return;
+  }
   if (character.currency.gold < template.value) {
     showToast('Not enough gold.', 'error');
     return;

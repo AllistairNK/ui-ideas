@@ -92,6 +92,11 @@ export function renderInventoryPanel(character, handlers) {
       </div>`;
   }).join('');
 
+  const ownedTemplateIds = new Set([
+    ...character.inventory.map((i) => i.templateId),
+    ...Object.values(character.equipment).filter(Boolean).map((i) => i.templateId)
+  ]);
+
   const shopByTier = new Map();
   for (const itemId of SHOP_ITEM_IDS) {
     const tier = ITEM_TEMPLATES[itemId].tier;
@@ -105,10 +110,11 @@ export function renderInventoryPanel(character, handlers) {
     const itemsHtml = sortByRarityThenValue(shopByTier.get(tier)).map((itemId) => {
       const template = ITEM_TEMPLATES[itemId];
       const iconUrl = renderItemIconDataUrl(itemId, 40);
+      const owned = ownedTemplateIds.has(itemId);
       return `
-        <div class="shop-item" data-action="buy" data-item="${itemId}" tabindex="0" ${itemTooltipAttrs(template)}>
+        <div class="shop-item${owned ? ' shop-item-owned' : ''}" data-action="buy" data-item="${itemId}" tabindex="0" ${itemTooltipAttrs(template)}>
           <img src="${iconUrl}" class="item-icon" />
-          <span class="shop-price">${template.value}g</span>
+          <span class="shop-price">${owned ? 'Owned' : `${template.value}g`}</span>
         </div>`;
     }).join('');
     return `

@@ -7,13 +7,14 @@ import { loadDots, stepAndDrawParticles, PARTICLE_MODES } from './petParticleBg.
 const BACKGROUNDS = [
   { id: 'autumn', label: 'Autumn', src: '../../assets/images/backgrounds/autumn%20trees.png' },
   { id: 'winter', label: 'Winter', src: '../../assets/images/backgrounds/winter%20cliffs.png' },
-  { id: 'courtyard', label: 'Courtyard', src: '../../assets/images/backgrounds/chinese%20courtyard.png' }
+  { id: 'courtyard', label: 'Courtyard', src: '../../assets/images/backgrounds/chinese%20courtyard.png' },
+  { id: 'castle', label: 'Castle', src: '../../assets/images/backgrounds/castle%20training.png' }
 ];
 const BG_SPACING_MIN = 3;
 const BG_SPACING_MAX = 20;
 const BG_SPACING_DEFAULT = 5;
 const BG_MODE_LABELS = { dots: 'Static', waves: 'Waves', flames: 'Flicker', snow: 'Snow' };
-const LEAF_THEME_CLASS = { autumn: 'leaf-autumn', winter: 'leaf-snow', courtyard: 'leaf-maple' };
+const LEAF_THEME_CLASS = { autumn: 'leaf-autumn', winter: 'leaf-snow', courtyard: 'leaf-maple', castle: 'leaf-dust' };
 
 const REACTIONS = [
   "Not now, I'm busy.", "Hm?", "*nods*", "Feels good.",
