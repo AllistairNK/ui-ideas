@@ -27,14 +27,15 @@ function renderActivityButton(character, activity, current, label) {
   const unlocked = isActivityUnlocked(character, activity.id);
   const check = canStartActivity(character, activity.id);
   const isCurrent = current && current.id === activity.id;
+  const isToggle = activity.category !== 'combat';
   const disabled = !unlocked || (!check.ok && !isCurrent);
   const baseTitle = !unlocked ? 'Locked' : (!check.ok ? check.reason : activity.description);
   const debugSuffix = DEBUG_SHOW_ACTIVITY_EFFECTS ? ` \n${describeActivityEffects(activity)}` : '';
   return `
     <button type="button" class="activity-btn ${isCurrent ? 'activity-active' : ''}"
-      data-action="assign" data-activity="${activity.id}" ${disabled ? 'disabled' : ''}
+      data-action="assign" data-activity="${activity.id}" data-current="${isCurrent}" ${disabled ? 'disabled' : ''}
       title="${baseTitle}${debugSuffix}">
-      <span class="activity-name">${label || activity.name}</span>
+      <span class="activity-name">${label || activity.name}${isCurrent && isToggle ? ' (on -- click to stop)' : ''}</span>
       <span class="activity-desc">${unlocked ? activity.description : 'Locked'}</span>
     </button>`;
 }
@@ -73,14 +74,19 @@ export function renderActivityPanel(character, handlers) {
 
   let progressHtml = '';
   if (currentActivity && currentActivity.durationSeconds > 0) {
-    const elapsed = Date.now() - current.startedAt;
-    const pct = Math.max(0, Math.min(100, (elapsed % (currentActivity.durationSeconds * 1000)) / (currentActivity.durationSeconds * 1000) * 100));
-    progressHtml = `
-      <div class="current-activity">
-        <span>Currently: <b>${currentActivity.name}</b></span>
-        <div class="bar"><div class="bar-fill bar-activity" style="width:${pct}%"></div></div>
-        <button type="button" data-action="cancel">Stop</button>
-      </div>`;
+    if (currentActivity.oneShot) {
+      const pct = Math.max(0, Math.min(100, ((current.progressSec || 0) / currentActivity.durationSeconds) * 100));
+      progressHtml = `
+        <div class="current-activity">
+          <span>Currently: <b>${currentActivity.name}</b></span>
+          <div class="bar"><div class="bar-fill bar-activity" style="width:${pct}%"></div></div>
+        </div>`;
+    } else {
+      progressHtml = `
+        <div class="current-activity">
+          <span>Currently: <b>${currentActivity.name}</b> -- click it again to stop.</span>
+        </div>`;
+    }
   }
 
   const branchRows = Object.values(ACTIVITY_BRANCHES)
@@ -115,7 +121,8 @@ export function renderActivityPanel(character, handlers) {
   root.querySelectorAll('[data-action="assign"]').forEach((btn) => {
     btn.addEventListener('click', () => {
       expandedBranchId = null;
-      handlers.onAssign(btn.dataset.activity);
+      if (btn.dataset.current === 'true') handlers.onCancel();
+      else handlers.onAssign(btn.dataset.activity);
     });
   });
   root.querySelectorAll('[data-action="expand-branch"]').forEach((btn) => {
@@ -129,9 +136,6 @@ export function renderActivityPanel(character, handlers) {
     expandedBranchId = null;
     renderActivityPanel(character, handlers);
   });
-  const cancelBtn = root.querySelector('[data-action="cancel"]');
-  if (cancelBtn) cancelBtn.addEventListener('click', () => handlers.onCancel());
-
   const toggleEl = root.querySelector('#activityShowAllToggle');
   if (toggleEl) toggleEl.addEventListener('change', () => {
     showAllActivities = toggleEl.checked;

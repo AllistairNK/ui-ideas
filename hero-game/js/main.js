@@ -7,7 +7,7 @@ import { ITEM_TEMPLATES } from './data/items.js';
 import { ACTIVITIES } from './data/activities.js';
 import { CLASSES } from './data/classes.js';
 
-import { renderCharacterSheet } from './ui/characterSheet.js';
+import { renderCharacterSheet, updateCharacterSheetLive } from './ui/characterSheet.js';
 import { renderActivityPanel } from './ui/activityPanel.js';
 import { renderInventoryPanel } from './ui/inventoryPanel.js';
 import { renderPetView } from './ui/petView.js';
@@ -178,8 +178,14 @@ function tickLoop() {
   if (!character) return;
   applyPassiveRegen(character, 1000);
 
+  // Stats/stamina/xp now flow continuously every second (see
+  // activityEngine.js), so most ticks aren't "notable" enough to justify a
+  // full renderAll() (which rebuilds the pet stage, inventory, etc.) --
+  // reserve that for level-ups, new traits, or new items, and otherwise just
+  // refresh the two panels that show live per-second progress.
   const summary = character.activity ? tickActivity(character) : null;
-  if (summary && summary.cycles > 0) {
+  const notable = summary && (summary.leveledUp || summary.gainedTraits.length || summary.gainedItems.length);
+  if (notable) {
     persist();
     renderAll();
     if (summary.leveledUp) {
@@ -189,7 +195,7 @@ function tickLoop() {
     notifyGainedTraits(summary.gainedTraits);
     notifyGainedItems(summary.gainedItems);
   } else {
-    renderCharacterSheet(character);
+    updateCharacterSheetLive(character);
     renderActivityPanel(character, { onAssign: handleAssignActivity, onCancel: handleCancelActivity, onToggleRest: handleToggleRest });
   }
 }
@@ -243,7 +249,7 @@ function boot() {
     document.getElementById('app').classList.remove('hidden');
     persist();
     renderAll();
-    if (idleSummary && idleSummary.cycles > 0) {
+    if (idleSummary) {
       showToast(`While you were away: +${Math.round(idleSummary.xp)}xp, +${Math.round(idleSummary.gold)}g`, 'success');
       notifyGainedTraits(idleSummary.gainedTraits);
       notifyGainedItems(idleSummary.gainedItems);

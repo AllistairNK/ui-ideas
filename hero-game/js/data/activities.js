@@ -36,19 +36,22 @@ export const ACTIVITIES = {
     rewards: { xp: 3, gold: 5, attributeTraining: { luck: 0.05 }, staminaDelta: 0, lootTableId: 'scavengeFind' },
     theme: 'slums'
   },
-  // Hidden -- only appears once a Bent Cog turns up from Scavenge. See
-  // STORYLINE.md and traits.js's clockworkMind for the rest of the thread.
+  // Hidden -- only appears once a Bent Cog turns up from Scavenge, and
+  // disappears again once its trait is granted (excludesTraitId) rather than
+  // by consuming the cog -- the cog stays in inventory as a keepsake/future
+  // crafting ingredient. See STORYLINE.md and traits.js's clockworkMind.
   tinker_cog: {
     id: 'tinker_cog',
     name: 'Tinker with the Cog',
     description: "Turn it over by firelight. Maybe it's junk. Maybe it's not.",
     category: 'training',
     durationSeconds: 20,
-    requirements: { minLevel: 1, classWhitelist: null, itemId: 'bent_cog' },
+    requirements: { minLevel: 1, classWhitelist: null, itemId: 'bent_cog', excludesTraitId: 'clockworkMind' },
     costs: { stamina: 10, gold: 0 },
-    rewards: { xp: 5, gold: 0, attributeTraining: {}, staminaDelta: 0, lootTableId: null, consumesItemId: 'bent_cog', grantsTraitId: 'clockworkMind' },
+    rewards: { xp: 5, gold: 0, attributeTraining: {}, staminaDelta: 0, lootTableId: null, grantsTraitId: 'clockworkMind' },
     theme: 'slums',
-    hidden: true
+    hidden: true,
+    oneShot: true
   },
   odd_jobs: {
     id: 'odd_jobs',
