@@ -3,7 +3,7 @@ import { saveGame, loadGame, clearSave } from './core/save.js';
 import { assignActivity, cancelActivity, tickActivity, computeIdleCatchUp, canStartActivity, toggleResting, applyPassiveRegen, MAX_IDLE_CATCHUP_MS } from './core/activityEngine.js';
 import { equipItem, unequipItem, addToInventory, createItemInstance, rollLoot } from './core/equipment.js';
 import { generateOpponent, resolveCombat } from './core/combat.js';
-import { ITEM_TEMPLATES } from './data/items.js';
+import { ITEM_TEMPLATES, shopPrice } from './data/items.js';
 import { ACTIVITIES } from './data/activities.js';
 import { CLASSES } from './data/classes.js';
 
@@ -164,11 +164,12 @@ function handleBuy(itemId) {
     showToast('You already own this item.', 'error');
     return;
   }
-  if (character.currency.gold < template.value) {
+  const price = shopPrice(template);
+  if (character.currency.gold < price) {
     showToast('Not enough gold.', 'error');
     return;
   }
-  character.currency.gold -= template.value;
+  character.currency.gold -= price;
   addToInventory(character, createItemInstance(itemId));
   persist();
   renderAll();

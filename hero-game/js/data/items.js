@@ -311,3 +311,14 @@ export const LOOT_TABLES = {
 };
 
 export const SHOP_ITEM_IDS = Object.keys(ITEM_TEMPLATES).filter((id) => !ITEM_TEMPLATES[id].questItem);
+
+// Item `value` fields were originally tuned back when gold was only earned
+// in lump sums every 15-25s. Now that activities pay out continuously (see
+// activityEngine.js), that same gold flows in much faster, so a flat
+// multiplier on top keeps gear feeling earned instead of near-free. Tune
+// this one number rather than every item's value.
+export const SHOP_PRICE_MULTIPLIER = 6;
+
+export function shopPrice(template) {
+  return Math.round(template.value * SHOP_PRICE_MULTIPLIER);
+}

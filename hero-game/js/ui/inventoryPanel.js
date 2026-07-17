@@ -1,4 +1,4 @@
-import { ITEM_TEMPLATES, SHOP_ITEM_IDS } from '../data/items.js';
+import { ITEM_TEMPLATES, SHOP_ITEM_IDS, shopPrice } from '../data/items.js';
 import { renderItemIconDataUrl } from '../core/itemIcon.js';
 import { attachRichTooltips } from './richTooltip.js';
 
@@ -112,12 +112,13 @@ export function renderInventoryPanel(character, handlers) {
       const template = ITEM_TEMPLATES[itemId];
       const iconUrl = renderItemIconDataUrl(itemId, 40);
       const owned = ownedTemplateIds.has(itemId);
-      const affordable = character.currency.gold >= template.value;
+      const price = shopPrice(template);
+      const affordable = character.currency.gold >= price;
       const priceClass = owned ? '' : (affordable ? '' : ' shop-price-unaffordable');
       return `
         <div class="shop-item${owned ? ' shop-item-owned' : ''}" data-action="buy" data-item="${itemId}" tabindex="0" ${itemTooltipAttrs(template)}>
           <img src="${iconUrl}" class="item-icon" />
-          <span class="shop-price${priceClass}">${owned ? 'Owned' : `${template.value}g`}</span>
+          <span class="shop-price${priceClass}">${owned ? 'Owned' : `${price}g`}</span>
         </div>`;
     }).join('');
     return `
