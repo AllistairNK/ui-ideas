@@ -101,11 +101,11 @@ export const CLASSES = {
     statScaling: { attack: 0.8, defense: 0.6, magicPower: 0.8, critChance: 0.9 },
     allowedWeaponTypes: ['dagger', 'bow', 'staff', 'gauntlet', 'gun'],
     bonusActivityIds: ['study'],
-    evolution: { classId: 'runsmith', unlockLevel: 25 }
+    evolution: { classId: 'runesmith', unlockLevel: 25 }
   },
-  runsmith: {
-    id: 'runsmith',
-    name: 'Runsmith',
+  runesmith: {
+    id: 'runesmith',
+    name: 'Runesmith',
     flavor: 'You\'ve stopped fixing what\'s broken and started forging what didn\'t exist yet.',
     tier: 3,
     evolvesFrom: 'engineer',
@@ -119,7 +119,7 @@ export const CLASSES = {
     name: 'Archmechanist',
     flavor: 'Your workshop outgrew you -- automatons carry your designs into fights you\'re not even in.',
     tier: 4,
-    evolvesFrom: 'runsmith',
+    evolvesFrom: 'runesmith',
     statScaling: { attack: 1.2, defense: 0.8, magicPower: 1.2, critChance: 1.1 },
     allowedWeaponTypes: ['dagger', 'bow', 'staff', 'gauntlet', 'gun'],
     bonusActivityIds: ['study'],
