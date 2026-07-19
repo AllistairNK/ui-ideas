@@ -325,7 +325,7 @@ button.shop-tier-toggle:hover { background: #2f2f38; color: #fff; }
 
 /* --- rich item tooltips (support colored HTML, unlike [data-tooltip]) --- */
 .rich-tooltip {
-  position: absolute; z-index: 30; max-width: 220px;
+  position: absolute; z-index: 150; max-width: 220px;
   background: #2a2a32; border: 1px solid #4a4a56; border-radius: 8px;
   font-size: 12px; line-height: 1.4; color: #e8e8ec;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); pointer-events: none;
@@ -343,6 +343,7 @@ button.shop-tier-toggle:hover { background: #2f2f38; color: #fff; }
 .tt-rarity-epic { color: #c86eff; }
 .tt-flavor { color: #999; font-style: italic; margin-bottom: 4px; }
 .tt-bonuses { color: #9fd68a; }
+.tt-req-current { color: #888; }
 
 /* --- item tooltip FX themes, driven by an item's `effect` field (items.js) --
    independent of tier -- gold sparkle dust, purple void starfield+rings.
@@ -438,6 +439,56 @@ button.shop-tier-toggle:hover { background: #2f2f38; color: #fff; }
 .combat-loss { color: #d9534f; }
 .combat-draw { color: #f0ad4e; }
 .combat-rewards { text-align: center; font-size: 12px; color: #ccc; margin-bottom: 10px; }
+
+/* --- class tree modal --- */
+.class-tree-box { width: 900px; max-width: 95vw; }
+.class-tree-legend { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 11px; color: #aaa; margin-bottom: 10px; }
+.ctl-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-left: 8px; }
+.ctl-swatch:first-child { margin-left: 0; }
+.ctl-current { background: #5a96ff; }
+.ctl-unlocked { background: #7ac96f; }
+.ctl-ready { background: #e0b84a; }
+.ctl-locked { background: #4a4a56; }
+
+.class-tree-hint { margin-left: auto; color: #666; font-style: italic; }
+
+.class-tree-viewport {
+  position: relative; height: 65vh; overflow: hidden; border: 1px solid #333; border-radius: 8px;
+  background: #1c1c22; cursor: grab; touch-action: none; user-select: none;
+}
+.class-tree-viewport.class-tree-grabbing { cursor: grabbing; }
+.class-tree-canvas { position: absolute; top: 0; left: 0; transform-origin: 0 0; }
+.class-tree-edges { position: absolute; top: 0; left: 0; pointer-events: none; overflow: visible; }
+.class-tree-ring { stroke: #33333c; stroke-width: 1; stroke-dasharray: 3 5; }
+.class-tree-spoke { stroke: #2c2c34; stroke-width: 1; }
+.class-tree-edge { stroke: #565a6a; stroke-width: 2; }
+
+.class-tree-zoom-controls {
+  position: absolute; right: 10px; bottom: 10px; display: flex; flex-direction: column; gap: 4px; z-index: 10;
+}
+.class-tree-zoom-controls button {
+  width: 30px; height: 30px; border-radius: 6px; background: #2a2a32; border: 1px solid #4a4a56;
+  color: #e8e8ec; font-size: 15px; line-height: 1; cursor: pointer;
+}
+.class-tree-zoom-controls button:hover { background: #34343e; }
+
+.class-tree-node {
+  position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 3px; border-radius: 10px; border: 2px solid #4a4a56; background: #2a2a32;
+  cursor: default; text-align: center; padding: 4px 8px; box-sizing: border-box;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.ctn-name { font-size: 12px; font-weight: 600; color: #e8e8ec; }
+.ctn-name-scrambled { font-family: 'Courier New', monospace; color: #6a7a6a; letter-spacing: 0.02em; }
+.ctn-tier { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.03em; }
+
+.class-tree-node-locked { opacity: 0.55; border-style: dashed; }
+.class-tree-node-ready { border-color: #e0b84a; box-shadow: 0 0 10px rgba(224, 184, 74, 0.35); }
+.class-tree-node-ready .ctn-name { color: #f0d060; }
+.class-tree-node-unlocked { border-color: #7ac96f; }
+.class-tree-node-current { border-color: #5a96ff; box-shadow: 0 0 12px rgba(90, 150, 255, 0.5); background: #26303f; }
+.class-tree-node-current .ctn-name { color: #9fc2ff; }
+.class-tree-node:hover, .class-tree-node:focus { box-shadow: 0 0 0 2px rgba(255,255,255,0.15); outline: none; }
 
 /* --- first run --- */
 .first-run {

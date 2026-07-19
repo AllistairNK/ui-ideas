@@ -1,7 +1,7 @@
 import { CLASSES, CLASS_CHOICES, CLASS_CHOICE_LEVEL, SECRET_CLASS_IDS } from '../data/classes.js';
 import { HIDDEN_TRAITS } from '../data/traits.js';
 
-function meetsAttributeReqs(character, reqs) {
+export function meetsAttributeReqs(character, reqs) {
   if (!reqs) return true;
   return Object.entries(reqs).every(([attr, min]) => (character.attributes[attr] || 0) >= min);
 }
@@ -24,7 +24,7 @@ function revealTraits(character, visibleSecretClassIds) {
   }
 }
 
-function getApprenticeshipLevel(character, branchId) {
+export function getApprenticeshipLevel(character, branchId) {
   return (character.apprenticeship && character.apprenticeship[branchId] && character.apprenticeship[branchId].level) || 0;
 }
 

@@ -13,6 +13,7 @@ import { renderInventoryPanel } from './ui/inventoryPanel.js';
 import { renderPetView } from './ui/petView.js';
 import { showCombatModal } from './ui/combatModal.js';
 import { renderClassPanel, isClassAdvancementAvailable } from './ui/classPanel.js';
+import { showClassTreeModal } from './ui/classTreeModal.js';
 import { showToast } from './ui/toast.js';
 
 let character = null;
@@ -265,6 +266,7 @@ function boot() {
   }
 
   document.getElementById('startOverBtn').addEventListener('click', handleStartOver);
+  document.getElementById('classTreeBtn').addEventListener('click', () => showClassTreeModal(character));
   document.getElementById('levelUpBtn').addEventListener('click', () => {
     const levelResult = addXp(character, character.xpToNext);
     character.derived = computeDerivedStats(character);
