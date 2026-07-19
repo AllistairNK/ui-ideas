@@ -1,6 +1,6 @@
 import { ACTIVITIES, IDLE_ELIGIBLE_ACTIVITY_IDS } from '../data/activities.js';
 import { ITEM_TEMPLATES } from '../data/items.js';
-import { addXp, computeDerivedStats, applyAttributeTraining } from './character.js';
+import { addXp, computeDerivedStats, applyAttributeTraining, addApprenticeshipXp } from './character.js';
 import { addToInventory, rollLoot } from './equipment.js';
 import { grantTrait } from '../data/traits.js';
 
@@ -149,6 +149,12 @@ export function tickActivity(character, elapsedMs = 1000) {
   if (xpGain) levelUpResult = addXp(character, xpGain);
   gainedTraits = gainedTraits.concat(levelUpResult.gainedTraits);
 
+  let apprenticeshipResult = { leveledUp: false, branchId: null, level: 0 };
+  if (xpGain && activity.branchId) {
+    const result = addApprenticeshipXp(character, activity.branchId, xpGain);
+    apprenticeshipResult = { ...result, branchId: activity.branchId };
+  }
+
   // One-shot activities (see tinker_cog) complete once instead of running
   // forever: track cumulative engagement and fire the reward at 100%, then
   // auto-stop rather than looping.
@@ -176,7 +182,10 @@ export function tickActivity(character, elapsedMs = 1000) {
     leveledUp: levelUpResult.leveledUp,
     levelsGained: levelUpResult.levelsGained,
     gainedTraits,
-    gainedItems
+    gainedItems,
+    apprenticeshipLeveledUp: apprenticeshipResult.leveledUp,
+    apprenticeshipBranchId: apprenticeshipResult.branchId,
+    apprenticeshipLevel: apprenticeshipResult.level
   };
 }
 

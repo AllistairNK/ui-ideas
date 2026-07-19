@@ -24,10 +24,27 @@ function revealTraits(character, visibleSecretClassIds) {
   }
 }
 
+function getApprenticeshipLevel(character, branchId) {
+  return (character.apprenticeship && character.apprenticeship[branchId] && character.apprenticeship[branchId].level) || 0;
+}
+
 function getAvailableEvolution(character) {
   const def = CLASSES[character.class];
   if (!def || !def.evolution) return null;
-  return character.level >= def.evolution.unlockLevel ? def.evolution : null;
+  const { unlockApprenticeshipLevel, branchId, unlockLevel } = def.evolution;
+  if (unlockApprenticeshipLevel != null) {
+    return getApprenticeshipLevel(character, branchId) >= unlockApprenticeshipLevel ? def.evolution : null;
+  }
+  return character.level >= unlockLevel ? def.evolution : null;
+}
+
+function describeEvolutionProgress(character, def) {
+  const { unlockApprenticeshipLevel, branchId, unlockLevel } = def.evolution;
+  if (unlockApprenticeshipLevel != null) {
+    const current = getApprenticeshipLevel(character, branchId);
+    return `Unlocks at Apprenticeship level ${unlockApprenticeshipLevel} (currently level ${current}).`;
+  }
+  return `Unlocks at level ${unlockLevel} (currently level ${character.level}).`;
 }
 
 export function isClassAdvancementAvailable(character) {
@@ -60,10 +77,12 @@ export function renderClassPanel(character, { onChoose }) {
       });
       return;
     }
+    const progressText = def.evolution ? describeEvolutionProgress(character, def) : '';
     root.innerHTML = `
       <div class="panel-title">Class</div>
       <div class="sheet-sub">${def.name}</div>
       <div class="sheet-flavor">${def.flavor || 'Your path is chosen.'}</div>
+      ${progressText ? `<div class="sheet-flavor">${progressText}</div>` : ''}
     `;
     return;
   }

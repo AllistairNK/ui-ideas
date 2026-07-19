@@ -90,7 +90,7 @@ export const CLASSES = {
     statScaling: { attack: 0.6, defense: 0.5, magicPower: 0.6, critChance: 0.7 },
     allowedWeaponTypes: ['dagger', 'bow', 'staff', 'gauntlet', 'gun'],
     bonusActivityIds: ['study'],
-    evolution: { classId: 'engineer', unlockLevel: 15 }
+    evolution: { classId: 'engineer', branchId: 'apprentice', unlockApprenticeshipLevel: 10 }
   },
   engineer: {
     id: 'engineer',

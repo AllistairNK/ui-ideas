@@ -185,12 +185,16 @@ function tickLoop() {
   // reserve that for level-ups, new traits, or new items, and otherwise just
   // refresh the two panels that show live per-second progress.
   const summary = character.activity ? tickActivity(character) : null;
-  const notable = summary && (summary.leveledUp || summary.gainedTraits.length || summary.gainedItems.length);
+  const notable = summary && (summary.leveledUp || summary.gainedTraits.length || summary.gainedItems.length || summary.apprenticeshipLeveledUp);
   if (notable) {
     persist();
     renderAll();
     if (summary.leveledUp) {
       showToast(`Level up! Now level ${character.level}.`, 'success');
+      notifyIfClassAdvancementAvailable();
+    }
+    if (summary.apprenticeshipLeveledUp) {
+      showToast(`Apprenticeship level up! Now level ${summary.apprenticeshipLevel}.`, 'success');
       notifyIfClassAdvancementAvailable();
     }
     notifyGainedTraits(summary.gainedTraits);

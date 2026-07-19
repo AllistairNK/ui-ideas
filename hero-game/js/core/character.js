@@ -50,6 +50,7 @@ export function generateCharacter() {
     currency: { gold: 10 },
     activity: null,
     resting: false,
+    apprenticeship: {},
     combatLog: [],
     flags: { unlockedClasses: ['peasant'], tutorialSeen: false, foundItemIds: [] }
   };
@@ -105,6 +106,31 @@ export function addXp(character, amount) {
     character.derived.stamina = character.derived.maxStamina;
   }
   return { leveledUp: levelsGained > 0, levelsGained, gainedTraits };
+}
+
+export function apprenticeshipXpToNext(level) {
+  return 30 + level * 15;
+}
+
+// Apprenticeship is a separate leveling track per activity branch (e.g. the
+// Factory Apprentice line) -- it grows only from time spent in that branch's
+// activities, independent of character level, so secret-class evolutions
+// gated on it (see classes.js's `evolution.unlockApprenticeshipLevel`) are
+// earned through that specific grind rather than general XP.
+// Returns { leveledUp: boolean, levelsGained: number, level: number }
+export function addApprenticeshipXp(character, branchId, amount) {
+  character.apprenticeship = character.apprenticeship || {};
+  const track = character.apprenticeship[branchId] || { level: 1, xp: 0, xpToNext: apprenticeshipXpToNext(1) };
+  track.xp += amount;
+  let levelsGained = 0;
+  while (track.xp >= track.xpToNext) {
+    track.xp -= track.xpToNext;
+    track.level += 1;
+    track.xpToNext = apprenticeshipXpToNext(track.level);
+    levelsGained += 1;
+  }
+  character.apprenticeship[branchId] = track;
+  return { leveledUp: levelsGained > 0, levelsGained, level: track.level };
 }
 
 export function applyAttributeTraining(character, attributeTraining) {
