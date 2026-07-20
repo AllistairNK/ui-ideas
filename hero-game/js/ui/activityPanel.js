@@ -23,6 +23,23 @@ function describeActivityEffects(activity) {
   return parts.length ? `[DEBUG] Trains: ${parts.join(', ')}` : '';
 }
 
+// Loot rolls happen once per full durationSeconds cycle (see tickActivity's
+// lootAccumSec), not on every tick -- this surfaces that cadence as a bar on
+// the task's own button so "why hasn't it dropped yet" reads as "waiting for
+// the next roll" rather than looking broken, without cluttering the shared
+// current-activity header when several tasks can drop loot.
+function renderLootRollBar(current, activity) {
+  if (!activity.rewards.lootTableId) return '';
+  const accum = current.lootAccumSec || 0;
+  const pct = Math.max(0, Math.min(100, (accum / activity.durationSeconds) * 100));
+  const remaining = Math.max(0, activity.durationSeconds - accum).toFixed(1);
+  return `
+    <span class="loot-roll-row" title="Rolls for a drop once this bar fills, then resets.">
+      <span class="loot-roll-label">Next loot roll in ${remaining}s</span>
+      <span class="bar"><span class="bar-fill bar-loot" style="width:${pct}%"></span></span>
+    </span>`;
+}
+
 function renderActivityButton(character, activity, current, label) {
   const unlocked = isActivityUnlocked(character, activity.id);
   const check = canStartActivity(character, activity.id);
@@ -31,12 +48,14 @@ function renderActivityButton(character, activity, current, label) {
   const disabled = !unlocked || (!check.ok && !isCurrent);
   const baseTitle = !unlocked ? 'Locked' : (!check.ok ? check.reason : activity.description);
   const debugSuffix = DEBUG_SHOW_ACTIVITY_EFFECTS ? ` \n${describeActivityEffects(activity)}` : '';
+  const lootRollHtml = isCurrent ? renderLootRollBar(current, activity) : '';
   return `
     <button type="button" class="activity-btn ${isCurrent ? 'activity-active' : ''}"
       data-action="assign" data-activity="${activity.id}" data-current="${isCurrent}" ${disabled ? 'disabled' : ''}
       title="${baseTitle}${debugSuffix}">
       <span class="activity-name">${label || activity.name}${isCurrent && isToggle ? ' (on -- click to stop)' : ''}</span>
       <span class="activity-desc">${unlocked ? activity.description : 'Locked'}</span>
+      ${lootRollHtml}
     </button>`;
 }
 

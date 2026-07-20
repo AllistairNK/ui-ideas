@@ -71,6 +71,7 @@ button:hover:not(:disabled) { background: #383842; }
 .bar-stamina { background: #5bc0de; }
 .bar-xp { background: #f0ad4e; }
 .bar-activity { background: #7ac96f; }
+.bar-loot { background: #b98af0; }
 .bar-value { width: 60px; text-align: right; color: #ccc; }
 .rate-badge { font-size: 10px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .rate-badge:empty { display: none; }
@@ -238,6 +239,12 @@ button:hover:not(:disabled) { background: #383842; }
 
 /* --- activities --- */
 .current-activity { margin-bottom: 12px; display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.loot-roll-row {
+  display: flex; align-items: center; gap: 6px; width: 100%;
+  margin-top: 2px; font-size: 10px; color: #999;
+}
+.loot-roll-label { white-space: nowrap; }
+.loot-roll-row .bar { height: 6px; }
 .activity-toggle-row {
   display: flex; align-items: center; gap: 6px; margin-bottom: 10px;
   font-size: 12px; color: #999; cursor: pointer;
@@ -439,6 +446,14 @@ button.shop-tier-toggle:hover { background: #2f2f38; color: #fff; }
 .combat-loss { color: #d9534f; }
 .combat-draw { color: #f0ad4e; }
 .combat-rewards { text-align: center; font-size: 12px; color: #ccc; margin-bottom: 10px; }
+
+/* --- debug modal --- */
+.debug-box { width: 400px; }
+.debug-section { margin-bottom: 14px; }
+.debug-section-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 6px; }
+.debug-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; flex-wrap: wrap; }
+.debug-row-label { width: 70px; font-size: 12px; color: #ccc; text-transform: capitalize; }
+.debug-row select { flex: 1; min-width: 0; }
 
 /* --- class tree modal --- */
 .class-tree-box { width: 900px; max-width: 95vw; }
