@@ -56,10 +56,27 @@ export function canStartActivity(character, activityId) {
   return { ok: true };
 }
 
+// Tracks every activity id the player has ever actually run, independent of
+// whether it's unlocked/hidden right now -- drives the "NEW" badge in
+// activityPanel.js (unused == new) rather than trying to infer recency of
+// unlock, which would need its own separate tracking.
+export function markActivityUsed(character, activityId) {
+  character.flags = character.flags || {};
+  character.flags.usedActivityIds = character.flags.usedActivityIds || [];
+  if (!character.flags.usedActivityIds.includes(activityId)) {
+    character.flags.usedActivityIds.push(activityId);
+  }
+}
+
+export function isActivityUsed(character, activityId) {
+  return (character.flags.usedActivityIds || []).includes(activityId);
+}
+
 export function assignActivity(character, activityId) {
   const check = canStartActivity(character, activityId);
   if (!check.ok) return check;
   character.activity = { id: activityId, startedAt: Date.now() };
+  markActivityUsed(character, activityId);
   return { ok: true };
 }
 

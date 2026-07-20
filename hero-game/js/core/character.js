@@ -52,7 +52,7 @@ export function generateCharacter() {
     resting: false,
     apprenticeship: {},
     combatLog: [],
-    flags: { unlockedClasses: ['peasant'], tutorialSeen: false, foundItemIds: [] }
+    flags: { unlockedClasses: ['peasant'], tutorialSeen: false, foundItemIds: [], usedActivityIds: [] }
   };
 
   character.derived = computeDerivedStats(character);

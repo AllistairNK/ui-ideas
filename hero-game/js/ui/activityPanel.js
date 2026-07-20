@@ -1,5 +1,5 @@
 import { ACTIVITIES, ACTIVITY_BRANCHES } from '../data/activities.js';
-import { isActivityUnlocked, canStartActivity } from '../core/activityEngine.js';
+import { isActivityUnlocked, canStartActivity, isActivityUsed } from '../core/activityEngine.js';
 
 // Debug aid: shows which attributes each activity trains, right in the button
 // tooltip. Flip to false before shipping so players discover this on their own.
@@ -8,6 +8,11 @@ const DEBUG_SHOW_ACTIVITY_EFFECTS = true;
 // Which branch's sponsor sub-menu is currently open, if any. Module-level
 // since the panel is fully re-rendered on every tick.
 let expandedBranchId = null;
+
+// Set to the branch id for exactly one render -- the one right after the
+// player clicks to expand it -- so the CSS enter animation plays once
+// instead of replaying every tick the panel re-renders (see branch-animate-in).
+let justExpandedBranchId = null;
 
 // The default task list is just the slum-themed activities (see
 // STORYLINE.md) -- the older generic Train/Work/Study/etc. set stays hidden
@@ -49,10 +54,16 @@ function renderActivityButton(character, activity, current, label) {
   const baseTitle = !unlocked ? 'Locked' : (!check.ok ? check.reason : activity.description);
   const debugSuffix = DEBUG_SHOW_ACTIVITY_EFFECTS ? ` \n${describeActivityEffects(activity)}` : '';
   const lootRollHtml = isCurrent ? renderLootRollBar(current, activity) : '';
+  // "New" just means "unlocked but never actually run" -- covers both a task
+  // that's freshly unlocked (see tinker_cog/study_relic) and one that's been
+  // sitting there available the whole time but never tried.
+  const isNew = unlocked && !isActivityUsed(character, activity.id);
+  const newBadgeHtml = isNew ? '<span class="activity-new-badge">NEW</span>' : '';
   return `
-    <button type="button" class="activity-btn ${isCurrent ? 'activity-active' : ''}"
+    <button type="button" class="activity-btn ${isCurrent ? 'activity-active' : ''}${isNew ? ' activity-btn-new' : ''}"
       data-action="assign" data-activity="${activity.id}" data-current="${isCurrent}" ${disabled ? 'disabled' : ''}
       title="${baseTitle}${debugSuffix}">
+      ${newBadgeHtml}
       <span class="activity-name">${label || activity.name}${isCurrent && isToggle ? ' (on -- click to stop)' : ''}</span>
       <span class="activity-desc">${unlocked ? activity.description : 'Locked'}</span>
       ${lootRollHtml}
@@ -68,17 +79,21 @@ function renderBranchButton(character, branch, current) {
     const variantButtons = branch.variantIds.map((activityId) =>
       renderActivityButton(character, ACTIVITIES[activityId], current, ACTIVITIES[activityId].branchLabel)
     ).join('');
+    const animateClass = justExpandedBranchId === branch.id ? ' branch-animate-in' : '';
     return `
-      <div class="activity-branch expanded">
+      <div class="activity-branch expanded${animateClass}">
         <button type="button" class="activity-btn branch-back" data-action="collapse-branch">&larr; ${branch.name}</button>
         ${variantButtons}
       </div>`;
   }
 
   const label = isCurrentBranch ? `${branch.name}: ${currentActivity.branchLabel}` : branch.name;
+  const isNew = branch.variantIds.every((activityId) => !isActivityUsed(character, activityId));
+  const newBadgeHtml = isNew ? '<span class="activity-new-badge">NEW</span>' : '';
   return `
-    <button type="button" class="activity-btn ${isCurrentBranch ? 'activity-active' : ''}"
+    <button type="button" class="activity-btn ${isCurrentBranch ? 'activity-active' : ''}${isNew ? ' activity-btn-new' : ''}"
       data-action="expand-branch" data-branch="${branch.id}" title="${branch.description}">
+      ${newBadgeHtml}
       <span class="activity-name">${label}</span>
       <span class="activity-desc">${branch.description}</span>
     </button>`;
@@ -136,6 +151,7 @@ export function renderActivityPanel(character, handlers) {
     </button>`;
 
   root.innerHTML = `${progressHtml}${restToggleHtml}${toggleHtml}<div class="activity-list">${branchRows}${rows}</div>`;
+  justExpandedBranchId = null;
 
   root.querySelectorAll('[data-action="assign"]').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -147,6 +163,7 @@ export function renderActivityPanel(character, handlers) {
   root.querySelectorAll('[data-action="expand-branch"]').forEach((btn) => {
     btn.addEventListener('click', () => {
       expandedBranchId = btn.dataset.branch;
+      justExpandedBranchId = btn.dataset.branch;
       renderActivityPanel(character, handlers);
     });
   });

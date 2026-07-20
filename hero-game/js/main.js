@@ -1,6 +1,6 @@
 import { generateCharacter, computeDerivedStats, addXp } from './core/character.js';
 import { saveGame, loadGame, clearSave } from './core/save.js';
-import { assignActivity, cancelActivity, tickActivity, computeIdleCatchUp, canStartActivity, toggleResting, applyPassiveRegen, MAX_IDLE_CATCHUP_MS } from './core/activityEngine.js';
+import { assignActivity, cancelActivity, tickActivity, computeIdleCatchUp, canStartActivity, toggleResting, applyPassiveRegen, markActivityUsed, MAX_IDLE_CATCHUP_MS } from './core/activityEngine.js';
 import { equipItem, unequipItem, addToInventory, createItemInstance, rollLoot } from './core/equipment.js';
 import { generateOpponent, resolveCombat } from './core/combat.js';
 import { ITEM_TEMPLATES, shopPrice } from './data/items.js';
@@ -88,6 +88,7 @@ function runSpar(activityId) {
     return;
   }
   const activity = ACTIVITIES[activityId];
+  markActivityUsed(character, activityId);
   character.derived.stamina = Math.max(0, character.derived.stamina - activity.costs.stamina);
 
   const opponent = generateOpponent(character.level);
