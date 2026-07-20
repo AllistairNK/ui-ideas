@@ -79,6 +79,12 @@ export const ITEM_TEMPLATES = {
     flavor: "Still faintly warm, and heavier than it looks. It doesn't seem to belong to anything -- yet.",
     statBonuses: {}, levelRequirement: 1, value: 0, questItem: true, unique: true
   },
+  runic_relic: {
+    id: 'runic_relic', name: 'Runic Relic', slot: 'quest', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 0,
+    flavor: "Etched with a script that predates the factory floor by a long way. It hums when the workshop goes quiet.",
+    statBonuses: {}, levelRequirement: 1, value: 0, questItem: true, unique: true
+  },
 
   // --- Tier 2 ---
   storm_axe: {
@@ -289,6 +295,13 @@ export const LOOT_TABLES = {
   // it reads as a discovery, not a guaranteed drip-feed.
   scavengeFind: [
     { itemId: 'bent_cog', weight: 2 },
+    { itemId: null, weight: 150 }
+  ],
+  // Same low-weight "discovery, not a drip-feed" logic as scavengeFind, but
+  // gated to Engineer's own salvage work rather than the slums (see
+  // workshop_salvage in activities.js).
+  workshopFind: [
+    { itemId: 'runic_relic', weight: 2 },
     { itemId: null, weight: 150 }
   ],
   common: [

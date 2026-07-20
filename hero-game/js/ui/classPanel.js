@@ -28,10 +28,16 @@ export function getApprenticeshipLevel(character, branchId) {
   return (character.apprenticeship && character.apprenticeship[branchId] && character.apprenticeship[branchId].level) || 0;
 }
 
+function hasRequiredTrait(character, requiredTraitId) {
+  if (!requiredTraitId) return true;
+  return (character.traits || []).some((t) => t.id === requiredTraitId);
+}
+
 function getAvailableEvolution(character) {
   const def = CLASSES[character.class];
   if (!def || !def.evolution) return null;
-  const { unlockApprenticeshipLevel, branchId, unlockLevel } = def.evolution;
+  const { unlockApprenticeshipLevel, branchId, unlockLevel, requiredTraitId } = def.evolution;
+  if (!hasRequiredTrait(character, requiredTraitId)) return null;
   if (unlockApprenticeshipLevel != null) {
     return getApprenticeshipLevel(character, branchId) >= unlockApprenticeshipLevel ? def.evolution : null;
   }
@@ -39,7 +45,10 @@ function getAvailableEvolution(character) {
 }
 
 function describeEvolutionProgress(character, def) {
-  const { unlockApprenticeshipLevel, branchId, unlockLevel } = def.evolution;
+  const { unlockApprenticeshipLevel, branchId, unlockLevel, requiredTraitId } = def.evolution;
+  if (!hasRequiredTrait(character, requiredTraitId)) {
+    return 'Requires studying something you haven\'t found yet.';
+  }
   if (unlockApprenticeshipLevel != null) {
     const current = getApprenticeshipLevel(character, branchId);
     return `Unlocks at Apprenticeship level ${unlockApprenticeshipLevel} (currently level ${current}).`;

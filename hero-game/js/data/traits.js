@@ -55,6 +55,19 @@ export const HIDDEN_TRAITS = {
     // trait is just the "you noticed the thing" half of it.
     manualOnly: true
   },
+  runicInsight: {
+    id: 'runicInsight',
+    name: 'Runic Insight',
+    flavor: "You read the relic's script the way you'd read a schematic -- and it's starting to read back.",
+    tags: ['engineer'],
+    requirement: (a) => a.intellect >= 10,
+    weight: 0,
+    statBonuses: { magicPower: 3 },
+    // Handed out by finishing "Study the Relic" (see activities.js), which
+    // itself only appears once a Runic Relic turns up from Workshop Salvage.
+    // Gates the Engineer -> Runesmith evolution in classes.js.
+    manualOnly: true
+  },
   ironLungs: {
     id: 'ironLungs',
     name: 'Iron Lungs',

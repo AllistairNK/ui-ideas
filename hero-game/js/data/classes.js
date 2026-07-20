@@ -101,7 +101,7 @@ export const CLASSES = {
     statScaling: { attack: 0.8, defense: 0.6, magicPower: 0.8, critChance: 0.9 },
     allowedWeaponTypes: ['dagger', 'bow', 'staff', 'gauntlet', 'gun'],
     bonusActivityIds: ['study'],
-    evolution: { classId: 'runesmith', unlockLevel: 25 }
+    evolution: { classId: 'runesmith', unlockLevel: 25, requiredTraitId: 'runicInsight' }
   },
   runesmith: {
     id: 'runesmith',

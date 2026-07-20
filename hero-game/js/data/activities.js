@@ -120,6 +120,34 @@ export const ACTIVITIES = {
     costs: { stamina: 15, gold: 0 },
     rewards: { xp: 8, gold: 2, attributeTraining: { intellect: 0.15, agility: 0.1 }, staminaDelta: 0, lootTableId: null }
   },
+  // Engineer's own equivalent of Scavenge the Alleys -- salvage runs through
+  // the workshop scrap heaps, low odds of turning up a Runic Relic.
+  workshop_salvage: {
+    id: 'workshop_salvage',
+    name: 'Workshop Salvage',
+    description: 'Pick through the scrap heap for parts worth keeping.',
+    category: 'labor',
+    durationSeconds: 15,
+    requirements: { minLevel: 1, classWhitelist: ['engineer'] },
+    costs: { stamina: 10, gold: 0 },
+    rewards: { xp: 5, gold: 6, attributeTraining: { intellect: 0.05 }, staminaDelta: 0, lootTableId: 'workshopFind' }
+  },
+  // Hidden -- only appears once a Runic Relic turns up from Workshop
+  // Salvage, and disappears again once its trait is granted (excludesTraitId)
+  // rather than by consuming the relic -- it stays in inventory as a
+  // keepsake. Gates the Engineer -> Runesmith evolution in classes.js.
+  study_relic: {
+    id: 'study_relic',
+    name: 'Study the Relic',
+    description: "Lay the relic out under the workshop lamps and work through what it's actually saying.",
+    category: 'training',
+    durationSeconds: 25,
+    requirements: { minLevel: 1, classWhitelist: ['engineer'], itemId: 'runic_relic', excludesTraitId: 'runicInsight' },
+    costs: { stamina: 15, gold: 0 },
+    rewards: { xp: 10, gold: 0, attributeTraining: {}, staminaDelta: 0, lootTableId: null, grantsTraitId: 'runicInsight' },
+    hidden: true,
+    oneShot: true
+  },
   work: {
     id: 'work',
     name: 'Work',
@@ -144,7 +172,8 @@ export const ACTIVITIES = {
 
 export const IDLE_ELIGIBLE_ACTIVITY_IDS = [
   'slum_drills', 'rooftop_runs', 'scavenge', 'odd_jobs', 'tinker_cog',
-  'train', 'footwork', 'study', 'apprentice_factory', 'work'
+  'train', 'footwork', 'study', 'apprentice_factory', 'work',
+  'workshop_salvage', 'study_relic'
 ];
 
 // A branch groups several concrete activities (variantIds, each a real entry
