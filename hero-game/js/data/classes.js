@@ -2,7 +2,7 @@ export const CLASSES = {
   peasant: {
     id: 'peasant',
     name: 'Peasant',
-    flavor: 'No trade, no title -- just grit and whatever the day demands.',
+    flavor: 'Nobody remembers a peasant\'s name -- there are too many, and today\'s work looks like yesterday\'s.',
     tier: 0,
     unlockLevel: 1,
     unlockAttributeReqs: null,
@@ -13,7 +13,7 @@ export const CLASSES = {
   fighter: {
     id: 'fighter',
     name: 'Fighter',
-    flavor: 'Steel, muscle, and the will to close the distance -- you fight so others don\'t have to.',
+    flavor: 'Nobody asks a fighter for a plan -- just where to point them.',
     tier: 1,
     unlockLevel: 5,
     unlockAttributeReqs: { strength: 6 },
@@ -24,7 +24,7 @@ export const CLASSES = {
   mage: {
     id: 'mage',
     name: 'Mage',
-    flavor: 'Theory made real -- you bend the world through study most would find unreadable.',
+    flavor: 'People keep their questions short around mages -- nobody wants an answer that reshapes the room.',
     tier: 1,
     unlockLevel: 5,
     unlockAttributeReqs: { intellect: 6 },
@@ -35,7 +35,7 @@ export const CLASSES = {
   rogue: {
     id: 'rogue',
     name: 'Rogue',
-    flavor: 'Quick hands, quicker feet -- you win fights before anyone notices they started.',
+    flavor: 'Nobody remembers hiring a rogue for the job -- just noticing, too late, that they had.',
     tier: 1,
     unlockLevel: 5,
     unlockAttributeReqs: { agility: 6 },
@@ -47,7 +47,7 @@ export const CLASSES = {
   shadowblade: {
     id: 'shadowblade',
     name: 'Shadowblade',
-    flavor: 'Steel drawn in silence, gone before the scream finishes -- you\'ve traded speed for precision, and it shows.',
+    flavor: 'A shadowblade is credited with one wound, never two -- the second cut is only for show.',
     tier: 2,
     evolvesFrom: 'rogue',
     statScaling: { attack: 1.1, defense: 0.6, magicPower: 0.3, critChance: 1.3 },
@@ -58,7 +58,7 @@ export const CLASSES = {
   assassin: {
     id: 'assassin',
     name: 'Assassin',
-    flavor: 'A name whispered in back rooms, never said twice -- you don\'t fight fair, because fair fights are for people who lose.',
+    flavor: 'Nobody hires an assassin to make a scene -- the good ones are paid for silence as much as the kill.',
     tier: 3,
     evolvesFrom: 'shadowblade',
     statScaling: { attack: 1.3, defense: 0.7, magicPower: 0.3, critChance: 1.5 },
@@ -69,7 +69,7 @@ export const CLASSES = {
   nightstalker: {
     id: 'nightstalker',
     name: 'Nightstalker',
-    flavor: 'The dark doesn\'t hide you anymore -- it works for you, bending every shadow into cover and every cover into a killing ground.',
+    flavor: 'Watch captains double the patrol when a nightstalker\'s in the district, and it rarely changes anything.',
     tier: 4,
     evolvesFrom: 'assassin',
     statScaling: { attack: 1.5, defense: 0.8, magicPower: 0.4, critChance: 1.7 },
@@ -80,7 +80,7 @@ export const CLASSES = {
   wraith: {
     id: 'wraith',
     name: 'Wraith',
-    flavor: 'Half a rumor, half a blade -- you\'ve stopped being someone people can prepare for.',
+    flavor: 'Most who claim to have seen a wraith are wrong -- the ones who actually did don\'t talk about it.',
     tier: 5,
     evolvesFrom: 'nightstalker',
     statScaling: { attack: 1.7, defense: 0.9, magicPower: 0.4, critChance: 1.9 },
@@ -91,7 +91,7 @@ export const CLASSES = {
   umbralsovereign: {
     id: 'umbralsovereign',
     name: 'Umbral Sovereign',
-    flavor: 'You don\'t enter a room anymore -- the room simply realizes, too late, that you were already inside it.',
+    flavor: 'An Umbral Sovereign isn\'t a person to most who speak the title -- just a story someone else swears is true.',
     tier: 6,
     evolvesFrom: 'wraith',
     statScaling: { attack: 2.1, defense: 1.1, magicPower: 0.5, critChance: 2.3 },
@@ -101,7 +101,7 @@ export const CLASSES = {
   battlemage: {
     id: 'battlemage',
     name: 'Battlemage',
-    flavor: 'Blade in one hand, spell in the other -- your luck and your learning found each other.',
+    flavor: 'Nobody trusts a battlemage\'s luck to hold twice -- and yet it always seems to.',
     tier: 1,
     unlockLevel: 5,
     unlockAttributeReqs: { strength: 6, intellect: 6 },
@@ -113,7 +113,7 @@ export const CLASSES = {
   warden: {
     id: 'warden',
     name: 'Warden',
-    flavor: 'Where others break, you set like stone -- an immovable line nothing gets past.',
+    flavor: 'Enemies target wardens last, not first -- there\'s no glory in breaking against a wall.',
     tier: 1,
     unlockLevel: 5,
     unlockAttributeReqs: { strength: 6, vitality: 7 },
@@ -125,7 +125,7 @@ export const CLASSES = {
   trickster: {
     id: 'trickster',
     name: 'Trickster',
-    flavor: 'Every fight has an opening -- you just happen to see all of them.',
+    flavor: 'Tricksters aren\'t remembered for the fight -- they\'re remembered for how it ended before anyone saw it start.',
     tier: 1,
     unlockLevel: 5,
     unlockAttributeReqs: { agility: 6, luck: 6 },
@@ -137,7 +137,7 @@ export const CLASSES = {
   novicemechanic: {
     id: 'novicemechanic',
     name: 'Novice Mechanic',
-    flavor: 'Gears and grease over spellbooks -- you\'re still learning the trade, but the mechanism makes sense to you.',
+    flavor: 'Novice mechanics get workshop scraps and side jobs -- nobody trusts the big commissions to unproven hands.',
     tier: 1,
     unlockLevel: 5,
     unlockAttributeReqs: { intellect: 6, agility: 6 },
@@ -150,7 +150,7 @@ export const CLASSES = {
   engineer: {
     id: 'engineer',
     name: 'Engineer',
-    flavor: 'The apprenticeship is behind you -- now you build the machines, instead of just fixing them.',
+    flavor: 'An engineer\'s name goes on the plans, not the credit -- the machine gets the applause.',
     tier: 2,
     evolvesFrom: 'novicemechanic',
     statScaling: { attack: 0.8, defense: 0.6, magicPower: 0.8, critChance: 0.9 },
@@ -161,7 +161,7 @@ export const CLASSES = {
   runesmith: {
     id: 'runesmith',
     name: 'Runesmith',
-    flavor: 'You\'ve stopped fixing what\'s broken and started forging what didn\'t exist yet.',
+    flavor: 'Runesmiths are the ones other smiths quietly ask for favors -- and quietly never mention by name.',
     tier: 3,
     evolvesFrom: 'engineer',
     statScaling: { attack: 1.0, defense: 0.7, magicPower: 1.0, critChance: 1.0 },
@@ -172,7 +172,7 @@ export const CLASSES = {
   archmechanist: {
     id: 'archmechanist',
     name: 'Archmechanist',
-    flavor: 'Your workshop outgrew you -- automatons carry your designs into fights you\'re not even in.',
+    flavor: 'An archmechanist doesn\'t need to be in the room -- their automatons already are.',
     tier: 4,
     evolvesFrom: 'runesmith',
     statScaling: { attack: 1.2, defense: 0.8, magicPower: 1.2, critChance: 1.1 },
@@ -183,7 +183,7 @@ export const CLASSES = {
   technomancer: {
     id: 'technomancer',
     name: 'Technomancer',
-    flavor: 'The line between the mechanism and the mind wearing it has all but disappeared.',
+    flavor: 'Nobody agrees where the technomancer ends and the machine begins -- least of all the technomancer.',
     tier: 5,
     evolvesFrom: 'archmechanist',
     statScaling: { attack: 1.4, defense: 0.9, magicPower: 1.4, critChance: 1.2 },
@@ -194,7 +194,7 @@ export const CLASSES = {
   clockworkgod: {
     id: 'clockworkgod',
     name: 'Clockwork Divinity',
-    flavor: 'You no longer build the mechanism. You are the mechanism -- and creation runs on your gearwork now.',
+    flavor: 'Scholars argue whether Clockwork Divinity is a title or a species -- the gearwork stopped caring either way.',
     tier: 6,
     evolvesFrom: 'technomancer',
     statScaling: { attack: 1.8, defense: 1.2, magicPower: 1.8, critChance: 1.5 },
