@@ -41,6 +41,61 @@ export const CLASSES = {
     unlockAttributeReqs: { agility: 6 },
     statScaling: { attack: 0.9, defense: 0.5, magicPower: 0.3, critChance: 1.1 },
     allowedWeaponTypes: ['dagger', 'bow', 'sword'],
+    bonusActivityIds: [],
+    evolution: { classId: 'shadowblade', unlockLevel: 15 }
+  },
+  shadowblade: {
+    id: 'shadowblade',
+    name: 'Shadowblade',
+    flavor: 'Steel drawn in silence, gone before the scream finishes -- you\'ve traded speed for precision, and it shows.',
+    tier: 2,
+    evolvesFrom: 'rogue',
+    statScaling: { attack: 1.1, defense: 0.6, magicPower: 0.3, critChance: 1.3 },
+    allowedWeaponTypes: ['dagger', 'bow', 'sword'],
+    bonusActivityIds: [],
+    evolution: { classId: 'assassin', unlockLevel: 30 }
+  },
+  assassin: {
+    id: 'assassin',
+    name: 'Assassin',
+    flavor: 'A name whispered in back rooms, never said twice -- you don\'t fight fair, because fair fights are for people who lose.',
+    tier: 3,
+    evolvesFrom: 'shadowblade',
+    statScaling: { attack: 1.3, defense: 0.7, magicPower: 0.3, critChance: 1.5 },
+    allowedWeaponTypes: ['dagger', 'bow', 'sword'],
+    bonusActivityIds: [],
+    evolution: { classId: 'nightstalker', unlockLevel: 45 }
+  },
+  nightstalker: {
+    id: 'nightstalker',
+    name: 'Nightstalker',
+    flavor: 'The dark doesn\'t hide you anymore -- it works for you, bending every shadow into cover and every cover into a killing ground.',
+    tier: 4,
+    evolvesFrom: 'assassin',
+    statScaling: { attack: 1.5, defense: 0.8, magicPower: 0.4, critChance: 1.7 },
+    allowedWeaponTypes: ['dagger', 'bow', 'sword'],
+    bonusActivityIds: [],
+    evolution: { classId: 'wraith', unlockLevel: 65 }
+  },
+  wraith: {
+    id: 'wraith',
+    name: 'Wraith',
+    flavor: 'Half a rumor, half a blade -- you\'ve stopped being someone people can prepare for.',
+    tier: 5,
+    evolvesFrom: 'nightstalker',
+    statScaling: { attack: 1.7, defense: 0.9, magicPower: 0.4, critChance: 1.9 },
+    allowedWeaponTypes: ['dagger', 'bow', 'sword'],
+    bonusActivityIds: [],
+    evolution: { classId: 'umbralsovereign', unlockLevel: 90 }
+  },
+  umbralsovereign: {
+    id: 'umbralsovereign',
+    name: 'Umbral Sovereign',
+    flavor: 'You don\'t enter a room anymore -- the room simply realizes, too late, that you were already inside it.',
+    tier: 6,
+    evolvesFrom: 'wraith',
+    statScaling: { attack: 2.1, defense: 1.1, magicPower: 0.5, critChance: 2.3 },
+    allowedWeaponTypes: ['dagger', 'bow', 'sword'],
     bonusActivityIds: []
   },
   battlemage: {
