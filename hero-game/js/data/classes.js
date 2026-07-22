@@ -85,6 +85,61 @@ export const CLASSES = {
     unlockAttributeReqs: { intellect: 6 },
     statScaling: { attack: 0.3, defense: 0.4, magicPower: 1.2, critChance: 0.5 },
     allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'conjurer', unlockLevel: 15 }
+  },
+  conjurer: {
+    id: 'conjurer',
+    name: 'Conjurer',
+    flavor: 'A conjurer never lifts the blade themselves -- something else in the room already has.',
+    tier: 2,
+    evolvesFrom: 'mage',
+    statScaling: { attack: 0.4, defense: 0.5, magicPower: 1.5, critChance: 0.6 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'warlock', unlockLevel: 30 }
+  },
+  warlock: {
+    id: 'warlock',
+    name: 'Warlock',
+    flavor: 'Nobody bargains with a warlock twice -- the second price is always worse than they remember agreeing to.',
+    tier: 3,
+    evolvesFrom: 'conjurer',
+    statScaling: { attack: 0.5, defense: 0.6, magicPower: 1.8, critChance: 0.7 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'archmage', unlockLevel: 45 }
+  },
+  archmage: {
+    id: 'archmage',
+    name: 'Archmage',
+    flavor: 'An archmage doesn\'t raise their voice -- the tower does that for them.',
+    tier: 4,
+    evolvesFrom: 'warlock',
+    statScaling: { attack: 0.6, defense: 0.7, magicPower: 2.1, critChance: 0.8 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'archwizard', unlockLevel: 65 }
+  },
+  archwizard: {
+    id: 'archwizard',
+    name: 'Archwizard',
+    flavor: 'Kingdoms consult archwizards before wars, not during them -- by the time it starts, the argument\'s already decided.',
+    tier: 5,
+    evolvesFrom: 'archmage',
+    statScaling: { attack: 0.7, defense: 0.8, magicPower: 2.4, critChance: 0.9 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'astralsovereign', unlockLevel: 90 }
+  },
+  astralsovereign: {
+    id: 'astralsovereign',
+    name: 'Astral Sovereign',
+    flavor: 'An Astral Sovereign doesn\'t step into the room -- the room already agreed to their terms before they entered.',
+    tier: 6,
+    evolvesFrom: 'archwizard',
+    statScaling: { attack: 0.8, defense: 1.0, magicPower: 2.8, critChance: 1.0 },
+    allowedWeaponTypes: ['staff', 'dagger'],
     bonusActivityIds: ['study']
   },
   rogue: {
