@@ -19,6 +19,61 @@ export const CLASSES = {
     unlockAttributeReqs: { strength: 6 },
     statScaling: { attack: 1.1, defense: 0.9, magicPower: 0.2, critChance: 0.5 },
     allowedWeaponTypes: ['sword', 'axe', 'hammer', 'spear'],
+    bonusActivityIds: [],
+    evolution: { classId: 'vanguard', unlockLevel: 15 }
+  },
+  vanguard: {
+    id: 'vanguard',
+    name: 'Vanguard',
+    flavor: 'A vanguard doesn\'t wait for orders -- by the time they\'d arrive, the line\'s already moved.',
+    tier: 2,
+    evolvesFrom: 'fighter',
+    statScaling: { attack: 1.3, defense: 1.1, magicPower: 0.2, critChance: 0.6 },
+    allowedWeaponTypes: ['sword', 'axe', 'hammer', 'spear'],
+    bonusActivityIds: [],
+    evolution: { classId: 'warbringer', unlockLevel: 30 }
+  },
+  warbringer: {
+    id: 'warbringer',
+    name: 'Warbringer',
+    flavor: 'Nobody negotiates once a warbringer\'s in the field -- the terms already changed.',
+    tier: 3,
+    evolvesFrom: 'vanguard',
+    statScaling: { attack: 1.5, defense: 1.3, magicPower: 0.3, critChance: 0.7 },
+    allowedWeaponTypes: ['sword', 'axe', 'hammer', 'spear'],
+    bonusActivityIds: [],
+    evolution: { classId: 'battlelord', unlockLevel: 45 }
+  },
+  battlelord: {
+    id: 'battlelord',
+    name: 'Battlelord',
+    flavor: 'A battlelord doesn\'t win the argument -- they just outlast everyone still making one.',
+    tier: 4,
+    evolvesFrom: 'warbringer',
+    statScaling: { attack: 1.8, defense: 1.4, magicPower: 0.3, critChance: 0.8 },
+    allowedWeaponTypes: ['sword', 'axe', 'hammer', 'spear'],
+    bonusActivityIds: [],
+    evolution: { classId: 'juggernaut', unlockLevel: 65 }
+  },
+  juggernaut: {
+    id: 'juggernaut',
+    name: 'Juggernaut',
+    flavor: 'Armies plan around a juggernaut, not against one -- the numbers stop mattering past a certain size.',
+    tier: 5,
+    evolvesFrom: 'battlelord',
+    statScaling: { attack: 2.0, defense: 1.5, magicPower: 0.4, critChance: 0.9 },
+    allowedWeaponTypes: ['sword', 'axe', 'hammer', 'spear'],
+    bonusActivityIds: [],
+    evolution: { classId: 'colossus', unlockLevel: 90 }
+  },
+  colossus: {
+    id: 'colossus',
+    name: 'Colossus',
+    flavor: 'A colossus doesn\'t need reinforcements -- reinforcements are for people still worried about losing.',
+    tier: 6,
+    evolvesFrom: 'juggernaut',
+    statScaling: { attack: 2.3, defense: 1.7, magicPower: 0.4, critChance: 1.0 },
+    allowedWeaponTypes: ['sword', 'axe', 'hammer', 'spear'],
     bonusActivityIds: []
   },
   mage: {

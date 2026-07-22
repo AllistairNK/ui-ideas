@@ -65,19 +65,30 @@ going to be *just* a Fighter, Mage, or Rogue.
   the gutter that isn't quite junk. What a hero does with it next is up to
   them.
 
+## Six Rungs Up
+
+Steel and speed both go the distance now. A **Fighter** who keeps training
+past the first fork climbs **Vanguard → Warbringer → Battlelord →
+Juggernaut → Colossus** — less a change of trade than the same trade with
+nothing left to prove: by the top rung, armies plan around one of them the
+way they'd plan around a siege engine. A **Rogue** climbs an equally long
+ladder of their own (**Shadowblade → Assassin → Nightstalker → Wraith →
+Umbral Sovereign**), trading raw size for the sort of reputation that
+precedes you into a room. **Mage** is the one path that still stops at tier
+1 — this world hasn't gotten there yet.
+
 ## The Machine Age
 
-The Mechanic line is the odd one out, and deliberately so: it's the one
-class tree that doesn't cap at tier 1. Starting from **Factory Apprentice**
-work taken on in the slums, a hero with the knack for it can climb an entire
-second ladder that has nothing to do with sword-and-spell tradition —
-**Novice Mechanic → Engineer → Runsmith → Archmechanist → Technomancer →
-Clockwork Divinity**. It's a slower burn than the warrior classes (no tier-2
-Fighter, no tier-2 Mage — this world hasn't gotten there yet), but it's the
-only path that ends somewhere genuinely strange: not a stronger person, but
-something that's stopped being entirely a person. By the top of that tree
-the distinction between "the mechanism I built" and "the mind that built it"
-has quietly dissolved.
+The Mechanic line is the odd one out in a different way: it's the only tree
+that doesn't run on sword-and-spell tradition at all. Starting from
+**Factory Apprentice** work taken on in the slums, a hero with the knack for
+it can climb an entire second ladder — **Novice Mechanic → Engineer →
+Runsmith → Archmechanist → Technomancer → Clockwork Divinity**. It's a
+slower burn than the warrior classes, but it's the only path that ends
+somewhere genuinely strange: not a stronger person, but something that's
+stopped being entirely a person. By the top of that tree the distinction
+between "the mechanism I built" and "the mind that built it" has quietly
+dissolved.
 
 ## Tone
 
