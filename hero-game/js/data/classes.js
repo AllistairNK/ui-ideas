@@ -218,6 +218,61 @@ export const CLASSES = {
     requiredTrait: 'arcaneFortune',
     statScaling: { attack: 0.7, defense: 0.6, magicPower: 0.7, critChance: 0.5 },
     allowedWeaponTypes: ['staff', 'sword', 'dagger'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'spellblade', unlockLevel: 15 }
+  },
+  spellblade: {
+    id: 'spellblade',
+    name: 'Spellblade',
+    flavor: 'A spellblade never swings without a plan behind it -- luck just decides which plan wins.',
+    tier: 2,
+    evolvesFrom: 'battlemage',
+    statScaling: { attack: 0.9, defense: 0.7, magicPower: 0.9, critChance: 0.7 },
+    allowedWeaponTypes: ['staff', 'sword', 'dagger'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'warmage', unlockLevel: 30 }
+  },
+  warmage: {
+    id: 'warmage',
+    name: 'Warmage',
+    flavor: 'Warmages don\'t retreat to cast -- the spell and the swing arrive in the same breath.',
+    tier: 3,
+    evolvesFrom: 'spellblade',
+    statScaling: { attack: 1.1, defense: 0.8, magicPower: 1.1, critChance: 0.9 },
+    allowedWeaponTypes: ['staff', 'sword', 'dagger'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'battlemagus', unlockLevel: 45 }
+  },
+  battlemagus: {
+    id: 'battlemagus',
+    name: 'Battlemagus',
+    flavor: 'Nobody bets against a battlemagus twice -- the first loss was supposed to be a lesson.',
+    tier: 4,
+    evolvesFrom: 'warmage',
+    statScaling: { attack: 1.3, defense: 0.9, magicPower: 1.3, critChance: 1.1 },
+    allowedWeaponTypes: ['staff', 'sword', 'dagger'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'fateblade', unlockLevel: 65 }
+  },
+  fateblade: {
+    id: 'fateblade',
+    name: 'Fateblade',
+    flavor: 'A fateblade\'s strikes look accidental until the fourth one lands exactly where the first three failed.',
+    tier: 5,
+    evolvesFrom: 'battlemagus',
+    statScaling: { attack: 1.5, defense: 1.0, magicPower: 1.5, critChance: 1.3 },
+    allowedWeaponTypes: ['staff', 'sword', 'dagger'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'fatedsovereign', unlockLevel: 90 }
+  },
+  fatedsovereign: {
+    id: 'fatedsovereign',
+    name: 'Fated Sovereign',
+    flavor: 'A Fated Sovereign doesn\'t ask which way the odds break -- they\'ve already spent theirs deciding.',
+    tier: 6,
+    evolvesFrom: 'fateblade',
+    statScaling: { attack: 1.8, defense: 1.2, magicPower: 1.8, critChance: 1.6 },
+    allowedWeaponTypes: ['staff', 'sword', 'dagger'],
     bonusActivityIds: ['study']
   },
   warden: {
