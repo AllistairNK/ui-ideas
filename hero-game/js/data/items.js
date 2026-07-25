@@ -71,6 +71,17 @@ export const ITEM_TEMPLATES = {
     statBonuses: { critChance: 5 }, levelRequirement: 2, value: 12
   },
 
+  // --- Rogue-flavored gear: not class-locked (any class can equip these),
+  // just statted and written for the attack/critChance-heavy rogue line
+  // (rogue -> shadowblade -> assassin -> nightstalker -> wraith ->
+  // umbralsovereign in classes.js).
+  guttersnipes_blade: {
+    id: 'guttersnipes_blade', name: "Guttersnipe's Blade", slot: 'weapon', weaponType: 'dagger',
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Small enough to hide in a sleeve, sharp enough that it never needed to be bigger.',
+    statBonuses: { attack: 6, critChance: 6 }, levelRequirement: 3, value: 20
+  },
+
   // --- Quest items: not equippable, not sold in the shop (see
   // SHOP_ITEM_IDS below) -- found and consumed through activities instead.
   bent_cog: {
@@ -128,6 +139,12 @@ export const ITEM_TEMPLATES = {
     rarity: 'rare', element: 'holy', tier: 2,
     statBonuses: { defense: 8, maxHp: 15 }, levelRequirement: 6, value: 50
   },
+  cutpurses_recurve: {
+    id: 'cutpurses_recurve', name: "Cutpurse's Recurve", slot: 'weapon', weaponType: 'bow',
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Short enough to draw from under a cloak, quiet enough that the mark never turns around.',
+    statBonuses: { attack: 9, critChance: 8 }, levelRequirement: 6, value: 46
+  },
 
   // --- Tier 3 ---
   pneumatic_punch_blade: {
@@ -159,6 +176,12 @@ export const ITEM_TEMPLATES = {
     rarity: 'common', element: 'none', tier: 3,
     flavor: 'A rotating cylinder driven by air pressure instead of powder.',
     statBonuses: { attack: 7, critChance: 4 }, levelRequirement: 15, value: 34
+  },
+  silent_edge: {
+    id: 'silent_edge', name: 'Silent Edge', slot: 'weapon', weaponType: 'sword',
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'The draw and the cut are the same motion -- there\'s no second sound to hear.',
+    statBonuses: { attack: 12, critChance: 9 }, levelRequirement: 15, value: 58
   },
 
   // --- Tier 4 ---
@@ -192,6 +215,12 @@ export const ITEM_TEMPLATES = {
     flavor: 'A cam-driven action cycles rounds faster than you can pull the trigger.',
     statBonuses: { attack: 11, critChance: 7 }, levelRequirement: 25, value: 62
   },
+  nightfall_fang: {
+    id: 'nightfall_fang', name: 'Nightfall Fang', slot: 'weapon', weaponType: 'dagger',
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'By the time the streetlamps catch the glint, it\'s already back in its sheath.',
+    statBonuses: { attack: 16, critChance: 11 }, levelRequirement: 25, value: 78
+  },
 
   // --- Tier 5 ---
   twin_cam_shiv: {
@@ -224,6 +253,12 @@ export const ITEM_TEMPLATES = {
     flavor: 'A belt-fed sidearm -- technically against every safety guideline you\'ve read.',
     statBonuses: { attack: 16, critChance: 10 }, levelRequirement: 40, value: 112
   },
+  wraithstring_longbow: {
+    id: 'wraithstring_longbow', name: 'Wraithstring Longbow', slot: 'weapon', weaponType: 'bow',
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'The string is nearly invisible in daylight and makes no sound at all after dark.',
+    statBonuses: { attack: 22, critChance: 14 }, levelRequirement: 40, value: 130
+  },
 
   // --- Tier 6 ---
   nanoblade: {
@@ -255,6 +290,12 @@ export const ITEM_TEMPLATES = {
     rarity: 'rare', element: 'lightning', tier: 6, effect: 'goldSparkle',
     flavor: 'A sidearm-sized railgun. It should not exist at this size. It does.',
     statBonuses: { attack: 23, critChance: 13 }, levelRequirement: 60, value: 182
+  },
+  umbral_reaper: {
+    id: 'umbral_reaper', name: 'Umbral Reaper', slot: 'weapon', weaponType: 'sword', effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Nobody claims to have seen the swing. Only the ones left standing get asked about it.',
+    statBonuses: { attack: 30, critChance: 18 }, levelRequirement: 60, value: 210
   },
 
   // --- Tier 7 ---
