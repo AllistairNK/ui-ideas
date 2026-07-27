@@ -82,6 +82,16 @@ export const ITEM_TEMPLATES = {
     statBonuses: { attack: 6, critChance: 6 }, levelRequirement: 3, value: 20
   },
 
+  // --- Fighter-flavored gear: not class-locked, just statted and written for
+  // the attack/defense-heavy fighter line (fighter -> vanguard -> warbringer
+  // -> battlelord -> juggernaut -> colossus in classes.js).
+  brawlers_hatchet: {
+    id: 'brawlers_hatchet', name: "Brawler's Hatchet", slot: 'weapon', weaponType: 'axe',
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Not built for throwing. Built for the guy who forgot that and came in swinging anyway.',
+    statBonuses: { attack: 6, defense: 3 }, levelRequirement: 3, value: 20
+  },
+
   // --- Quest items: not equippable, not sold in the shop (see
   // SHOP_ITEM_IDS below) -- found and consumed through activities instead.
   bent_cog: {
@@ -145,6 +155,12 @@ export const ITEM_TEMPLATES = {
     flavor: 'Short enough to draw from under a cloak, quiet enough that the mark never turns around.',
     statBonuses: { attack: 9, critChance: 8 }, levelRequirement: 6, value: 46
   },
+  vanguards_maul: {
+    id: 'vanguards_maul', name: "Vanguard's Maul", slot: 'weapon', weaponType: 'hammer',
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'The line holds where this lands, and it lands wherever the line is thinnest.',
+    statBonuses: { attack: 9, defense: 5 }, levelRequirement: 6, value: 46
+  },
 
   // --- Tier 3 ---
   pneumatic_punch_blade: {
@@ -182,6 +198,12 @@ export const ITEM_TEMPLATES = {
     rarity: 'rare', element: 'none', tier: 3,
     flavor: 'The draw and the cut are the same motion -- there\'s no second sound to hear.',
     statBonuses: { attack: 12, critChance: 9 }, levelRequirement: 15, value: 58
+  },
+  warbringers_pike: {
+    id: 'warbringers_pike', name: "Warbringer's Pike", slot: 'weapon', weaponType: 'spear',
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Negotiations end at the reach of this thing, well before anyone else wanted them to.',
+    statBonuses: { attack: 12, defense: 6 }, levelRequirement: 15, value: 58
   },
 
   // --- Tier 4 ---
@@ -221,6 +243,12 @@ export const ITEM_TEMPLATES = {
     flavor: 'By the time the streetlamps catch the glint, it\'s already back in its sheath.',
     statBonuses: { attack: 16, critChance: 11 }, levelRequirement: 25, value: 78
   },
+  battlelords_greataxe: {
+    id: 'battlelords_greataxe', name: "Battlelord's Greataxe", slot: 'weapon', weaponType: 'axe',
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Too heavy to parry, too slow to dodge twice. Most only make that mistake once.',
+    statBonuses: { attack: 16, defense: 8 }, levelRequirement: 25, value: 78
+  },
 
   // --- Tier 5 ---
   twin_cam_shiv: {
@@ -259,6 +287,12 @@ export const ITEM_TEMPLATES = {
     flavor: 'The string is nearly invisible in daylight and makes no sound at all after dark.',
     statBonuses: { attack: 22, critChance: 14 }, levelRequirement: 40, value: 130
   },
+  juggernauts_warhammer: {
+    id: 'juggernauts_warhammer', name: "Juggernaut's Warhammer", slot: 'weapon', weaponType: 'hammer',
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Armies plan around the swing radius, not the wielder. The numbers stopped mattering a while ago.',
+    statBonuses: { attack: 22, defense: 11 }, levelRequirement: 40, value: 130
+  },
 
   // --- Tier 6 ---
   nanoblade: {
@@ -296,6 +330,12 @@ export const ITEM_TEMPLATES = {
     rarity: 'epic', element: 'none', tier: 6,
     flavor: 'Nobody claims to have seen the swing. Only the ones left standing get asked about it.',
     statBonuses: { attack: 30, critChance: 18 }, levelRequirement: 60, value: 210
+  },
+  colossal_greatsword: {
+    id: 'colossal_greatsword', name: 'Colossal Greatsword', slot: 'weapon', weaponType: 'sword', effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'No one reinforces the line it\'s standing on. Reinforcements are for people still worried about losing.',
+    statBonuses: { attack: 28, defense: 15 }, levelRequirement: 60, value: 210
   },
 
   // --- Tier 7 ---
