@@ -92,6 +92,47 @@ export const ITEM_TEMPLATES = {
     statBonuses: { attack: 6, defense: 3 }, levelRequirement: 3, value: 20
   },
 
+  // --- Mage-flavored gear: not class-locked, just statted and written for
+  // the magicPower/critChance-heavy mage line (mage -> conjurer -> warlock ->
+  // archmage -> archwizard -> astralsovereign in classes.js). Weapon types
+  // stick to staff/dagger, matching that line's allowedWeaponTypes.
+  kindled_wand: {
+    id: 'kindled_wand', name: 'Kindled Wand', slot: 'weapon', weaponType: 'staff',
+    rarity: 'uncommon', element: 'fire', tier: 1,
+    flavor: 'Barely more than a stick with an opinion, but the opinion is usually fire.',
+    statBonuses: { magicPower: 7, critChance: 3 }, levelRequirement: 3, value: 19
+  },
+  ritual_athame: {
+    id: 'ritual_athame', name: 'Ritual Athame', slot: 'weapon', weaponType: 'dagger',
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: "Not meant for throats. The blood matters more once it's spilled somewhere specific.",
+    statBonuses: { magicPower: 9, critChance: 8 }, levelRequirement: 6, value: 46
+  },
+  warlocks_conduit: {
+    id: 'warlocks_conduit', name: "Warlock's Conduit", slot: 'weapon', weaponType: 'staff',
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'It remembers every bargain that ran through it, and keeps its own count besides.',
+    statBonuses: { magicPower: 15, critChance: 8 }, levelRequirement: 15, value: 58
+  },
+  archmages_quill: {
+    id: 'archmages_quill', name: "Archmage's Quill", slot: 'weapon', weaponType: 'dagger',
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "It signs nothing. By the time the ink would dry, the matter's already settled.",
+    statBonuses: { magicPower: 18, critChance: 12 }, levelRequirement: 25, value: 78
+  },
+  archwizards_judgment: {
+    id: 'archwizards_judgment', name: "Archwizard's Judgment", slot: 'weapon', weaponType: 'staff',
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: "Kingdoms don't ask what it's for anymore. They ask when it'll be pointed elsewhere.",
+    statBonuses: { magicPower: 28, critChance: 14 }, levelRequirement: 40, value: 130
+  },
+  astral_reliquary: {
+    id: 'astral_reliquary', name: 'Astral Reliquary', slot: 'weapon', weaponType: 'dagger', effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "It doesn't draw blood so much as draw a line under the conversation.",
+    statBonuses: { magicPower: 34, critChance: 20 }, levelRequirement: 60, value: 210
+  },
+
   // --- Quest items: not equippable, not sold in the shop (see
   // SHOP_ITEM_IDS below) -- found and consumed through activities instead.
   bent_cog: {
