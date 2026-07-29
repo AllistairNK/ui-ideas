@@ -133,6 +133,48 @@ export const ITEM_TEMPLATES = {
     statBonuses: { magicPower: 34, critChance: 20 }, levelRequirement: 60, value: 210
   },
 
+  // --- Battlemage-flavored gear: not class-locked, just statted and written
+  // for the hybrid attack/magicPower/critChance battlemage line (battlemage
+  // -> spellblade -> warmage -> battlemagus -> fateblade -> fatedsovereign in
+  // classes.js). Weapon types cycle through staff/sword/dagger, matching
+  // that line's allowedWeaponTypes.
+  gambits_edge: {
+    id: 'gambits_edge', name: "Gambit's Edge", slot: 'weapon', weaponType: 'sword',
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "The odds were never good. It swings anyway, and somehow that's enough.",
+    statBonuses: { attack: 4, magicPower: 4, critChance: 3 }, levelRequirement: 3, value: 19
+  },
+  spellblades_ward: {
+    id: 'spellblades_ward', name: "Spellblade's Ward", slot: 'weapon', weaponType: 'staff',
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: "It doesn't block the hit so much as convince it to land somewhere less important.",
+    statBonuses: { attack: 6, magicPower: 7, critChance: 5 }, levelRequirement: 6, value: 46
+  },
+  warmages_reprisal: {
+    id: 'warmages_reprisal', name: "Warmage's Reprisal", slot: 'weapon', weaponType: 'dagger',
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "The spell and the strike arrive in the same breath, so nobody's sure which one to duck.",
+    statBonuses: { attack: 8, magicPower: 9, critChance: 6 }, levelRequirement: 15, value: 58
+  },
+  battlemagus_wager: {
+    id: 'battlemagus_wager', name: "Battlemagus's Wager", slot: 'weapon', weaponType: 'sword',
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "The wager's already settled before the coin lands -- it just likes the theater of the toss.",
+    statBonuses: { attack: 10, magicPower: 11, critChance: 9 }, levelRequirement: 25, value: 78
+  },
+  fateblades_verdict: {
+    id: 'fateblades_verdict', name: "Fateblade's Verdict", slot: 'weapon', weaponType: 'staff',
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: "It doesn't decide who wins. It just arrives right when the decision would've mattered.",
+    statBonuses: { attack: 15, magicPower: 16, critChance: 12 }, levelRequirement: 40, value: 130
+  },
+  fatedsovereigns_toll: {
+    id: 'fatedsovereigns_toll', name: "Fated Sovereign's Toll", slot: 'weapon', weaponType: 'dagger', effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Every ledger balances eventually. This is just the one that collects early.',
+    statBonuses: { attack: 18, magicPower: 19, critChance: 16 }, levelRequirement: 60, value: 210
+  },
+
   // --- Quest items: not equippable, not sold in the shop (see
   // SHOP_ITEM_IDS below) -- found and consumed through activities instead.
   bent_cog: {
