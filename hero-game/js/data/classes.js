@@ -285,6 +285,61 @@ export const CLASSES = {
     requiredTrait: 'stonewoken',
     statScaling: { attack: 0.8, defense: 1.3, magicPower: 0.1, critChance: 0.3 },
     allowedWeaponTypes: ['hammer', 'spear', 'sword'],
+    bonusActivityIds: [],
+    evolution: { classId: 'bulwark', unlockLevel: 15 }
+  },
+  bulwark: {
+    id: 'bulwark',
+    name: 'Bulwark',
+    flavor: 'A bulwark doesn\'t hold the line -- the line holds around them.',
+    tier: 2,
+    evolvesFrom: 'warden',
+    statScaling: { attack: 0.9, defense: 1.6, magicPower: 0.1, critChance: 0.35 },
+    allowedWeaponTypes: ['hammer', 'spear', 'sword'],
+    bonusActivityIds: [],
+    evolution: { classId: 'rampart', unlockLevel: 30 }
+  },
+  rampart: {
+    id: 'rampart',
+    name: 'Rampart',
+    flavor: 'Nobody outlasts a rampart by waiting -- the siege ends first.',
+    tier: 3,
+    evolvesFrom: 'bulwark',
+    statScaling: { attack: 1.0, defense: 1.9, magicPower: 0.15, critChance: 0.4 },
+    allowedWeaponTypes: ['hammer', 'spear', 'sword'],
+    bonusActivityIds: [],
+    evolution: { classId: 'aegis', unlockLevel: 45 }
+  },
+  aegis: {
+    id: 'aegis',
+    name: 'Aegis',
+    flavor: 'An aegis doesn\'t block the blow -- it decides beforehand which blows land.',
+    tier: 4,
+    evolvesFrom: 'rampart',
+    statScaling: { attack: 1.1, defense: 2.2, magicPower: 0.15, critChance: 0.45 },
+    allowedWeaponTypes: ['hammer', 'spear', 'sword'],
+    bonusActivityIds: [],
+    evolution: { classId: 'bastion', unlockLevel: 65 }
+  },
+  bastion: {
+    id: 'bastion',
+    name: 'Bastion',
+    flavor: 'Armies retreat around a bastion, not through one -- there\'s no path they haven\'t already sealed.',
+    tier: 5,
+    evolvesFrom: 'aegis',
+    statScaling: { attack: 1.2, defense: 2.5, magicPower: 0.2, critChance: 0.5 },
+    allowedWeaponTypes: ['hammer', 'spear', 'sword'],
+    bonusActivityIds: [],
+    evolution: { classId: 'immovable', unlockLevel: 90 }
+  },
+  immovable: {
+    id: 'immovable',
+    name: 'Immovable',
+    flavor: 'The immovable don\'t win fights -- fights just stop happening near them.',
+    tier: 6,
+    evolvesFrom: 'bastion',
+    statScaling: { attack: 1.3, defense: 2.9, magicPower: 0.2, critChance: 0.55 },
+    allowedWeaponTypes: ['hammer', 'spear', 'sword'],
     bonusActivityIds: []
   },
   trickster: {
