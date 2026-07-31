@@ -175,6 +175,47 @@ export const ITEM_TEMPLATES = {
     statBonuses: { attack: 18, magicPower: 19, critChance: 16 }, levelRequirement: 60, value: 210
   },
 
+  // --- Warden-flavored gear: not class-locked, just statted and written for
+  // the attack/defense-heavy warden line (warden -> bulwark -> rampart ->
+  // aegis -> bastion -> immovable in classes.js). Weapon types cycle through
+  // sword/hammer/spear, matching that line's allowedWeaponTypes.
+  gatekeepers_edge: {
+    id: 'gatekeepers_edge', name: "Gatekeeper's Edge", slot: 'weapon', weaponType: 'sword',
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'It doesn\'t need to be fast. Nothing gets past it twice.',
+    statBonuses: { attack: 6, defense: 4 }, levelRequirement: 3, value: 20
+  },
+  bulwarks_maul: {
+    id: 'bulwarks_maul', name: "Bulwark's Maul", slot: 'weapon', weaponType: 'hammer',
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'It doesn\'t swing to hurt -- it swings to make sure nothing else gets through.',
+    statBonuses: { attack: 8, defense: 7 }, levelRequirement: 6, value: 46
+  },
+  ramparts_pike: {
+    id: 'ramparts_pike', name: "Rampart's Pike", slot: 'weapon', weaponType: 'spear',
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'The reach isn\'t for reaching. It\'s for making sure nothing else can.',
+    statBonuses: { attack: 11, defense: 9 }, levelRequirement: 15, value: 58
+  },
+  aegis_blade: {
+    id: 'aegis_blade', name: 'Aegis Blade', slot: 'weapon', weaponType: 'sword',
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'It parries first and cuts second, and most fights end somewhere in between.',
+    statBonuses: { attack: 14, defense: 12 }, levelRequirement: 25, value: 78
+  },
+  bastions_warhammer: {
+    id: 'bastions_warhammer', name: "Bastion's Warhammer", slot: 'weapon', weaponType: 'hammer',
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Every swing resets the line -- there\'s nowhere else worth standing after.',
+    statBonuses: { attack: 18, defense: 16 }, levelRequirement: 40, value: 130
+  },
+  immovable_line: {
+    id: 'immovable_line', name: 'Immovable Line', slot: 'weapon', weaponType: 'spear', effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'It doesn\'t hold ground. Ground just stops moving near it.',
+    statBonuses: { attack: 22, defense: 20 }, levelRequirement: 60, value: 210
+  },
+
   // --- Quest items: not equippable, not sold in the shop (see
   // SHOP_ITEM_IDS below) -- found and consumed through activities instead.
   bent_cog: {
