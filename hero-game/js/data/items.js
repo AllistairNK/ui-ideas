@@ -216,6 +216,47 @@ export const ITEM_TEMPLATES = {
     statBonuses: { attack: 22, defense: 20 }, levelRequirement: 60, value: 210
   },
 
+  // --- Trickster-flavored gear: not class-locked, just statted and written
+  // for the attack/critChance-heavy trickster (a standalone tier-1 secret
+  // class with no evolution line in classes.js). Weapon types alternate
+  // dagger/bow, matching allowedWeaponTypes.
+  feinting_blade: {
+    id: 'feinting_blade', name: 'Feinting Blade', slot: 'weapon', weaponType: 'dagger',
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'The first cut is a lie. Nobody notices the second one coming.',
+    statBonuses: { attack: 5, critChance: 8 }, levelRequirement: 3, value: 20
+  },
+  ruse_recurve: {
+    id: 'ruse_recurve', name: 'Ruse Recurve', slot: 'weapon', weaponType: 'bow',
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'It aims where you\'re looking. The arrow goes where you weren\'t.',
+    statBonuses: { attack: 7, critChance: 11 }, levelRequirement: 6, value: 46
+  },
+  sleighthand_stiletto: {
+    id: 'sleighthand_stiletto', name: 'Sleight-Hand Stiletto', slot: 'weapon', weaponType: 'dagger',
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'One second it\'s a coin trick. The next, it isn\'t.',
+    statBonuses: { attack: 9, critChance: 14 }, levelRequirement: 15, value: 58
+  },
+  misdirection_bow: {
+    id: 'misdirection_bow', name: 'Misdirection Bow', slot: 'weapon', weaponType: 'bow',
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'By the time anyone hears the string, the story\'s already been told wrong.',
+    statBonuses: { attack: 12, critChance: 17 }, levelRequirement: 25, value: 78
+  },
+  masquerade_fang: {
+    id: 'masquerade_fang', name: 'Masquerade Fang', slot: 'weapon', weaponType: 'dagger',
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Everyone at the table remembers a different face holding it.',
+    statBonuses: { attack: 15, critChance: 21 }, levelRequirement: 40, value: 130
+  },
+  tricksters_last_word: {
+    id: 'tricksters_last_word', name: "Trickster's Last Word", slot: 'weapon', weaponType: 'bow', effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Nobody agrees on what was said before it fired. Everyone agrees it landed.',
+    statBonuses: { attack: 19, critChance: 27 }, levelRequirement: 60, value: 210
+  },
+
   // --- Quest items: not equippable, not sold in the shop (see
   // SHOP_ITEM_IDS below) -- found and consumed through activities instead.
   bent_cog: {
