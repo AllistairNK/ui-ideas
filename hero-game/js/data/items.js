@@ -81,6 +81,30 @@ export const ITEM_TEMPLATES = {
     flavor: 'Small enough to hide in a sleeve, sharp enough that it never needed to be bigger.',
     statBonuses: { attack: 6, critChance: 6 }, levelRequirement: 3, value: 20
   },
+  lookouts_hood: {
+    id: 'lookouts_hood', name: "Lookout's Hood", slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Keeps a watch on the street corner without ever seeming to.',
+    statBonuses: { defense: 3, critChance: 3 }, levelRequirement: 3, value: 12
+  },
+  backalley_wraps: {
+    id: 'backalley_wraps', name: 'Back-Alley Wraps', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "Stitched from whatever the alley had. It's kept more than one back from getting worse.",
+    statBonuses: { defense: 5, maxHp: 10 }, levelRequirement: 3, value: 15
+  },
+  picklock_gloves: {
+    id: 'picklock_gloves', name: 'Picklock Gloves', slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'The tips are worn smooth from a hundred locks that gave up first.',
+    statBonuses: { attack: 3, critChance: 3 }, levelRequirement: 3, value: 12
+  },
+  cobblestone_treads: {
+    id: 'cobblestone_treads', name: 'Cobblestone Treads', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "Scuffed enough to match every street it's ever crossed.",
+    statBonuses: { defense: 3, critChance: 2 }, levelRequirement: 3, value: 12
+  },
 
   // --- Fighter-flavored gear: not class-locked, just statted and written for
   // the attack/defense-heavy fighter line (fighter -> vanguard -> warbringer
@@ -320,6 +344,30 @@ export const ITEM_TEMPLATES = {
     flavor: 'Short enough to draw from under a cloak, quiet enough that the mark never turns around.',
     statBonuses: { attack: 9, critChance: 8 }, levelRequirement: 6, value: 46
   },
+  smokeveil_mask: {
+    id: 'smokeveil_mask', name: 'Smokeveil Mask', slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Thin enough to breathe through, thick enough that no one recognizes the breather.',
+    statBonuses: { defense: 5, critChance: 5 }, levelRequirement: 6, value: 30
+  },
+  secondstory_coat: {
+    id: 'secondstory_coat', name: "Second-Story Coat", slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Cut for climbing, not for looking respectable at the door.',
+    statBonuses: { defense: 8, maxHp: 16 }, levelRequirement: 6, value: 36
+  },
+  filchers_grip: {
+    id: 'filchers_grip', name: "Filcher's Grip", slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: "Whatever brushes past these fingers rarely notices it's gone.",
+    statBonuses: { attack: 5, critChance: 5 }, levelRequirement: 6, value: 30
+  },
+  quickstep_boots: {
+    id: 'quickstep_boots', name: 'Quickstep Boots', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'The soles never quite touch the ground the way anyone expects.',
+    statBonuses: { defense: 5, critChance: 4 }, levelRequirement: 6, value: 30
+  },
   vanguards_maul: {
     id: 'vanguards_maul', name: "Vanguard's Maul", slot: 'weapon', weaponType: 'hammer',
     rarity: 'uncommon', element: 'none', tier: 2,
@@ -363,6 +411,30 @@ export const ITEM_TEMPLATES = {
     rarity: 'rare', element: 'none', tier: 3,
     flavor: 'The draw and the cut are the same motion -- there\'s no second sound to hear.',
     statBonuses: { attack: 12, critChance: 9 }, levelRequirement: 15, value: 58
+  },
+  hushed_cowl: {
+    id: 'hushed_cowl', name: 'Hushed Cowl', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Even a shout comes out of this a whisper.',
+    statBonuses: { defense: 7, critChance: 7 }, levelRequirement: 15, value: 42
+  },
+  nightseam_vest: {
+    id: 'nightseam_vest', name: 'Nightseam Vest', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'The stitching runs the color out of any light that finds it.',
+    statBonuses: { defense: 11, maxHp: 22 }, levelRequirement: 15, value: 48
+  },
+  dead_mans_latch: {
+    id: 'dead_mans_latch', name: "Dead Man's Latch", slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Named for the last grip it undid. Nobody asks whose.',
+    statBonuses: { attack: 7, critChance: 7 }, levelRequirement: 15, value: 42
+  },
+  silent_soles: {
+    id: 'silent_soles', name: 'Silent Soles', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Every floorboard in the city knows to stay quiet for these.',
+    statBonuses: { defense: 7, critChance: 6 }, levelRequirement: 15, value: 42
   },
   warbringers_pike: {
     id: 'warbringers_pike', name: "Warbringer's Pike", slot: 'weapon', weaponType: 'spear',
@@ -408,6 +480,30 @@ export const ITEM_TEMPLATES = {
     flavor: 'By the time the streetlamps catch the glint, it\'s already back in its sheath.',
     statBonuses: { attack: 16, critChance: 11 }, levelRequirement: 25, value: 78
   },
+  watchbreaker_mask: {
+    id: 'watchbreaker_mask', name: 'Watchbreaker Mask', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "Every watch captain's sworn they've seen it. None have described it the same way twice.",
+    statBonuses: { defense: 9, critChance: 9 }, levelRequirement: 25, value: 58
+  },
+  rooftop_runners_coat: {
+    id: 'rooftop_runners_coat', name: "Rooftop Runner's Coat", slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "Torn at the hem from landings nobody was meant to see.",
+    statBonuses: { defense: 14, maxHp: 28 }, levelRequirement: 25, value: 65
+  },
+  garrote_wraps: {
+    id: 'garrote_wraps', name: 'Garrote Wraps', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "Thin cord under thick leather -- one end's for climbing, the other isn't.",
+    statBonuses: { attack: 9, critChance: 10 }, levelRequirement: 25, value: 58
+  },
+  ledgewalker_boots: {
+    id: 'ledgewalker_boots', name: 'Ledgewalker Boots', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "The grip holds on rooftops most people won't stand near the edge of.",
+    statBonuses: { defense: 9, critChance: 8 }, levelRequirement: 25, value: 58
+  },
   battlelords_greataxe: {
     id: 'battlelords_greataxe', name: "Battlelord's Greataxe", slot: 'weapon', weaponType: 'axe',
     rarity: 'rare', element: 'none', tier: 4,
@@ -452,6 +548,30 @@ export const ITEM_TEMPLATES = {
     flavor: 'The string is nearly invisible in daylight and makes no sound at all after dark.',
     statBonuses: { attack: 22, critChance: 14 }, levelRequirement: 40, value: 130
   },
+  moonless_hood: {
+    id: 'moonless_hood', name: 'Moonless Hood', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Pulled up, the wearer stops being a shape worth following.',
+    statBonuses: { defense: 12, critChance: 12 }, levelRequirement: 40, value: 95
+  },
+  gravedust_cloak: {
+    id: 'gravedust_cloak', name: 'Gravedust Cloak', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: "Smells faintly of somewhere that was supposed to stay undisturbed.",
+    statBonuses: { defense: 18, maxHp: 36 }, levelRequirement: 40, value: 108
+  },
+  deadfall_grips: {
+    id: 'deadfall_grips', name: 'Deadfall Grips', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'The last thing several marks felt closing around their wrist.',
+    statBonuses: { attack: 12, critChance: 13 }, levelRequirement: 40, value: 95
+  },
+  fleetfoot_greaves: {
+    id: 'fleetfoot_greaves', name: 'Fleetfoot Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: "By the time the alarm's raised, these are three streets gone.",
+    statBonuses: { defense: 12, critChance: 11 }, levelRequirement: 40, value: 95
+  },
   juggernauts_warhammer: {
     id: 'juggernauts_warhammer', name: "Juggernaut's Warhammer", slot: 'weapon', weaponType: 'hammer',
     rarity: 'rare', element: 'none', tier: 5,
@@ -495,6 +615,30 @@ export const ITEM_TEMPLATES = {
     rarity: 'epic', element: 'none', tier: 6,
     flavor: 'Nobody claims to have seen the swing. Only the ones left standing get asked about it.',
     statBonuses: { attack: 30, critChance: 18 }, levelRequirement: 60, value: 210
+  },
+  the_unseen_face: {
+    id: 'the_unseen_face', name: 'The Unseen Face', slot: 'head', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'No two witnesses describe the same face beneath it. Neither does the same witness twice.',
+    statBonuses: { defense: 15, critChance: 16 }, levelRequirement: 60, value: 165
+  },
+  doubtcast_shroud: {
+    id: 'doubtcast_shroud', name: 'Doubtcast Shroud', slot: 'body', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Stand still in it and people start doubting they saw you enter the room at all.',
+    statBonuses: { defense: 23, maxHp: 46 }, levelRequirement: 60, value: 185
+  },
+  last_words_grasp: {
+    id: 'last_words_grasp', name: "Last Word's Grasp", slot: 'hands', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "Whatever it takes hold of doesn't get mentioned in the report.",
+    statBonuses: { attack: 15, critChance: 17 }, levelRequirement: 60, value: 165
+  },
+  vanishing_point_boots: {
+    id: 'vanishing_point_boots', name: 'Vanishing Point Boots', slot: 'legs', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "There's a step, and then there's nothing where the step should be.",
+    statBonuses: { defense: 15, critChance: 14 }, levelRequirement: 60, value: 165
   },
   colossal_greatsword: {
     id: 'colossal_greatsword', name: 'Colossal Greatsword', slot: 'weapon', weaponType: 'sword', effect: 'goldSparkle',
