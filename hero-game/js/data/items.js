@@ -115,6 +115,30 @@ export const ITEM_TEMPLATES = {
     flavor: 'Not built for throwing. Built for the guy who forgot that and came in swinging anyway.',
     statBonuses: { attack: 6, defense: 3 }, levelRequirement: 3, value: 20
   },
+  dented_sallet: {
+    id: 'dented_sallet', name: 'Dented Sallet', slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "Dented more times than it's been polished, and still hasn't let one through.",
+    statBonuses: { defense: 4, attack: 2 }, levelRequirement: 3, value: 12
+  },
+  scarred_breastplate: {
+    id: 'scarred_breastplate', name: 'Scarred Breastplate', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "Every scratch marks a blow that didn't finish the job.",
+    statBonuses: { defense: 6, maxHp: 10 }, levelRequirement: 3, value: 15
+  },
+  knuckleguard_vambraces: {
+    id: 'knuckleguard_vambraces', name: 'Knuckleguard Vambraces', slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "Reinforced across the forearm -- for the swing and whatever tries to stop it.",
+    statBonuses: { attack: 4, defense: 2 }, levelRequirement: 3, value: 12
+  },
+  trench_greaves: {
+    id: 'trench_greaves', name: 'Trench Greaves', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "Caked in mud from every field that's tried to hold him back.",
+    statBonuses: { defense: 4, maxHp: 6 }, levelRequirement: 3, value: 12
+  },
 
   // --- Mage-flavored gear: not class-locked, just statted and written for
   // the magicPower/critChance-heavy mage line (mage -> conjurer -> warlock ->
@@ -374,6 +398,30 @@ export const ITEM_TEMPLATES = {
     flavor: 'The line holds where this lands, and it lands wherever the line is thinnest.',
     statBonuses: { attack: 9, defense: 5 }, levelRequirement: 6, value: 46
   },
+  ironbrow_helm: {
+    id: 'ironbrow_helm', name: 'Ironbrow Helm', slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'The dent above the eye is the reason there\'s still an eye there.',
+    statBonuses: { defense: 7, attack: 3 }, levelRequirement: 6, value: 30
+  },
+  shieldwall_cuirass: {
+    id: 'shieldwall_cuirass', name: 'Shieldwall Cuirass', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Built to hold a line, not to look good doing it.',
+    statBonuses: { defense: 10, maxHp: 16 }, levelRequirement: 6, value: 36
+  },
+  grapplers_vambraces: {
+    id: 'grapplers_vambraces', name: "Grappler's Vambraces", slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Grip a shield, grip a throat, doesn\'t much care which.',
+    statBonuses: { attack: 7, defense: 3 }, levelRequirement: 6, value: 30
+  },
+  sure_footed_greaves: {
+    id: 'sure_footed_greaves', name: 'Sure-Footed Greaves', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Nothing on the field has managed to put him on his back yet.',
+    statBonuses: { defense: 7, maxHp: 10 }, levelRequirement: 6, value: 30
+  },
 
   // --- Tier 3 ---
   pneumatic_punch_blade: {
@@ -441,6 +489,30 @@ export const ITEM_TEMPLATES = {
     rarity: 'rare', element: 'none', tier: 3,
     flavor: 'Negotiations end at the reach of this thing, well before anyone else wanted them to.',
     statBonuses: { attack: 12, defense: 6 }, levelRequirement: 15, value: 58
+  },
+  warcrest_helm: {
+    id: 'warcrest_helm', name: 'Warcrest Helm', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "Every dent's a story. Every story ends the same way.",
+    statBonuses: { defense: 9, attack: 5 }, levelRequirement: 15, value: 42
+  },
+  ironclad_plate: {
+    id: 'ironclad_plate', name: 'Ironclad Plate', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "Doesn't flex, doesn't bend, doesn't ask twice.",
+    statBonuses: { defense: 13, maxHp: 22 }, levelRequirement: 15, value: 48
+  },
+  clenched_gauntlets: {
+    id: 'clenched_gauntlets', name: 'Clenched Gauntlets', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'The fist closes before the plan does.',
+    statBonuses: { attack: 9, defense: 5 }, levelRequirement: 15, value: 42
+  },
+  siegebreaker_greaves: {
+    id: 'siegebreaker_greaves', name: 'Siegebreaker Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "Walls fall eventually. These don't wait around for it.",
+    statBonuses: { defense: 9, maxHp: 14 }, levelRequirement: 15, value: 42
   },
 
   // --- Tier 4 ---
@@ -510,6 +582,30 @@ export const ITEM_TEMPLATES = {
     flavor: 'Too heavy to parry, too slow to dodge twice. Most only make that mistake once.',
     statBonuses: { attack: 16, defense: 8 }, levelRequirement: 25, value: 78
   },
+  frontline_helm: {
+    id: 'frontline_helm', name: 'Frontline Helm', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'First one through the gate, every time, whether or not that\'s the plan.',
+    statBonuses: { defense: 12, attack: 6 }, levelRequirement: 25, value: 58
+  },
+  warforged_plate: {
+    id: 'warforged_plate', name: 'Warforged Plate', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Tempered in a fire that was supposed to be a battlefield, not a forge.',
+    statBonuses: { defense: 17, maxHp: 28 }, levelRequirement: 25, value: 65
+  },
+  crushing_gauntlets: {
+    id: 'crushing_gauntlets', name: 'Crushing Gauntlets', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "Doesn't grip. Doesn't need to.",
+    statBonuses: { attack: 12, defense: 6 }, levelRequirement: 25, value: 58
+  },
+  onslaught_greaves: {
+    id: 'onslaught_greaves', name: 'Onslaught Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Retreat was never an option this pair was built for.',
+    statBonuses: { defense: 12, maxHp: 18 }, levelRequirement: 25, value: 58
+  },
 
   // --- Tier 5 ---
   twin_cam_shiv: {
@@ -578,6 +674,30 @@ export const ITEM_TEMPLATES = {
     flavor: 'Armies plan around the swing radius, not the wielder. The numbers stopped mattering a while ago.',
     statBonuses: { attack: 22, defense: 11 }, levelRequirement: 40, value: 130
   },
+  titans_helm: {
+    id: 'titans_helm', name: "Titan's Helm", slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: "Wearing it doesn't make the wearer bigger. It just stops mattering that they aren't.",
+    statBonuses: { defense: 16, attack: 9 }, levelRequirement: 40, value: 95
+  },
+  ironwall_plate: {
+    id: 'ironwall_plate', name: 'Ironwall Plate', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Armies have learned to route around it rather than through.',
+    statBonuses: { defense: 22, maxHp: 36 }, levelRequirement: 40, value: 108
+  },
+  crackedstone_gauntlets: {
+    id: 'crackedstone_gauntlets', name: 'Crackedstone Gauntlets', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'The stone cracked first. The fist kept going.',
+    statBonuses: { attack: 16, defense: 9 }, levelRequirement: 40, value: 95
+  },
+  warpath_greaves: {
+    id: 'warpath_greaves', name: 'Warpath Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: "Every step leaves a mark nobody's in a hurry to fill in.",
+    statBonuses: { defense: 16, maxHp: 24 }, levelRequirement: 40, value: 95
+  },
 
   // --- Tier 6 ---
   nanoblade: {
@@ -645,6 +765,30 @@ export const ITEM_TEMPLATES = {
     rarity: 'epic', element: 'none', tier: 6,
     flavor: 'No one reinforces the line it\'s standing on. Reinforcements are for people still worried about losing.',
     statBonuses: { attack: 28, defense: 15 }, levelRequirement: 60, value: 210
+  },
+  colossal_faceguard: {
+    id: 'colossal_faceguard', name: 'Colossal Faceguard', slot: 'head', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Nobody remembers the face beneath it -- just the shape it stopped.',
+    statBonuses: { defense: 20, attack: 12 }, levelRequirement: 60, value: 165
+  },
+  immutable_plate: {
+    id: 'immutable_plate', name: 'Immutable Plate', slot: 'body', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "Armies plan around what's wearing this. The plate's never once needed adjusting.",
+    statBonuses: { defense: 28, maxHp: 46 }, levelRequirement: 60, value: 185
+  },
+  worldbreaker_gauntlets: {
+    id: 'worldbreaker_gauntlets', name: 'Worldbreaker Gauntlets', slot: 'hands', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "It isn't a punch anymore. It's an argument nothing survives.",
+    statBonuses: { attack: 20, defense: 12 }, levelRequirement: 60, value: 165
+  },
+  groundshaker_greaves: {
+    id: 'groundshaker_greaves', name: 'Groundshaker Greaves', slot: 'legs', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'The ground moves before the feet do.',
+    statBonuses: { defense: 20, maxHp: 30 }, levelRequirement: 60, value: 165
   },
 
   // --- Tier 7 ---
