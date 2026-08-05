@@ -150,11 +150,59 @@ export const ITEM_TEMPLATES = {
     flavor: 'Barely more than a stick with an opinion, but the opinion is usually fire.',
     statBonuses: { magicPower: 7, critChance: 3 }, levelRequirement: 3, value: 19
   },
+  apprentices_circlet: {
+    id: 'apprentices_circlet', name: "Apprentice's Circlet", slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'A thin band of copper, humming faintly whenever a lesson goes right.',
+    statBonuses: { magicPower: 4, critChance: 3 }, levelRequirement: 3, value: 12
+  },
+  threadbare_robe: {
+    id: 'threadbare_robe', name: "Threadbare Scholar's Robe", slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Patched more with theory than thread, and somehow it still holds.',
+    statBonuses: { defense: 3, maxHp: 8 }, levelRequirement: 3, value: 14
+  },
+  chalkdust_gloves: {
+    id: 'chalkdust_gloves', name: 'Chalk-Dust Gloves', slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "White at the knuckles from equations that wouldn't balance the first dozen tries.",
+    statBonuses: { magicPower: 3, critChance: 3 }, levelRequirement: 3, value: 12
+  },
+  scriptorium_leggings: {
+    id: 'scriptorium_leggings', name: 'Scriptorium Leggings', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Stained with ink from nights spent copying spells instead of sleeping.',
+    statBonuses: { magicPower: 3, critChance: 2 }, levelRequirement: 3, value: 12
+  },
   ritual_athame: {
     id: 'ritual_athame', name: 'Ritual Athame', slot: 'weapon', weaponType: 'dagger',
     rarity: 'uncommon', element: 'none', tier: 2,
     flavor: "Not meant for throats. The blood matters more once it's spilled somewhere specific.",
     statBonuses: { magicPower: 9, critChance: 8 }, levelRequirement: 6, value: 46
+  },
+  focus_lens_hood: {
+    id: 'focus_lens_hood', name: 'Focus Lens Hood', slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: "Sharpens the mind's eye the way a lens sharpens the sun.",
+    statBonuses: { magicPower: 7, critChance: 5 }, levelRequirement: 6, value: 30
+  },
+  runeseamed_robe: {
+    id: 'runeseamed_robe', name: 'Runeseamed Robe', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: "Every seam traces a ward -- most of them finished properly.",
+    statBonuses: { defense: 5, maxHp: 13 }, levelRequirement: 6, value: 34
+  },
+  inkstained_gloves: {
+    id: 'inkstained_gloves', name: 'Ink-Stained Gloves', slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: "The stains aren't dirt. They're proof of work.",
+    statBonuses: { magicPower: 6, critChance: 5 }, levelRequirement: 6, value: 30
+  },
+  sigilstitched_leggings: {
+    id: 'sigilstitched_leggings', name: 'Sigil-Stitched Leggings', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: "Each step traces a sigil nobody's bothered to read since it was sewn.",
+    statBonuses: { magicPower: 6, critChance: 4 }, levelRequirement: 6, value: 30
   },
   warlocks_conduit: {
     id: 'warlocks_conduit', name: "Warlock's Conduit", slot: 'weapon', weaponType: 'staff',
@@ -162,11 +210,59 @@ export const ITEM_TEMPLATES = {
     flavor: 'It remembers every bargain that ran through it, and keeps its own count besides.',
     statBonuses: { magicPower: 15, critChance: 8 }, levelRequirement: 15, value: 58
   },
+  warded_coronet: {
+    id: 'warded_coronet', name: 'Warded Coronet', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "Turns aside more than blows -- most bad ideas don't survive wearing it.",
+    statBonuses: { magicPower: 10, critChance: 7 }, levelRequirement: 15, value: 42
+  },
+  conjurers_vestment: {
+    id: 'conjurers_vestment', name: "Conjurer's Vestment", slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "Something in the weave answers before the wearer finishes the thought.",
+    statBonuses: { defense: 7, maxHp: 18 }, levelRequirement: 15, value: 46
+  },
+  spellthread_gloves: {
+    id: 'spellthread_gloves', name: 'Spellthread Gloves', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'The thread between finger and spell has never once slipped.',
+    statBonuses: { magicPower: 9, critChance: 7 }, levelRequirement: 15, value: 42
+  },
+  levitation_slippers: {
+    id: 'levitation_slippers', name: 'Levitation Slippers', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "Half a step lighter than they should be, and nobody's asked why.",
+    statBonuses: { magicPower: 9, critChance: 6 }, levelRequirement: 15, value: 42
+  },
   archmages_quill: {
     id: 'archmages_quill', name: "Archmage's Quill", slot: 'weapon', weaponType: 'dagger',
     rarity: 'rare', element: 'none', tier: 4,
     flavor: "It signs nothing. By the time the ink would dry, the matter's already settled.",
     statBonuses: { magicPower: 18, critChance: 12 }, levelRequirement: 25, value: 78
+  },
+  warlocks_diadem: {
+    id: 'warlocks_diadem', name: "Warlock's Diadem", slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "Every bargain it's seen still owes something. It hasn't forgotten one.",
+    statBonuses: { magicPower: 13, critChance: 9 }, levelRequirement: 25, value: 58
+  },
+  covenant_robe: {
+    id: 'covenant_robe', name: 'Covenant Robe', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "Signed in a way that doesn't show, and binding in a way that doesn't need to.",
+    statBonuses: { defense: 9, maxHp: 23 }, levelRequirement: 25, value: 62
+  },
+  hexbound_gloves: {
+    id: 'hexbound_gloves', name: 'Hexbound Gloves', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "What they touch doesn't stay the way it was.",
+    statBonuses: { magicPower: 12, critChance: 10 }, levelRequirement: 25, value: 58
+  },
+  stormstep_leggings: {
+    id: 'stormstep_leggings', name: 'Stormstep Leggings', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'The static never quite settles, not even standing still.',
+    statBonuses: { magicPower: 12, critChance: 8 }, levelRequirement: 25, value: 58
   },
   archwizards_judgment: {
     id: 'archwizards_judgment', name: "Archwizard's Judgment", slot: 'weapon', weaponType: 'staff',
@@ -174,11 +270,59 @@ export const ITEM_TEMPLATES = {
     flavor: "Kingdoms don't ask what it's for anymore. They ask when it'll be pointed elsewhere.",
     statBonuses: { magicPower: 28, critChance: 14 }, levelRequirement: 40, value: 130
   },
+  archmages_coronet: {
+    id: 'archmages_coronet', name: "Archmage's Coronet", slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: "The tower speaks through it, when the archmage doesn't feel like speaking at all.",
+    statBonuses: { magicPower: 18, critChance: 12 }, levelRequirement: 40, value: 95
+  },
+  towerspun_robe: {
+    id: 'towerspun_robe', name: 'Towerspun Robe', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: "Woven from the same thread the tower's wards are, and just as hard to unravel.",
+    statBonuses: { defense: 12, maxHp: 30 }, levelRequirement: 40, value: 102
+  },
+  runeforged_gloves: {
+    id: 'runeforged_gloves', name: 'Runeforged Gloves', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Every rune on it has been rewritten at least once -- correctly, this time.',
+    statBonuses: { magicPower: 16, critChance: 13 }, levelRequirement: 40, value: 95
+  },
+  skywalk_greaves: {
+    id: 'skywalk_greaves', name: 'Skywalk Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: "The ground's a suggestion these have mostly stopped taking.",
+    statBonuses: { magicPower: 16, critChance: 11 }, levelRequirement: 40, value: 95
+  },
   astral_reliquary: {
     id: 'astral_reliquary', name: 'Astral Reliquary', slot: 'weapon', weaponType: 'dagger', effect: 'goldSparkle',
     rarity: 'epic', element: 'none', tier: 6,
     flavor: "It doesn't draw blood so much as draw a line under the conversation.",
     statBonuses: { magicPower: 34, critChance: 20 }, levelRequirement: 60, value: 210
+  },
+  astral_diadem: {
+    id: 'astral_diadem', name: 'Astral Diadem', slot: 'head', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "The stars in it don't reflect light. They remember it.",
+    statBonuses: { magicPower: 24, critChance: 16 }, levelRequirement: 60, value: 165
+  },
+  voidwoven_vestment: {
+    id: 'voidwoven_vestment', name: 'Voidwoven Vestment', slot: 'body', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Stitched from something that was never quite fabric to begin with.',
+    statBonuses: { defense: 16, maxHp: 40 }, levelRequirement: 60, value: 178
+  },
+  starlight_gloves: {
+    id: 'starlight_gloves', name: 'Starlight Gloves', slot: 'hands', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "What they hold stops being entirely of this world.",
+    statBonuses: { magicPower: 22, critChance: 17 }, levelRequirement: 60, value: 165
+  },
+  astral_striders: {
+    id: 'astral_striders', name: 'Astral Striders', slot: 'legs', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "Every step lands somewhere that hasn't decided if it's real yet.",
+    statBonuses: { magicPower: 22, critChance: 14 }, levelRequirement: 60, value: 165
   },
 
   // --- Battlemage-flavored gear: not class-locked, just statted and written
