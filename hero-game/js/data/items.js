@@ -377,11 +377,59 @@ export const ITEM_TEMPLATES = {
     flavor: 'It doesn\'t need to be fast. Nothing gets past it twice.',
     statBonuses: { attack: 6, defense: 4 }, levelRequirement: 3, value: 20
   },
+  sentinels_barred_helm: {
+    id: 'sentinels_barred_helm', name: "Sentinel's Barred Helm", slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "The bars aren't decoration. Something's tried to get past them before.",
+    statBonuses: { defense: 5, attack: 1 }, levelRequirement: 3, value: 12
+  },
+  ironbound_hauberk: {
+    id: 'ironbound_hauberk', name: 'Ironbound Hauberk', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Every rivet holds the line where the last one gave out.',
+    statBonuses: { defense: 7, maxHp: 12 }, levelRequirement: 3, value: 15
+  },
+  riveted_warfists: {
+    id: 'riveted_warfists', name: 'Riveted Warfists', slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Built to take the hit meant for someone standing behind him.',
+    statBonuses: { attack: 3, defense: 3 }, levelRequirement: 3, value: 12
+  },
+  anchor_greaves: {
+    id: 'anchor_greaves', name: 'Anchor Greaves', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Plant these and the ground argues on your behalf.',
+    statBonuses: { defense: 5, maxHp: 6 }, levelRequirement: 3, value: 12
+  },
   bulwarks_maul: {
     id: 'bulwarks_maul', name: "Bulwark's Maul", slot: 'weapon', weaponType: 'hammer',
     rarity: 'uncommon', element: 'none', tier: 2,
     flavor: 'It doesn\'t swing to hurt -- it swings to make sure nothing else gets through.',
     statBonuses: { attack: 8, defense: 7 }, levelRequirement: 6, value: 46
+  },
+  wallguard_helm: {
+    id: 'wallguard_helm', name: 'Wallguard Helm', slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Nothing gets a second look through the slit in this.',
+    statBonuses: { defense: 8, attack: 2 }, levelRequirement: 6, value: 30
+  },
+  stonebound_hide: {
+    id: 'stonebound_hide', name: 'Stonebound Hide', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Heavier than it looks, and twice as stubborn.',
+    statBonuses: { defense: 11, maxHp: 18 }, levelRequirement: 6, value: 36
+  },
+  gripstone_vambraces: {
+    id: 'gripstone_vambraces', name: 'Gripstone Vambraces', slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: "The grip doesn't loosen. Neither does whatever it's holding the line against.",
+    statBonuses: { attack: 5, defense: 5 }, levelRequirement: 6, value: 30
+  },
+  foundation_greaves: {
+    id: 'foundation_greaves', name: 'Foundation Greaves', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Everything built on top of him stays standing because these don\'t move.',
+    statBonuses: { defense: 8, maxHp: 10 }, levelRequirement: 6, value: 30
   },
   ramparts_pike: {
     id: 'ramparts_pike', name: "Rampart's Pike", slot: 'weapon', weaponType: 'spear',
@@ -389,11 +437,59 @@ export const ITEM_TEMPLATES = {
     flavor: 'The reach isn\'t for reaching. It\'s for making sure nothing else can.',
     statBonuses: { attack: 11, defense: 9 }, levelRequirement: 15, value: 58
   },
+  keepers_helm: {
+    id: 'keepers_helm', name: "Keeper's Helm", slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "Sieges end. The keeper doesn't have to.",
+    statBonuses: { defense: 11, attack: 3 }, levelRequirement: 15, value: 42
+  },
+  siegehide_plate: {
+    id: 'siegehide_plate', name: 'Siegehide Plate', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "Outlasted three walls already. Still hasn't dented.",
+    statBonuses: { defense: 15, maxHp: 24 }, levelRequirement: 15, value: 48
+  },
+  stonelock_gauntlets: {
+    id: 'stonelock_gauntlets', name: 'Stonelock Gauntlets', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "Once closed, they don't open until the fight decides to.",
+    statBonuses: { attack: 7, defense: 7 }, levelRequirement: 15, value: 42
+  },
+  holdfast_greaves: {
+    id: 'holdfast_greaves', name: 'Holdfast Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'The line holds here, mostly because leaving was never considered.',
+    statBonuses: { defense: 11, maxHp: 14 }, levelRequirement: 15, value: 42
+  },
   aegis_blade: {
     id: 'aegis_blade', name: 'Aegis Blade', slot: 'weapon', weaponType: 'sword',
     rarity: 'rare', element: 'none', tier: 4,
     flavor: 'It parries first and cuts second, and most fights end somewhere in between.',
     statBonuses: { attack: 14, defense: 12 }, levelRequirement: 25, value: 78
+  },
+  unbroken_faceguard: {
+    id: 'unbroken_faceguard', name: 'Unbroken Faceguard', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "Nothing's gotten through it yet. Nothing's tried twice.",
+    statBonuses: { defense: 14, attack: 4 }, levelRequirement: 25, value: 58
+  },
+  deflecting_plate: {
+    id: 'deflecting_plate', name: 'Deflecting Plate', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "It doesn't block the hit so much as decide it landed somewhere else.",
+    statBonuses: { defense: 19, maxHp: 30 }, levelRequirement: 25, value: 65
+  },
+  wardbound_gauntlets: {
+    id: 'wardbound_gauntlets', name: 'Wardbound Gauntlets', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "Every strike it stops gets added to a tally nobody's kept count of but him.",
+    statBonuses: { attack: 9, defense: 9 }, levelRequirement: 25, value: 58
+  },
+  steadfast_greaves: {
+    id: 'steadfast_greaves', name: 'Steadfast Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "The ground shifts. These don't consider it their problem.",
+    statBonuses: { defense: 14, maxHp: 18 }, levelRequirement: 25, value: 58
   },
   bastions_warhammer: {
     id: 'bastions_warhammer', name: "Bastion's Warhammer", slot: 'weapon', weaponType: 'hammer',
@@ -401,11 +497,59 @@ export const ITEM_TEMPLATES = {
     flavor: 'Every swing resets the line -- there\'s nowhere else worth standing after.',
     statBonuses: { attack: 18, defense: 16 }, levelRequirement: 40, value: 130
   },
+  citadel_helm: {
+    id: 'citadel_helm', name: 'Citadel Helm', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: "Armies besiege citadels for years. This one's never once needed the walls.",
+    statBonuses: { defense: 19, attack: 6 }, levelRequirement: 40, value: 95
+  },
+  fortress_plate: {
+    id: 'fortress_plate', name: 'Fortress Plate', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Somewhere between armor and architecture, and closer to the latter.',
+    statBonuses: { defense: 25, maxHp: 40 }, levelRequirement: 40, value: 108
+  },
+  grasp_of_stone: {
+    id: 'grasp_of_stone', name: 'Grasp of Stone', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'What it holds onto stays held, regardless of opinion.',
+    statBonuses: { attack: 12, defense: 13 }, levelRequirement: 40, value: 95
+  },
+  unyielding_greaves: {
+    id: 'unyielding_greaves', name: 'Unyielding Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'The retreat order reaches these last, if it reaches them at all.',
+    statBonuses: { defense: 19, maxHp: 24 }, levelRequirement: 40, value: 95
+  },
   immovable_line: {
     id: 'immovable_line', name: 'Immovable Line', slot: 'weapon', weaponType: 'spear', effect: 'goldSparkle',
     rarity: 'epic', element: 'none', tier: 6,
     flavor: 'It doesn\'t hold ground. Ground just stops moving near it.',
     statBonuses: { attack: 22, defense: 20 }, levelRequirement: 60, value: 210
+  },
+  last_lines_helm: {
+    id: 'last_lines_helm', name: "Last Line's Helm", slot: 'head', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "Past this, there's nothing else standing between the enemy and everyone behind him.",
+    statBonuses: { defense: 24, attack: 8 }, levelRequirement: 60, value: 165
+  },
+  unmoving_plate: {
+    id: 'unmoving_plate', name: 'Unmoving Plate', slot: 'body', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Battles have ended around it without it ever needing to move.',
+    statBonuses: { defense: 32, maxHp: 52 }, levelRequirement: 60, value: 185
+  },
+  world_anchor_gauntlets: {
+    id: 'world_anchor_gauntlets', name: 'World-Anchor Gauntlets', slot: 'hands', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Whatever they grip stops being negotiable.',
+    statBonuses: { attack: 15, defense: 17 }, levelRequirement: 60, value: 165
+  },
+  rootbound_greaves: {
+    id: 'rootbound_greaves', name: 'Rootbound Greaves', slot: 'legs', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Uprooting these would mean uprooting the ground they\'re standing on.',
+    statBonuses: { defense: 24, maxHp: 30 }, levelRequirement: 60, value: 165
   },
 
   // --- Trickster-flavored gear: not class-locked, just statted and written
