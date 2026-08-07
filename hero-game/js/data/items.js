@@ -336,11 +336,59 @@ export const ITEM_TEMPLATES = {
     flavor: "The odds were never good. It swings anyway, and somehow that's enough.",
     statBonuses: { attack: 4, magicPower: 4, critChance: 3 }, levelRequirement: 3, value: 19
   },
+  lucky_draw_circlet: {
+    id: 'lucky_draw_circlet', name: 'Lucky Draw Circlet', slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Every duel starts the same way -- a draw that somehow always favors him.',
+    statBonuses: { magicPower: 3, critChance: 3 }, levelRequirement: 3, value: 12
+  },
+  wagered_coat: {
+    id: 'wagered_coat', name: 'Wagered Coat', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "Bet against the man wearing it once. Nobody's done it twice.",
+    statBonuses: { defense: 4, maxHp: 9 }, levelRequirement: 3, value: 14
+  },
+  doubledown_gloves: {
+    id: 'doubledown_gloves', name: 'Double-Down Gloves', slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'The second cast lands harder than the first ever needed to.',
+    statBonuses: { attack: 3, magicPower: 2 }, levelRequirement: 3, value: 12
+  },
+  even_odds_boots: {
+    id: 'even_odds_boots', name: 'Even Odds Boots', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "The footing's never quite fair, and never quite in the other guy's favor.",
+    statBonuses: { attack: 2, critChance: 2 }, levelRequirement: 3, value: 12
+  },
   spellblades_ward: {
     id: 'spellblades_ward', name: "Spellblade's Ward", slot: 'weapon', weaponType: 'staff',
     rarity: 'uncommon', element: 'none', tier: 2,
     flavor: "It doesn't block the hit so much as convince it to land somewhere less important.",
     statBonuses: { attack: 6, magicPower: 7, critChance: 5 }, levelRequirement: 6, value: 46
+  },
+  parryward_circlet: {
+    id: 'parryward_circlet', name: 'Parry-Ward Circlet', slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Turns the first strike before the spell even finishes forming.',
+    statBonuses: { magicPower: 5, critChance: 5 }, levelRequirement: 6, value: 30
+  },
+  spellwoven_coat: {
+    id: 'spellwoven_coat', name: 'Spellwoven Coat', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: "Thread and incantation, stitched so close nobody can say where one starts.",
+    statBonuses: { defense: 6, maxHp: 14 }, levelRequirement: 6, value: 34
+  },
+  riposte_gloves: {
+    id: 'riposte_gloves', name: 'Riposte Gloves', slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: "The counter's already cast by the time the opening's noticed.",
+    statBonuses: { attack: 5, magicPower: 4 }, levelRequirement: 6, value: 30
+  },
+  feintstep_boots: {
+    id: 'feintstep_boots', name: 'Feint-Step Boots', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Every step looks like a mistake until the follow-through lands.',
+    statBonuses: { attack: 4, critChance: 4 }, levelRequirement: 6, value: 30
   },
   warmages_reprisal: {
     id: 'warmages_reprisal', name: "Warmage's Reprisal", slot: 'weapon', weaponType: 'dagger',
@@ -348,11 +396,59 @@ export const ITEM_TEMPLATES = {
     flavor: "The spell and the strike arrive in the same breath, so nobody's sure which one to duck.",
     statBonuses: { attack: 8, magicPower: 9, critChance: 6 }, levelRequirement: 15, value: 58
   },
+  battlecast_hood: {
+    id: 'battlecast_hood', name: 'Battlecast Hood', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'The spell and the swing share a breath. The hood just keeps up.',
+    statBonuses: { magicPower: 7, critChance: 6 }, levelRequirement: 15, value: 42
+  },
+  warcasters_coat: {
+    id: 'warcasters_coat', name: "Warcaster's Coat", slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Scorched at the cuffs from casting too close to the blade.',
+    statBonuses: { defense: 8, maxHp: 19 }, levelRequirement: 15, value: 46
+  },
+  arcstrike_gauntlets: {
+    id: 'arcstrike_gauntlets', name: 'Arcstrike Gauntlets', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "Every hit carries a charge that wasn't there a swing ago.",
+    statBonuses: { attack: 7, magicPower: 6 }, levelRequirement: 15, value: 42
+  },
+  surging_greaves: {
+    id: 'surging_greaves', name: 'Surging Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "The current doesn't wait for the next cast. Neither do these.",
+    statBonuses: { attack: 6, critChance: 5 }, levelRequirement: 15, value: 42
+  },
   battlemagus_wager: {
     id: 'battlemagus_wager', name: "Battlemagus's Wager", slot: 'weapon', weaponType: 'sword',
     rarity: 'rare', element: 'none', tier: 4,
     flavor: "The wager's already settled before the coin lands -- it just likes the theater of the toss.",
     statBonuses: { attack: 10, magicPower: 11, critChance: 9 }, levelRequirement: 25, value: 78
+  },
+  wagermasters_circlet: {
+    id: 'wagermasters_circlet', name: "Wagermaster's Circlet", slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "He's stopped calling them bets. The odds just agree with him now.",
+    statBonuses: { magicPower: 9, critChance: 8 }, levelRequirement: 25, value: 58
+  },
+  duelists_warplate: {
+    id: 'duelists_warplate', name: "Duelist's Warplate", slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Built for the fight that was supposed to be a duel and stopped being fair.',
+    statBonuses: { defense: 10, maxHp: 24 }, levelRequirement: 25, value: 62
+  },
+  calculated_gauntlets: {
+    id: 'calculated_gauntlets', name: 'Calculated Gauntlets', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "Every strike's already accounted for three moves out.",
+    statBonuses: { attack: 9, magicPower: 8 }, levelRequirement: 25, value: 58
+  },
+  stackedodds_greaves: {
+    id: 'stackedodds_greaves', name: 'Stacked-Odds Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "The ground's tilted in his favor before anyone else notices it moved.",
+    statBonuses: { attack: 8, critChance: 7 }, levelRequirement: 25, value: 58
   },
   fateblades_verdict: {
     id: 'fateblades_verdict', name: "Fateblade's Verdict", slot: 'weapon', weaponType: 'staff',
@@ -360,11 +456,59 @@ export const ITEM_TEMPLATES = {
     flavor: "It doesn't decide who wins. It just arrives right when the decision would've mattered.",
     statBonuses: { attack: 15, magicPower: 16, critChance: 12 }, levelRequirement: 40, value: 130
   },
+  foreseen_circlet: {
+    id: 'foreseen_circlet', name: 'Foreseen Circlet', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: "Sees the opening before the opponent's decided to leave one.",
+    statBonuses: { magicPower: 13, critChance: 11 }, levelRequirement: 40, value: 95
+  },
+  destinyforged_plate: {
+    id: 'destinyforged_plate', name: 'Destiny-Forged Plate', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Not armor so much as a conclusion, worn early.',
+    statBonuses: { defense: 13, maxHp: 32 }, levelRequirement: 40, value: 102
+  },
+  fourthstrike_gauntlets: {
+    id: 'fourthstrike_gauntlets', name: 'Fourth-Strike Gauntlets', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'The first three misses were never the point.',
+    statBonuses: { attack: 13, magicPower: 11 }, levelRequirement: 40, value: 95
+  },
+  predestined_greaves: {
+    id: 'predestined_greaves', name: 'Predestined Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Every step was already accounted for, several fights ago.',
+    statBonuses: { attack: 11, critChance: 10 }, levelRequirement: 40, value: 95
+  },
   fatedsovereigns_toll: {
     id: 'fatedsovereigns_toll', name: "Fated Sovereign's Toll", slot: 'weapon', weaponType: 'dagger', effect: 'goldSparkle',
     rarity: 'epic', element: 'none', tier: 6,
     flavor: 'Every ledger balances eventually. This is just the one that collects early.',
     statBonuses: { attack: 18, magicPower: 19, critChance: 16 }, levelRequirement: 60, value: 210
+  },
+  sovereigns_reckoning: {
+    id: 'sovereigns_reckoning', name: "Sovereign's Reckoning", slot: 'head', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Every ledger closes eventually. This one just decides when.',
+    statBonuses: { magicPower: 17, critChance: 15 }, levelRequirement: 60, value: 165
+  },
+  ledgerbound_plate: {
+    id: 'ledgerbound_plate', name: 'Ledger-Bound Plate', slot: 'body', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "What's owed gets collected. What's collected never balances back.",
+    statBonuses: { defense: 17, maxHp: 42 }, levelRequirement: 60, value: 178
+  },
+  tolltakers_gauntlets: {
+    id: 'tolltakers_gauntlets', name: "Toll-Taker's Gauntlets", slot: 'hands', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Nothing passes without paying something first.',
+    statBonuses: { attack: 17, magicPower: 15 }, levelRequirement: 60, value: 165
+  },
+  final_tally_greaves: {
+    id: 'final_tally_greaves', name: 'Final Tally Greaves', slot: 'legs', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "The count's already finished by the time the fight catches up to it.",
+    statBonuses: { attack: 15, critChance: 13 }, levelRequirement: 60, value: 165
   },
 
   // --- Warden-flavored gear: not class-locked, just statted and written for
