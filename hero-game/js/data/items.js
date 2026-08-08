@@ -706,11 +706,59 @@ export const ITEM_TEMPLATES = {
     flavor: 'The first cut is a lie. Nobody notices the second one coming.',
     statBonuses: { attack: 5, critChance: 8 }, levelRequirement: 3, value: 20
   },
+  bluffers_mask: {
+    id: 'bluffers_mask', name: "Bluffer's Mask", slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Every expression underneath it is exactly as true as it needs to be.',
+    statBonuses: { defense: 3, critChance: 3 }, levelRequirement: 3, value: 12
+  },
+  charade_vest: {
+    id: 'charade_vest', name: 'Charade Vest', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Plays the part of sturdy well enough that nobody\'s checked.',
+    statBonuses: { defense: 5, maxHp: 10 }, levelRequirement: 3, value: 15
+  },
+  sham_gloves: {
+    id: 'sham_gloves', name: 'Sham Gloves', slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'One hand shows the trick. The other one does it.',
+    statBonuses: { attack: 3, critChance: 3 }, levelRequirement: 3, value: 12
+  },
+  decoy_slippers: {
+    id: 'decoy_slippers', name: 'Decoy Slippers', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'The footsteps you hear are never the ones that matter.',
+    statBonuses: { defense: 3, critChance: 2 }, levelRequirement: 3, value: 12
+  },
   ruse_recurve: {
     id: 'ruse_recurve', name: 'Ruse Recurve', slot: 'weapon', weaponType: 'bow',
     rarity: 'uncommon', element: 'none', tier: 2,
     flavor: 'It aims where you\'re looking. The arrow goes where you weren\'t.',
     statBonuses: { attack: 7, critChance: 11 }, levelRequirement: 6, value: 46
+  },
+  ploy_hood: {
+    id: 'ploy_hood', name: 'Ploy Hood', slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Pulled low, it turns a plan already in motion into one nobody\'s noticed yet.',
+    statBonuses: { defense: 5, critChance: 5 }, levelRequirement: 6, value: 30
+  },
+  hoax_coat: {
+    id: 'hoax_coat', name: 'Hoax Coat', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Looks like it was thrown together. It was, and that\'s the point.',
+    statBonuses: { defense: 8, maxHp: 16 }, levelRequirement: 6, value: 36
+  },
+  con_artists_gloves: {
+    id: 'con_artists_gloves', name: "Con Artist's Gloves", slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'The handshake is real. Everything agreed to during it isn\'t.',
+    statBonuses: { attack: 5, critChance: 5 }, levelRequirement: 6, value: 30
+  },
+  subterfuge_boots: {
+    id: 'subterfuge_boots', name: 'Subterfuge Boots', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Wherever they\'re pointed is the one direction nothing\'s about to happen.',
+    statBonuses: { defense: 5, critChance: 4 }, levelRequirement: 6, value: 30
   },
   sleighthand_stiletto: {
     id: 'sleighthand_stiletto', name: 'Sleight-Hand Stiletto', slot: 'weapon', weaponType: 'dagger',
@@ -718,11 +766,59 @@ export const ITEM_TEMPLATES = {
     flavor: 'One second it\'s a coin trick. The next, it isn\'t.',
     statBonuses: { attack: 9, critChance: 14 }, levelRequirement: 15, value: 58
   },
+  double_cross_cowl: {
+    id: 'double_cross_cowl', name: 'Double-Cross Cowl', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Whoever agreed to the first deal never gets told about the second one.',
+    statBonuses: { defense: 7, critChance: 7 }, levelRequirement: 15, value: 42
+  },
+  deceivers_wrap: {
+    id: 'deceivers_wrap', name: "Deceiver's Wrap", slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Every layer underneath tells a different story than the one on top.',
+    statBonuses: { defense: 11, maxHp: 22 }, levelRequirement: 15, value: 48
+  },
+  fools_grasp: {
+    id: 'fools_grasp', name: "Fool's Grasp", slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'It only ever closes on what it was reaching for.',
+    statBonuses: { attack: 7, critChance: 7 }, levelRequirement: 15, value: 42
+  },
+  diversion_treads: {
+    id: 'diversion_treads', name: 'Diversion Treads', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'By the time anyone looks where they pointed, the real move\'s already made.',
+    statBonuses: { defense: 7, critChance: 6 }, levelRequirement: 15, value: 42
+  },
   misdirection_bow: {
     id: 'misdirection_bow', name: 'Misdirection Bow', slot: 'weapon', weaponType: 'bow',
     rarity: 'rare', element: 'none', tier: 4,
     flavor: 'By the time anyone hears the string, the story\'s already been told wrong.',
     statBonuses: { attack: 12, critChance: 17 }, levelRequirement: 25, value: 78
+  },
+  hall_of_mirrors_cowl: {
+    id: 'hall_of_mirrors_cowl', name: 'Hall-of-Mirrors Cowl', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Count the reflections all you like. Only one of them was ever real.',
+    statBonuses: { defense: 9, critChance: 9 }, levelRequirement: 25, value: 58
+  },
+  false_face_coat: {
+    id: 'false_face_coat', name: 'False Face Coat', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'The face it shows changes. The one underneath never does.',
+    statBonuses: { defense: 14, maxHp: 28 }, levelRequirement: 25, value: 65
+  },
+  grifters_grip: {
+    id: 'grifters_grip', name: "Grifter's Grip", slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Shakes on the deal. Palms the deal\'s worth on the way out.',
+    statBonuses: { attack: 9, critChance: 10 }, levelRequirement: 25, value: 58
+  },
+  phantom_step_boots: {
+    id: 'phantom_step_boots', name: 'Phantom Step Boots', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'The footprints stop mattering once nobody can say where they led.',
+    statBonuses: { defense: 9, critChance: 8 }, levelRequirement: 25, value: 58
   },
   masquerade_fang: {
     id: 'masquerade_fang', name: 'Masquerade Fang', slot: 'weapon', weaponType: 'dagger',
@@ -730,11 +826,59 @@ export const ITEM_TEMPLATES = {
     flavor: 'Everyone at the table remembers a different face holding it.',
     statBonuses: { attack: 15, critChance: 21 }, levelRequirement: 40, value: 130
   },
+  mirage_hood: {
+    id: 'mirage_hood', name: 'Mirage Hood', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'The shape underneath it is a rumor that keeps changing its mind.',
+    statBonuses: { defense: 12, critChance: 12 }, levelRequirement: 40, value: 95
+  },
+  smoke_and_mirrors_cloak: {
+    id: 'smoke_and_mirrors_cloak', name: 'Smoke-and-Mirrors Cloak', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'There\'s nothing behind the trick except more trick.',
+    statBonuses: { defense: 18, maxHp: 36 }, levelRequirement: 40, value: 108
+  },
+  ghost_step_grips: {
+    id: 'ghost_step_grips', name: 'Ghost-Step Grips', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Whatever they take hold of, the owner swears they still have it.',
+    statBonuses: { attack: 12, critChance: 13 }, levelRequirement: 40, value: 95
+  },
+  vanishing_greaves: {
+    id: 'vanishing_greaves', name: 'Vanishing Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'The trick was never leaving. It was making the exit look like nothing happened.',
+    statBonuses: { defense: 12, critChance: 11 }, levelRequirement: 40, value: 95
+  },
   tricksters_last_word: {
     id: 'tricksters_last_word', name: "Trickster's Last Word", slot: 'weapon', weaponType: 'bow', effect: 'goldSparkle',
     rarity: 'epic', element: 'none', tier: 6,
     flavor: 'Nobody agrees on what was said before it fired. Everyone agrees it landed.',
     statBonuses: { attack: 19, critChance: 27 }, levelRequirement: 60, value: 210
+  },
+  grand_illusion_mask: {
+    id: 'grand_illusion_mask', name: 'Grand Illusion Mask', slot: 'head', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'The reveal never comes. That\'s the whole trick.',
+    statBonuses: { defense: 15, critChance: 16 }, levelRequirement: 60, value: 165
+  },
+  tricksters_guise: {
+    id: 'tricksters_guise', name: "Trickster's Guise", slot: 'body', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Nobody who\'s seen it can agree it was ever there at all.',
+    statBonuses: { defense: 23, maxHp: 46 }, levelRequirement: 60, value: 185
+  },
+  final_gambit_gauntlets: {
+    id: 'final_gambit_gauntlets', name: 'Final Gambit Gauntlets', slot: 'hands', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'There\'s no move after this one. It was never going to need one.',
+    statBonuses: { attack: 15, critChance: 17 }, levelRequirement: 60, value: 165
+  },
+  last_laugh_greaves: {
+    id: 'last_laugh_greaves', name: 'Last Laugh Greaves', slot: 'legs', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Whoever\'s still standing when the joke lands wasn\'t the punchline.',
+    statBonuses: { defense: 15, critChance: 14 }, levelRequirement: 60, value: 165
   },
 
   // --- Quest items: not equippable, not sold in the shop (see
