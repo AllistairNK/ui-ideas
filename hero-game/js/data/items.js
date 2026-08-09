@@ -881,6 +881,193 @@ export const ITEM_TEMPLATES = {
     statBonuses: { defense: 15, critChance: 14 }, levelRequirement: 60, value: 165
   },
 
+  // --- Mechanic-flavored gear: not class-locked, just statted and written
+  // for the hybrid attack/defense/magicPower/critChance mechanic line
+  // (novicemechanic -> engineer -> runesmith -> archmechanist ->
+  // technomancer -> clockworkgod in classes.js). Weapon types cycle through
+  // dagger/gun/staff/bow/gauntlet, matching that line's allowedWeaponTypes,
+  // looping back to dagger for the tier-6 capstone.
+  tuning_fork_blade: {
+    id: 'tuning_fork_blade', name: 'Tuning-Fork Blade', slot: 'weapon', weaponType: 'dagger',
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Struck once before every cut, just to make sure the angle still rings true.',
+    statBonuses: { attack: 5, magicPower: 3, critChance: 3 }, levelRequirement: 3, value: 20
+  },
+  brass_optic_loupe: {
+    id: 'brass_optic_loupe', name: 'Brass Optic Loupe', slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Flips down over one eye and turns guesswork into a measurement.',
+    statBonuses: { defense: 3, magicPower: 3 }, levelRequirement: 3, value: 12
+  },
+  riveted_work_vest: {
+    id: 'riveted_work_vest', name: 'Riveted Work Vest', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Every pocket carries a tool for a problem that hasn\'t happened yet.',
+    statBonuses: { defense: 4, maxHp: 9 }, levelRequirement: 3, value: 14
+  },
+  finetuned_gloves: {
+    id: 'finetuned_gloves', name: 'Fine-Tuned Gloves', slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Calibrated so often the calluses have started to match the dials.',
+    statBonuses: { attack: 3, magicPower: 3 }, levelRequirement: 3, value: 12
+  },
+  springcoil_boots: {
+    id: 'springcoil_boots', name: 'Spring-Coil Boots', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Overbuilt for walking, which is exactly why they\'ve never once failed at it.',
+    statBonuses: { defense: 2, critChance: 3 }, levelRequirement: 3, value: 12
+  },
+  calibrated_repeater: {
+    id: 'calibrated_repeater', name: 'Calibrated Repeater', slot: 'weapon', weaponType: 'gun',
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Every shot gets logged, measured, and quietly improved on for the next one.',
+    statBonuses: { attack: 7, magicPower: 5, critChance: 5 }, levelRequirement: 6, value: 46
+  },
+  geared_optics: {
+    id: 'geared_optics', name: 'Geared Optics', slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'A dozen tiny lenses, all arguing about the right amount of magnification.',
+    statBonuses: { defense: 5, magicPower: 5 }, levelRequirement: 6, value: 30
+  },
+  plated_coveralls: {
+    id: 'plated_coveralls', name: 'Plated Coveralls', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Scorch marks in a dozen places, none of them from the same accident.',
+    statBonuses: { defense: 7, maxHp: 14 }, levelRequirement: 6, value: 34
+  },
+  precision_gauntlet_grips: {
+    id: 'precision_gauntlet_grips', name: 'Precision Gauntlet Grips', slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Steady enough to solder a wire mid-swing and not miss either shot.',
+    statBonuses: { attack: 5, magicPower: 4 }, levelRequirement: 6, value: 30
+  },
+  torsionspring_treads: {
+    id: 'torsionspring_treads', name: 'Torsion-Spring Treads', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Store a step\'s worth of momentum and spend it on the next one instead.',
+    statBonuses: { defense: 4, critChance: 4 }, levelRequirement: 6, value: 30
+  },
+  resonance_conduit: {
+    id: 'resonance_conduit', name: 'Resonance Conduit', slot: 'weapon', weaponType: 'staff',
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Theory made hardware -- it hums the formula before the caster remembers it.',
+    statBonuses: { attack: 9, magicPower: 9, critChance: 6 }, levelRequirement: 15, value: 58
+  },
+  analytic_engine_visor: {
+    id: 'analytic_engine_visor', name: 'Analytic Engine Visor', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Runs the numbers on a fight before the fight\'s finished starting.',
+    statBonuses: { defense: 7, magicPower: 7 }, levelRequirement: 15, value: 42
+  },
+  ironclad_overalls: {
+    id: 'ironclad_overalls', name: 'Ironclad Overalls', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Reinforced in every spot the last set failed, and tested the same way.',
+    statBonuses: { defense: 10, maxHp: 20 }, levelRequirement: 15, value: 46
+  },
+  servoassisted_grips: {
+    id: 'servoassisted_grips', name: 'Servo-Assisted Grips', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'The hand does the aiming. The motor does the rest of the argument.',
+    statBonuses: { attack: 7, magicPower: 6 }, levelRequirement: 15, value: 42
+  },
+  gyroscopic_greaves: {
+    id: 'gyroscopic_greaves', name: 'Gyroscopic Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Whatever the ground does next, these already decided not to care.',
+    statBonuses: { defense: 6, critChance: 6 }, levelRequirement: 15, value: 42
+  },
+  autoloading_crossbow_array: {
+    id: 'autoloading_crossbow_array', name: 'Autoloading Crossbow Array', slot: 'weapon', weaponType: 'bow',
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Three bolts queued before the first one lands, and a fourth already spinning up.',
+    statBonuses: { attack: 12, magicPower: 10, critChance: 9 }, levelRequirement: 25, value: 78
+  },
+  farsight_rangefinder: {
+    id: 'farsight_rangefinder', name: 'Farsight Rangefinder', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Reads windage, distance, and intent, mostly in that order.',
+    statBonuses: { defense: 9, magicPower: 9 }, levelRequirement: 25, value: 58
+  },
+  reinforced_exovest: {
+    id: 'reinforced_exovest', name: 'Reinforced Exo-Vest', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'The frame takes the hit first and files a report on it after.',
+    statBonuses: { defense: 13, maxHp: 26 }, levelRequirement: 25, value: 62
+  },
+  autotune_grips: {
+    id: 'autotune_grips', name: 'Autotune Grips', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Corrects the swing mid-motion, whether or not it was asked to.',
+    statBonuses: { attack: 9, magicPower: 8 }, levelRequirement: 25, value: 58
+  },
+  stabilizer_greaves: {
+    id: 'stabilizer_greaves', name: 'Stabilizer Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'They correct a stumble faster than anyone watching can register one happened.',
+    statBonuses: { defense: 8, critChance: 8 }, levelRequirement: 25, value: 58
+  },
+  overdrive_knuckles: {
+    id: 'overdrive_knuckles', name: 'Overdrive Knuckles', slot: 'weapon', weaponType: 'gauntlet',
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Redlines on every punch and somehow never once seizes up.',
+    statBonuses: { attack: 18, magicPower: 15, critChance: 13 }, levelRequirement: 40, value: 130
+  },
+  omniscope_array: {
+    id: 'omniscope_array', name: 'Omniscope Array', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Sees the weak point, the wind-up, and the exit, all before the first move.',
+    statBonuses: { defense: 13, magicPower: 13 }, levelRequirement: 40, value: 95
+  },
+  fusioncore_vest: {
+    id: 'fusioncore_vest', name: 'Fusion-Core Vest', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Warm to the touch, always, regardless of the weather or the fight.',
+    statBonuses: { defense: 17, maxHp: 34 }, levelRequirement: 40, value: 102
+  },
+  kinetic_amplifier_gloves: {
+    id: 'kinetic_amplifier_gloves', name: 'Kinetic Amplifier Gloves', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Every impact gets stored, refined, and handed right back with interest.',
+    statBonuses: { attack: 13, magicPower: 12 }, levelRequirement: 40, value: 95
+  },
+  momentum_stabilizers: {
+    id: 'momentum_stabilizers', name: 'Momentum Stabilizers', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Nothing about the footing is left to chance anymore, least of all the chance.',
+    statBonuses: { defense: 12, critChance: 11 }, levelRequirement: 40, value: 95
+  },
+  perpetual_motion_blade: {
+    id: 'perpetual_motion_blade', name: 'Perpetual Motion Blade', slot: 'weapon', weaponType: 'dagger', effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'The theory said it was impossible. The blade never got the memo.',
+    statBonuses: { attack: 26, magicPower: 22, critChance: 18 }, levelRequirement: 60, value: 210
+  },
+  clockwork_divinity_optics: {
+    id: 'clockwork_divinity_optics', name: 'Clockwork Divinity Optics', slot: 'head', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Every gear behind the lens turns toward the same conclusion, always correctly.',
+    statBonuses: { defense: 18, magicPower: 18 }, levelRequirement: 60, value: 165
+  },
+  grand_automaton_chassis: {
+    id: 'grand_automaton_chassis', name: 'Grand Automaton Chassis', slot: 'body', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Somewhere past the hundredth revision, it stopped being armor and started being the answer.',
+    statBonuses: { defense: 24, maxHp: 48 }, levelRequirement: 60, value: 178
+  },
+  singularity_gauntlets: {
+    id: 'singularity_gauntlets', name: 'Singularity Gauntlets', slot: 'hands', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Whatever they\'re pointed at stops being a separate problem from them.',
+    statBonuses: { attack: 18, magicPower: 17 }, levelRequirement: 60, value: 165
+  },
+  infinite_gear_treads: {
+    id: 'infinite_gear_treads', name: 'Infinite Gear Treads', slot: 'legs', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'The mechanism inside has never once needed winding, and nobody\'s brave enough to ask why.',
+    statBonuses: { defense: 17, critChance: 15 }, levelRequirement: 60, value: 165
+  },
+
   // --- Quest items: not equippable, not sold in the shop (see
   // SHOP_ITEM_IDS below) -- found and consumed through activities instead.
   bent_cog: {
