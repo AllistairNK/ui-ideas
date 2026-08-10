@@ -68,6 +68,16 @@ export const HIDDEN_TRAITS = {
     // Gates the Engineer -> Runesmith evolution in classes.js.
     manualOnly: true
   },
+  dangerInstinct: {
+    id: 'dangerInstinct',
+    name: 'Danger Instinct',
+    flavor: 'A prickle up your spine warns you a beat before the blow ever lands.',
+    tags: ['rogue'],
+    secretClass: 'webslinger',
+    requirement: (a) => a.agility >= 6 && a.luck >= 6 && a.vitality >= 7,
+    weight: 2,
+    statBonuses: { critChance: 3, defense: 2 }
+  },
   ironLungs: {
     id: 'ironLungs',
     name: 'Iron Lungs',

@@ -354,6 +354,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['dagger', 'bow'],
     bonusActivityIds: []
   },
+  webslinger: {
+    id: 'webslinger',
+    name: 'Webslinger',
+    flavor: 'The city doesn\'t call for a hero so much as look up and find one already swinging past.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { agility: 6, luck: 6, vitality: 7 },
+    requiredTrait: 'dangerInstinct',
+    statScaling: { attack: 0.8, defense: 0.6, magicPower: 0.1, critChance: 1.2 },
+    allowedWeaponTypes: ['dagger', 'gauntlet'],
+    bonusActivityIds: []
+  },
   novicemechanic: {
     id: 'novicemechanic',
     name: 'Novice Mechanic',
@@ -425,4 +437,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger'];
