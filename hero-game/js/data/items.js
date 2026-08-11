@@ -881,6 +881,48 @@ export const ITEM_TEMPLATES = {
     statBonuses: { defense: 15, critChance: 14 }, levelRequirement: 60, value: 165
   },
 
+  // --- Webslinger-flavored weapons: not class-locked, just statted and
+  // written for the attack/critChance-heavy webslinger (a standalone tier-1
+  // secret class with no evolution line in classes.js). Weapon types
+  // alternate dagger/gauntlet, matching allowedWeaponTypes. Weapons only for
+  // now -- no matching head/body/hands/legs set yet.
+  webline_shiv: {
+    id: 'webline_shiv', name: 'Webline Shiv', slot: 'weapon', weaponType: 'dagger',
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'A short blade strung to a spool of tensile cord -- climbs and cuts in the same motion.',
+    statBonuses: { attack: 6, critChance: 7 }, levelRequirement: 3, value: 20
+  },
+  streetline_knuckles: {
+    id: 'streetline_knuckles', name: 'Streetline Knuckles', slot: 'weapon', weaponType: 'gauntlet',
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'A pair of coiled launchers built into the knuckles, humming with tension a half-second before they fire.',
+    statBonuses: { attack: 8, critChance: 9 }, levelRequirement: 6, value: 46
+  },
+  rooftop_stinger: {
+    id: 'rooftop_stinger', name: 'Rooftop Stinger', slot: 'weapon', weaponType: 'dagger',
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "Never drawn until the fall's already started -- by the time it's out, the landing's already decided.",
+    statBonuses: { attack: 11, critChance: 12 }, levelRequirement: 15, value: 58
+  },
+  highrise_gauntlet: {
+    id: 'highrise_gauntlet', name: 'Highrise Gauntlet', slot: 'weapon', weaponType: 'gauntlet',
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Every punch trails a line back to the last rooftop, just in case the ground has other ideas.',
+    statBonuses: { attack: 14, critChance: 15 }, levelRequirement: 25, value: 78
+  },
+  skyline_fang: {
+    id: 'skyline_fang', name: 'Skyline Fang', slot: 'weapon', weaponType: 'dagger',
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Drops from twelve stories up and somehow still finds the exact same angle every time.',
+    statBonuses: { attack: 18, critChance: 18 }, levelRequirement: 40, value: 130
+  },
+  citywide_reflex_gauntlets: {
+    id: 'citywide_reflex_gauntlets', name: 'Citywide Reflex Gauntlets', slot: 'weapon', weaponType: 'gauntlet', effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "By the time the danger registers, the swing's already three blocks away.",
+    statBonuses: { attack: 23, critChance: 23 }, levelRequirement: 60, value: 210
+  },
+
   // --- Mechanic-flavored gear: not class-locked, just statted and written
   // for the hybrid attack/defense/magicPower/critChance mechanic line
   // (novicemechanic -> engineer -> runesmith -> archmechanist ->
