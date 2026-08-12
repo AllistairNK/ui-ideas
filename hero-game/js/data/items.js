@@ -881,16 +881,39 @@ export const ITEM_TEMPLATES = {
     statBonuses: { defense: 15, critChance: 14 }, levelRequirement: 60, value: 165
   },
 
-  // --- Webslinger-flavored weapons: not class-locked, just statted and
-  // written for the attack/critChance-heavy webslinger (a standalone tier-1
-  // secret class with no evolution line in classes.js). Weapon types
-  // alternate dagger/gauntlet, matching allowedWeaponTypes. Weapons only for
-  // now -- no matching head/body/hands/legs set yet.
+  // --- Webslinger-flavored gear: not class-locked, just statted and
+  // written for the attack/defense/critChance-heavy webslinger (a
+  // standalone tier-1 secret class with no evolution line in classes.js).
+  // Weapon types alternate dagger/gauntlet, matching allowedWeaponTypes.
   webline_shiv: {
     id: 'webline_shiv', name: 'Webline Shiv', slot: 'weapon', weaponType: 'dagger',
     rarity: 'uncommon', element: 'none', tier: 1,
     flavor: 'A short blade strung to a spool of tensile cord -- climbs and cuts in the same motion.',
     statBonuses: { attack: 6, critChance: 7 }, levelRequirement: 3, value: 20
+  },
+  backstreet_goggles: {
+    id: 'backstreet_goggles', name: 'Backstreet Goggles', slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "Cheap lenses, but they catch a shape moving before the shape decides it's been seen.",
+    statBonuses: { defense: 4, critChance: 2 }, levelRequirement: 3, value: 12
+  },
+  patchwork_undersuit: {
+    id: 'patchwork_undersuit', name: 'Patchwork Undersuit', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "Every panel came off a different roll of fabric. None of them have torn yet.",
+    statBonuses: { defense: 6, maxHp: 10 }, levelRequirement: 3, value: 15
+  },
+  grapplers_webgrips: {
+    id: 'grapplers_webgrips', name: "Grappler's Webgrips", slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "The tack wears thin by the third building, and somehow that's still enough.",
+    statBonuses: { attack: 4, critChance: 2 }, levelRequirement: 3, value: 12
+  },
+  wallrunner_treads: {
+    id: 'wallrunner_treads', name: 'Wallrunner Treads', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "Gravity's a suggestion these have mostly stopped listening to.",
+    statBonuses: { defense: 4, critChance: 1 }, levelRequirement: 3, value: 12
   },
   streetline_knuckles: {
     id: 'streetline_knuckles', name: 'Streetline Knuckles', slot: 'weapon', weaponType: 'gauntlet',
@@ -898,11 +921,59 @@ export const ITEM_TEMPLATES = {
     flavor: 'A pair of coiled launchers built into the knuckles, humming with tension a half-second before they fire.',
     statBonuses: { attack: 8, critChance: 9 }, levelRequirement: 6, value: 46
   },
+  streetlight_visor: {
+    id: 'streetlight_visor', name: 'Streetlight Visor', slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: "Filters out the glare from every sign on the block, and most of what's hiding behind it.",
+    statBonuses: { defense: 6, critChance: 4 }, levelRequirement: 6, value: 30
+  },
+  reinforced_underweave: {
+    id: 'reinforced_underweave', name: 'Reinforced Underweave', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Stitched to take a fall from three stories, tested from considerably more.',
+    statBonuses: { defense: 9, maxHp: 16 }, levelRequirement: 6, value: 36
+  },
+  tensioncoil_gloves: {
+    id: 'tensioncoil_gloves', name: 'Tension-Coil Gloves', slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: "The grip doesn't fail. The wall underneath occasionally does.",
+    statBonuses: { attack: 6, critChance: 4 }, levelRequirement: 6, value: 30
+  },
+  ledgerunner_boots: {
+    id: 'ledgerunner_boots', name: 'Ledge-Runner Boots', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: "The edge of the roof stopped being the end of the route a while ago.",
+    statBonuses: { defense: 6, critChance: 3 }, levelRequirement: 6, value: 30
+  },
   rooftop_stinger: {
     id: 'rooftop_stinger', name: 'Rooftop Stinger', slot: 'weapon', weaponType: 'dagger',
     rarity: 'rare', element: 'none', tier: 3,
     flavor: "Never drawn until the fall's already started -- by the time it's out, the landing's already decided.",
     statBonuses: { attack: 11, critChance: 12 }, levelRequirement: 15, value: 58
+  },
+  nightwatch_cowl: {
+    id: 'nightwatch_cowl', name: 'Nightwatch Cowl', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "Nobody's caught a good look at the face under it. That's rather the idea.",
+    statBonuses: { defense: 8, critChance: 6 }, levelRequirement: 15, value: 42
+  },
+  kevlarweave_suit: {
+    id: 'kevlarweave_suit', name: 'Kevlar-Weave Suit', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Stops a blade, stops a fall, stops most conversations before they start.',
+    statBonuses: { defense: 13, maxHp: 22 }, levelRequirement: 15, value: 48
+  },
+  adhesive_grip_gauntlets: {
+    id: 'adhesive_grip_gauntlets', name: 'Adhesive Grip Gauntlets', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'What they land on, they stay on -- brick, glass, or someone\'s collar.',
+    statBonuses: { attack: 8, critChance: 6 }, levelRequirement: 15, value: 42
+  },
+  rooftop_treads: {
+    id: 'rooftop_treads', name: 'Rooftop Treads', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "Three jumps ahead of wherever the chase thinks it's going.",
+    statBonuses: { defense: 8, critChance: 5 }, levelRequirement: 15, value: 42
   },
   highrise_gauntlet: {
     id: 'highrise_gauntlet', name: 'Highrise Gauntlet', slot: 'weapon', weaponType: 'gauntlet',
@@ -910,17 +981,89 @@ export const ITEM_TEMPLATES = {
     flavor: 'Every punch trails a line back to the last rooftop, just in case the ground has other ideas.',
     statBonuses: { attack: 14, critChance: 15 }, levelRequirement: 25, value: 78
   },
+  highrise_cowl: {
+    id: 'highrise_cowl', name: 'Highrise Cowl', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Filters the wind noise at forty stories down to something almost like quiet.',
+    statBonuses: { defense: 10, critChance: 8 }, levelRequirement: 25, value: 58
+  },
+  impact_weave_suit: {
+    id: 'impact_weave_suit', name: 'Impact-Weave Suit', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "Every seam's built to absorb a landing nobody else would walk away from.",
+    statBonuses: { defense: 16, maxHp: 28 }, levelRequirement: 25, value: 65
+  },
+  shockabsorb_gloves: {
+    id: 'shockabsorb_gloves', name: 'Shock-Absorb Gloves', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "The impact goes somewhere. It's just never anywhere that matters.",
+    statBonuses: { attack: 10, critChance: 9 }, levelRequirement: 25, value: 58
+  },
+  skyscraper_boots: {
+    id: 'skyscraper_boots', name: 'Skyscraper Boots', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Height stopped being a variable in the plan a few tiers back.',
+    statBonuses: { defense: 10, critChance: 7 }, levelRequirement: 25, value: 58
+  },
   skyline_fang: {
     id: 'skyline_fang', name: 'Skyline Fang', slot: 'weapon', weaponType: 'dagger',
     rarity: 'rare', element: 'none', tier: 5,
     flavor: 'Drops from twelve stories up and somehow still finds the exact same angle every time.',
     statBonuses: { attack: 18, critChance: 18 }, levelRequirement: 40, value: 130
   },
+  cityscape_mask: {
+    id: 'cityscape_mask', name: 'Cityscape Mask', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: "Reads the whole block at a glance -- rooftops, alleys, and the one window that matters.",
+    statBonuses: { defense: 13, critChance: 11 }, levelRequirement: 40, value: 95
+  },
+  aerial_weave_suit: {
+    id: 'aerial_weave_suit', name: 'Aerial-Weave Suit', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Cut for a body that spends more time airborne than not.',
+    statBonuses: { defense: 20, maxHp: 36 }, levelRequirement: 40, value: 108
+  },
+  momentum_gloves: {
+    id: 'momentum_gloves', name: 'Momentum Gloves', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: "Every swing banks speed for the next one, and the next one's already started.",
+    statBonuses: { attack: 13, critChance: 12 }, levelRequirement: 40, value: 95
+  },
+  freefall_boots: {
+    id: 'freefall_boots', name: 'Freefall Boots', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'The ground arrives eventually. These just make sure it arrives on schedule.',
+    statBonuses: { defense: 13, critChance: 10 }, levelRequirement: 40, value: 95
+  },
   citywide_reflex_gauntlets: {
     id: 'citywide_reflex_gauntlets', name: 'Citywide Reflex Gauntlets', slot: 'weapon', weaponType: 'gauntlet', effect: 'goldSparkle',
     rarity: 'epic', element: 'none', tier: 6,
     flavor: "By the time the danger registers, the swing's already three blocks away.",
     statBonuses: { attack: 23, critChance: 23 }, levelRequirement: 60, value: 210
+  },
+  metropolis_mask: {
+    id: 'metropolis_mask', name: 'Metropolis Mask', slot: 'head', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'The whole skyline reads like a map only this mask bothers to check twice.',
+    statBonuses: { defense: 16, critChance: 15 }, levelRequirement: 60, value: 165
+  },
+  urban_guardian_suit: {
+    id: 'urban_guardian_suit', name: 'Urban Guardian Suit', slot: 'body', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "Every panel's been torn once and mended twice, and it still hasn't slowed him down.",
+    statBonuses: { defense: 25, maxHp: 46 }, levelRequirement: 60, value: 185
+  },
+  kinetic_impact_gauntlets: {
+    id: 'kinetic_impact_gauntlets', name: 'Kinetic Impact Gauntlets', slot: 'hands', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'By the time the punch lands, three more are already committed.',
+    statBonuses: { attack: 16, critChance: 16 }, levelRequirement: 60, value: 165
+  },
+  groundless_boots: {
+    id: 'groundless_boots', name: 'Groundless Boots', slot: 'legs', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "The ground's optional. These decided that a long time ago.",
+    statBonuses: { defense: 16, critChance: 13 }, levelRequirement: 60, value: 165
   },
 
   // --- Mechanic-flavored gear: not class-locked, just statted and written
