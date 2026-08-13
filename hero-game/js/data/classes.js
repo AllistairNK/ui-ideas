@@ -366,6 +366,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['dagger', 'gauntlet'],
     bonusActivityIds: []
   },
+  corpsecultivator: {
+    id: 'corpsecultivator',
+    name: 'Corpse Cultivator',
+    flavor: 'Every corpse left on a field is a lesson somebody paid for in full -- you\'re just the one still around to read it.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { vitality: 7, intellect: 6 },
+    requiredTrait: 'corpseQi',
+    statScaling: { attack: 0.7, defense: 0.9, magicPower: 0.5, critChance: 0.4 },
+    allowedWeaponTypes: ['dagger', 'gauntlet', 'staff'],
+    bonusActivityIds: ['study']
+  },
   novicemechanic: {
     id: 'novicemechanic',
     name: 'Novice Mechanic',
@@ -437,4 +449,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator'];

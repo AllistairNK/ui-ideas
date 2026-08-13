@@ -78,6 +78,16 @@ export const HIDDEN_TRAITS = {
     weight: 2,
     statBonuses: { critChance: 3, defense: 2 }
   },
+  corpseQi: {
+    id: 'corpseQi',
+    name: 'Corpse Qi',
+    flavor: 'Proper cultivators draw power from the sun, the moon, forbidden manuals passed hand to hand -- you found yours kneeling over the dead, and stopped looking further.',
+    tags: ['fighter'],
+    secretClass: 'corpsecultivator',
+    requirement: (a) => a.vitality >= 7 && a.intellect >= 6,
+    weight: 2,
+    statBonuses: { defense: 3, magicPower: 2 }
+  },
   ironLungs: {
     id: 'ironLungs',
     name: 'Iron Lungs',
