@@ -376,6 +376,61 @@ export const CLASSES = {
     requiredTrait: 'corpseQi',
     statScaling: { attack: 0.7, defense: 0.9, magicPower: 0.5, critChance: 0.4 },
     allowedWeaponTypes: ['dagger', 'gauntlet', 'staff'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'charneladept', unlockLevel: 15 }
+  },
+  charneladept: {
+    id: 'charneladept',
+    name: 'Charnel Adept',
+    flavor: 'A charnel adept stops flinching at the smell long before anyone else stops noticing they have.',
+    tier: 2,
+    evolvesFrom: 'corpsecultivator',
+    statScaling: { attack: 0.85, defense: 1.1, magicPower: 0.65, critChance: 0.5 },
+    allowedWeaponTypes: ['dagger', 'gauntlet', 'staff'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'graveweaver', unlockLevel: 30 }
+  },
+  graveweaver: {
+    id: 'graveweaver',
+    name: 'Graveweaver',
+    flavor: 'Graveweavers don\'t dig up secrets -- the ground hands them over once it\'s tired of keeping them.',
+    tier: 3,
+    evolvesFrom: 'charneladept',
+    statScaling: { attack: 1.0, defense: 1.3, magicPower: 0.85, critChance: 0.6 },
+    allowedWeaponTypes: ['dagger', 'gauntlet', 'staff'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'charnellord', unlockLevel: 45 }
+  },
+  charnellord: {
+    id: 'charnellord',
+    name: 'Charnel Lord',
+    flavor: 'Nobody argues with a charnel lord\'s ledger -- every name on it already agreed to be there.',
+    tier: 4,
+    evolvesFrom: 'graveweaver',
+    statScaling: { attack: 1.15, defense: 1.55, magicPower: 1.05, critChance: 0.7 },
+    allowedWeaponTypes: ['dagger', 'gauntlet', 'staff'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'undyingcultivator', unlockLevel: 65 }
+  },
+  undyingcultivator: {
+    id: 'undyingcultivator',
+    name: 'Undying Cultivator',
+    flavor: 'An undying cultivator stopped counting years around the same time years stopped counting them.',
+    tier: 5,
+    evolvesFrom: 'charnellord',
+    statScaling: { attack: 1.3, defense: 1.8, magicPower: 1.3, critChance: 0.8 },
+    allowedWeaponTypes: ['dagger', 'gauntlet', 'staff'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'undyingsovereign', unlockLevel: 90 }
+  },
+  undyingsovereign: {
+    id: 'undyingsovereign',
+    name: 'Undying Sovereign',
+    flavor: 'An Undying Sovereign doesn\'t outlive their enemies -- they just outlast the idea that death was ever the end of the conversation.',
+    tier: 6,
+    evolvesFrom: 'undyingcultivator',
+    statScaling: { attack: 1.5, defense: 2.1, magicPower: 1.6, critChance: 0.95 },
+    allowedWeaponTypes: ['dagger', 'gauntlet', 'staff'],
     bonusActivityIds: ['study']
   },
   novicemechanic: {
