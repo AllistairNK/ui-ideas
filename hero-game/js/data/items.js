@@ -882,8 +882,9 @@ export const ITEM_TEMPLATES = {
   },
 
   // --- Webslinger-flavored gear: not class-locked, just statted and
-  // written for the attack/defense/critChance-heavy webslinger (a
-  // standalone tier-1 secret class with no evolution line in classes.js).
+  // written for the attack/defense/critChance-heavy webslinger line
+  // (webslinger -> streetlineprowler -> rooftopsentinel -> highrisevigilante
+  // -> skylinephantom -> metropolisguardian in classes.js).
   // Weapon types alternate dagger/gauntlet, matching allowedWeaponTypes.
   webline_shiv: {
     id: 'webline_shiv', name: 'Webline Shiv', slot: 'weapon', weaponType: 'dagger',

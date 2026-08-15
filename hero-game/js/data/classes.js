@@ -364,6 +364,61 @@ export const CLASSES = {
     requiredTrait: 'dangerInstinct',
     statScaling: { attack: 0.8, defense: 0.6, magicPower: 0.1, critChance: 1.2 },
     allowedWeaponTypes: ['dagger', 'gauntlet'],
+    bonusActivityIds: [],
+    evolution: { classId: 'streetlineprowler', unlockLevel: 15 }
+  },
+  streetlineprowler: {
+    id: 'streetlineprowler',
+    name: 'Streetline Prowler',
+    flavor: 'By the time the alarm goes up, the trail\'s already three blocks cold.',
+    tier: 2,
+    evolvesFrom: 'webslinger',
+    statScaling: { attack: 0.95, defense: 0.75, magicPower: 0.15, critChance: 1.4 },
+    allowedWeaponTypes: ['dagger', 'gauntlet'],
+    bonusActivityIds: [],
+    evolution: { classId: 'rooftopsentinel', unlockLevel: 30 }
+  },
+  rooftopsentinel: {
+    id: 'rooftopsentinel',
+    name: 'Rooftop Sentinel',
+    flavor: 'Nobody spots a rooftop sentinel until the ledge is already empty.',
+    tier: 3,
+    evolvesFrom: 'streetlineprowler',
+    statScaling: { attack: 1.1, defense: 0.9, magicPower: 0.15, critChance: 1.6 },
+    allowedWeaponTypes: ['dagger', 'gauntlet'],
+    bonusActivityIds: [],
+    evolution: { classId: 'highrisevigilante', unlockLevel: 45 }
+  },
+  highrisevigilante: {
+    id: 'highrisevigilante',
+    name: 'Highrise Vigilante',
+    flavor: 'Forty stories up, the vigilante isn\'t hiding -- there\'s just nothing worth looking for.',
+    tier: 4,
+    evolvesFrom: 'rooftopsentinel',
+    statScaling: { attack: 1.3, defense: 1.05, magicPower: 0.2, critChance: 1.85 },
+    allowedWeaponTypes: ['dagger', 'gauntlet'],
+    bonusActivityIds: [],
+    evolution: { classId: 'skylinephantom', unlockLevel: 65 }
+  },
+  skylinephantom: {
+    id: 'skylinephantom',
+    name: 'Skyline Phantom',
+    flavor: 'The skyline doesn\'t hide a phantom -- it just stops mentioning where they went.',
+    tier: 5,
+    evolvesFrom: 'highrisevigilante',
+    statScaling: { attack: 1.5, defense: 1.2, magicPower: 0.2, critChance: 2.1 },
+    allowedWeaponTypes: ['dagger', 'gauntlet'],
+    bonusActivityIds: [],
+    evolution: { classId: 'metropolisguardian', unlockLevel: 90 }
+  },
+  metropolisguardian: {
+    id: 'metropolisguardian',
+    name: 'Metropolis Guardian',
+    flavor: 'A city doesn\'t thank its guardian -- it just stops noticing how quiet the nights got.',
+    tier: 6,
+    evolvesFrom: 'skylinephantom',
+    statScaling: { attack: 1.8, defense: 1.4, magicPower: 0.25, critChance: 2.5 },
+    allowedWeaponTypes: ['dagger', 'gauntlet'],
     bonusActivityIds: []
   },
   corpsecultivator: {
