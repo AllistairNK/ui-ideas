@@ -1,3 +1,22 @@
+// ---------------------------------------------------------------------------
+// Progression paths -- dev reference only, not read by code. Keep in sync
+// whenever a chain is added to or extended (the in-game class tree at
+// js/ui/classTreeModal.js draws the real thing live from the data below).
+//
+// Mainline (CLASS_CHOICES, picked at CLASS_CHOICE_LEVEL):
+//   Peasant -> Fighter -> Vanguard -> Warbringer -> Battlelord -> Juggernaut -> Colossus
+//   Peasant -> Mage -> Conjurer -> Warlock -> Archmage -> Archwizard -> Astral Sovereign
+//   Peasant -> Rogue -> Shadowblade -> Assassin -> Nightstalker -> Wraith -> Umbral Sovereign
+//
+// Secret (SECRET_CLASS_IDS, gated by attribute reqs +/- a hidden trait):
+//   Peasant -> Battlemage -> Spellblade -> Warmage -> Battlemagus -> Fateblade -> Fated Sovereign
+//   Peasant -> Warden -> Bulwark -> Rampart -> Aegis -> Bastion -> Immovable
+//   Peasant -> Trickster -> Con Artist -> Deceiver -> Grifter -> Mirage Dancer -> Grand Illusionist
+//   Peasant -> Webslinger -> Streetline Prowler -> Rooftop Sentinel -> Highrise Vigilante -> Skyline Phantom -> Metropolis Guardian
+//   Peasant -> Corpse Cultivator -> Charnel Adept -> Graveweaver -> Charnel Lord -> Undying Cultivator -> Undying Sovereign
+//   Peasant -> Novice Mechanic -> Engineer -> Runesmith -> Archmechanist -> Technomancer -> Clockwork Divinity
+//     (Novice Mechanic -> Engineer branches via apprenticeship, not the usual unlockLevel gate)
+// ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
     id: 'peasant',
@@ -351,6 +370,61 @@ export const CLASSES = {
     unlockAttributeReqs: { agility: 6, luck: 6 },
     requiredTrait: 'silverTongue',
     statScaling: { attack: 0.7, defense: 0.4, magicPower: 0.2, critChance: 1.4 },
+    allowedWeaponTypes: ['dagger', 'bow'],
+    bonusActivityIds: [],
+    evolution: { classId: 'conartist', unlockLevel: 15 }
+  },
+  conartist: {
+    id: 'conartist',
+    name: 'Con Artist',
+    flavor: 'Nobody signs a con artist\'s deal twice -- the first time was already the whole trick.',
+    tier: 2,
+    evolvesFrom: 'trickster',
+    statScaling: { attack: 0.85, defense: 0.5, magicPower: 0.2, critChance: 1.7 },
+    allowedWeaponTypes: ['dagger', 'bow'],
+    bonusActivityIds: [],
+    evolution: { classId: 'deceiver', unlockLevel: 30 }
+  },
+  deceiver: {
+    id: 'deceiver',
+    name: 'Deceiver',
+    flavor: 'A deceiver never lies outright -- they just let you finish the sentence wrong.',
+    tier: 3,
+    evolvesFrom: 'conartist',
+    statScaling: { attack: 1.0, defense: 0.6, magicPower: 0.25, critChance: 2.0 },
+    allowedWeaponTypes: ['dagger', 'bow'],
+    bonusActivityIds: [],
+    evolution: { classId: 'grifter', unlockLevel: 45 }
+  },
+  grifter: {
+    id: 'grifter',
+    name: 'Grifter',
+    flavor: 'Nobody catches a grifter mid-move -- only after, counting what isn\'t there anymore.',
+    tier: 4,
+    evolvesFrom: 'deceiver',
+    statScaling: { attack: 1.15, defense: 0.7, magicPower: 0.25, critChance: 2.35 },
+    allowedWeaponTypes: ['dagger', 'bow'],
+    bonusActivityIds: [],
+    evolution: { classId: 'miragedancer', unlockLevel: 65 }
+  },
+  miragedancer: {
+    id: 'miragedancer',
+    name: 'Mirage Dancer',
+    flavor: 'Chase a mirage dancer long enough and the chase becomes the trick.',
+    tier: 5,
+    evolvesFrom: 'grifter',
+    statScaling: { attack: 1.3, defense: 0.8, magicPower: 0.3, critChance: 2.7 },
+    allowedWeaponTypes: ['dagger', 'bow'],
+    bonusActivityIds: [],
+    evolution: { classId: 'grandillusionist', unlockLevel: 90 }
+  },
+  grandillusionist: {
+    id: 'grandillusionist',
+    name: 'Grand Illusionist',
+    flavor: 'Nobody agrees what a grand illusionist actually did -- only that everyone left convinced of something different.',
+    tier: 6,
+    evolvesFrom: 'miragedancer',
+    statScaling: { attack: 1.5, defense: 0.95, magicPower: 0.3, critChance: 3.2 },
     allowedWeaponTypes: ['dagger', 'bow'],
     bonusActivityIds: []
   },

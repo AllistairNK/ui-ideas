@@ -697,9 +697,10 @@ export const ITEM_TEMPLATES = {
   },
 
   // --- Trickster-flavored gear: not class-locked, just statted and written
-  // for the attack/critChance-heavy trickster (a standalone tier-1 secret
-  // class with no evolution line in classes.js). Weapon types alternate
-  // dagger/bow, matching allowedWeaponTypes.
+  // for the attack/critChance-heavy trickster line (trickster -> conartist
+  // -> deceiver -> grifter -> miragedancer -> grandillusionist in
+  // classes.js). Weapon types alternate dagger/bow, matching
+  // allowedWeaponTypes.
   feinting_blade: {
     id: 'feinting_blade', name: 'Feinting Blade', slot: 'weapon', weaponType: 'dagger',
     rarity: 'uncommon', element: 'none', tier: 1,
