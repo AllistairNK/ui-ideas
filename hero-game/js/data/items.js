@@ -1255,6 +1255,192 @@ export const ITEM_TEMPLATES = {
     statBonuses: { defense: 17, critChance: 15 }, levelRequirement: 60, value: 165
   },
 
+  // --- Corpse Cultivator-flavored gear: not class-locked, just statted and
+  // written for the attack/defense/magicPower-hybrid corpse cultivator line
+  // (corpsecultivator -> charneladept -> graveweaver -> charnellord ->
+  // undyingcultivator -> undyingsovereign in classes.js). Weapon types cycle
+  // through dagger/gauntlet/staff, matching that line's allowedWeaponTypes.
+  corpse_cultivators_scalpel: {
+    id: 'corpse_cultivators_scalpel', name: "Corpse Cultivator's Scalpel", slot: 'weapon', weaponType: 'dagger',
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "Every cut is a lesson. Some of them are still teaching.",
+    statBonuses: { attack: 5, defense: 4, magicPower: 4 }, levelRequirement: 3, value: 20
+  },
+  gravedust_circlet: {
+    id: 'gravedust_circlet', name: 'Gravedust Circlet', slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'The dust never quite settles. Neither does whatever\'s watching through it.',
+    statBonuses: { defense: 5, magicPower: 3 }, levelRequirement: 3, value: 12
+  },
+  shroudweave_coat: {
+    id: 'shroudweave_coat', name: 'Shroudweave Coat', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Stitched from what was already being discarded, and none the weaker for it.',
+    statBonuses: { defense: 7, maxHp: 11 }, levelRequirement: 3, value: 15
+  },
+  ashkeeper_gloves: {
+    id: 'ashkeeper_gloves', name: 'Ashkeeper Gloves', slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'What they hold onto stops being ash and starts being useful.',
+    statBonuses: { attack: 3, magicPower: 3 }, levelRequirement: 3, value: 12
+  },
+  plaguestep_boots: {
+    id: 'plaguestep_boots', name: 'Plague-Step Boots', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Whatever\'s underfoot stopped being a hazard to him a long time ago.',
+    statBonuses: { defense: 4, critChance: 3 }, levelRequirement: 3, value: 12
+  },
+  charnel_adepts_knuckles: {
+    id: 'charnel_adepts_knuckles', name: "Charnel Adept's Knuckles", slot: 'weapon', weaponType: 'gauntlet',
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'The bone underneath isn\'t his. It works the same either way.',
+    statBonuses: { attack: 7, defense: 7, magicPower: 6 }, levelRequirement: 6, value: 46
+  },
+  rotwarded_hood: {
+    id: 'rotwarded_hood', name: 'Rotwarded Hood', slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'The rot never spreads past the hem. It knows better by now.',
+    statBonuses: { defense: 8, magicPower: 5 }, levelRequirement: 6, value: 30
+  },
+  charnel_wraps: {
+    id: 'charnel_wraps', name: 'Charnel Wraps', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Every layer was somebody else\'s once. All of them agreed to the trade.',
+    statBonuses: { defense: 11, maxHp: 17 }, levelRequirement: 6, value: 36
+  },
+  embalmers_grip: {
+    id: 'embalmers_grip', name: "Embalmer's Grip", slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Steady hands. They\'ve had plenty of practice not shaking.',
+    statBonuses: { attack: 5, magicPower: 5 }, levelRequirement: 6, value: 30
+  },
+  graveline_treads: {
+    id: 'graveline_treads', name: 'Graveline Treads', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'They cross the line between the field and the ground beneath it without noticing which side they\'re on.',
+    statBonuses: { defense: 7, critChance: 5 }, levelRequirement: 6, value: 30
+  },
+  graveweavers_femur_staff: {
+    id: 'graveweavers_femur_staff', name: "Graveweaver's Femur Staff", slot: 'weapon', weaponType: 'staff',
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'It doesn\'t summon anything. It just reminds the ground what it\'s still owed.',
+    statBonuses: { attack: 10, defense: 9, magicPower: 9 }, levelRequirement: 15, value: 58
+  },
+  bonesewn_cowl: {
+    id: 'bonesewn_cowl', name: 'Bone-Sewn Cowl', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Every stitch is a name he stopped needing to remember.',
+    statBonuses: { defense: 11, magicPower: 7 }, levelRequirement: 15, value: 42
+  },
+  sepulcher_vestments: {
+    id: 'sepulcher_vestments', name: 'Sepulcher Vestments', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Cut from cloth that was already in the ground once. It didn\'t mind coming back up.',
+    statBonuses: { defense: 15, maxHp: 23 }, levelRequirement: 15, value: 48
+  },
+  deadhand_wraps: {
+    id: 'deadhand_wraps', name: 'Deadhand Wraps', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'The grip doesn\'t loosen after the fight. It never really needed the fight to hold on.',
+    statBonuses: { attack: 7, magicPower: 7 }, levelRequirement: 15, value: 42
+  },
+  catacomb_greaves: {
+    id: 'catacomb_greaves', name: 'Catacomb Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Every tunnel down there leads somewhere. These have walked all of them.',
+    statBonuses: { defense: 10, critChance: 7 }, levelRequirement: 15, value: 42
+  },
+  charnel_lords_reaping_knife: {
+    id: 'charnel_lords_reaping_knife', name: "Charnel Lord's Reaping Knife", slot: 'weapon', weaponType: 'dagger',
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'The ledger it keeps doesn\'t forgive a debt. It just waits for the interest to mature.',
+    statBonuses: { attack: 13, defense: 12, magicPower: 11 }, levelRequirement: 25, value: 78
+  },
+  ossuary_crown: {
+    id: 'ossuary_crown', name: 'Ossuary Crown', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Every bone in it agreed to be there. None of them remember agreeing.',
+    statBonuses: { defense: 14, magicPower: 9 }, levelRequirement: 25, value: 58
+  },
+  ribcage_plate: {
+    id: 'ribcage_plate', name: 'Ribcage Plate', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'It doesn\'t protect what\'s underneath so much as remind it what it owes.',
+    statBonuses: { defense: 19, maxHp: 29 }, levelRequirement: 25, value: 65
+  },
+  gravewarden_gauntlets: {
+    id: 'gravewarden_gauntlets', name: 'Grave-Warden Gauntlets', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'What they bury stays buried. What they raise stays convenient.',
+    statBonuses: { attack: 9, magicPower: 9 }, levelRequirement: 25, value: 58
+  },
+  sunkencrypt_greaves: {
+    id: 'sunkencrypt_greaves', name: 'Sunken Crypt Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'The crypt they came from never noticed them leave.',
+    statBonuses: { defense: 13, critChance: 9 }, levelRequirement: 25, value: 58
+  },
+  undying_cultivators_knucklebones: {
+    id: 'undying_cultivators_knucklebones', name: "Undying Cultivator's Knuckle-Bones", slot: 'weapon', weaponType: 'gauntlet',
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'They stopped being his a lifetime ago. He stopped noticing the difference around the same time.',
+    statBonuses: { attack: 17, defense: 16, magicPower: 15 }, levelRequirement: 40, value: 130
+  },
+  deathless_diadem: {
+    id: 'deathless_diadem', name: 'Deathless Diadem', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'A crown for a throne that was never going to stay empty for long.',
+    statBonuses: { defense: 19, magicPower: 12 }, levelRequirement: 40, value: 95
+  },
+  marrowforged_robe: {
+    id: 'marrowforged_robe', name: 'Marrowforged Robe', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Woven from what should have stopped holding a shape years ago.',
+    statBonuses: { defense: 25, maxHp: 39 }, levelRequirement: 40, value: 108
+  },
+  sepulchral_grips: {
+    id: 'sepulchral_grips', name: 'Sepulchral Grips', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Cold to everyone else. He stopped noticing the temperature decades ago.',
+    statBonuses: { attack: 12, magicPower: 12 }, levelRequirement: 40, value: 95
+  },
+  bonepath_striders: {
+    id: 'bonepath_striders', name: 'Bonepath Striders', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'The path underneath is made of the ones who tried to stop him. It holds fine.',
+    statBonuses: { defense: 18, critChance: 12 }, levelRequirement: 40, value: 95
+  },
+  undying_sovereigns_femur_scepter: {
+    id: 'undying_sovereigns_femur_scepter', name: "Undying Sovereign's Femur Scepter", slot: 'weapon', weaponType: 'staff', effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Every field it\'s planted in eventually agrees to give something back up.',
+    statBonuses: { attack: 21, defense: 20, magicPower: 19 }, levelRequirement: 60, value: 210
+  },
+  crown_of_the_unburied: {
+    id: 'crown_of_the_unburied', name: 'Crown of the Unburied', slot: 'head', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Nobody\'s buried it yet. Nobody\'s stayed buried long enough to try.',
+    statBonuses: { defense: 24, magicPower: 15 }, levelRequirement: 60, value: 165
+  },
+  shroud_of_the_undying: {
+    id: 'shroud_of_the_undying', name: 'Shroud of the Undying', slot: 'body', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'It was meant for a burial that kept getting postponed.',
+    statBonuses: { defense: 32, maxHp: 50 }, levelRequirement: 60, value: 185
+  },
+  gauntlets_of_the_gravebound: {
+    id: 'gauntlets_of_the_gravebound', name: 'Gauntlets of the Grave-Bound', slot: 'hands', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Whatever they close around stops belonging to the world above.',
+    statBonuses: { attack: 15, magicPower: 15 }, levelRequirement: 60, value: 165
+  },
+  greaves_of_the_endless_charnel: {
+    id: 'greaves_of_the_endless_charnel', name: 'Greaves of the Endless Charnel', slot: 'legs', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'The field they were forged from never really ran out of ground to give.',
+    statBonuses: { defense: 22, critChance: 15 }, levelRequirement: 60, value: 165
+  },
+
   // --- Quest items: not equippable, not sold in the shop (see
   // SHOP_ITEM_IDS below) -- found and consumed through activities instead.
   bent_cog: {
