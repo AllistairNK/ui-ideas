@@ -88,6 +88,16 @@ export const HIDDEN_TRAITS = {
     weight: 2,
     statBonuses: { defense: 3, magicPower: 2 }
   },
+  daoInsight: {
+    id: 'daoInsight',
+    name: 'Dao Insight',
+    flavor: 'You read the qi in a room the way others read a face -- and it never lies to you.',
+    tags: ['mage'],
+    secretClass: 'cultivator',
+    requirement: (a) => a.intellect >= 6 && a.luck >= 6,
+    weight: 2,
+    statBonuses: { magicPower: 3 }
+  },
   ironLungs: {
     id: 'ironLungs',
     name: 'Iron Lungs',

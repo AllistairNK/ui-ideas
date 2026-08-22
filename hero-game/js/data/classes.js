@@ -16,6 +16,7 @@
 //   Peasant -> Corpse Cultivator -> Charnel Adept -> Graveweaver -> Charnel Lord -> Undying Cultivator -> Undying Sovereign
 //   Peasant -> Novice Mechanic -> Engineer -> Runesmith -> Archmechanist -> Technomancer -> Clockwork Divinity
 //     (Novice Mechanic -> Engineer branches via apprenticeship, not the usual unlockLevel gate)
+//   Peasant -> Cultivator (tier 1 only for now, no evolution chain yet)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -619,6 +620,18 @@ export const CLASSES = {
     bonusActivityIds: ['study'],
     evolution: { classId: 'clockworkgod', unlockLevel: 85 }
   },
+  cultivator: {
+    id: 'cultivator',
+    name: 'Cultivator',
+    flavor: 'The manual promised enlightenment in a hundred years. You\'re not waiting that long.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { intellect: 6, luck: 6 },
+    requiredTrait: 'daoInsight',
+    statScaling: { attack: 0.5, defense: 0.6, magicPower: 0.8, critChance: 0.6 },
+    allowedWeaponTypes: ['dagger', 'staff', 'sword'],
+    bonusActivityIds: ['study']
+  },
   clockworkgod: {
     id: 'clockworkgod',
     name: 'Clockwork Divinity',
@@ -633,4 +646,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator'];
