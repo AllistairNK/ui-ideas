@@ -16,7 +16,7 @@
 //   Peasant -> Corpse Cultivator -> Charnel Adept -> Graveweaver -> Charnel Lord -> Undying Cultivator -> Undying Sovereign
 //   Peasant -> Novice Mechanic -> Engineer -> Runesmith -> Archmechanist -> Technomancer -> Clockwork Divinity
 //     (Novice Mechanic -> Engineer branches via apprenticeship, not the usual unlockLevel gate)
-//   Peasant -> Cultivator (tier 1 only for now, no evolution chain yet)
+//   Peasant -> Cultivator -> Qi Adept -> Meridian Breaker -> Core Former -> Nascent Soul -> Ascendant
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -629,6 +629,61 @@ export const CLASSES = {
     unlockAttributeReqs: { intellect: 6, luck: 6 },
     requiredTrait: 'daoInsight',
     statScaling: { attack: 0.5, defense: 0.6, magicPower: 0.8, critChance: 0.6 },
+    allowedWeaponTypes: ['dagger', 'staff', 'sword'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'qiadept', unlockLevel: 15 }
+  },
+  qiadept: {
+    id: 'qiadept',
+    name: 'Qi Adept',
+    flavor: 'An adept\'s qi answers before the thought finishes forming -- the meridians already know where it\'s needed.',
+    tier: 2,
+    evolvesFrom: 'cultivator',
+    statScaling: { attack: 0.6, defense: 0.75, magicPower: 1.0, critChance: 0.75 },
+    allowedWeaponTypes: ['dagger', 'staff', 'sword'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'meridianbreaker', unlockLevel: 30 }
+  },
+  meridianbreaker: {
+    id: 'meridianbreaker',
+    name: 'Meridian Breaker',
+    flavor: 'Every wall in the body was put there for a reason. A meridian breaker stopped caring what it was.',
+    tier: 3,
+    evolvesFrom: 'qiadept',
+    statScaling: { attack: 0.75, defense: 0.95, magicPower: 1.25, critChance: 0.9 },
+    allowedWeaponTypes: ['dagger', 'staff', 'sword'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'coreformer', unlockLevel: 45 }
+  },
+  coreformer: {
+    id: 'coreformer',
+    name: 'Core Former',
+    flavor: 'Nobody argues with a core former\'s pace -- the dao doesn\'t rush, and neither do they, not anymore.',
+    tier: 4,
+    evolvesFrom: 'meridianbreaker',
+    statScaling: { attack: 0.9, defense: 1.15, magicPower: 1.5, critChance: 1.05 },
+    allowedWeaponTypes: ['dagger', 'staff', 'sword'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'nascentsoul', unlockLevel: 65 }
+  },
+  nascentsoul: {
+    id: 'nascentsoul',
+    name: 'Nascent Soul',
+    flavor: 'A nascent soul doesn\'t fear the body failing -- there\'s already somewhere else to go.',
+    tier: 5,
+    evolvesFrom: 'coreformer',
+    statScaling: { attack: 1.05, defense: 1.4, magicPower: 1.8, critChance: 1.2 },
+    allowedWeaponTypes: ['dagger', 'staff', 'sword'],
+    bonusActivityIds: ['study'],
+    evolution: { classId: 'ascendant', unlockLevel: 90 }
+  },
+  ascendant: {
+    id: 'ascendant',
+    name: 'Ascendant',
+    flavor: 'The heavens don\'t notice an ascendant crossing the tribulation -- by the time they would, it\'s already over.',
+    tier: 6,
+    evolvesFrom: 'nascentsoul',
+    statScaling: { attack: 1.2, defense: 1.65, magicPower: 2.1, critChance: 1.4 },
     allowedWeaponTypes: ['dagger', 'staff', 'sword'],
     bonusActivityIds: ['study']
   },
