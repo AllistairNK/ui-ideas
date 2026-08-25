@@ -98,6 +98,16 @@ export const HIDDEN_TRAITS = {
     weight: 2,
     statBonuses: { magicPower: 3 }
   },
+  keenEye: {
+    id: 'keenEye',
+    name: 'Keen Eye',
+    flavor: 'You pick out the one gap in the guard everyone else swears isn\'t there.',
+    tags: ['rogue'],
+    secretClass: 'archer',
+    requirement: (a) => a.agility >= 6 && a.strength >= 6,
+    weight: 2,
+    statBonuses: { attack: 3, critChance: 2 }
+  },
   ironLungs: {
     id: 'ironLungs',
     name: 'Iron Lungs',

@@ -17,6 +17,7 @@
 //   Peasant -> Novice Mechanic -> Engineer -> Runesmith -> Archmechanist -> Technomancer -> Clockwork Divinity
 //     (Novice Mechanic -> Engineer branches via apprenticeship, not the usual unlockLevel gate)
 //   Peasant -> Cultivator -> Qi Adept -> Meridian Breaker -> Core Former -> Nascent Soul -> Ascendant
+//   Peasant -> Archer -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -429,6 +430,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['dagger', 'bow'],
     bonusActivityIds: []
   },
+  archer: {
+    id: 'archer',
+    name: 'Archer',
+    flavor: 'Nobody hears an archer coming -- just the one sound after, and then the quiet that follows it.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { agility: 6, strength: 6 },
+    requiredTrait: 'keenEye',
+    statScaling: { attack: 1.0, defense: 0.4, magicPower: 0.1, critChance: 0.9 },
+    allowedWeaponTypes: ['bow'],
+    bonusActivityIds: []
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -701,4 +714,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer'];
