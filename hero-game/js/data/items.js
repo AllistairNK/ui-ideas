@@ -1441,6 +1441,48 @@ export const ITEM_TEMPLATES = {
     statBonuses: { defense: 22, critChance: 15 }, levelRequirement: 60, value: 165
   },
 
+  // --- Archer-flavored weapons: not class-locked, just statted and written
+  // for the attack/critChance-heavy archer (a standalone tier-1 secret class
+  // with no evolution line in classes.js yet). Weapon type is always bow,
+  // matching allowedWeaponTypes. Weapons only for now -- no matching
+  // head/body/hands/legs set yet.
+  fletchers_longbow: {
+    id: 'fletchers_longbow', name: "Fletcher's Longbow", slot: 'weapon', weaponType: 'bow',
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "The string's barely warm before the shot's already landed.",
+    statBonuses: { attack: 7, critChance: 6 }, levelRequirement: 3, value: 20
+  },
+  deadfall_recurve: {
+    id: 'deadfall_recurve', name: 'Deadfall Recurve', slot: 'weapon', weaponType: 'bow',
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: "Curved past the point most bowyers call safe, and it still hasn't snapped.",
+    statBonuses: { attack: 9, critChance: 8 }, levelRequirement: 6, value: 46
+  },
+  whistling_death: {
+    id: 'whistling_death', name: 'Whistling Death', slot: 'weapon', weaponType: 'bow',
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "The whistle arrives a half-second after the arrow already has.",
+    statBonuses: { attack: 12, critChance: 11 }, levelRequirement: 15, value: 58
+  },
+  farshot_warbow: {
+    id: 'farshot_warbow', name: 'Farshot Warbow', slot: 'weapon', weaponType: 'bow',
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Range stopped being a limitation somewhere around the fourth upgrade.',
+    statBonuses: { attack: 15, critChance: 14 }, levelRequirement: 25, value: 78
+  },
+  onebreath_bow: {
+    id: 'onebreath_bow', name: 'One-Breath Bow', slot: 'weapon', weaponType: 'bow',
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'One breath in, one shot out -- the second never gets used.',
+    statBonuses: { attack: 20, critChance: 18 }, levelRequirement: 40, value: 130
+  },
+  executioners_draw: {
+    id: 'executioners_draw', name: "Executioner's Draw", slot: 'weapon', weaponType: 'bow', effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "Nobody's ever heard the draw. They've only ever heard what came after.",
+    statBonuses: { attack: 25, critChance: 23 }, levelRequirement: 60, value: 210
+  },
+
   // --- Quest items: not equippable, not sold in the shop (see
   // SHOP_ITEM_IDS below) -- found and consumed through activities instead.
   bent_cog: {
