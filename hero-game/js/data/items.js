@@ -1626,6 +1626,156 @@ export const ITEM_TEMPLATES = {
     statBonuses: { defense: 15, critChance: 14 }, levelRequirement: 60, value: 165
   },
 
+  // --- Cultivator-flavored armor: not class-locked, just statted and
+  // written for the magicPower/defense-heavy qi cultivation line
+  // (cultivator -> qiadept -> meridianbreaker -> coreformer -> nascentsoul
+  // -> ascendant in classes.js). Armor only for now -- no matching weapon
+  // set yet.
+  novices_focusing_band: {
+    id: 'novices_focusing_band', name: "Novice's Focusing Band", slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "The manual said focus takes years. It's cutting a few corners.",
+    statBonuses: { magicPower: 4, defense: 3 }, levelRequirement: 3, value: 12
+  },
+  roughspun_cultivators_robe: {
+    id: 'roughspun_cultivators_robe', name: "Roughspun Cultivator's Robe", slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "Rough cloth, patient wearer -- the dao doesn't care which one it started with.",
+    statBonuses: { defense: 5, maxHp: 10 }, levelRequirement: 3, value: 15
+  },
+  meridianwarm_wraps: {
+    id: 'meridianwarm_wraps', name: 'Meridian-Warm Wraps', slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'The qi moves before the hands remember to ask it to.',
+    statBonuses: { attack: 3, magicPower: 3 }, levelRequirement: 3, value: 12
+  },
+  first_stance_sandals: {
+    id: 'first_stance_sandals', name: 'First Stance Sandals', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Every stance starts crooked. These just stop caring which way is wrong.',
+    statBonuses: { defense: 3, critChance: 2 }, levelRequirement: 3, value: 12
+  },
+  qi_adepts_circlet: {
+    id: 'qi_adepts_circlet', name: "Qi Adept's Circlet", slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: "The meridians answer before the thought's finished asking.",
+    statBonuses: { magicPower: 6, defense: 5 }, levelRequirement: 6, value: 30
+  },
+  flowing_qi_robe: {
+    id: 'flowing_qi_robe', name: 'Flowing Qi Robe', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Stitched to move with the qi, not around it.',
+    statBonuses: { defense: 8, maxHp: 15 }, levelRequirement: 6, value: 36
+  },
+  channeling_gloves: {
+    id: 'channeling_gloves', name: 'Channeling Gloves', slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Channeling stopped being effort somewhere around the second month.',
+    statBonuses: { attack: 4, magicPower: 5 }, levelRequirement: 6, value: 30
+  },
+  steadyroot_sandals: {
+    id: 'steadyroot_sandals', name: 'Steady Root Sandals', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'The root holds even when the stance doesn\'t.',
+    statBonuses: { defense: 5, critChance: 4 }, levelRequirement: 6, value: 30
+  },
+  meridian_breakers_crown: {
+    id: 'meridian_breakers_crown', name: "Meridian Breaker's Crown", slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Every wall it once respected, it stopped respecting on schedule.',
+    statBonuses: { magicPower: 8, defense: 7 }, levelRequirement: 15, value: 42
+  },
+  unbound_meridian_robe: {
+    id: 'unbound_meridian_robe', name: 'Unbound Meridian Robe', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'The old limits are still in there. They just don\'t get consulted anymore.',
+    statBonuses: { defense: 11, maxHp: 21 }, levelRequirement: 15, value: 48
+  },
+  wallshattering_wraps: {
+    id: 'wallshattering_wraps', name: 'Wall-Shattering Wraps', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'What used to strain now barely notices the effort.',
+    statBonuses: { attack: 6, magicPower: 7 }, levelRequirement: 15, value: 42
+  },
+  threshold_striders: {
+    id: 'threshold_striders', name: 'Threshold Striders', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "The threshold's already behind them before it's finished being a threshold.",
+    statBonuses: { defense: 7, critChance: 6 }, levelRequirement: 15, value: 42
+  },
+  core_formers_diadem: {
+    id: 'core_formers_diadem', name: "Core Former's Diadem", slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "The dao doesn't rush. Neither does whatever's wearing this.",
+    statBonuses: { magicPower: 10, defense: 9 }, levelRequirement: 25, value: 58
+  },
+  condensed_core_robe: {
+    id: 'condensed_core_robe', name: 'Condensed Core Robe', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Condensed past the point most cultivators ever reach, and still settling.',
+    statBonuses: { defense: 14, maxHp: 27 }, levelRequirement: 25, value: 65
+  },
+  daosteady_gloves: {
+    id: 'daosteady_gloves', name: 'Dao-Steady Gloves', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Steadier than the century of practice it\'s pretending to replace.',
+    statBonuses: { attack: 8, magicPower: 9 }, levelRequirement: 25, value: 58
+  },
+  unhurried_steps: {
+    id: 'unhurried_steps', name: 'Unhurried Steps', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "There's nowhere left to hurry to. The pace was always the point.",
+    statBonuses: { defense: 9, critChance: 8 }, levelRequirement: 25, value: 58
+  },
+  nascent_souls_halo: {
+    id: 'nascent_souls_halo', name: "Nascent Soul's Halo", slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: "There's already somewhere else to go if the body doesn't make it.",
+    statBonuses: { magicPower: 13, defense: 12 }, levelRequirement: 40, value: 95
+  },
+  soulanchoring_robe: {
+    id: 'soulanchoring_robe', name: 'Soul-Anchoring Robe', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Anchors a soul that stopped needing the body to agree with it.',
+    statBonuses: { defense: 18, maxHp: 35 }, levelRequirement: 40, value: 108
+  },
+  beyondbody_grips: {
+    id: 'beyondbody_grips', name: 'Beyond-Body Grips', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'What they reach for stops being separate from them the moment they do.',
+    statBonuses: { attack: 10, magicPower: 12 }, levelRequirement: 40, value: 95
+  },
+  secondself_striders: {
+    id: 'secondself_striders', name: 'Second-Self Striders', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: "Wherever the second self needs to stand, this one's already there.",
+    statBonuses: { defense: 12, critChance: 10 }, levelRequirement: 40, value: 95
+  },
+  ascendants_tribulation_crown: {
+    id: 'ascendants_tribulation_crown', name: "Ascendant's Tribulation Crown", slot: 'head', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'The heavens didn\'t notice the tribulation. By the time they would have, it was over.',
+    statBonuses: { magicPower: 16, defense: 15 }, levelRequirement: 60, value: 165
+  },
+  robe_of_the_crossed_tribulation: {
+    id: 'robe_of_the_crossed_tribulation', name: 'Robe of the Crossed Tribulation', slot: 'body', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Whatever crossed the tribulation didn\'t come back quite the same, and isn\'t apologizing for it.',
+    statBonuses: { defense: 23, maxHp: 45 }, levelRequirement: 60, value: 185
+  },
+  heavendefying_gauntlets: {
+    id: 'heavendefying_gauntlets', name: 'Heaven-Defying Gauntlets', slot: 'hands', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Defying heaven stopped being a metaphor around the third strike.',
+    statBonuses: { attack: 13, magicPower: 15 }, levelRequirement: 60, value: 165
+  },
+  greaves_of_the_unbound_dao: {
+    id: 'greaves_of_the_unbound_dao', name: 'Greaves of the Unbound Dao', slot: 'legs', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "The dao doesn't bind what's already ascended past needing it to.",
+    statBonuses: { defense: 15, critChance: 13 }, levelRequirement: 60, value: 165
+  },
+
   // --- Quest items: not equippable, not sold in the shop (see
   // SHOP_ITEM_IDS below) -- found and consumed through activities instead.
   bent_cog: {
