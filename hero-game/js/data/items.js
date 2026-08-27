@@ -1441,11 +1441,10 @@ export const ITEM_TEMPLATES = {
     statBonuses: { defense: 22, critChance: 15 }, levelRequirement: 60, value: 165
   },
 
-  // --- Archer-flavored weapons: not class-locked, just statted and written
-  // for the attack/critChance-heavy archer (a standalone tier-1 secret class
+  // --- Archer-flavored gear: not class-locked, just statted and written for
+  // the attack/critChance-heavy archer (a standalone tier-1 secret class
   // with no evolution line in classes.js yet). Weapon type is always bow,
-  // matching allowedWeaponTypes. Weapons only for now -- no matching
-  // head/body/hands/legs set yet.
+  // matching allowedWeaponTypes.
   fletchers_longbow: {
     id: 'fletchers_longbow', name: "Fletcher's Longbow", slot: 'weapon', weaponType: 'bow',
     rarity: 'uncommon', element: 'none', tier: 1,
@@ -1481,6 +1480,150 @@ export const ITEM_TEMPLATES = {
     rarity: 'epic', element: 'none', tier: 6,
     flavor: "Nobody's ever heard the draw. They've only ever heard what came after.",
     statBonuses: { attack: 25, critChance: 23 }, levelRequirement: 60, value: 210
+  },
+  longshot_hood: {
+    id: 'longshot_hood', name: 'Longshot Hood', slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "It doesn't muffle sound so much as decide which ones matter.",
+    statBonuses: { defense: 3, critChance: 3 }, levelRequirement: 3, value: 12
+  },
+  fletchers_cloak: {
+    id: 'fletchers_cloak', name: "Fletcher's Cloak", slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Cut loose enough that the draw never catches on anything.',
+    statBonuses: { defense: 5, maxHp: 10 }, levelRequirement: 3, value: 15
+  },
+  bowstring_gloves: {
+    id: 'bowstring_gloves', name: 'Bowstring Gloves', slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'The calluses did the real work long before the gloves showed up.',
+    statBonuses: { attack: 3, critChance: 3 }, levelRequirement: 3, value: 12
+  },
+  stalking_boots: {
+    id: 'stalking_boots', name: 'Stalking Boots', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: "Every step lands exactly where the last one didn't.",
+    statBonuses: { defense: 3, critChance: 2 }, levelRequirement: 3, value: 12
+  },
+  windreaders_hood: {
+    id: 'windreaders_hood', name: "Windreader's Hood", slot: 'head', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Reads the wind before the string does.',
+    statBonuses: { defense: 5, critChance: 5 }, levelRequirement: 6, value: 30
+  },
+  camouflage_cloak: {
+    id: 'camouflage_cloak', name: 'Camouflage Cloak', slot: 'body', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: "Blends into whatever's behind it, which is usually the point.",
+    statBonuses: { defense: 8, maxHp: 16 }, levelRequirement: 6, value: 36
+  },
+  drawstring_gauntlets: {
+    id: 'drawstring_gauntlets', name: 'Drawstring Gauntlets', slot: 'hands', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'The string leaves faster than the hand remembers releasing it.',
+    statBonuses: { attack: 5, critChance: 5 }, levelRequirement: 6, value: 30
+  },
+  silentstep_boots: {
+    id: 'silentstep_boots', name: 'Silent Step Boots', slot: 'legs', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: "Nobody's tracked a footprint back to these yet.",
+    statBonuses: { defense: 5, critChance: 4 }, levelRequirement: 6, value: 30
+  },
+  hawkeye_cowl: {
+    id: 'hawkeye_cowl', name: 'Hawkeye Cowl', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: "Sees the shot land before the string's finished singing.",
+    statBonuses: { defense: 7, critChance: 7 }, levelRequirement: 15, value: 42
+  },
+  rangers_oilcloak: {
+    id: 'rangers_oilcloak', name: "Ranger's Oilcloak", slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Weathered through worse than whatever\'s coming next.',
+    statBonuses: { defense: 11, maxHp: 22 }, levelRequirement: 15, value: 48
+  },
+  nocking_gloves: {
+    id: 'nocking_gloves', name: 'Nocking Gloves', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Every arrow leaves the same way, whether it\'s the first or the fiftieth.',
+    statBonuses: { attack: 7, critChance: 7 }, levelRequirement: 15, value: 42
+  },
+  ghostwalk_greaves: {
+    id: 'ghostwalk_greaves', name: 'Ghostwalk Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'The ground gives up trying to remember which way they went.',
+    statBonuses: { defense: 7, critChance: 6 }, levelRequirement: 15, value: 42
+  },
+  farsight_veil: {
+    id: 'farsight_veil', name: 'Farsight Veil', slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Distance stopped being a problem it needed solving.',
+    statBonuses: { defense: 9, critChance: 9 }, levelRequirement: 25, value: 58
+  },
+  deadfall_cloak: {
+    id: 'deadfall_cloak', name: 'Deadfall Cloak', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Meant for the wait, not the shot -- the shot only takes a second.',
+    statBonuses: { defense: 14, maxHp: 28 }, levelRequirement: 25, value: 65
+  },
+  steadyhand_gauntlets: {
+    id: 'steadyhand_gauntlets', name: 'Steadyhand Gauntlets', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "The hand's stopped shaking. It never really needed to -- it just did.",
+    statBonuses: { attack: 9, critChance: 9 }, levelRequirement: 25, value: 58
+  },
+  vantage_treads: {
+    id: 'vantage_treads', name: 'Vantage Treads', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: "Every vantage point they've ever needed was already scouted twice.",
+    statBonuses: { defense: 9, critChance: 8 }, levelRequirement: 25, value: 58
+  },
+  windwardens_hood: {
+    id: 'windwardens_hood', name: "Windwarden's Hood", slot: 'head', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'The wind tells it everything before the shot needs to know.',
+    statBonuses: { defense: 12, critChance: 12 }, levelRequirement: 40, value: 95
+  },
+  shroud_of_the_still_hunt: {
+    id: 'shroud_of_the_still_hunt', name: 'Shroud of the Still Hunt', slot: 'body', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Stillness this complete stops being a skill and starts being a place to live.',
+    statBonuses: { defense: 18, maxHp: 36 }, levelRequirement: 40, value: 108
+  },
+  perfect_release_gloves: {
+    id: 'perfect_release_gloves', name: 'Perfect Release Gloves', slot: 'hands', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'One draw, one release -- the space between them stopped mattering.',
+    statBonuses: { attack: 12, critChance: 12 }, levelRequirement: 40, value: 95
+  },
+  sureshot_greaves: {
+    id: 'sureshot_greaves', name: 'Sureshot Greaves', slot: 'legs', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: "Every shot they've ever taken, they were already standing exactly right.",
+    statBonuses: { defense: 12, critChance: 11 }, levelRequirement: 40, value: 95
+  },
+  crown_of_the_long_silence: {
+    id: 'crown_of_the_long_silence', name: 'Crown of the Long Silence', slot: 'head', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "Nobody's heard the silence before the shot. They've only heard what it left behind.",
+    statBonuses: { defense: 15, critChance: 16 }, levelRequirement: 60, value: 165
+  },
+  cloak_of_the_last_arrow: {
+    id: 'cloak_of_the_last_arrow', name: 'Cloak of the Last Arrow', slot: 'body', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "The last arrow never needs a second. It's already the only one that mattered.",
+    statBonuses: { defense: 23, maxHp: 46 }, levelRequirement: 60, value: 185
+  },
+  gauntlets_of_the_killing_wind: {
+    id: 'gauntlets_of_the_killing_wind', name: 'Gauntlets of the Killing Wind', slot: 'hands', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "The wind doesn't decide where the arrow goes anymore. They do.",
+    statBonuses: { attack: 15, critChance: 16 }, levelRequirement: 60, value: 165
+  },
+  greaves_of_the_vanishing_point: {
+    id: 'greaves_of_the_vanishing_point', name: 'Greaves of the Vanishing Point', slot: 'legs', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'Wherever they\'re standing was already the only place worth standing.',
+    statBonuses: { defense: 15, critChance: 14 }, levelRequirement: 60, value: 165
   },
 
   // --- Quest items: not equippable, not sold in the shop (see
