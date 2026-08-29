@@ -1134,6 +1134,17 @@ export const ITEM_TEMPLATES = {
     flavor: 'Store a step\'s worth of momentum and spend it on the next one instead.',
     statBonuses: { defense: 4, critChance: 4 }, levelRequirement: 6, value: 30
   },
+  // Hidden accessory -- not sold in the shop, only a rare drop from Workshop
+  // Salvage (see workshopFind in LOOT_TABLES below), same low-weight
+  // "discovery" logic as the Runic Relic. Boosts across the board to match
+  // the mechanic line's hybrid attack/defense/magicPower/critChance scaling.
+  iron_heart: {
+    id: 'iron_heart', name: 'Iron Heart', slot: 'accessory', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 2,
+    flavor: 'A clockwork core, still ticking. Wear it close and it starts keeping your pace instead of its own.',
+    statBonuses: { attack: 4, defense: 4, magicPower: 4, critChance: 4 }, levelRequirement: 6, value: 55,
+    hidden: true
+  },
   resonance_conduit: {
     id: 'resonance_conduit', name: 'Resonance Conduit', slot: 'weapon', weaponType: 'staff',
     rarity: 'rare', element: 'none', tier: 3,
@@ -2304,9 +2315,11 @@ export const LOOT_TABLES = {
   ],
   // Same low-weight "discovery, not a drip-feed" logic as scavengeFind, but
   // gated to Engineer's own salvage work rather than the slums (see
-  // workshop_salvage in activities.js).
+  // workshop_salvage in activities.js). Iron Heart is a real (hidden, not
+  // shop-sold) equip drop here, unlike the quest-item Runic Relic.
   workshopFind: [
     { itemId: 'runic_relic', weight: 2 },
+    { itemId: 'iron_heart', weight: 1 },
     { itemId: null, weight: 150 }
   ],
   common: [
@@ -2328,7 +2341,7 @@ export const LOOT_TABLES = {
   ]
 };
 
-export const SHOP_ITEM_IDS = Object.keys(ITEM_TEMPLATES).filter((id) => !ITEM_TEMPLATES[id].questItem);
+export const SHOP_ITEM_IDS = Object.keys(ITEM_TEMPLATES).filter((id) => !ITEM_TEMPLATES[id].questItem && !ITEM_TEMPLATES[id].hidden);
 
 // Item `value` fields were originally tuned back when gold was only earned
 // in lump sums every 15-25s. Now that activities pay out continuously (see
