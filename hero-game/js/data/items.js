@@ -40,6 +40,12 @@ export const ITEM_TEMPLATES = {
     flavor: 'Cobbled together from spare parts -- it fires true more often than it should.',
     statBonuses: { attack: 4, critChance: 1 }, levelRequirement: 1, value: 7
   },
+  repulsors: {
+    id: 'repulsors', name: 'Repulsors', slot: 'weapon', weaponType: 'gauntlet',
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'A coiled charge behind each knuckle -- the punch lands before the arm finishes moving.',
+    statBonuses: { attack: 4, critChance: 3 }, levelRequirement: 2, value: 15
+  },
   leather_cap: {
     id: 'leather_cap', name: 'Leather Cap', slot: 'head', weaponType: null,
     rarity: 'common', element: 'none', tier: 1,
@@ -2333,6 +2339,7 @@ export const LOOT_TABLES = {
     { itemId: 'wooden_shield', weight: 10 },
     { itemId: 'tinkers_gauntlet', weight: 10 },
     { itemId: 'scrap_pistol', weight: 10 },
+    { itemId: 'repulsors', weight: 8 },
     { itemId: 'flaming_dagger', weight: 5 },
     { itemId: 'lucky_charm', weight: 5 },
     { itemId: 'storm_axe', weight: 2 },
