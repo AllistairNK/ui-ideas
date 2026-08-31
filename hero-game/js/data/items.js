@@ -1272,6 +1272,16 @@ export const ITEM_TEMPLATES = {
     statBonuses: { defense: 17, critChance: 15 }, levelRequirement: 60, value: 165
   },
 
+  // Standalone special-effect boots, not tied to any one class line. The
+  // "passive" is flavor-only for now -- mechanically it's just a big
+  // critChance/defense boost, same as every other named-effect item here.
+  speedforce_boots: {
+    id: 'speedforce_boots', name: 'Speed Force Boots', slot: 'legs', weaponType: null,
+    rarity: 'epic', element: 'none', tier: 5,
+    flavor: 'Grants the Speed Force passive -- every step lands before the last one\'s done echoing.',
+    statBonuses: { critChance: 12, defense: 6 }, levelRequirement: 45, value: 130
+  },
+
   // --- Corpse Cultivator-flavored gear: not class-locked, just statted and
   // written for the attack/defense/magicPower-hybrid corpse cultivator line
   // (corpsecultivator -> charneladept -> graveweaver -> charnellord ->
