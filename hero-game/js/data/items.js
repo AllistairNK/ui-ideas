@@ -1653,11 +1653,47 @@ export const ITEM_TEMPLATES = {
     statBonuses: { defense: 15, critChance: 14 }, levelRequirement: 60, value: 165
   },
 
-  // --- Cultivator-flavored armor: not class-locked, just statted and
+  // --- Cultivator-flavored gear: not class-locked, just statted and
   // written for the magicPower/defense-heavy qi cultivation line
   // (cultivator -> qiadept -> meridianbreaker -> coreformer -> nascentsoul
-  // -> ascendant in classes.js). Armor only for now -- no matching weapon
-  // set yet.
+  // -> ascendant in classes.js). Weapon types cycle through
+  // dagger/staff/sword, matching that line's allowedWeaponTypes.
+  daoinscribed_dagger: {
+    id: 'daoinscribed_dagger', name: 'Dao-Inscribed Dagger', slot: 'weapon', weaponType: 'dagger',
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Barely qualifies as a weapon manual. Cuts through excuses just as easily as flesh.',
+    statBonuses: { magicPower: 6, defense: 5 }, levelRequirement: 3, value: 20
+  },
+  qichanneling_staff: {
+    id: 'qichanneling_staff', name: 'Qi-Channeling Staff', slot: 'weapon', weaponType: 'staff',
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'The qi moves through it faster than the wielder can finish forming intent.',
+    statBonuses: { magicPower: 9, defense: 7 }, levelRequirement: 6, value: 46
+  },
+  meridianbreaking_sword: {
+    id: 'meridianbreaking_sword', name: 'Meridian-Breaking Sword', slot: 'weapon', weaponType: 'sword',
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Every wall it meets, it stopped asking permission to go through.',
+    statBonuses: { magicPower: 12, defense: 10 }, levelRequirement: 15, value: 58
+  },
+  coretempered_dagger: {
+    id: 'coretempered_dagger', name: 'Core-Tempered Dagger', slot: 'weapon', weaponType: 'dagger',
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Tempered against the core, not the forge -- the difference shows.',
+    statBonuses: { magicPower: 15, defense: 13 }, levelRequirement: 25, value: 78
+  },
+  soulforged_staff: {
+    id: 'soulforged_staff', name: 'Soul-Forged Staff', slot: 'weapon', weaponType: 'staff',
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: "Forged for a hand that isn't strictly attached to the body anymore.",
+    statBonuses: { magicPower: 19, defense: 16 }, levelRequirement: 40, value: 130
+  },
+  heavenascending_sword: {
+    id: 'heavenascending_sword', name: 'Heaven-Ascending Sword', slot: 'weapon', weaponType: 'sword', effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "The tribulation didn't destroy it. It just decided this was easier.",
+    statBonuses: { magicPower: 23, defense: 20 }, levelRequirement: 60, value: 210
+  },
   novices_focusing_band: {
     id: 'novices_focusing_band', name: "Novice's Focusing Band", slot: 'head', weaponType: null,
     rarity: 'uncommon', element: 'none', tier: 1,
