@@ -108,6 +108,16 @@ export const HIDDEN_TRAITS = {
     weight: 2,
     statBonuses: { attack: 3, critChance: 2 }
   },
+  fortunesEye: {
+    id: 'fortunesEye',
+    name: "Fortune's Eye",
+    flavor: "You don't predict the outcome. You just stop being surprised by it.",
+    tags: ['rogue'],
+    secretClass: 'fortuneteller',
+    requirement: (a) => a.luck >= 7 && a.intellect >= 6,
+    weight: 2,
+    statBonuses: { critChance: 3, magicPower: 2 }
+  },
   ironLungs: {
     id: 'ironLungs',
     name: 'Iron Lungs',

@@ -18,6 +18,7 @@
 //     (Novice Mechanic -> Engineer branches via apprenticeship, not the usual unlockLevel gate)
 //   Peasant -> Cultivator -> Qi Adept -> Meridian Breaker -> Core Former -> Nascent Soul -> Ascendant
 //   Peasant -> Archer -> ??? (tier 1 only so far)
+//   Peasant -> Fortune Teller -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -442,6 +443,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['bow'],
     bonusActivityIds: []
   },
+  fortuneteller: {
+    id: 'fortuneteller',
+    name: 'Fortune Teller',
+    flavor: 'Cards, tea leaves, the crack in a bone -- it was never really about the method. The outcome was already decided before you sat down.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { luck: 7, intellect: 6 },
+    requiredTrait: 'fortunesEye',
+    statScaling: { attack: 0.4, defense: 0.4, magicPower: 0.6, critChance: 1.3 },
+    allowedWeaponTypes: ['dagger', 'staff'],
+    bonusActivityIds: []
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -714,4 +727,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller'];
