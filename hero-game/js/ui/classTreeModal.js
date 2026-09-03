@@ -1,6 +1,6 @@
 import { CLASSES, CLASS_CHOICE_LEVEL, CLASS_CHOICES, SECRET_CLASS_IDS } from '../data/classes.js';
 import { HIDDEN_TRAITS } from '../data/traits.js';
-import { meetsAttributeReqs, getApprenticeshipLevel } from './classPanel.js';
+import { meetsAttributeReqs, getApprenticeshipLevel, getEvolutionOptions } from './classPanel.js';
 import { attachRichTooltips } from './richTooltip.js';
 
 // Radial ("spider web") layout: Peasant sits at the center, each tier-1
@@ -83,7 +83,7 @@ function getNodeStatus(character, classId) {
 
   // Tier 2+: only reachable while currently the prior class in the chain.
   if (character.class !== def.evolvesFrom) return 'locked';
-  const evo = CLASSES[def.evolvesFrom].evolution;
+  const evo = getEvolutionOptions(CLASSES[def.evolvesFrom]).find((e) => e.classId === classId);
   if (!evo) return 'locked';
   if (evo.unlockApprenticeshipLevel != null) {
     return getApprenticeshipLevel(character, evo.branchId) >= evo.unlockApprenticeshipLevel ? 'ready' : 'locked';
@@ -114,10 +114,10 @@ function requirementLines(character, classId) {
     return lines;
   }
 
-  // Tier 2+: requirement lives on the parent's `evolution` field.
+  // Tier 2+: requirement lives on the parent's evolution options.
   const parentDef = CLASSES[def.evolvesFrom];
   lines.push(`Currently: ${CLASSES[def.evolvesFrom].name} <span class="tt-req-current">${character.class === def.evolvesFrom ? '(yes)' : '(no)'}</span>`);
-  const evo = parentDef.evolution;
+  const evo = getEvolutionOptions(parentDef).find((e) => e.classId === classId);
   if (evo) {
     if (evo.unlockApprenticeshipLevel != null) {
       const current = getApprenticeshipLevel(character, evo.branchId);

@@ -33,19 +33,30 @@ function hasRequiredTrait(character, requiredTraitId) {
   return (character.traits || []).some((t) => t.id === requiredTraitId);
 }
 
-function getAvailableEvolution(character) {
-  const def = CLASSES[character.class];
-  if (!def || !def.evolution) return null;
-  const { unlockApprenticeshipLevel, branchId, unlockLevel, requiredTraitId } = def.evolution;
-  if (!hasRequiredTrait(character, requiredTraitId)) return null;
-  if (unlockApprenticeshipLevel != null) {
-    return getApprenticeshipLevel(character, branchId) >= unlockApprenticeshipLevel ? def.evolution : null;
-  }
-  return character.level >= unlockLevel ? def.evolution : null;
+// A class may have one evolution (`evolution`) or branch into several
+// (`evolutions`) -- this always returns the list, so callers don't care which.
+export function getEvolutionOptions(def) {
+  if (!def) return [];
+  if (def.evolutions) return def.evolutions;
+  return def.evolution ? [def.evolution] : [];
 }
 
-function describeEvolutionProgress(character, def) {
-  const { unlockApprenticeshipLevel, branchId, unlockLevel, requiredTraitId } = def.evolution;
+function isEvolutionReady(character, evo) {
+  const { unlockApprenticeshipLevel, branchId, unlockLevel, requiredTraitId } = evo;
+  if (!hasRequiredTrait(character, requiredTraitId)) return false;
+  if (unlockApprenticeshipLevel != null) {
+    return getApprenticeshipLevel(character, branchId) >= unlockApprenticeshipLevel;
+  }
+  return character.level >= unlockLevel;
+}
+
+function getAvailableEvolutions(character) {
+  const def = CLASSES[character.class];
+  return getEvolutionOptions(def).filter((evo) => isEvolutionReady(character, evo));
+}
+
+function describeEvolutionProgress(character, evo) {
+  const { unlockApprenticeshipLevel, branchId, unlockLevel, requiredTraitId } = evo;
   if (!hasRequiredTrait(character, requiredTraitId)) {
     return 'Requires studying something you haven\'t found yet.';
   }
@@ -58,7 +69,7 @@ function describeEvolutionProgress(character, def) {
 
 export function isClassAdvancementAvailable(character) {
   if (character.class === 'peasant') return character.level >= CLASS_CHOICE_LEVEL;
-  return !!getAvailableEvolution(character);
+  return getAvailableEvolutions(character).length > 0;
 }
 
 export function renderClassPanel(character, { onChoose }) {
@@ -67,26 +78,31 @@ export function renderClassPanel(character, { onChoose }) {
 
   if (character.class !== 'peasant') {
     const def = CLASSES[character.class];
-    const evolution = getAvailableEvolution(character);
-    if (evolution) {
-      const nextDef = CLASSES[evolution.classId];
+    const evolutions = getAvailableEvolutions(character);
+    if (evolutions.length) {
+      const options = evolutions.map((evo) => {
+        const nextDef = CLASSES[evo.classId];
+        return `
+          <button type="button" class="class-choice-btn" data-class="${nextDef.id}">
+            <span class="class-choice-name">${nextDef.name}</span>
+            <span class="class-choice-req">${nextDef.tier === 6 ? 'Godhood' : `Tier ${nextDef.tier} advancement`}</span>
+          </button>`;
+      }).join('');
       root.innerHTML = `
         <div class="panel-title">Class Advancement</div>
         <div class="sheet-sub">${def.name}</div>
         <div class="sheet-flavor">You've grown beyond your training.</div>
-        <div class="class-choice-list">
-          <button type="button" class="class-choice-btn" data-class="${nextDef.id}">
-            <span class="class-choice-name">${nextDef.name}</span>
-            <span class="class-choice-req">${nextDef.tier === 6 ? 'Godhood' : `Tier ${nextDef.tier} advancement`}</span>
-          </button>
-        </div>
+        <div class="class-choice-list">${options}</div>
       `;
       root.querySelectorAll('[data-class]').forEach((btn) => {
         btn.addEventListener('click', () => onChoose(btn.dataset.class));
       });
       return;
     }
-    const progressText = def.evolution ? describeEvolutionProgress(character, def) : '';
+    const evoOptions = getEvolutionOptions(def);
+    const progressText = evoOptions.length
+      ? evoOptions.map((evo) => describeEvolutionProgress(character, evo)).join(' ')
+      : '';
     root.innerHTML = `
       <div class="panel-title">Class</div>
       <div class="sheet-sub">${def.name}</div>

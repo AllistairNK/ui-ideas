@@ -6,6 +6,7 @@
 // Mainline (CLASS_CHOICES, picked at CLASS_CHOICE_LEVEL):
 //   Peasant -> Fighter -> Vanguard -> Warbringer -> Battlelord -> Juggernaut -> Colossus
 //   Peasant -> Mage -> Conjurer -> Warlock -> Archmage -> Archwizard -> Astral Sovereign
+//                    -> Gravity Mage (tier 2 only so far)
 //   Peasant -> Rogue -> Shadowblade -> Assassin -> Nightstalker -> Wraith -> Umbral Sovereign
 //
 // Secret (SECRET_CLASS_IDS, gated by attribute reqs +/- a hidden trait):
@@ -107,7 +108,10 @@ export const CLASSES = {
     statScaling: { attack: 0.3, defense: 0.4, magicPower: 1.2, critChance: 0.5 },
     allowedWeaponTypes: ['staff', 'dagger'],
     bonusActivityIds: ['study'],
-    evolution: { classId: 'conjurer', unlockLevel: 15 }
+    evolutions: [
+      { classId: 'conjurer', unlockLevel: 15 },
+      { classId: 'gravitymage', unlockLevel: 15 }
+    ]
   },
   conjurer: {
     id: 'conjurer',
@@ -119,6 +123,16 @@ export const CLASSES = {
     allowedWeaponTypes: ['staff', 'dagger'],
     bonusActivityIds: ['study'],
     evolution: { classId: 'warlock', unlockLevel: 30 }
+  },
+  gravitymage: {
+    id: 'gravitymage',
+    name: 'Gravity Mage',
+    flavor: 'A gravity mage doesn\'t argue with weight -- they just decide, briefly, whose turn it is to have any.',
+    tier: 2,
+    evolvesFrom: 'mage',
+    statScaling: { attack: 0.45, defense: 0.55, magicPower: 1.45, critChance: 0.65 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study']
   },
   warlock: {
     id: 'warlock',
