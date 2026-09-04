@@ -150,6 +150,18 @@ export const ITEM_TEMPLATES = {
   // the magicPower/critChance-heavy mage line (mage -> conjurer -> warlock ->
   // archmage -> archwizard -> astralsovereign in classes.js). Weapon types
   // stick to staff/dagger, matching that line's allowedWeaponTypes.
+  wukongs_staff: {
+    id: 'wukongs_staff', name: "Wukong's Staff", slot: 'weapon', weaponType: 'staff', effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'It shrinks to a sewing needle behind the ear, and grows to hold up the sky -- the size was always a choice, not a limit.',
+    statBonuses: { magicPower: 32, attack: 10, critChance: 18 }, levelRequirement: 60, value: 220
+  },
+  wukongs_headband: {
+    id: 'wukongs_headband', name: "Wukong's Headband", slot: 'head', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: "It used to tighten as a punishment. Now it just reminds him he could still lose his temper -- and doesn't.",
+    statBonuses: { magicPower: 22, defense: 10, critChance: 16 }, levelRequirement: 60, value: 165
+  },
   kindled_wand: {
     id: 'kindled_wand', name: 'Kindled Wand', slot: 'weapon', weaponType: 'staff',
     rarity: 'uncommon', element: 'fire', tier: 1,
