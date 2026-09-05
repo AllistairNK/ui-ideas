@@ -16,6 +16,7 @@
 //   Peasant -> Webslinger -> Streetline Prowler -> Rooftop Sentinel -> Highrise Vigilante -> Skyline Phantom -> Metropolis Guardian
 //   Peasant -> Corpse Cultivator -> Charnel Adept -> Graveweaver -> Charnel Lord -> Undying Cultivator -> Undying Sovereign
 //   Peasant -> Novice Mechanic -> Engineer -> Runesmith -> Archmechanist -> Technomancer -> Clockwork Divinity
+//                                           -> Sniper (tier 3 only so far)
 //     (Novice Mechanic -> Engineer branches via apprenticeship, not the usual unlockLevel gate)
 //   Peasant -> Cultivator -> Qi Adept -> Meridian Breaker -> Core Former -> Nascent Soul -> Ascendant
 //   Peasant -> Archer -> ??? (tier 1 only so far)
@@ -625,7 +626,20 @@ export const CLASSES = {
     statScaling: { attack: 0.8, defense: 0.6, magicPower: 0.8, critChance: 0.9 },
     allowedWeaponTypes: ['dagger', 'bow', 'staff', 'gauntlet', 'gun'],
     bonusActivityIds: ['study'],
-    evolution: { classId: 'runesmith', unlockLevel: 25, requiredTraitId: 'runicInsight' }
+    evolutions: [
+      { classId: 'runesmith', unlockLevel: 25, requiredTraitId: 'runicInsight' },
+      { classId: 'sniper', unlockLevel: 25 }
+    ]
+  },
+  sniper: {
+    id: 'sniper',
+    name: 'Sniper',
+    flavor: 'A sniper only takes the shot once -- everything before it was just waiting for the wind to agree.',
+    tier: 3,
+    evolvesFrom: 'engineer',
+    statScaling: { attack: 1.3, defense: 0.5, magicPower: 0.3, critChance: 1.4 },
+    allowedWeaponTypes: ['gun'],
+    bonusActivityIds: ['study']
   },
   runesmith: {
     id: 'runesmith',
