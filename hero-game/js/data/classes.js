@@ -21,6 +21,7 @@
 //   Peasant -> Cultivator -> Qi Adept -> Meridian Breaker -> Core Former -> Nascent Soul -> Ascendant
 //   Peasant -> Archer -> ??? (tier 1 only so far)
 //   Peasant -> Fortune Teller -> ??? (tier 1 only so far)
+//   Peasant -> Warrior -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -470,6 +471,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['dagger', 'staff'],
     bonusActivityIds: []
   },
+  warrior: {
+    id: 'warrior',
+    name: 'Warrior',
+    flavor: 'A fighter swings and hopes the swing was enough. A warrior wore the armor first, so it usually is.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { strength: 6, vitality: 6 },
+    requiredTrait: 'battleForged',
+    statScaling: { attack: 1.0, defense: 1.0, magicPower: 0.1, critChance: 0.5 },
+    allowedWeaponTypes: ['sword', 'axe', 'hammer', 'spear'],
+    bonusActivityIds: []
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -755,4 +768,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior'];

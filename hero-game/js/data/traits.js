@@ -118,6 +118,16 @@ export const HIDDEN_TRAITS = {
     weight: 2,
     statBonuses: { critChance: 3, magicPower: 2 }
   },
+  battleForged: {
+    id: 'battleForged',
+    name: 'Battle-Forged',
+    flavor: 'Every drill left a mark, and every mark just made you harder to put down.',
+    tags: ['fighter'],
+    secretClass: 'warrior',
+    requirement: (a) => a.strength >= 6 && a.vitality >= 6,
+    weight: 2,
+    statBonuses: { attack: 2, defense: 2 }
+  },
   ironLungs: {
     id: 'ironLungs',
     name: 'Iron Lungs',
