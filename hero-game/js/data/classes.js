@@ -7,6 +7,7 @@
 //   Peasant -> Fighter -> Vanguard -> Warbringer -> Battlelord -> Juggernaut -> Colossus
 //   Peasant -> Mage -> Conjurer -> Warlock -> Archmage -> Archwizard -> Astral Sovereign
 //                    -> Gravity Mage (tier 2 only so far)
+//                    -> Insectmancer (tier 2 only so far)
 //   Peasant -> Rogue -> Shadowblade -> Assassin -> Nightstalker -> Wraith -> Umbral Sovereign
 //
 // Secret (SECRET_CLASS_IDS, gated by attribute reqs +/- a hidden trait):
@@ -113,7 +114,8 @@ export const CLASSES = {
     bonusActivityIds: ['study'],
     evolutions: [
       { classId: 'conjurer', unlockLevel: 15 },
-      { classId: 'gravitymage', unlockLevel: 15 }
+      { classId: 'gravitymage', unlockLevel: 15 },
+      { classId: 'insectmancer', unlockLevel: 15 }
     ]
   },
   conjurer: {
@@ -134,6 +136,16 @@ export const CLASSES = {
     tier: 2,
     evolvesFrom: 'mage',
     statScaling: { attack: 0.45, defense: 0.55, magicPower: 1.45, critChance: 0.65 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study']
+  },
+  insectmancer: {
+    id: 'insectmancer',
+    name: 'Insectmancer',
+    flavor: 'An insectmancer never casts alone -- something\'s always already crawling toward the same spell.',
+    tier: 2,
+    evolvesFrom: 'mage',
+    statScaling: { attack: 0.4, defense: 0.45, magicPower: 1.35, critChance: 0.85 },
     allowedWeaponTypes: ['staff', 'dagger'],
     bonusActivityIds: ['study']
   },
