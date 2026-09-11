@@ -8,6 +8,7 @@
 //   Peasant -> Mage -> Conjurer -> Warlock -> Archmage -> Archwizard -> Astral Sovereign
 //                    -> Gravity Mage (tier 2 only so far)
 //                    -> Insectmancer (tier 2 only so far)
+//                    -> Chronomancer (tier 2 only so far)
 //   Peasant -> Rogue -> Shadowblade -> Assassin -> Nightstalker -> Wraith -> Umbral Sovereign
 //
 // Secret (SECRET_CLASS_IDS, gated by attribute reqs +/- a hidden trait):
@@ -115,7 +116,8 @@ export const CLASSES = {
     evolutions: [
       { classId: 'conjurer', unlockLevel: 15 },
       { classId: 'gravitymage', unlockLevel: 15 },
-      { classId: 'insectmancer', unlockLevel: 15 }
+      { classId: 'insectmancer', unlockLevel: 15 },
+      { classId: 'chronomancer', unlockLevel: 15 }
     ]
   },
   conjurer: {
@@ -146,6 +148,16 @@ export const CLASSES = {
     tier: 2,
     evolvesFrom: 'mage',
     statScaling: { attack: 0.4, defense: 0.45, magicPower: 1.35, critChance: 0.85 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study']
+  },
+  chronomancer: {
+    id: 'chronomancer',
+    name: 'Chronomancer',
+    flavor: 'A chronomancer doesn\'t dodge the blow -- they just make sure it already missed.',
+    tier: 2,
+    evolvesFrom: 'mage',
+    statScaling: { attack: 0.35, defense: 0.5, magicPower: 1.4, critChance: 0.75 },
     allowedWeaponTypes: ['staff', 'dagger'],
     bonusActivityIds: ['study']
   },
