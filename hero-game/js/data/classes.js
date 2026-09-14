@@ -19,6 +19,7 @@
 //   Peasant -> Corpse Cultivator -> Charnel Adept -> Graveweaver -> Charnel Lord -> Undying Cultivator -> Undying Sovereign
 //   Peasant -> Novice Mechanic -> Engineer -> Runesmith -> Archmechanist -> Technomancer -> Clockwork Divinity
 //                                           -> Sniper (tier 3 only so far)
+//                                           -> Mech Knight (tier 3 only so far)
 //     (Novice Mechanic -> Engineer branches via apprenticeship, not the usual unlockLevel gate)
 //   Peasant -> Cultivator -> Qi Adept -> Meridian Breaker -> Core Former -> Nascent Soul -> Ascendant
 //   Peasant -> Archer -> ??? (tier 1 only so far)
@@ -665,7 +666,8 @@ export const CLASSES = {
     bonusActivityIds: ['study'],
     evolutions: [
       { classId: 'runesmith', unlockLevel: 25, requiredTraitId: 'runicInsight' },
-      { classId: 'sniper', unlockLevel: 25 }
+      { classId: 'sniper', unlockLevel: 25 },
+      { classId: 'mechknight', unlockLevel: 25 }
     ]
   },
   sniper: {
@@ -676,6 +678,16 @@ export const CLASSES = {
     evolvesFrom: 'engineer',
     statScaling: { attack: 1.3, defense: 0.5, magicPower: 0.3, critChance: 1.4 },
     allowedWeaponTypes: ['gun'],
+    bonusActivityIds: ['study']
+  },
+  mechknight: {
+    id: 'mechknight',
+    name: 'Mech Knight',
+    flavor: 'A mech knight doesn\'t dodge the blow -- the plating just decides it wasn\'t worth transmitting.',
+    tier: 3,
+    evolvesFrom: 'engineer',
+    statScaling: { attack: 1.1, defense: 1.3, magicPower: 0.3, critChance: 0.5 },
+    allowedWeaponTypes: ['gauntlet'],
     bonusActivityIds: ['study']
   },
   runesmith: {
