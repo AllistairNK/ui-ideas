@@ -1,5 +1,7 @@
 import { CLASSES } from '../data/classes.js';
 import { HIDDEN_TRAITS } from '../data/traits.js';
+import { FAMILIAR_TEMPLATES } from '../data/familiars.js';
+import { renderFamiliarIcon } from '../data/familiarShapes.js';
 import { ACTIVITIES } from '../data/activities.js';
 import { getActivityRates, currentStaminaRatePerSec } from '../core/activityEngine.js';
 
@@ -97,6 +99,7 @@ export function renderCharacterSheet(character) {
 
     <div class="gold-row">Gold: <b id="sheetGoldValue">${n.goldText}</b> <span class="rate-badge rate-positive" id="sheetGoldRate">${n.goldRateText}</span></div>
 
+    ${renderFamiliarChip(character)}
     ${renderTraitsRow(character)}
   `;
 }
@@ -144,6 +147,29 @@ export function updateCharacterSheetLive(character) {
 
 function escapeAttr(str) {
   return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+}
+
+function formatStatBonuses(statBonuses) {
+  return Object.entries(statBonuses)
+    .map(([stat, value]) => `+${value} ${stat}`)
+    .join(', ');
+}
+
+function renderFamiliarChip(character) {
+  if (!character.familiar) return '';
+  const def = FAMILIAR_TEMPLATES[character.familiar.id];
+  if (!def) return '';
+
+  const tooltip = `${def.flavor} (${formatStatBonuses(def.statBonuses)})`;
+  const icon = renderFamiliarIcon(def.id, 20);
+
+  return `
+    <div class="familiar-row">
+      <span class="trait-chip familiar-chip" tabindex="0" data-tooltip="${escapeAttr(tooltip)}">
+        <img class="familiar-chip-icon" src="${icon}" width="20" height="20" alt="" />
+        ${def.name}
+      </span>
+    </div>`;
 }
 
 function renderTraitsRow(character) {

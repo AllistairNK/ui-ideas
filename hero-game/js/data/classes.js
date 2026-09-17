@@ -22,6 +22,7 @@
 //                                           -> Mech Knight (tier 3 only so far)
 //     (Novice Mechanic -> Engineer branches via apprenticeship, not the usual unlockLevel gate)
 //   Peasant -> Cultivator -> Qi Adept -> Meridian Breaker -> Core Former -> Nascent Soul -> Ascendant
+//                                                                                        -> Golemmancer
 //   Peasant -> Archer -> ??? (tier 1 only so far)
 //   Peasant -> Fortune Teller -> ??? (tier 1 only so far)
 //   Peasant -> Warrior -> ??? (tier 1 only so far)
@@ -778,7 +779,10 @@ export const CLASSES = {
     statScaling: { attack: 1.05, defense: 1.4, magicPower: 1.8, critChance: 1.2 },
     allowedWeaponTypes: ['dagger', 'staff', 'sword'],
     bonusActivityIds: ['study'],
-    evolution: { classId: 'ascendant', unlockLevel: 90 }
+    evolutions: [
+      { classId: 'ascendant', unlockLevel: 90 },
+      { classId: 'golemmancer', unlockLevel: 90 }
+    ]
   },
   ascendant: {
     id: 'ascendant',
@@ -787,6 +791,16 @@ export const CLASSES = {
     tier: 6,
     evolvesFrom: 'nascentsoul',
     statScaling: { attack: 1.2, defense: 1.65, magicPower: 2.1, critChance: 1.4 },
+    allowedWeaponTypes: ['dagger', 'staff', 'sword'],
+    bonusActivityIds: ['study']
+  },
+  golemmancer: {
+    id: 'golemmancer',
+    name: 'Golemmancer',
+    flavor: 'A golemmancer stopped needing a body that listens -- clay and stone never argue back.',
+    tier: 6,
+    evolvesFrom: 'nascentsoul',
+    statScaling: { attack: 1.0, defense: 2.0, magicPower: 1.9, critChance: 0.9 },
     allowedWeaponTypes: ['dagger', 'staff', 'sword'],
     bonusActivityIds: ['study']
   },

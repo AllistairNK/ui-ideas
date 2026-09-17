@@ -6,6 +6,7 @@ import { generateOpponent, resolveCombat } from './core/combat.js';
 import { ITEM_TEMPLATES, shopPrice } from './data/items.js';
 import { ACTIVITIES } from './data/activities.js';
 import { CLASSES } from './data/classes.js';
+import { FAMILIAR_TEMPLATES, ensureFamiliar } from './data/familiars.js';
 
 import { renderCharacterSheet, updateCharacterSheetLive } from './ui/characterSheet.js';
 import { renderActivityPanel } from './ui/activityPanel.js';
@@ -49,8 +50,12 @@ function persist() {
 function handleChooseClass(classId) {
   character.class = classId;
   character.flags.unlockedClasses.push(classId);
+  const grantedFamiliar = ensureFamiliar(character);
   character.derived = computeDerivedStats(character);
   showToast(`You have become a ${CLASSES[classId].name}!`, 'success');
+  if (grantedFamiliar) {
+    showToast(`Your ${grantedFamiliar.name} joins you.`, 'success');
+  }
   persist();
   renderAll();
 }
@@ -92,7 +97,8 @@ function runSpar(activityId) {
   character.derived.stamina = Math.max(0, character.derived.stamina - activity.costs.stamina);
 
   const opponent = generateOpponent(character.level);
-  const result = resolveCombat(character.derived, opponent, Date.now());
+  const familiarDef = character.familiar ? FAMILIAR_TEMPLATES[character.familiar.id] : null;
+  const result = resolveCombat(character.derived, opponent, Date.now(), familiarDef);
 
   let rewardsSummary = '';
   if (result.outcome === 'win') {
@@ -251,6 +257,7 @@ function boot() {
   const saved = loadGame();
   if (saved && saved.character) {
     character = saved.character;
+    ensureFamiliar(character);
     character.derived = computeDerivedStats(character);
     applyPassiveRegen(character, Math.min(Date.now() - saved.lastSavedAt, MAX_IDLE_CATCHUP_MS));
     const idleSummary = computeIdleCatchUp(character, saved.lastSavedAt);

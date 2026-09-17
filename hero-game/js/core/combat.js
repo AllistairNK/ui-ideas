@@ -62,8 +62,9 @@ function resolveAttack(attacker, defender, rng, log) {
   log.push(`${attacker.name} hits ${defender.name} for ${damage}${isCrit ? ' (critical!)' : ''}.`);
 }
 
-// Pure function: two stat snapshots + a seed in, a result out.
-export function resolveCombat(heroDerived, opponent, seed = Date.now()) {
+// Pure function: two stat snapshots + a seed (+ an optional familiar def)
+// in, a result out.
+export function resolveCombat(heroDerived, opponent, seed = Date.now(), familiarDef = null) {
   const rng = mulberry32(seed);
   const hero = toCombatant('You', heroDerived);
   const foe = { ...opponent };
@@ -79,6 +80,10 @@ export function resolveCombat(heroDerived, opponent, seed = Date.now()) {
       const defender = attacker === hero ? foe : hero;
       if (hero.hp <= 0 || foe.hp <= 0) break;
       resolveAttack(attacker, defender, rng, log);
+      if (attacker === hero && familiarDef && foe.hp > 0 && rng() < familiarDef.procChance) {
+        foe.hp = Math.max(0, foe.hp - familiarDef.procDamage);
+        log.push(`${familiarDef.name} lunges in for ${familiarDef.procDamage} extra damage.`);
+      }
     }
   }
 
