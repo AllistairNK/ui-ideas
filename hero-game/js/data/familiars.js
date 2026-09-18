@@ -1,5 +1,6 @@
 // Combat familiars for the summoning-flavored classes (conjurer,
-// insectmancer, golemmancer, archmechanist -> technomancer). One familiar
+// insectmancer, golemmancer, archmechanist -> technomancer, lightningmage).
+// One familiar
 // per qualifying class, auto-granted the moment the character enters that
 // class (see ensureFamiliar, called from main.js) -- mirrors how hidden
 // traits are auto-granted in traits.js. Once granted a familiar is
@@ -41,6 +42,15 @@ export const FAMILIAR_TEMPLATES = {
     statBonuses: { attack: 3, magicPower: 2 },
     procChance: 0.15,
     procDamage: 3
+  },
+  storm_sprite: {
+    id: 'storm_sprite',
+    name: 'Storm Sprite',
+    classId: 'lightningmage',
+    flavor: 'It never strikes twice in the same place. It never has to -- it\'s already at the next one.',
+    statBonuses: { magicPower: 3, critChance: 4 },
+    procChance: 0.2,
+    procDamage: 4
   },
   aether_construct: {
     id: 'aether_construct',
