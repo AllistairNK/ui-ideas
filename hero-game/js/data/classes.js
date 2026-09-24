@@ -10,6 +10,7 @@
 //                    -> Insectmancer (tier 2 only so far)
 //                    -> Chronomancer (tier 2 only so far)
 //                    -> Lightning Mage (tier 2 only so far)
+//                    -> Ice Mage (tier 2 only so far)
 //   Peasant -> Rogue -> Shadowblade -> Assassin -> Nightstalker -> Wraith -> Umbral Sovereign
 //
 // Secret (SECRET_CLASS_IDS, gated by attribute reqs +/- a hidden trait):
@@ -121,7 +122,8 @@ export const CLASSES = {
       { classId: 'gravitymage', unlockLevel: 15 },
       { classId: 'insectmancer', unlockLevel: 15 },
       { classId: 'chronomancer', unlockLevel: 15 },
-      { classId: 'lightningmage', unlockLevel: 15 }
+      { classId: 'lightningmage', unlockLevel: 15 },
+      { classId: 'icemage', unlockLevel: 15 }
     ]
   },
   conjurer: {
@@ -172,6 +174,16 @@ export const CLASSES = {
     tier: 2,
     evolvesFrom: 'mage',
     statScaling: { attack: 0.45, defense: 0.4, magicPower: 1.5, critChance: 0.9 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study']
+  },
+  icemage: {
+    id: 'icemage',
+    name: 'Ice Mage',
+    flavor: 'An ice mage never chases the fight -- they just wait for it to stop moving.',
+    tier: 2,
+    evolvesFrom: 'mage',
+    statScaling: { attack: 0.35, defense: 0.65, magicPower: 1.4, critChance: 0.6 },
     allowedWeaponTypes: ['staff', 'dagger'],
     bonusActivityIds: ['study']
   },
