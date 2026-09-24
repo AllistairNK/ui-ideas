@@ -11,6 +11,7 @@
 //                    -> Chronomancer (tier 2 only so far)
 //                    -> Lightning Mage (tier 2 only so far)
 //                    -> Ice Mage (tier 2 only so far)
+//                    -> Water Mage (tier 2 only so far)
 //   Peasant -> Rogue -> Shadowblade -> Assassin -> Nightstalker -> Wraith -> Umbral Sovereign
 //
 // Secret (SECRET_CLASS_IDS, gated by attribute reqs +/- a hidden trait):
@@ -123,7 +124,8 @@ export const CLASSES = {
       { classId: 'insectmancer', unlockLevel: 15 },
       { classId: 'chronomancer', unlockLevel: 15 },
       { classId: 'lightningmage', unlockLevel: 15 },
-      { classId: 'icemage', unlockLevel: 15 }
+      { classId: 'icemage', unlockLevel: 15 },
+      { classId: 'watermage', unlockLevel: 15 }
     ]
   },
   conjurer: {
@@ -184,6 +186,16 @@ export const CLASSES = {
     tier: 2,
     evolvesFrom: 'mage',
     statScaling: { attack: 0.35, defense: 0.65, magicPower: 1.4, critChance: 0.6 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study']
+  },
+  watermage: {
+    id: 'watermage',
+    name: 'Water Mage',
+    flavor: 'A water mage never breaks the wall -- they just find the crack it didn\'t know it had.',
+    tier: 2,
+    evolvesFrom: 'mage',
+    statScaling: { attack: 0.5, defense: 0.5, magicPower: 1.4, critChance: 0.7 },
     allowedWeaponTypes: ['staff', 'dagger'],
     bonusActivityIds: ['study']
   },
