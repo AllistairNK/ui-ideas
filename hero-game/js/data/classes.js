@@ -12,6 +12,7 @@
 //                    -> Lightning Mage (tier 2 only so far)
 //                    -> Ice Mage (tier 2 only so far)
 //                    -> Water Mage (tier 2 only so far)
+//                    -> Fire Mage (tier 2 only so far)
 //   Peasant -> Rogue -> Shadowblade -> Assassin -> Nightstalker -> Wraith -> Umbral Sovereign
 //
 // Secret (SECRET_CLASS_IDS, gated by attribute reqs +/- a hidden trait):
@@ -125,7 +126,8 @@ export const CLASSES = {
       { classId: 'chronomancer', unlockLevel: 15 },
       { classId: 'lightningmage', unlockLevel: 15 },
       { classId: 'icemage', unlockLevel: 15 },
-      { classId: 'watermage', unlockLevel: 15 }
+      { classId: 'watermage', unlockLevel: 15 },
+      { classId: 'firemage', unlockLevel: 15 }
     ]
   },
   conjurer: {
@@ -196,6 +198,16 @@ export const CLASSES = {
     tier: 2,
     evolvesFrom: 'mage',
     statScaling: { attack: 0.5, defense: 0.5, magicPower: 1.4, critChance: 0.7 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study']
+  },
+  firemage: {
+    id: 'firemage',
+    name: 'Fire Mage',
+    flavor: 'A fire mage never asks twice -- the first answer already left scorch marks.',
+    tier: 2,
+    evolvesFrom: 'mage',
+    statScaling: { attack: 0.5, defense: 0.4, magicPower: 1.55, critChance: 0.75 },
     allowedWeaponTypes: ['staff', 'dagger'],
     bonusActivityIds: ['study']
   },
