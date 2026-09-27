@@ -13,6 +13,7 @@
 //                    -> Ice Mage (tier 2 only so far)
 //                    -> Water Mage (tier 2 only so far)
 //                    -> Fire Mage (tier 2 only so far)
+//                    -> Wind Mage (tier 2 only so far)
 //   Peasant -> Rogue -> Shadowblade -> Assassin -> Nightstalker -> Wraith -> Umbral Sovereign
 //
 // Secret (SECRET_CLASS_IDS, gated by attribute reqs +/- a hidden trait):
@@ -127,7 +128,8 @@ export const CLASSES = {
       { classId: 'lightningmage', unlockLevel: 15 },
       { classId: 'icemage', unlockLevel: 15 },
       { classId: 'watermage', unlockLevel: 15 },
-      { classId: 'firemage', unlockLevel: 15 }
+      { classId: 'firemage', unlockLevel: 15 },
+      { classId: 'windmage', unlockLevel: 15 }
     ]
   },
   conjurer: {
@@ -208,6 +210,16 @@ export const CLASSES = {
     tier: 2,
     evolvesFrom: 'mage',
     statScaling: { attack: 0.5, defense: 0.4, magicPower: 1.55, critChance: 0.75 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study']
+  },
+  windmage: {
+    id: 'windmage',
+    name: 'Wind Mage',
+    flavor: 'A wind mage never throws a punch -- the air was already leaning that way before anyone swung.',
+    tier: 2,
+    evolvesFrom: 'mage',
+    statScaling: { attack: 0.4, defense: 0.4, magicPower: 1.4, critChance: 0.95 },
     allowedWeaponTypes: ['staff', 'dagger'],
     bonusActivityIds: ['study']
   },
