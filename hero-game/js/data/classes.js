@@ -14,6 +14,7 @@
 //                    -> Water Mage (tier 2 only so far)
 //                    -> Fire Mage (tier 2 only so far)
 //                    -> Wind Mage (tier 2 only so far)
+//                    -> Space Mage (tier 2 only so far)
 //   Peasant -> Rogue -> Shadowblade -> Assassin -> Nightstalker -> Wraith -> Umbral Sovereign
 //
 // Secret (SECRET_CLASS_IDS, gated by attribute reqs +/- a hidden trait):
@@ -129,7 +130,8 @@ export const CLASSES = {
       { classId: 'icemage', unlockLevel: 15 },
       { classId: 'watermage', unlockLevel: 15 },
       { classId: 'firemage', unlockLevel: 15 },
-      { classId: 'windmage', unlockLevel: 15 }
+      { classId: 'windmage', unlockLevel: 15 },
+      { classId: 'spacemage', unlockLevel: 15 }
     ]
   },
   conjurer: {
@@ -220,6 +222,16 @@ export const CLASSES = {
     tier: 2,
     evolvesFrom: 'mage',
     statScaling: { attack: 0.4, defense: 0.4, magicPower: 1.4, critChance: 0.95 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study']
+  },
+  spacemage: {
+    id: 'spacemage',
+    name: 'Space Mage',
+    flavor: 'A space mage never crosses the room -- they just decide the room was shorter than it looked.',
+    tier: 2,
+    evolvesFrom: 'mage',
+    statScaling: { attack: 0.4, defense: 0.45, magicPower: 1.5, critChance: 0.7 },
     allowedWeaponTypes: ['staff', 'dagger'],
     bonusActivityIds: ['study']
   },
