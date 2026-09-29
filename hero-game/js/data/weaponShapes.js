@@ -94,6 +94,28 @@ export const WEAPONS = {
       c.fill();
     }
   },
+  katana: {
+    name: 'Katana',
+    draw(c, W, H) {
+      const cx = W / 2;
+      c.fillStyle = 'rgb(225,228,233)';
+      c.beginPath();
+      c.moveTo(cx + W * 0.1, H * 0.06);
+      c.quadraticCurveTo(cx - W * 0.02, H * 0.35, cx - W * 0.06, H * 0.58);
+      c.lineTo(cx + W * 0.02, H * 0.58);
+      c.quadraticCurveTo(cx + W * 0.14, H * 0.32, cx + W * 0.2, H * 0.08);
+      c.closePath();
+      c.fill();
+      c.fillStyle = 'rgb(40,40,45)';
+      c.fillRect(cx - W * 0.14, H * 0.58, W * 0.28, H * 0.035);
+      c.fillStyle = 'rgb(20,20,25)';
+      c.fillRect(cx - W * 0.032, H * 0.615, W * 0.064, H * 0.28);
+      c.fillStyle = 'rgb(150,20,30)';
+      c.fillRect(cx - W * 0.032, H * 0.63, W * 0.064, H * 0.02);
+      c.fillRect(cx - W * 0.032, H * 0.73, W * 0.064, H * 0.02);
+      c.fillRect(cx - W * 0.032, H * 0.83, W * 0.064, H * 0.02);
+    }
+  },
   dagger: {
     name: 'Dagger',
     draw(c, W, H) {

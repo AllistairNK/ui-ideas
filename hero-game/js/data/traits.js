@@ -136,6 +136,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.vitality >= 7,
     weight: 3,
     statBonuses: { maxHp: 10 }
+  },
+  bushidoResolve: {
+    id: 'bushidoResolve',
+    name: 'Bushido Resolve',
+    flavor: 'One cut, cleanly placed, beats a dozen thrown in a hurry -- you learned to wait for the one that counts.',
+    tags: ['fighter'],
+    secretClass: 'samurai',
+    requirement: (a) => a.strength >= 6 && a.agility >= 6,
+    weight: 2,
+    statBonuses: { attack: 3, critChance: 2 }
   }
 };
 

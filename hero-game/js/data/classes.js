@@ -581,6 +581,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['sword', 'axe', 'hammer', 'spear'],
     bonusActivityIds: []
   },
+  samurai: {
+    id: 'samurai',
+    name: 'Samurai',
+    flavor: 'A samurai only draws once -- everything before the cut was just the argument settling itself.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { strength: 6, agility: 6 },
+    requiredTrait: 'bushidoResolve',
+    statScaling: { attack: 0.95, defense: 0.5, magicPower: 0.1, critChance: 1.0 },
+    allowedWeaponTypes: ['katana'],
+    bonusActivityIds: []
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -890,4 +902,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'samurai'];
