@@ -32,6 +32,7 @@
 //   Peasant -> Archer -> ??? (tier 1 only so far)
 //   Peasant -> Fortune Teller -> ??? (tier 1 only so far)
 //   Peasant -> Warrior -> ??? (tier 1 only so far)
+//   Peasant -> Ronin -> Samurai -> Hatamoto -> Kensei -> Shogun -> Sword Saint
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -581,6 +582,73 @@ export const CLASSES = {
     allowedWeaponTypes: ['sword', 'axe', 'hammer', 'spear'],
     bonusActivityIds: []
   },
+  ronin: {
+    id: 'ronin',
+    name: 'Ronin',
+    flavor: 'A ronin has no lord left to serve -- just the blade, and the habit of keeping it sharp.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { strength: 6, agility: 7 },
+    requiredTrait: 'wayOfTheBlade',
+    statScaling: { attack: 1.0, defense: 0.6, magicPower: 0.1, critChance: 0.8 },
+    allowedWeaponTypes: ['katana', 'sword', 'dagger'],
+    bonusActivityIds: [],
+    evolution: { classId: 'samurai', unlockLevel: 15 }
+  },
+  samurai: {
+    id: 'samurai',
+    name: 'Samurai',
+    flavor: 'A samurai never draws to threaten -- by the time the blade is out, the threat is over.',
+    tier: 2,
+    evolvesFrom: 'ronin',
+    statScaling: { attack: 1.25, defense: 0.75, magicPower: 0.15, critChance: 1.0 },
+    allowedWeaponTypes: ['katana', 'sword', 'dagger'],
+    bonusActivityIds: [],
+    evolution: { classId: 'hatamoto', unlockLevel: 30 }
+  },
+  hatamoto: {
+    id: 'hatamoto',
+    name: 'Hatamoto',
+    flavor: 'A hatamoto stands beside the banner, not behind it -- the banner is only safe because they are.',
+    tier: 3,
+    evolvesFrom: 'samurai',
+    statScaling: { attack: 1.45, defense: 0.85, magicPower: 0.2, critChance: 1.2 },
+    allowedWeaponTypes: ['katana', 'sword', 'dagger'],
+    bonusActivityIds: [],
+    evolution: { classId: 'kensei', unlockLevel: 45 }
+  },
+  kensei: {
+    id: 'kensei',
+    name: 'Kensei',
+    flavor: 'Duelists travel for weeks to face a kensei. Few remember the duel -- it was one cut long.',
+    tier: 4,
+    evolvesFrom: 'hatamoto',
+    statScaling: { attack: 1.7, defense: 0.95, magicPower: 0.2, critChance: 1.4 },
+    allowedWeaponTypes: ['katana', 'sword', 'dagger'],
+    bonusActivityIds: [],
+    evolution: { classId: 'shogun', unlockLevel: 65 }
+  },
+  shogun: {
+    id: 'shogun',
+    name: 'Shogun',
+    flavor: 'A shogun doesn\'t need to win every duel anymore -- whole provinces just stopped offering them.',
+    tier: 5,
+    evolvesFrom: 'kensei',
+    statScaling: { attack: 1.95, defense: 1.1, magicPower: 0.3, critChance: 1.6 },
+    allowedWeaponTypes: ['katana', 'sword', 'dagger'],
+    bonusActivityIds: [],
+    evolution: { classId: 'swordsaint', unlockLevel: 90 }
+  },
+  swordsaint: {
+    id: 'swordsaint',
+    name: 'Sword Saint',
+    flavor: 'A sword saint\'s blade rarely leaves the scabbard. It doesn\'t have to -- everyone already felt it.',
+    tier: 6,
+    evolvesFrom: 'shogun',
+    statScaling: { attack: 2.2, defense: 1.25, magicPower: 0.3, critChance: 1.85 },
+    allowedWeaponTypes: ['katana', 'sword', 'dagger'],
+    bonusActivityIds: []
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -890,4 +958,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin'];

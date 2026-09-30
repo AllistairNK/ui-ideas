@@ -128,6 +128,16 @@ export const HIDDEN_TRAITS = {
     weight: 2,
     statBonuses: { attack: 2, defense: 2 }
   },
+  wayOfTheBlade: {
+    id: 'wayOfTheBlade',
+    name: 'Way of the Blade',
+    flavor: 'You don\'t think about the cut anymore. You just notice, afterward, that it already happened.',
+    tags: ['fighter'],
+    secretClass: 'ronin',
+    requirement: (a) => a.strength >= 6 && a.agility >= 7,
+    weight: 2,
+    statBonuses: { attack: 2, critChance: 3 }
+  },
   ironLungs: {
     id: 'ironLungs',
     name: 'Iron Lungs',

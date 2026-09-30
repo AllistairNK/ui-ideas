@@ -1851,6 +1851,47 @@ export const ITEM_TEMPLATES = {
     statBonuses: { defense: 15, critChance: 13 }, levelRequirement: 60, value: 165
   },
 
+  // --- Samurai-flavored katanas: not class-locked, just statted and written
+  // for the attack/critChance-heavy blade line (ronin -> samurai -> hatamoto
+  // -> kensei -> shogun -> swordsaint in classes.js). Weapons only so far --
+  // that line can also wear sword/dagger gear from the other sets.
+  wanderers_katana: {
+    id: 'wanderers_katana', name: "Wanderer's Katana", slot: 'weapon', weaponType: 'katana',
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'The lacquer on the scabbard is chipped. The edge never has been.',
+    statBonuses: { attack: 6, critChance: 5 }, levelRequirement: 3, value: 20
+  },
+  oathbound_katana: {
+    id: 'oathbound_katana', name: 'Oathbound Katana', slot: 'weapon', weaponType: 'katana',
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Sworn to a house again. The blade seems relieved to have somewhere to point.',
+    statBonuses: { attack: 9, critChance: 7 }, levelRequirement: 6, value: 46
+  },
+  bannerguard_katana: {
+    id: 'bannerguard_katana', name: 'Bannerguard Katana', slot: 'weapon', weaponType: 'katana',
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Nobody has taken the banner it guards. Nobody has come close enough to try twice.',
+    statBonuses: { attack: 12, critChance: 10 }, levelRequirement: 15, value: 58
+  },
+  onecut_katana: {
+    id: 'onecut_katana', name: 'One-Cut Katana', slot: 'weapon', weaponType: 'katana',
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Named for how long every duel it has fought lasted.',
+    statBonuses: { attack: 15, critChance: 13 }, levelRequirement: 25, value: 78
+  },
+  province_ending_katana: {
+    id: 'province_ending_katana', name: 'Province-Ending Katana', slot: 'weapon', weaponType: 'katana',
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Wars were settled by agreeing never to make it leave the scabbard.',
+    statBonuses: { attack: 19, critChance: 16 }, levelRequirement: 40, value: 130
+  },
+  sword_saints_katana: {
+    id: 'sword_saints_katana', name: "Sword Saint's Katana", slot: 'weapon', weaponType: 'katana', effect: 'goldSparkle',
+    rarity: 'epic', element: 'none', tier: 6,
+    flavor: 'It has not been drawn in years. The air around it still flinches.',
+    statBonuses: { attack: 23, critChance: 20 }, levelRequirement: 60, value: 210
+  },
+
   // --- Quest items: not equippable, not sold in the shop (see
   // SHOP_ITEM_IDS below) -- found and consumed through activities instead.
   bent_cog: {

@@ -162,6 +162,47 @@ export const WEAPONS = {
       }
     }
   },
+  katana: {
+    name: 'Katana',
+    draw(c, W, H) {
+      const cx = W / 2;
+      // Single-edged blade with a gentle curve toward the spine.
+      c.fillStyle = 'rgb(212,215,222)';
+      c.beginPath();
+      c.moveTo(cx + W * 0.06, H * 0.03);
+      c.quadraticCurveTo(cx + W * 0.1, H * 0.35, cx + W * 0.035, H * 0.64);
+      c.lineTo(cx - W * 0.035, H * 0.64);
+      c.quadraticCurveTo(cx + W * 0.02, H * 0.35, cx + W * 0.06, H * 0.03);
+      c.closePath();
+      c.fill();
+      c.strokeStyle = 'rgba(255,255,255,0.55)';
+      c.lineWidth = Math.max(1, W * 0.012);
+      c.beginPath();
+      c.moveTo(cx + W * 0.055, H * 0.08);
+      c.quadraticCurveTo(cx + W * 0.07, H * 0.36, cx + W * 0.018, H * 0.62);
+      c.stroke();
+      // Tsuba (guard).
+      c.fillStyle = 'rgb(70,62,50)';
+      c.beginPath();
+      c.ellipse(cx, H * 0.66, W * 0.11, H * 0.022, 0, 0, Math.PI * 2);
+      c.fill();
+      // Wrapped tsuka (handle).
+      c.fillStyle = 'rgb(40,40,48)';
+      c.fillRect(cx - W * 0.035, H * 0.68, W * 0.07, H * 0.26);
+      c.strokeStyle = 'rgb(190,160,90)';
+      c.lineWidth = Math.max(1, W * 0.012);
+      for (let y = H * 0.7; y < H * 0.92; y += H * 0.045) {
+        c.beginPath();
+        c.moveTo(cx - W * 0.035, y);
+        c.lineTo(cx + W * 0.035, y + H * 0.022);
+        c.moveTo(cx + W * 0.035, y);
+        c.lineTo(cx - W * 0.035, y + H * 0.022);
+        c.stroke();
+      }
+      c.fillStyle = 'rgb(70,62,50)';
+      c.fillRect(cx - W * 0.04, H * 0.94, W * 0.08, H * 0.025);
+    }
+  },
   gun: {
     name: 'Gun',
     draw(c, W, H) {
