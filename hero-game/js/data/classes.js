@@ -33,6 +33,7 @@
 //   Peasant -> Fortune Teller -> ??? (tier 1 only so far)
 //   Peasant -> Warrior -> ??? (tier 1 only so far)
 //   Peasant -> Ronin -> Samurai -> Hatamoto -> Kensei -> Shogun -> Sword Saint
+//   Peasant -> Squire -> Knight -> Banneret -> Knight Commander -> Lord Marshal -> Paragon
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -649,6 +650,73 @@ export const CLASSES = {
     allowedWeaponTypes: ['katana', 'sword', 'dagger'],
     bonusActivityIds: []
   },
+  squire: {
+    id: 'squire',
+    name: 'Squire',
+    flavor: 'A squire polishes someone else\'s armor for years -- mostly so they know exactly where it fails.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { strength: 7, intellect: 6 },
+    requiredTrait: 'knightlyVow',
+    statScaling: { attack: 0.9, defense: 1.0, magicPower: 0.15, critChance: 0.45 },
+    allowedWeaponTypes: ['sword', 'spear', 'hammer'],
+    bonusActivityIds: [],
+    evolution: { classId: 'knight', unlockLevel: 15 }
+  },
+  knight: {
+    id: 'knight',
+    name: 'Knight',
+    flavor: 'A knight\'s oath is heavier than the plate -- and they chose to carry both.',
+    tier: 2,
+    evolvesFrom: 'squire',
+    statScaling: { attack: 1.1, defense: 1.25, magicPower: 0.2, critChance: 0.5 },
+    allowedWeaponTypes: ['sword', 'spear', 'hammer'],
+    bonusActivityIds: [],
+    evolution: { classId: 'banneret', unlockLevel: 30 }
+  },
+  banneret: {
+    id: 'banneret',
+    name: 'Banneret',
+    flavor: 'A banneret doesn\'t ask the line to follow -- the banner goes forward, and the line finds it was already moving.',
+    tier: 3,
+    evolvesFrom: 'knight',
+    statScaling: { attack: 1.3, defense: 1.45, magicPower: 0.2, critChance: 0.6 },
+    allowedWeaponTypes: ['sword', 'spear', 'hammer'],
+    bonusActivityIds: [],
+    evolution: { classId: 'knightcommander', unlockLevel: 45 }
+  },
+  knightcommander: {
+    id: 'knightcommander',
+    name: 'Knight Commander',
+    flavor: 'A knight commander\'s orders are short -- everyone listening already swore to the long version.',
+    tier: 4,
+    evolvesFrom: 'banneret',
+    statScaling: { attack: 1.5, defense: 1.7, magicPower: 0.25, critChance: 0.7 },
+    allowedWeaponTypes: ['sword', 'spear', 'hammer'],
+    bonusActivityIds: [],
+    evolution: { classId: 'lordmarshal', unlockLevel: 65 }
+  },
+  lordmarshal: {
+    id: 'lordmarshal',
+    name: 'Lord Marshal',
+    flavor: 'Kingdoms change their borders around a lord marshal\'s campaigns, then pretend it was the plan all along.',
+    tier: 5,
+    evolvesFrom: 'knightcommander',
+    statScaling: { attack: 1.75, defense: 1.95, magicPower: 0.3, critChance: 0.8 },
+    allowedWeaponTypes: ['sword', 'spear', 'hammer'],
+    bonusActivityIds: [],
+    evolution: { classId: 'paragon', unlockLevel: 90 }
+  },
+  paragon: {
+    id: 'paragon',
+    name: 'Paragon',
+    flavor: 'Every squire is told a story about a knight who never broke their oath. A paragon is who the story was about.',
+    tier: 6,
+    evolvesFrom: 'lordmarshal',
+    statScaling: { attack: 2.0, defense: 2.2, magicPower: 0.35, critChance: 0.9 },
+    allowedWeaponTypes: ['sword', 'spear', 'hammer'],
+    bonusActivityIds: []
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -958,4 +1026,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire'];

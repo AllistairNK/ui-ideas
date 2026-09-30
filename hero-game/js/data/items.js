@@ -1892,6 +1892,84 @@ export const ITEM_TEMPLATES = {
     statBonuses: { attack: 23, critChance: 20 }, levelRequirement: 60, value: 210
   },
 
+  // --- Knight-flavored gear: not class-locked, just statted and written for
+  // the attack/defense-heavy knight line (squire -> knight -> banneret ->
+  // knightcommander -> lordmarshal -> paragon in classes.js). Weapon types
+  // cycle through sword/spear/hammer, matching that line's
+  // allowedWeaponTypes, with a shield per tier. Weapons and shields only so far.
+  squires_arming_sword: {
+    id: 'squires_arming_sword', name: "Squire's Arming Sword", slot: 'weapon', weaponType: 'sword',
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Handed down from a knight who outgrew it. Still remembers every lesson it was used to teach.',
+    statBonuses: { attack: 6, defense: 5 }, levelRequirement: 3, value: 20
+  },
+  oathsworn_lance: {
+    id: 'oathsworn_lance', name: 'Oathsworn Lance', slot: 'weapon', weaponType: 'spear',
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'The oath was spoken over it first. The charge only makes the oath louder.',
+    statBonuses: { attack: 9, defense: 7 }, levelRequirement: 6, value: 46
+  },
+  bannerets_warhammer: {
+    id: 'bannerets_warhammer', name: "Banneret's Warhammer", slot: 'weapon', weaponType: 'hammer',
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Built for the knight who has to be where the banner is, whatever is standing there first.',
+    statBonuses: { attack: 12, defense: 10 }, levelRequirement: 15, value: 58
+  },
+  commanders_longsword: {
+    id: 'commanders_longsword', name: "Commander's Longsword", slot: 'weapon', weaponType: 'sword',
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Raised once, and a whole order moves. Swung once, and it rarely needs to be raised again.',
+    statBonuses: { attack: 15, defense: 13 }, levelRequirement: 25, value: 78
+  },
+  marshals_warlance: {
+    id: 'marshals_warlance', name: "Marshal's Warlance", slot: 'weapon', weaponType: 'spear',
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Borders have been redrawn along the path of its charges.',
+    statBonuses: { attack: 19, defense: 16 }, levelRequirement: 40, value: 130
+  },
+  paragons_oathblade: {
+    id: 'paragons_oathblade', name: "Paragon's Oathblade", slot: 'weapon', weaponType: 'sword', effect: 'goldSparkle',
+    rarity: 'epic', element: 'holy', tier: 6,
+    flavor: 'Never once drawn for the wrong reason. It would know.',
+    statBonuses: { attack: 23, defense: 20 }, levelRequirement: 60, value: 210
+  },
+  squires_heater_shield: {
+    id: 'squires_heater_shield', name: "Squire's Heater Shield", slot: 'offhand', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 1,
+    flavor: 'Repainted so many times the first crest is a rumor.',
+    statBonuses: { defense: 5, maxHp: 10 }, levelRequirement: 3, value: 15
+  },
+  knights_kite_shield: {
+    id: 'knights_kite_shield', name: "Knight's Kite Shield", slot: 'offhand', weaponType: null,
+    rarity: 'uncommon', element: 'none', tier: 2,
+    flavor: 'Long enough to cover the knight, wide enough to cover whoever is behind them.',
+    statBonuses: { defense: 8, maxHp: 15 }, levelRequirement: 6, value: 36
+  },
+  banner_bearers_pavise: {
+    id: 'banner_bearers_pavise', name: "Banner-Bearer's Pavise", slot: 'offhand', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 3,
+    flavor: 'Planted in the mud, it becomes the rally point. Nobody has pulled it out yet.',
+    statBonuses: { defense: 11, maxHp: 21 }, levelRequirement: 15, value: 48
+  },
+  commanders_tower_shield: {
+    id: 'commanders_tower_shield', name: "Commander's Tower Shield", slot: 'offhand', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 4,
+    flavor: 'Arrows break on it. So does the enemy\'s patience.',
+    statBonuses: { defense: 14, maxHp: 27 }, levelRequirement: 25, value: 65
+  },
+  marshals_aegis: {
+    id: 'marshals_aegis', name: "Marshal's Aegis", slot: 'offhand', weaponType: null,
+    rarity: 'rare', element: 'none', tier: 5,
+    flavor: 'Whole campaigns have been planned around where it would be standing.',
+    statBonuses: { defense: 18, maxHp: 35 }, levelRequirement: 40, value: 108
+  },
+  paragons_unbroken_shield: {
+    id: 'paragons_unbroken_shield', name: "Paragon's Unbroken Shield", slot: 'offhand', weaponType: null, effect: 'goldSparkle',
+    rarity: 'epic', element: 'holy', tier: 6,
+    flavor: 'Not a scratch. Not because nothing has hit it -- because nothing has ever been allowed to.',
+    statBonuses: { defense: 23, maxHp: 45 }, levelRequirement: 60, value: 185
+  },
+
   // --- Quest items: not equippable, not sold in the shop (see
   // SHOP_ITEM_IDS below) -- found and consumed through activities instead.
   bent_cog: {

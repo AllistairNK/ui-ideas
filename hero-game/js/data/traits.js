@@ -138,6 +138,16 @@ export const HIDDEN_TRAITS = {
     weight: 2,
     statBonuses: { attack: 2, critChance: 3 }
   },
+  knightlyVow: {
+    id: 'knightlyVow',
+    name: 'Knightly Vow',
+    flavor: 'You made a promise once, to no one in particular. Your sword arm has been keeping it ever since.',
+    tags: ['fighter'],
+    secretClass: 'squire',
+    requirement: (a) => a.strength >= 7 && a.intellect >= 6,
+    weight: 2,
+    statBonuses: { attack: 2, defense: 3 }
+  },
   ironLungs: {
     id: 'ironLungs',
     name: 'Iron Lungs',
