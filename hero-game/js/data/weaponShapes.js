@@ -94,6 +94,28 @@ export const WEAPONS = {
       c.fill();
     }
   },
+  katana: {
+    name: 'Katana',
+    draw(c, W, H) {
+      const cx = W / 2;
+      c.fillStyle = 'rgb(225,228,233)';
+      c.beginPath();
+      c.moveTo(cx + W * 0.1, H * 0.06);
+      c.quadraticCurveTo(cx - W * 0.02, H * 0.35, cx - W * 0.06, H * 0.58);
+      c.lineTo(cx + W * 0.02, H * 0.58);
+      c.quadraticCurveTo(cx + W * 0.14, H * 0.32, cx + W * 0.2, H * 0.08);
+      c.closePath();
+      c.fill();
+      c.fillStyle = 'rgb(40,40,45)';
+      c.fillRect(cx - W * 0.14, H * 0.58, W * 0.28, H * 0.035);
+      c.fillStyle = 'rgb(20,20,25)';
+      c.fillRect(cx - W * 0.032, H * 0.615, W * 0.064, H * 0.28);
+      c.fillStyle = 'rgb(150,20,30)';
+      c.fillRect(cx - W * 0.032, H * 0.63, W * 0.064, H * 0.02);
+      c.fillRect(cx - W * 0.032, H * 0.73, W * 0.064, H * 0.02);
+      c.fillRect(cx - W * 0.032, H * 0.83, W * 0.064, H * 0.02);
+    }
+  },
   dagger: {
     name: 'Dagger',
     draw(c, W, H) {
@@ -160,47 +182,6 @@ export const WEAPONS = {
         c.arc(cx + i * W * 0.13, H * 0.3, W * 0.045, 0, Math.PI * 2);
         c.fill();
       }
-    }
-  },
-  katana: {
-    name: 'Katana',
-    draw(c, W, H) {
-      const cx = W / 2;
-      // Single-edged blade with a gentle curve toward the spine.
-      c.fillStyle = 'rgb(212,215,222)';
-      c.beginPath();
-      c.moveTo(cx + W * 0.06, H * 0.03);
-      c.quadraticCurveTo(cx + W * 0.1, H * 0.35, cx + W * 0.035, H * 0.64);
-      c.lineTo(cx - W * 0.035, H * 0.64);
-      c.quadraticCurveTo(cx + W * 0.02, H * 0.35, cx + W * 0.06, H * 0.03);
-      c.closePath();
-      c.fill();
-      c.strokeStyle = 'rgba(255,255,255,0.55)';
-      c.lineWidth = Math.max(1, W * 0.012);
-      c.beginPath();
-      c.moveTo(cx + W * 0.055, H * 0.08);
-      c.quadraticCurveTo(cx + W * 0.07, H * 0.36, cx + W * 0.018, H * 0.62);
-      c.stroke();
-      // Tsuba (guard).
-      c.fillStyle = 'rgb(70,62,50)';
-      c.beginPath();
-      c.ellipse(cx, H * 0.66, W * 0.11, H * 0.022, 0, 0, Math.PI * 2);
-      c.fill();
-      // Wrapped tsuka (handle).
-      c.fillStyle = 'rgb(40,40,48)';
-      c.fillRect(cx - W * 0.035, H * 0.68, W * 0.07, H * 0.26);
-      c.strokeStyle = 'rgb(190,160,90)';
-      c.lineWidth = Math.max(1, W * 0.012);
-      for (let y = H * 0.7; y < H * 0.92; y += H * 0.045) {
-        c.beginPath();
-        c.moveTo(cx - W * 0.035, y);
-        c.lineTo(cx + W * 0.035, y + H * 0.022);
-        c.moveTo(cx + W * 0.035, y);
-        c.lineTo(cx - W * 0.035, y + H * 0.022);
-        c.stroke();
-      }
-      c.fillStyle = 'rgb(70,62,50)';
-      c.fillRect(cx - W * 0.04, H * 0.94, W * 0.08, H * 0.025);
     }
   },
   gun: {
