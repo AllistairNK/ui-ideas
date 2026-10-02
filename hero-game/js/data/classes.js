@@ -32,7 +32,8 @@
 //   Peasant -> Archer -> ??? (tier 1 only so far)
 //   Peasant -> Fortune Teller -> ??? (tier 1 only so far)
 //   Peasant -> Warrior -> ??? (tier 1 only so far)
-//   Peasant -> Samurai -> ??? (tier 1 only so far)
+//   Peasant -> Ronin -> Samurai -> Hatamoto -> Kensei -> Shogun -> Sword Saint
+//   Peasant -> Squire -> Knight -> Banneret -> Knight Commander -> Lord Marshal -> Paragon
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -582,16 +583,138 @@ export const CLASSES = {
     allowedWeaponTypes: ['sword', 'axe', 'hammer', 'spear'],
     bonusActivityIds: []
   },
+  ronin: {
+    id: 'ronin',
+    name: 'Ronin',
+    flavor: 'A ronin has no lord left to serve -- just the blade, and the habit of keeping it sharp.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { strength: 6, agility: 7 },
+    requiredTrait: 'wayOfTheBlade',
+    statScaling: { attack: 1.0, defense: 0.6, magicPower: 0.1, critChance: 0.8 },
+    allowedWeaponTypes: ['katana', 'sword', 'dagger'],
+    bonusActivityIds: [],
+    evolution: { classId: 'samurai', unlockLevel: 15 }
+  },
   samurai: {
     id: 'samurai',
     name: 'Samurai',
-    flavor: 'A samurai only draws once -- everything before the cut was just the argument settling itself.',
+    flavor: 'A samurai never draws to threaten -- by the time the blade is out, the threat is over.',
+    tier: 2,
+    evolvesFrom: 'ronin',
+    statScaling: { attack: 1.25, defense: 0.75, magicPower: 0.15, critChance: 1.0 },
+    allowedWeaponTypes: ['katana', 'sword', 'dagger'],
+    bonusActivityIds: [],
+    evolution: { classId: 'hatamoto', unlockLevel: 30 }
+  },
+  hatamoto: {
+    id: 'hatamoto',
+    name: 'Hatamoto',
+    flavor: 'A hatamoto stands beside the banner, not behind it -- the banner is only safe because they are.',
+    tier: 3,
+    evolvesFrom: 'samurai',
+    statScaling: { attack: 1.45, defense: 0.85, magicPower: 0.2, critChance: 1.2 },
+    allowedWeaponTypes: ['katana', 'sword', 'dagger'],
+    bonusActivityIds: [],
+    evolution: { classId: 'kensei', unlockLevel: 45 }
+  },
+  kensei: {
+    id: 'kensei',
+    name: 'Kensei',
+    flavor: 'Duelists travel for weeks to face a kensei. Few remember the duel -- it was one cut long.',
+    tier: 4,
+    evolvesFrom: 'hatamoto',
+    statScaling: { attack: 1.7, defense: 0.95, magicPower: 0.2, critChance: 1.4 },
+    allowedWeaponTypes: ['katana', 'sword', 'dagger'],
+    bonusActivityIds: [],
+    evolution: { classId: 'shogun', unlockLevel: 65 }
+  },
+  shogun: {
+    id: 'shogun',
+    name: 'Shogun',
+    flavor: 'A shogun doesn\'t need to win every duel anymore -- whole provinces just stopped offering them.',
+    tier: 5,
+    evolvesFrom: 'kensei',
+    statScaling: { attack: 1.95, defense: 1.1, magicPower: 0.3, critChance: 1.6 },
+    allowedWeaponTypes: ['katana', 'sword', 'dagger'],
+    bonusActivityIds: [],
+    evolution: { classId: 'swordsaint', unlockLevel: 90 }
+  },
+  swordsaint: {
+    id: 'swordsaint',
+    name: 'Sword Saint',
+    flavor: 'A sword saint\'s blade rarely leaves the scabbard. It doesn\'t have to -- everyone already felt it.',
+    tier: 6,
+    evolvesFrom: 'shogun',
+    statScaling: { attack: 2.2, defense: 1.25, magicPower: 0.3, critChance: 1.85 },
+    allowedWeaponTypes: ['katana', 'sword', 'dagger'],
+    bonusActivityIds: []
+  },
+  squire: {
+    id: 'squire',
+    name: 'Squire',
+    flavor: 'A squire polishes someone else\'s armor for years -- mostly so they know exactly where it fails.',
     tier: 1,
     unlockLevel: 5,
-    unlockAttributeReqs: { strength: 6, agility: 6 },
-    requiredTrait: 'bushidoResolve',
-    statScaling: { attack: 0.95, defense: 0.5, magicPower: 0.1, critChance: 1.0 },
-    allowedWeaponTypes: ['katana'],
+    unlockAttributeReqs: { strength: 7, intellect: 6 },
+    requiredTrait: 'knightlyVow',
+    statScaling: { attack: 0.9, defense: 1.0, magicPower: 0.15, critChance: 0.45 },
+    allowedWeaponTypes: ['sword', 'spear', 'hammer'],
+    bonusActivityIds: [],
+    evolution: { classId: 'knight', unlockLevel: 15 }
+  },
+  knight: {
+    id: 'knight',
+    name: 'Knight',
+    flavor: 'A knight\'s oath is heavier than the plate -- and they chose to carry both.',
+    tier: 2,
+    evolvesFrom: 'squire',
+    statScaling: { attack: 1.1, defense: 1.25, magicPower: 0.2, critChance: 0.5 },
+    allowedWeaponTypes: ['sword', 'spear', 'hammer'],
+    bonusActivityIds: [],
+    evolution: { classId: 'banneret', unlockLevel: 30 }
+  },
+  banneret: {
+    id: 'banneret',
+    name: 'Banneret',
+    flavor: 'A banneret doesn\'t ask the line to follow -- the banner goes forward, and the line finds it was already moving.',
+    tier: 3,
+    evolvesFrom: 'knight',
+    statScaling: { attack: 1.3, defense: 1.45, magicPower: 0.2, critChance: 0.6 },
+    allowedWeaponTypes: ['sword', 'spear', 'hammer'],
+    bonusActivityIds: [],
+    evolution: { classId: 'knightcommander', unlockLevel: 45 }
+  },
+  knightcommander: {
+    id: 'knightcommander',
+    name: 'Knight Commander',
+    flavor: 'A knight commander\'s orders are short -- everyone listening already swore to the long version.',
+    tier: 4,
+    evolvesFrom: 'banneret',
+    statScaling: { attack: 1.5, defense: 1.7, magicPower: 0.25, critChance: 0.7 },
+    allowedWeaponTypes: ['sword', 'spear', 'hammer'],
+    bonusActivityIds: [],
+    evolution: { classId: 'lordmarshal', unlockLevel: 65 }
+  },
+  lordmarshal: {
+    id: 'lordmarshal',
+    name: 'Lord Marshal',
+    flavor: 'Kingdoms change their borders around a lord marshal\'s campaigns, then pretend it was the plan all along.',
+    tier: 5,
+    evolvesFrom: 'knightcommander',
+    statScaling: { attack: 1.75, defense: 1.95, magicPower: 0.3, critChance: 0.8 },
+    allowedWeaponTypes: ['sword', 'spear', 'hammer'],
+    bonusActivityIds: [],
+    evolution: { classId: 'paragon', unlockLevel: 90 }
+  },
+  paragon: {
+    id: 'paragon',
+    name: 'Paragon',
+    flavor: 'Every squire is told a story about a knight who never broke their oath. A paragon is who the story was about.',
+    tier: 6,
+    evolvesFrom: 'lordmarshal',
+    statScaling: { attack: 2.0, defense: 2.2, magicPower: 0.35, critChance: 0.9 },
+    allowedWeaponTypes: ['sword', 'spear', 'hammer'],
     bonusActivityIds: []
   },
   webslinger: {
@@ -903,4 +1026,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'samurai'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire'];

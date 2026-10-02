@@ -128,6 +128,26 @@ export const HIDDEN_TRAITS = {
     weight: 2,
     statBonuses: { attack: 2, defense: 2 }
   },
+  wayOfTheBlade: {
+    id: 'wayOfTheBlade',
+    name: 'Way of the Blade',
+    flavor: 'You don\'t think about the cut anymore. You just notice, afterward, that it already happened.',
+    tags: ['fighter'],
+    secretClass: 'ronin',
+    requirement: (a) => a.strength >= 6 && a.agility >= 7,
+    weight: 2,
+    statBonuses: { attack: 2, critChance: 3 }
+  },
+  knightlyVow: {
+    id: 'knightlyVow',
+    name: 'Knightly Vow',
+    flavor: 'You made a promise once, to no one in particular. Your sword arm has been keeping it ever since.',
+    tags: ['fighter'],
+    secretClass: 'squire',
+    requirement: (a) => a.strength >= 7 && a.intellect >= 6,
+    weight: 2,
+    statBonuses: { attack: 2, defense: 3 }
+  },
   ironLungs: {
     id: 'ironLungs',
     name: 'Iron Lungs',
@@ -136,16 +156,6 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.vitality >= 7,
     weight: 3,
     statBonuses: { maxHp: 10 }
-  },
-  bushidoResolve: {
-    id: 'bushidoResolve',
-    name: 'Bushido Resolve',
-    flavor: 'One cut, cleanly placed, beats a dozen thrown in a hurry -- you learned to wait for the one that counts.',
-    tags: ['fighter'],
-    secretClass: 'samurai',
-    requirement: (a) => a.strength >= 6 && a.agility >= 6,
-    weight: 2,
-    statBonuses: { attack: 3, critChance: 2 }
   }
 };
 
