@@ -32,6 +32,7 @@
 //   Peasant -> Archer -> ??? (tier 1 only so far)
 //   Peasant -> Fortune Teller -> ??? (tier 1 only so far)
 //   Peasant -> Warrior -> ??? (tier 1 only so far)
+//   Peasant -> Samurai -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
