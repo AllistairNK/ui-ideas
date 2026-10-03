@@ -34,6 +34,7 @@
 //   Peasant -> Warrior -> ??? (tier 1 only so far)
 //   Peasant -> Ronin -> Samurai -> Hatamoto -> Kensei -> Shogun -> Sword Saint
 //   Peasant -> Squire -> Knight -> Banneret -> Knight Commander -> Lord Marshal -> Paragon
+//   Peasant -> Viking -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -717,6 +718,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['sword', 'spear', 'hammer'],
     bonusActivityIds: []
   },
+  viking: {
+    id: 'viking',
+    name: 'Viking',
+    flavor: 'A viking doesn\'t ask if the sea is calm -- just whether the oars are ready either way.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { strength: 7, vitality: 7 },
+    requiredTrait: 'ragingBlood',
+    statScaling: { attack: 1.1, defense: 0.8, magicPower: 0.1, critChance: 0.6 },
+    allowedWeaponTypes: ['axe', 'spear', 'sword'],
+    bonusActivityIds: []
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1026,4 +1039,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking'];

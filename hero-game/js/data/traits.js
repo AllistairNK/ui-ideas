@@ -156,6 +156,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.vitality >= 7,
     weight: 3,
     statBonuses: { maxHp: 10 }
+  },
+  ragingBlood: {
+    id: 'ragingBlood',
+    name: 'Raging Blood',
+    flavor: 'Pain reaches you late, and leaves early -- there\'s usually a fight finished by the time it catches up.',
+    tags: ['fighter'],
+    secretClass: 'viking',
+    requirement: (a) => a.strength >= 7 && a.vitality >= 7,
+    weight: 2,
+    statBonuses: { attack: 2, maxHp: 8 }
   }
 };
 
