@@ -166,6 +166,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.strength >= 7 && a.vitality >= 7,
     weight: 2,
     statBonuses: { attack: 2, maxHp: 8 }
+  },
+  spiritTouched: {
+    id: 'spiritTouched',
+    name: 'Spirit-Touched',
+    flavor: 'The wind changes when you speak to it. You stopped pretending that was a coincidence.',
+    tags: ['mage'],
+    secretClass: 'shaman',
+    requirement: (a) => a.intellect >= 7 && a.vitality >= 6,
+    weight: 2,
+    statBonuses: { magicPower: 2, defense: 2 }
   }
 };
 

@@ -35,6 +35,7 @@
 //   Peasant -> Ronin -> Samurai -> Hatamoto -> Kensei -> Shogun -> Sword Saint
 //   Peasant -> Squire -> Knight -> Banneret -> Knight Commander -> Lord Marshal -> Paragon
 //   Peasant -> Viking -> ??? (tier 1 only so far)
+//   Peasant -> Shaman -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -730,6 +731,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['axe', 'spear', 'sword'],
     bonusActivityIds: []
   },
+  shaman: {
+    id: 'shaman',
+    name: 'Shaman',
+    flavor: 'A shaman never fights alone -- the ancestors just prefer not to be seen arriving.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { intellect: 7, vitality: 6 },
+    requiredTrait: 'spiritTouched',
+    statScaling: { attack: 0.6, defense: 0.7, magicPower: 0.9, critChance: 0.5 },
+    allowedWeaponTypes: ['staff', 'hammer', 'spear'],
+    bonusActivityIds: ['study']
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1039,4 +1052,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman'];
