@@ -53,6 +53,36 @@ export const FAMILIAR_SHAPES = {
       c.fill();
     }
   },
+  bonded_wolf: {
+    draw(c, W, H) {
+      // Side-on wolf: body, head, pointed ear, tail.
+      c.fillStyle = 'rgb(120,120,128)';
+      c.beginPath();
+      c.ellipse(W * 0.46, H * 0.56, W * 0.24, H * 0.13, 0, 0, Math.PI * 2);
+      c.fill();
+      c.beginPath();
+      c.ellipse(W * 0.72, H * 0.42, W * 0.12, H * 0.1, -0.3, 0, Math.PI * 2);
+      c.fill();
+      c.beginPath();
+      c.moveTo(W * 0.7, H * 0.33);
+      c.lineTo(W * 0.74, H * 0.2);
+      c.lineTo(W * 0.79, H * 0.34);
+      c.closePath();
+      c.fill();
+      c.beginPath();
+      c.moveTo(W * 0.24, H * 0.52);
+      c.quadraticCurveTo(W * 0.1, H * 0.4, W * 0.12, H * 0.3);
+      c.lineTo(W * 0.26, H * 0.58);
+      c.closePath();
+      c.fill();
+      c.fillRect(W * 0.3, H * 0.62, W * 0.06, H * 0.2);
+      c.fillRect(W * 0.56, H * 0.62, W * 0.06, H * 0.2);
+      c.fillStyle = 'rgb(255,210,90)';
+      c.beginPath();
+      c.arc(W * 0.76, H * 0.4, W * 0.025, 0, Math.PI * 2);
+      c.fill();
+    }
+  },
   aether_construct: {
     draw(c, W, H) {
       const cx = W / 2, cy = H / 2;

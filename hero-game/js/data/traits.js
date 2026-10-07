@@ -176,6 +176,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.intellect >= 7 && a.vitality >= 6,
     weight: 2,
     statBonuses: { magicPower: 2, defense: 2 }
+  },
+  wildBond: {
+    id: 'wildBond',
+    name: 'Wild Bond',
+    flavor: 'Stray dogs follow you home. Wolves follow you further, and never seem to want anything for it.',
+    tags: ['rogue'],
+    secretClass: 'beastmaster',
+    requirement: (a) => a.agility >= 7 && a.vitality >= 6,
+    weight: 2,
+    statBonuses: { attack: 2, critChance: 2 }
   }
 };
 

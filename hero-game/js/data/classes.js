@@ -36,6 +36,7 @@
 //   Peasant -> Squire -> Knight -> Banneret -> Knight Commander -> Lord Marshal -> Paragon
 //   Peasant -> Viking -> ??? (tier 1 only so far)
 //   Peasant -> Shaman -> ??? (tier 1 only so far)
+//   Peasant -> Beast Master -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -743,6 +744,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['staff', 'hammer', 'spear'],
     bonusActivityIds: ['study']
   },
+  beastmaster: {
+    id: 'beastmaster',
+    name: 'Beast Master',
+    flavor: 'A beast master never gives the first command -- the pack already knows where they were going to point.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { agility: 7, vitality: 6 },
+    requiredTrait: 'wildBond',
+    statScaling: { attack: 0.85, defense: 0.6, magicPower: 0.2, critChance: 0.8 },
+    allowedWeaponTypes: ['bow', 'spear', 'axe'],
+    bonusActivityIds: []
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1052,4 +1065,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster'];

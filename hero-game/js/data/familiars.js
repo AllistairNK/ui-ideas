@@ -1,5 +1,6 @@
 // Combat familiars for the summoning-flavored classes (conjurer,
-// insectmancer, golemmancer, archmechanist -> technomancer, lightningmage).
+// insectmancer, golemmancer, archmechanist -> technomancer, lightningmage,
+// beastmaster).
 // One familiar
 // per qualifying class, auto-granted the moment the character enters that
 // class (see ensureFamiliar, called from main.js) -- mirrors how hidden
@@ -51,6 +52,15 @@ export const FAMILIAR_TEMPLATES = {
     statBonuses: { magicPower: 3, critChance: 4 },
     procChance: 0.2,
     procDamage: 4
+  },
+  bonded_wolf: {
+    id: 'bonded_wolf',
+    name: 'Bonded Wolf',
+    classId: 'beastmaster',
+    flavor: 'It doesn\'t wait to be told who the threat is. It just checks whether you agree.',
+    statBonuses: { attack: 4, critChance: 2 },
+    procChance: 0.2,
+    procDamage: 3
   },
   aether_construct: {
     id: 'aether_construct',

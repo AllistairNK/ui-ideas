@@ -15,6 +15,8 @@ not the existing decorative pet in js/core/petAI.js).
 - **archmechanist** / **technomancer** (runesmith -> archmechanist ->
   technomancer) -- "doesn't need to be in the room -- their automatons
   already are."
+- **beastmaster** (secret, tier 1) -- "never gives the first command -- the
+  pack already knows where they were going to point." (Bonded Wolf)
 
 ## Maybe (weaker signal, worth a design call)
 
