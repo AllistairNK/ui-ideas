@@ -37,6 +37,7 @@
 //   Peasant -> Viking -> ??? (tier 1 only so far)
 //   Peasant -> Shaman -> ??? (tier 1 only so far)
 //   Peasant -> Beast Master -> ??? (tier 1 only so far)
+//   Peasant -> Spirit Master -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -756,6 +757,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['bow', 'spear', 'axe'],
     bonusActivityIds: []
   },
+  spiritmaster: {
+    id: 'spiritmaster',
+    name: 'Spirit Master',
+    flavor: 'A spirit master doesn\'t ask the dead for help -- they just stopped letting them leave.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { intellect: 7, luck: 6 },
+    requiredTrait: 'veilSight',
+    statScaling: { attack: 0.35, defense: 0.5, magicPower: 1.1, critChance: 0.65 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study']
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1065,4 +1078,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster'];

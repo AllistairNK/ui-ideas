@@ -17,6 +17,8 @@ not the existing decorative pet in js/core/petAI.js).
   already are."
 - **beastmaster** (secret, tier 1) -- "never gives the first command -- the
   pack already knows where they were going to point." (Bonded Wolf)
+- **spiritmaster** (secret, tier 1) -- "doesn't ask the dead for help --
+  they just stopped letting them leave." (Tethered Spirit)
 
 ## Maybe (weaker signal, worth a design call)
 

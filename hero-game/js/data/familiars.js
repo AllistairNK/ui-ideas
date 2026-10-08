@@ -1,6 +1,6 @@
 // Combat familiars for the summoning-flavored classes (conjurer,
 // insectmancer, golemmancer, archmechanist -> technomancer, lightningmage,
-// beastmaster).
+// beastmaster, spiritmaster).
 // One familiar
 // per qualifying class, auto-granted the moment the character enters that
 // class (see ensureFamiliar, called from main.js) -- mirrors how hidden
@@ -61,6 +61,15 @@ export const FAMILIAR_TEMPLATES = {
     statBonuses: { attack: 4, critChance: 2 },
     procChance: 0.2,
     procDamage: 3
+  },
+  tethered_spirit: {
+    id: 'tethered_spirit',
+    name: 'Tethered Spirit',
+    classId: 'spiritmaster',
+    flavor: 'It remembers having a name. It has decided yours matters more now.',
+    statBonuses: { magicPower: 4, defense: 2 },
+    procChance: 0.18,
+    procDamage: 4
   },
   aether_construct: {
     id: 'aether_construct',

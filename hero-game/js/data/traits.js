@@ -186,6 +186,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.agility >= 7 && a.vitality >= 6,
     weight: 2,
     statBonuses: { attack: 2, critChance: 2 }
+  },
+  veilSight: {
+    id: 'veilSight',
+    name: 'Veil Sight',
+    flavor: 'Candles gutter when you walk past. Something on the other side of the veil keeps turning to look.',
+    tags: ['mage'],
+    secretClass: 'spiritmaster',
+    requirement: (a) => a.intellect >= 7 && a.luck >= 6,
+    weight: 2,
+    statBonuses: { magicPower: 3, critChance: 1 }
   }
 };
 

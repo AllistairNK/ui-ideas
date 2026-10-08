@@ -83,6 +83,33 @@ export const FAMILIAR_SHAPES = {
       c.fill();
     }
   },
+  tethered_spirit: {
+    draw(c, W, H) {
+      // Ghost silhouette: domed head, wavy trailing hem, hollow eyes.
+      const cx = W / 2;
+      c.fillStyle = 'rgba(120,230,210,0.3)';
+      c.beginPath();
+      c.arc(cx, H * 0.42, W * 0.36, 0, Math.PI * 2);
+      c.fill();
+      c.fillStyle = 'rgba(200,250,240,0.9)';
+      c.beginPath();
+      c.moveTo(cx - W * 0.22, H * 0.78);
+      c.lineTo(cx - W * 0.22, H * 0.4);
+      c.arc(cx, H * 0.4, W * 0.22, Math.PI, 0);
+      c.lineTo(cx + W * 0.22, H * 0.78);
+      for (let i = 0; i < 3; i++) {
+        const x0 = cx + W * 0.22 - i * W * 0.1467;
+        c.quadraticCurveTo(x0 - W * 0.073, H * 0.68, x0 - W * 0.1467, H * 0.78);
+      }
+      c.closePath();
+      c.fill();
+      c.fillStyle = 'rgb(30,60,70)';
+      c.beginPath();
+      c.ellipse(cx - W * 0.08, H * 0.42, W * 0.035, H * 0.055, 0, 0, Math.PI * 2);
+      c.ellipse(cx + W * 0.08, H * 0.42, W * 0.035, H * 0.055, 0, 0, Math.PI * 2);
+      c.fill();
+    }
+  },
   aether_construct: {
     draw(c, W, H) {
       const cx = W / 2, cy = H / 2;
