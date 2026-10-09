@@ -38,6 +38,7 @@
 //   Peasant -> Shaman -> ??? (tier 1 only so far)
 //   Peasant -> Beast Master -> ??? (tier 1 only so far)
 //   Peasant -> Spirit Master -> ??? (tier 1 only so far)
+//   Peasant -> Cleric -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -769,6 +770,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['staff', 'dagger'],
     bonusActivityIds: ['study']
   },
+  cleric: {
+    id: 'cleric',
+    name: 'Cleric',
+    flavor: 'A cleric doesn\'t pray for the battle to go well -- just for everyone still standing at the end to be on the right side.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { luck: 7, vitality: 6 },
+    requiredTrait: 'divineFavor',
+    statScaling: { attack: 0.5, defense: 0.85, magicPower: 1.0, critChance: 0.35 },
+    allowedWeaponTypes: ['hammer', 'staff'],
+    bonusActivityIds: ['study']
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1078,4 +1091,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric'];

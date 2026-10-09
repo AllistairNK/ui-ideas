@@ -196,6 +196,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.intellect >= 7 && a.luck >= 6,
     weight: 2,
     statBonuses: { magicPower: 3, critChance: 1 }
+  },
+  divineFavor: {
+    id: 'divineFavor',
+    name: 'Divine Favor',
+    flavor: 'Wounds close a little faster around you. Nobody can prove it, but the healers have stopped arguing.',
+    tags: ['mage'],
+    secretClass: 'cleric',
+    requirement: (a) => a.luck >= 7 && a.vitality >= 6,
+    weight: 2,
+    statBonuses: { defense: 2, maxHp: 8 }
   }
 };
 
