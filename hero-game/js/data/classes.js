@@ -780,7 +780,8 @@ export const CLASSES = {
     requiredTrait: 'divineFavor',
     statScaling: { attack: 0.5, defense: 0.85, magicPower: 1.0, critChance: 0.35 },
     allowedWeaponTypes: ['hammer', 'staff'],
-    bonusActivityIds: ['study']
+    bonusActivityIds: ['study'],
+    worshipsGods: true // picks a god from gods.js on entering the class
   },
   webslinger: {
     id: 'webslinger',

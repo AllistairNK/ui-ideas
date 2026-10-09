@@ -2,6 +2,7 @@ import { CLASSES } from '../data/classes.js';
 import { HIDDEN_TRAITS } from '../data/traits.js';
 import { FAMILIAR_TEMPLATES } from '../data/familiars.js';
 import { renderFamiliarIcon } from '../data/familiarShapes.js';
+import { getDeity } from '../data/gods.js';
 import { ACTIVITIES } from '../data/activities.js';
 import { getActivityRates, currentStaminaRatePerSec } from '../core/activityEngine.js';
 
@@ -100,6 +101,7 @@ export function renderCharacterSheet(character) {
     <div class="gold-row">Gold: <b id="sheetGoldValue">${n.goldText}</b> <span class="rate-badge rate-positive" id="sheetGoldRate">${n.goldRateText}</span></div>
 
     ${renderFamiliarChip(character)}
+    ${renderDeityChip(character)}
     ${renderTraitsRow(character)}
   `;
 }
@@ -168,6 +170,20 @@ function renderFamiliarChip(character) {
       <span class="trait-chip familiar-chip" tabindex="0" data-tooltip="${escapeAttr(tooltip)}">
         <img class="familiar-chip-icon" src="${icon}" width="20" height="20" alt="" />
         ${def.name}
+      </span>
+    </div>`;
+}
+
+function renderDeityChip(character) {
+  const god = getDeity(character);
+  if (!god) return '';
+
+  const tooltip = `${god.domain}. ${god.flavor} (${formatStatBonuses(god.statBonuses)})`;
+
+  return `
+    <div class="familiar-row">
+      <span class="trait-chip deity-chip" tabindex="0" data-tooltip="${escapeAttr(tooltip)}">
+        &#10022; ${god.name}, ${god.title}
       </span>
     </div>`;
 }

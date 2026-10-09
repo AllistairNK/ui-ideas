@@ -62,9 +62,25 @@ function resolveAttack(attacker, defender, rng, log) {
   log.push(`${attacker.name} hits ${defender.name} for ${damage}${isCrit ? ' (critical!)' : ''}.`);
 }
 
-// Pure function: two stat snapshots + a seed (+ an optional familiar def)
-// in, a result out.
-export function resolveCombat(heroDerived, opponent, seed = Date.now(), familiarDef = null) {
+// A god's blessing (see gods.js) rolls after each of the hero's attacks,
+// same as a familiar proc: 'heal' tops the hero back up, 'smite' hits the foe.
+function resolveBlessing(deityDef, hero, foe, rng, log) {
+  const { blessing } = deityDef;
+  if (!blessing || foe.hp <= 0 || rng() >= blessing.procChance) return;
+  if (blessing.type === 'heal') {
+    const healed = Math.min(blessing.amount, hero.maxHp - hero.hp);
+    if (healed <= 0) return;
+    hero.hp += healed;
+    log.push(`${blessing.verb} (+${healed} HP).`);
+  } else if (blessing.type === 'smite') {
+    foe.hp = Math.max(0, foe.hp - blessing.amount);
+    log.push(`${blessing.verb} for ${blessing.amount} damage.`);
+  }
+}
+
+// Pure function: two stat snapshots + a seed (+ optional familiar and deity
+// defs) in, a result out.
+export function resolveCombat(heroDerived, opponent, seed = Date.now(), familiarDef = null, deityDef = null) {
   const rng = mulberry32(seed);
   const hero = toCombatant('You', heroDerived);
   const foe = { ...opponent };
@@ -84,6 +100,7 @@ export function resolveCombat(heroDerived, opponent, seed = Date.now(), familiar
         foe.hp = Math.max(0, foe.hp - familiarDef.procDamage);
         log.push(`${familiarDef.name} lunges in for ${familiarDef.procDamage} extra damage.`);
       }
+      if (attacker === hero && deityDef) resolveBlessing(deityDef, hero, foe, rng, log);
     }
   }
 

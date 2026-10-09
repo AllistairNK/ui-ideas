@@ -1,5 +1,41 @@
 import { CLASSES, CLASS_CHOICES, CLASS_CHOICE_LEVEL, SECRET_CLASS_IDS } from '../data/classes.js';
 import { HIDDEN_TRAITS } from '../data/traits.js';
+import { getAvailableGods, needsDeityChoice } from '../data/gods.js';
+
+function formatStatBonuses(statBonuses) {
+  return Object.entries(statBonuses).map(([stat, value]) => `+${value} ${stat}`).join(', ');
+}
+
+function describeBlessing(blessing) {
+  if (!blessing) return '';
+  const pct = Math.round(blessing.procChance * 100);
+  return blessing.type === 'heal'
+    ? `${pct}% per attack: heal ${blessing.amount} HP`
+    : `${pct}% per attack: ${blessing.amount} bonus damage`;
+}
+
+// Worshipping classes (classes.js `worshipsGods`) pick a god once, here --
+// rendered above any evolution options until the pledge is made.
+function renderDeityChoice(character, classDef) {
+  if (!needsDeityChoice(character, classDef)) return '';
+  const options = getAvailableGods(classDef).map((god) => `
+    <button type="button" class="class-choice-btn deity-choice" data-god="${god.id}">
+      <span class="class-choice-name">${god.name}, ${god.title}</span>
+      <span class="class-choice-req">${god.domain} &middot; ${formatStatBonuses(god.statBonuses)} &middot; ${describeBlessing(god.blessing)}</span>
+      <span class="class-choice-req deity-flavor">${god.flavor}</span>
+    </button>`).join('');
+  return `
+    <div class="panel-title">Path of Worship</div>
+    <div class="sheet-flavor">Choose the god you will serve. This vow cannot be undone.</div>
+    <div class="class-choice-list">${options}</div>
+  `;
+}
+
+function bindDeityChoice(root, onChooseDeity) {
+  root.querySelectorAll('[data-god]').forEach((btn) => {
+    btn.addEventListener('click', () => onChooseDeity && onChooseDeity(btn.dataset.god));
+  });
+}
 
 export function meetsAttributeReqs(character, reqs) {
   if (!reqs) return true;
@@ -72,12 +108,13 @@ export function isClassAdvancementAvailable(character) {
   return getAvailableEvolutions(character).length > 0;
 }
 
-export function renderClassPanel(character, { onChoose }) {
+export function renderClassPanel(character, { onChoose, onChooseDeity }) {
   const root = document.getElementById('classPanel');
   if (!root) return;
 
   if (character.class !== 'peasant') {
     const def = CLASSES[character.class];
+    const deityHtml = renderDeityChoice(character, def);
     const evolutions = getAvailableEvolutions(character);
     if (evolutions.length) {
       const options = evolutions.map((evo) => {
@@ -89,6 +126,7 @@ export function renderClassPanel(character, { onChoose }) {
           </button>`;
       }).join('');
       root.innerHTML = `
+        ${deityHtml}
         <div class="panel-title">Class Advancement</div>
         <div class="sheet-sub">${def.name}</div>
         <div class="sheet-flavor">You've grown beyond your training.</div>
@@ -97,6 +135,7 @@ export function renderClassPanel(character, { onChoose }) {
       root.querySelectorAll('[data-class]').forEach((btn) => {
         btn.addEventListener('click', () => onChoose(btn.dataset.class));
       });
+      bindDeityChoice(root, onChooseDeity);
       return;
     }
     const evoOptions = getEvolutionOptions(def);
@@ -104,11 +143,13 @@ export function renderClassPanel(character, { onChoose }) {
       ? evoOptions.map((evo) => describeEvolutionProgress(character, evo)).join(' ')
       : '';
     root.innerHTML = `
+      ${deityHtml}
       <div class="panel-title">Class</div>
       <div class="sheet-sub">${def.name}</div>
       <div class="sheet-flavor">${def.flavor || 'Your path is chosen.'}</div>
       ${progressText ? `<div class="sheet-flavor">${progressText}</div>` : ''}
     `;
+    bindDeityChoice(root, onChooseDeity);
     return;
   }
 

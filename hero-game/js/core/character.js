@@ -3,6 +3,7 @@ import { CLASSES } from '../data/classes.js';
 import { sumEquipmentBonuses } from './equipment.js';
 import { rollHiddenTraits, sumTraitBonuses, grantEligibleTraits } from '../data/traits.js';
 import { sumFamiliarBonus } from '../data/familiars.js';
+import { sumDeityBonus } from '../data/gods.js';
 
 let nextInstanceId = 1;
 export function newInstanceId() {
@@ -52,6 +53,7 @@ export function generateCharacter() {
     activity: null,
     resting: false,
     apprenticeship: {},
+    deity: null,
     combatLog: [],
     flags: { unlockedClasses: ['peasant'], tutorialSeen: false, foundItemIds: [], usedActivityIds: [] }
   };
@@ -68,13 +70,14 @@ export function computeDerivedStats(character) {
   const bonus = sumEquipmentBonuses(character);
   const traitBonus = sumTraitBonuses(character);
   const familiarBonus = sumFamiliarBonus(character);
+  const deityBonus = sumDeityBonus(character);
 
-  const maxHp = Math.round(50 + attr.vitality * 8 + (bonus.maxHp || 0) + (traitBonus.maxHp || 0));
+  const maxHp = Math.round(50 + attr.vitality * 8 + (bonus.maxHp || 0) + (traitBonus.maxHp || 0) + (deityBonus.maxHp || 0));
   const maxStamina = Math.round(50 + attr.vitality * 4);
-  const attack = Math.round(attr.strength * 2 * classDef.statScaling.attack + (bonus.attack || 0) + (traitBonus.attack || 0) + (familiarBonus.attack || 0));
-  const defense = Math.round(attr.vitality * 1.5 * classDef.statScaling.defense + (bonus.defense || 0) + (traitBonus.defense || 0) + (familiarBonus.defense || 0));
-  const magicPower = Math.round(attr.intellect * 2 * classDef.statScaling.magicPower + (bonus.magicPower || 0) + (traitBonus.magicPower || 0) + (familiarBonus.magicPower || 0));
-  const critChance = Math.round(5 + attr.luck * classDef.statScaling.critChance + (bonus.critChance || 0) + (traitBonus.critChance || 0) + (familiarBonus.critChance || 0));
+  const attack = Math.round(attr.strength * 2 * classDef.statScaling.attack + (bonus.attack || 0) + (traitBonus.attack || 0) + (familiarBonus.attack || 0) + (deityBonus.attack || 0));
+  const defense = Math.round(attr.vitality * 1.5 * classDef.statScaling.defense + (bonus.defense || 0) + (traitBonus.defense || 0) + (familiarBonus.defense || 0) + (deityBonus.defense || 0));
+  const magicPower = Math.round(attr.intellect * 2 * classDef.statScaling.magicPower + (bonus.magicPower || 0) + (traitBonus.magicPower || 0) + (familiarBonus.magicPower || 0) + (deityBonus.magicPower || 0));
+  const critChance = Math.round(5 + attr.luck * classDef.statScaling.critChance + (bonus.critChance || 0) + (traitBonus.critChance || 0) + (familiarBonus.critChance || 0) + (deityBonus.critChance || 0));
   const accuracy = Math.round(70 + attr.agility * 1.5);
   const evasion = Math.round(5 + attr.agility * 1.2);
   const speed = attr.agility;

@@ -95,6 +95,7 @@ button:hover:not(:disabled) { background: #383842; }
 .familiar-row { margin-top: 10px; }
 .familiar-chip { display: inline-flex; align-items: center; gap: 6px; border-color: #5a7a9a; color: #b8d8ff; }
 .familiar-chip-icon { display: inline-block; vertical-align: middle; border-radius: 4px; }
+.deity-chip { border-color: #b89a4a; color: #f3dc9a; }
 
 [data-tooltip] { position: relative; }
 [data-tooltip]:hover::after,
@@ -542,3 +543,6 @@ button.shop-tier-toggle:hover { background: #2f2f38; color: #fff; }
 .class-choice-btn.secret .class-choice-name { color: #e8c979; }
 .class-choice-btn.secret .class-choice-name::before { content: '\2726  '; }
 .class-choice-btn.secret .class-choice-req { font-style: italic; color: #b9ab84; }
+.class-choice-btn.deity-choice { border-color: #b89a4a; }
+.class-choice-btn.deity-choice .class-choice-name { color: #f3dc9a; }
+.class-choice-btn.deity-choice .deity-flavor { font-style: italic; }

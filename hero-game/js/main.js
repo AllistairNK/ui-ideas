@@ -7,6 +7,7 @@ import { ITEM_TEMPLATES, shopPrice } from './data/items.js';
 import { ACTIVITIES } from './data/activities.js';
 import { CLASSES } from './data/classes.js';
 import { FAMILIAR_TEMPLATES, ensureFamiliar } from './data/familiars.js';
+import { getDeity, needsDeityChoice, pledgeToGod } from './data/gods.js';
 
 import { renderCharacterSheet, updateCharacterSheetLive } from './ui/characterSheet.js';
 import { renderActivityPanel } from './ui/activityPanel.js';
@@ -40,7 +41,7 @@ function renderAll() {
     onUnequip: handleUnequip,
     onBuy: handleBuy
   });
-  renderClassPanel(character, { onChoose: handleChooseClass });
+  renderClassPanel(character, { onChoose: handleChooseClass, onChooseDeity: handleChooseDeity });
 }
 
 function persist() {
@@ -56,6 +57,18 @@ function handleChooseClass(classId) {
   if (grantedFamiliar) {
     showToast(`Your ${grantedFamiliar.name} joins you.`, 'success');
   }
+  if (needsDeityChoice(character, CLASSES[classId])) {
+    showToast('Choose a god to serve in the Class panel.', 'success');
+  }
+  persist();
+  renderAll();
+}
+
+function handleChooseDeity(godId) {
+  const god = pledgeToGod(character, CLASSES[character.class], godId);
+  if (!god) return;
+  character.derived = computeDerivedStats(character);
+  showToast(`You have pledged yourself to ${god.name}, ${god.title}.`, 'success');
   persist();
   renderAll();
 }
@@ -98,7 +111,7 @@ function runSpar(activityId) {
 
   const opponent = generateOpponent(character.level);
   const familiarDef = character.familiar ? FAMILIAR_TEMPLATES[character.familiar.id] : null;
-  const result = resolveCombat(character.derived, opponent, Date.now(), familiarDef);
+  const result = resolveCombat(character.derived, opponent, Date.now(), familiarDef, getDeity(character));
 
   let rewardsSummary = '';
   if (result.outcome === 'win') {
