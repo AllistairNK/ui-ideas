@@ -206,6 +206,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.luck >= 7 && a.vitality >= 6,
     weight: 2,
     statBonuses: { defense: 2, maxHp: 8 }
+  },
+  ironBody: {
+    id: 'ironBody',
+    name: 'Iron Body',
+    flavor: 'The strike landed. You noticed, filed it away, and kept walking.',
+    tags: ['rogue'],
+    secretClass: 'monk',
+    requirement: (a) => a.agility >= 6 && a.vitality >= 7,
+    weight: 2,
+    statBonuses: { defense: 2, maxHp: 6 }
   }
 };
 
