@@ -216,6 +216,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.agility >= 6 && a.vitality >= 7,
     weight: 2,
     statBonuses: { defense: 2, maxHp: 6 }
+  },
+  volatileMind: {
+    id: 'volatileMind',
+    name: 'Volatile Mind',
+    flavor: 'You know exactly how much is too much. It\'s usually more than everyone else expects.',
+    tags: ['mage'],
+    secretClass: 'alchemist',
+    requirement: (a) => a.intellect >= 6 && a.luck >= 7,
+    weight: 2,
+    statBonuses: { magicPower: 2, critChance: 2 }
   }
 };
 

@@ -40,6 +40,7 @@
 //   Peasant -> Spirit Master -> ??? (tier 1 only so far)
 //   Peasant -> Cleric -> ??? (tier 1 only so far)
 //   Peasant -> Monk -> ??? (tier 1 only so far)
+//   Peasant -> Alchemist -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -796,6 +797,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['gauntlet', 'staff'],
     bonusActivityIds: ['study']
   },
+  alchemist: {
+    id: 'alchemist',
+    name: 'Alchemist',
+    flavor: 'An alchemist never throws the vial hoping -- the reaction was already finished the moment it left their hand.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { intellect: 6, luck: 7 },
+    requiredTrait: 'volatileMind',
+    statScaling: { attack: 0.55, defense: 0.5, magicPower: 0.95, critChance: 0.85 },
+    allowedWeaponTypes: ['dagger', 'gauntlet'],
+    bonusActivityIds: ['study']
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1105,4 +1118,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist'];
