@@ -41,6 +41,7 @@
 //   Peasant -> Cleric -> ??? (tier 1 only so far)
 //   Peasant -> Monk -> ??? (tier 1 only so far)
 //   Peasant -> Alchemist -> ??? (tier 1 only so far)
+//   Peasant -> Paladin -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -809,6 +810,19 @@ export const CLASSES = {
     allowedWeaponTypes: ['dagger', 'gauntlet'],
     bonusActivityIds: ['study']
   },
+  paladin: {
+    id: 'paladin',
+    name: 'Paladin',
+    flavor: 'A paladin doesn\'t ask their god for strength -- just for a reason good enough to spend the strength they already have.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { vitality: 7, luck: 6 },
+    requiredTrait: 'sacredOath',
+    statScaling: { attack: 0.85, defense: 1.0, magicPower: 0.55, critChance: 0.4 },
+    allowedWeaponTypes: ['sword', 'hammer'],
+    bonusActivityIds: [],
+    worshipsGods: true // picks a god from gods.js on entering the class
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1118,4 +1132,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin'];

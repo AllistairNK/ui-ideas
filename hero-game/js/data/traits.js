@@ -226,6 +226,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.intellect >= 6 && a.luck >= 7,
     weight: 2,
     statBonuses: { magicPower: 2, critChance: 2 }
+  },
+  sacredOath: {
+    id: 'sacredOath',
+    name: 'Sacred Oath',
+    flavor: 'You swore something once, kneeling, and meant every word. Blows have been landing softer ever since.',
+    tags: ['fighter'],
+    secretClass: 'paladin',
+    requirement: (a) => a.vitality >= 7 && a.luck >= 6,
+    weight: 2,
+    statBonuses: { defense: 2, attack: 1, maxHp: 5 }
   }
 };
 
