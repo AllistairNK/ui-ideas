@@ -42,6 +42,7 @@
 //   Peasant -> Monk -> ??? (tier 1 only so far)
 //   Peasant -> Alchemist -> ??? (tier 1 only so far)
 //   Peasant -> Paladin -> ??? (tier 1 only so far)
+//   Peasant -> Bard -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -823,6 +824,18 @@ export const CLASSES = {
     bonusActivityIds: [],
     worshipsGods: true // picks a god from gods.js on entering the class
   },
+  bard: {
+    id: 'bard',
+    name: 'Bard',
+    flavor: 'A bard never raises a blade first -- by the time the song ends, somebody else already has.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { luck: 6, agility: 6 },
+    requiredTrait: 'silverVoice',
+    statScaling: { attack: 0.5, defense: 0.45, magicPower: 0.75, critChance: 1.0 },
+    allowedWeaponTypes: ['dagger', 'bow'],
+    bonusActivityIds: ['study']
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1132,4 +1145,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard'];

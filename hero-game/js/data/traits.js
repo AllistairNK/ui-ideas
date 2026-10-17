@@ -236,6 +236,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.vitality >= 7 && a.luck >= 6,
     weight: 2,
     statBonuses: { defense: 2, attack: 1, maxHp: 5 }
+  },
+  silverVoice: {
+    id: 'silverVoice',
+    name: 'Silver Voice',
+    flavor: 'A room settles before you finish the first line. Nobody\'s sure if it\'s the melody or the promise underneath it.',
+    tags: ['rogue'],
+    secretClass: 'bard',
+    requirement: (a) => a.luck >= 6 && a.agility >= 6,
+    weight: 2,
+    statBonuses: { critChance: 2, magicPower: 2 }
   }
 };
 
