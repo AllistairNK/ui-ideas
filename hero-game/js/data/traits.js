@@ -246,6 +246,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.luck >= 6 && a.agility >= 6,
     weight: 2,
     statBonuses: { critChance: 2, magicPower: 2 }
+  },
+  wildheart: {
+    id: 'wildheart',
+    name: 'Wildheart',
+    flavor: 'Animals stop bothering to flee from you. Something about the way you stand reads as "already part of the woods."',
+    tags: ['mage'],
+    secretClass: 'druid',
+    requirement: (a) => a.intellect >= 6 && a.vitality >= 7,
+    weight: 2,
+    statBonuses: { magicPower: 2, maxHp: 6 }
   }
 };
 

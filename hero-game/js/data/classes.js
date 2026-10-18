@@ -43,6 +43,7 @@
 //   Peasant -> Alchemist -> ??? (tier 1 only so far)
 //   Peasant -> Paladin -> ??? (tier 1 only so far)
 //   Peasant -> Bard -> ??? (tier 1 only so far)
+//   Peasant -> Druid -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -836,6 +837,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['dagger', 'bow'],
     bonusActivityIds: ['study']
   },
+  druid: {
+    id: 'druid',
+    name: 'Druid',
+    flavor: 'A druid never forces the wild to listen -- they just stop being the thing it needs to tune out first.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { intellect: 6, vitality: 7 },
+    requiredTrait: 'wildheart',
+    statScaling: { attack: 0.5, defense: 0.75, magicPower: 0.9, critChance: 0.5 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study']
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1145,4 +1158,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid'];
