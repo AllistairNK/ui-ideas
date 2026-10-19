@@ -256,6 +256,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.intellect >= 6 && a.vitality >= 7,
     weight: 2,
     statBonuses: { magicPower: 2, maxHp: 6 }
+  },
+  seaLegs: {
+    id: 'seaLegs',
+    name: 'Sea Legs',
+    flavor: 'The deck lurches and you don\'t. Somewhere along the way, bad odds started feeling like home.',
+    tags: ['rogue'],
+    secretClass: 'pirate',
+    requirement: (a) => a.strength >= 7 && a.luck >= 6,
+    weight: 2,
+    statBonuses: { attack: 2, critChance: 2 }
   }
 };
 

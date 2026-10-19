@@ -44,6 +44,7 @@
 //   Peasant -> Paladin -> ??? (tier 1 only so far)
 //   Peasant -> Bard -> ??? (tier 1 only so far)
 //   Peasant -> Druid -> ??? (tier 1 only so far)
+//   Peasant -> Pirate -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -849,6 +850,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['staff', 'dagger'],
     bonusActivityIds: ['study']
   },
+  pirate: {
+    id: 'pirate',
+    name: 'Pirate',
+    flavor: 'A pirate never fights fair -- fair is just what the other ship calls it when they were the ones who lost.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { strength: 7, luck: 6 },
+    requiredTrait: 'seaLegs',
+    statScaling: { attack: 0.95, defense: 0.55, magicPower: 0.1, critChance: 1.0 },
+    allowedWeaponTypes: ['gun', 'sword', 'dagger'],
+    bonusActivityIds: []
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1158,4 +1171,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate'];
