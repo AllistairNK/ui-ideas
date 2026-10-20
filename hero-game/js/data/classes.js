@@ -45,6 +45,7 @@
 //   Peasant -> Bard -> ??? (tier 1 only so far)
 //   Peasant -> Druid -> ??? (tier 1 only so far)
 //   Peasant -> Pirate -> ??? (tier 1 only so far)
+//   Peasant -> Ninja -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -862,6 +863,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['gun', 'sword', 'dagger'],
     bonusActivityIds: []
   },
+  ninja: {
+    id: 'ninja',
+    name: 'Ninja',
+    flavor: 'Nobody sees a ninja arrive -- only the moment the room realizes one of the shadows has been breathing.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { agility: 7, luck: 6 },
+    requiredTrait: 'silentStep',
+    statScaling: { attack: 0.8, defense: 0.45, magicPower: 0.2, critChance: 1.25 },
+    allowedWeaponTypes: ['katana', 'dagger'],
+    bonusActivityIds: []
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1171,4 +1184,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja'];

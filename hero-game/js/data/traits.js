@@ -266,6 +266,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.strength >= 7 && a.luck >= 6,
     weight: 2,
     statBonuses: { attack: 2, critChance: 2 }
+  },
+  silentStep: {
+    id: 'silentStep',
+    name: 'Silent Step',
+    flavor: 'Floorboards stopped creaking under you years ago. Guards keep swearing the door was already open.',
+    tags: ['rogue'],
+    secretClass: 'ninja',
+    requirement: (a) => a.agility >= 7 && a.luck >= 6,
+    weight: 2,
+    statBonuses: { critChance: 3, attack: 1 }
   }
 };
 
