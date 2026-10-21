@@ -46,6 +46,7 @@
 //   Peasant -> Druid -> ??? (tier 1 only so far)
 //   Peasant -> Pirate -> ??? (tier 1 only so far)
 //   Peasant -> Ninja -> ??? (tier 1 only so far)
+//   Peasant -> Blood Mage -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -875,6 +876,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['katana', 'dagger'],
     bonusActivityIds: []
   },
+  bloodmage: {
+    id: 'bloodmage',
+    name: 'Blood Mage',
+    flavor: 'A blood mage never runs out of power -- only out of patience for how much the next spell is going to cost.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { intellect: 7, strength: 6 },
+    requiredTrait: 'crimsonPact',
+    statScaling: { attack: 0.5, defense: 0.4, magicPower: 1.25, critChance: 0.6 },
+    allowedWeaponTypes: ['dagger', 'staff'],
+    bonusActivityIds: ['study']
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1184,4 +1197,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage'];

@@ -276,6 +276,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.agility >= 7 && a.luck >= 6,
     weight: 2,
     statBonuses: { critChance: 3, attack: 1 }
+  },
+  crimsonPact: {
+    id: 'crimsonPact',
+    name: 'Crimson Pact',
+    flavor: 'Every cut you take hums for a moment before it closes. You\'ve started to wonder what it\'s trying to say.',
+    tags: ['mage'],
+    secretClass: 'bloodmage',
+    requirement: (a) => a.intellect >= 7 && a.strength >= 6,
+    weight: 2,
+    statBonuses: { magicPower: 3, attack: 1 }
   }
 };
 
