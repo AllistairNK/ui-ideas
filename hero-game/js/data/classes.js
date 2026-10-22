@@ -47,6 +47,7 @@
 //   Peasant -> Pirate -> ??? (tier 1 only so far)
 //   Peasant -> Ninja -> ??? (tier 1 only so far)
 //   Peasant -> Blood Mage -> ??? (tier 1 only so far)
+//   Peasant -> Berserker -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -888,6 +889,20 @@ export const CLASSES = {
     allowedWeaponTypes: ['dagger', 'staff'],
     bonusActivityIds: ['study']
   },
+  berserker: {
+    id: 'berserker',
+    name: 'Berserker',
+    flavor: 'A berserker doesn\'t feel the wounds -- just the moment each one makes the next swing heavier.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { strength: 7, vitality: 6 },
+    requiredTrait: 'battleFury',
+    statScaling: { attack: 1.15, defense: 0.55, magicPower: 0.05, critChance: 0.6 },
+    allowedWeaponTypes: ['axe', 'hammer'],
+    bonusActivityIds: [],
+    // Bonus damage once HP drops to half or below (see rageMultiplier in combat.js).
+    rage: { hpThreshold: 0.5, damageMultiplier: 1.35 }
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1197,4 +1212,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker'];

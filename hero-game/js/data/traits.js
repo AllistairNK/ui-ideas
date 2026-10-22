@@ -286,6 +286,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.intellect >= 7 && a.strength >= 6,
     weight: 2,
     statBonuses: { magicPower: 3, attack: 1 }
+  },
+  battleFury: {
+    id: 'battleFury',
+    name: 'Battle Fury',
+    flavor: 'The first hit always makes you angry. You\'ve noticed the second one makes you better.',
+    tags: ['fighter'],
+    secretClass: 'berserker',
+    requirement: (a) => a.strength >= 7 && a.vitality >= 6,
+    weight: 2,
+    statBonuses: { attack: 3, maxHp: 4 }
   }
 };
 

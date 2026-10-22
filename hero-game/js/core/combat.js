@@ -46,7 +46,7 @@ function toCombatant(name, derived) {
   };
 }
 
-function resolveAttack(attacker, defender, rng, log) {
+function resolveAttack(attacker, defender, rng, log, damageMultiplier = 1) {
   const hitRoll = rng() * 100;
   const hitChance = Math.max(10, Math.min(95, attacker.accuracy - defender.evasion));
   if (hitRoll > hitChance) {
@@ -57,7 +57,7 @@ function resolveAttack(attacker, defender, rng, log) {
   const isCrit = critRoll < attacker.critChance;
   const variance = 0.85 + rng() * 0.3;
   const baseDamage = Math.max(1, attacker.attack - defender.defense * 0.5);
-  const damage = Math.max(1, Math.round(baseDamage * variance * (isCrit ? 1.5 : 1)));
+  const damage = Math.max(1, Math.round(baseDamage * variance * (isCrit ? 1.5 : 1) * damageMultiplier));
   defender.hp = Math.max(0, defender.hp - damage);
   log.push(`${attacker.name} hits ${defender.name} for ${damage}${isCrit ? ' (critical!)' : ''}.`);
 }
@@ -78,13 +78,26 @@ function resolveBlessing(deityDef, hero, foe, rng, log) {
   }
 }
 
-// Pure function: two stat snapshots + a seed (+ optional familiar and deity
-// defs) in, a result out.
-export function resolveCombat(heroDerived, opponent, seed = Date.now(), familiarDef = null, deityDef = null) {
+// A class's `rage` (see classes.js, e.g. berserker) multiplies the hero's
+// damage while their HP is at or below hpThreshold of max. Logs once, the
+// first time it kicks in.
+function rageMultiplier(rage, hero, state, log) {
+  if (!rage || hero.hp > hero.maxHp * rage.hpThreshold) return 1;
+  if (!state.raging) {
+    state.raging = true;
+    log.push('Pain sharpens into fury -- your blows land harder.');
+  }
+  return rage.damageMultiplier;
+}
+
+// Pure function: two stat snapshots + a seed (+ optional familiar, deity and
+// class defs) in, a result out.
+export function resolveCombat(heroDerived, opponent, seed = Date.now(), familiarDef = null, deityDef = null, classDef = null) {
   const rng = mulberry32(seed);
   const hero = toCombatant('You', heroDerived);
   const foe = { ...opponent };
   const log = [];
+  const rageState = { raging: false };
 
   let rounds = 0;
   const maxRounds = 30;
@@ -95,7 +108,8 @@ export function resolveCombat(heroDerived, opponent, seed = Date.now(), familiar
     for (const attacker of order) {
       const defender = attacker === hero ? foe : hero;
       if (hero.hp <= 0 || foe.hp <= 0) break;
-      resolveAttack(attacker, defender, rng, log);
+      const multiplier = attacker === hero && classDef ? rageMultiplier(classDef.rage, hero, rageState, log) : 1;
+      resolveAttack(attacker, defender, rng, log, multiplier);
       if (attacker === hero && familiarDef && foe.hp > 0 && rng() < familiarDef.procChance) {
         foe.hp = Math.max(0, foe.hp - familiarDef.procDamage);
         log.push(`${familiarDef.name} lunges in for ${familiarDef.procDamage} extra damage.`);

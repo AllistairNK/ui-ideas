@@ -111,7 +111,7 @@ function runSpar(activityId) {
 
   const opponent = generateOpponent(character.level);
   const familiarDef = character.familiar ? FAMILIAR_TEMPLATES[character.familiar.id] : null;
-  const result = resolveCombat(character.derived, opponent, Date.now(), familiarDef, getDeity(character));
+  const result = resolveCombat(character.derived, opponent, Date.now(), familiarDef, getDeity(character), CLASSES[character.class]);
 
   let rewardsSummary = '';
   if (result.outcome === 'win') {
