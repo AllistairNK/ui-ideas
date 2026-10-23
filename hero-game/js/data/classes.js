@@ -48,6 +48,7 @@
 //   Peasant -> Ninja -> ??? (tier 1 only so far)
 //   Peasant -> Blood Mage -> ??? (tier 1 only so far)
 //   Peasant -> Berserker -> ??? (tier 1 only so far)
+//   Peasant -> Gladiator -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -903,6 +904,20 @@ export const CLASSES = {
     // Bonus damage once HP drops to half or below (see rageMultiplier in combat.js).
     rage: { hpThreshold: 0.5, damageMultiplier: 1.35 }
   },
+  gladiator: {
+    id: 'gladiator',
+    name: 'Gladiator',
+    flavor: 'A gladiator never fights just to win -- the crowd paid to see how, and they always get their money\'s worth.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { strength: 7, agility: 6 },
+    requiredTrait: 'crowdsFavor',
+    statScaling: { attack: 1.05, defense: 0.75, magicPower: 0.1, critChance: 0.75 },
+    allowedWeaponTypes: ['sword', 'spear', 'gauntlet'],
+    bonusActivityIds: [],
+    // Extra xp/gold from winning a spar (see runSpar in main.js).
+    sparBonus: { xpMultiplier: 1.5, goldMultiplier: 1.5 }
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1212,4 +1227,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator'];

@@ -296,6 +296,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.strength >= 7 && a.vitality >= 6,
     weight: 2,
     statBonuses: { attack: 3, maxHp: 4 }
+  },
+  crowdsFavor: {
+    id: 'crowdsFavor',
+    name: "Crowd's Favor",
+    flavor: 'Fights you\'re in draw an audience. You\'ve started fighting a little better whenever someone\'s watching.',
+    tags: ['fighter'],
+    secretClass: 'gladiator',
+    requirement: (a) => a.strength >= 7 && a.agility >= 6,
+    weight: 2,
+    statBonuses: { attack: 2, critChance: 2 }
   }
 };
 

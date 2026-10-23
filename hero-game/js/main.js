@@ -115,16 +115,21 @@ function runSpar(activityId) {
 
   let rewardsSummary = '';
   if (result.outcome === 'win') {
+    // Classes with `sparBonus` (see classes.js, e.g. gladiator) earn more from
+    // winning a spar -- the crowd pays for a show.
+    const sparBonus = CLASSES[character.class].sparBonus;
+    const xpGain = Math.round(activity.rewards.xp * ((sparBonus && sparBonus.xpMultiplier) || 1));
+    const goldGain = Math.round(activity.rewards.gold * ((sparBonus && sparBonus.goldMultiplier) || 1));
     character.derived.hp = result.heroHpRemaining;
-    character.currency.gold += activity.rewards.gold;
+    character.currency.gold += goldGain;
     const loot = rollLoot(activity.rewards.lootTableId);
     let lootLine = '';
     if (loot) {
       addToInventory(character, loot);
       lootLine = ` + ${ITEM_TEMPLATES[loot.templateId].name}`;
     }
-    const levelResult = addXp(character, activity.rewards.xp);
-    rewardsSummary = `+${activity.rewards.xp}xp, +${activity.rewards.gold}g${lootLine}`;
+    const levelResult = addXp(character, xpGain);
+    rewardsSummary = `+${xpGain}xp, +${goldGain}g${lootLine}${sparBonus ? ' (the crowd roars)' : ''}`;
     if (levelResult.leveledUp) {
       showToast(`Level up! Now level ${character.level}.`, 'success');
       notifyIfClassAdvancementAvailable();
