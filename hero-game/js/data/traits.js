@@ -306,6 +306,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.strength >= 7 && a.agility >= 6,
     weight: 2,
     statBonuses: { attack: 2, critChance: 2 }
+  },
+  hexwoven: {
+    id: 'hexwoven',
+    name: 'Hexwoven',
+    flavor: 'You never raise your voice to curse someone. The quiet ones are the ones that actually take.',
+    tags: ['mage'],
+    secretClass: 'witch',
+    requirement: (a) => a.intellect >= 6 && a.luck >= 7,
+    weight: 2,
+    statBonuses: { magicPower: 2, critChance: 2 }
   }
 };
 

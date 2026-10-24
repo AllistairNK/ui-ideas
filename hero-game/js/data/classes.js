@@ -49,6 +49,7 @@
 //   Peasant -> Blood Mage -> ??? (tier 1 only so far)
 //   Peasant -> Berserker -> ??? (tier 1 only so far)
 //   Peasant -> Gladiator -> ??? (tier 1 only so far)
+//   Peasant -> Witch -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -918,6 +919,18 @@ export const CLASSES = {
     // Extra xp/gold from winning a spar (see runSpar in main.js).
     sparBonus: { xpMultiplier: 1.5, goldMultiplier: 1.5 }
   },
+  witch: {
+    id: 'witch',
+    name: 'Witch',
+    flavor: 'A witch never curses in anger -- the ones that land are always the ones said calmly.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { intellect: 6, luck: 7 },
+    requiredTrait: 'hexwoven',
+    statScaling: { attack: 0.4, defense: 0.45, magicPower: 1.1, critChance: 0.8 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study']
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1227,4 +1240,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch'];
