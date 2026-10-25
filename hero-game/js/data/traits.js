@@ -316,6 +316,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.intellect >= 6 && a.luck >= 7,
     weight: 2,
     statBonuses: { magicPower: 2, critChance: 2 }
+  },
+  featherstep: {
+    id: 'featherstep',
+    name: 'Featherstep',
+    flavor: 'Your weight never quite commits to the ground. Footing that would trip anyone else just isn\'t a problem you have.',
+    tags: ['rogue'],
+    secretClass: 'dancer',
+    requirement: (a) => a.agility >= 7 && a.luck >= 6,
+    weight: 2,
+    statBonuses: { critChance: 2, defense: 1 }
   }
 };
 

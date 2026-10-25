@@ -50,6 +50,7 @@
 //   Peasant -> Berserker -> ??? (tier 1 only so far)
 //   Peasant -> Gladiator -> ??? (tier 1 only so far)
 //   Peasant -> Witch -> ??? (tier 1 only so far)
+//   Peasant -> Dancer -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -931,6 +932,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['staff', 'dagger'],
     bonusActivityIds: ['study']
   },
+  dancer: {
+    id: 'dancer',
+    name: 'Dancer',
+    flavor: 'A dancer is never where the strike expects them to be -- they left that spot a half-beat before the swing started.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { agility: 7, luck: 6 },
+    requiredTrait: 'featherstep',
+    statScaling: { attack: 0.7, defense: 0.4, magicPower: 0.2, critChance: 1.15 },
+    allowedWeaponTypes: ['dagger', 'gauntlet'],
+    bonusActivityIds: []
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1240,4 +1253,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer'];
