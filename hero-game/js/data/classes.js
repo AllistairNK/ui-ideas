@@ -51,6 +51,7 @@
 //   Peasant -> Gladiator -> ??? (tier 1 only so far)
 //   Peasant -> Witch -> ??? (tier 1 only so far)
 //   Peasant -> Dancer -> ??? (tier 1 only so far)
+//   Peasant -> Illusionist -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -944,6 +945,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['dagger', 'gauntlet'],
     bonusActivityIds: []
   },
+  illusionist: {
+    id: 'illusionist',
+    name: 'Illusionist',
+    flavor: 'An illusionist never dodges the blow -- they just make sure the blow never agreed on where they were standing.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { intellect: 6, luck: 6 },
+    requiredTrait: 'mirrorMind',
+    statScaling: { attack: 0.35, defense: 0.4, magicPower: 1.05, critChance: 0.95 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study']
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1253,4 +1266,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist'];

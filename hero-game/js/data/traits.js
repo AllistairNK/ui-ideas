@@ -326,6 +326,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.agility >= 7 && a.luck >= 6,
     weight: 2,
     statBonuses: { critChance: 2, defense: 1 }
+  },
+  mirrorMind: {
+    id: 'mirrorMind',
+    name: 'Mirror Mind',
+    flavor: 'What people see when they look at you is usually a half-step behind what\'s actually there.',
+    tags: ['mage'],
+    secretClass: 'illusionist',
+    requirement: (a) => a.intellect >= 6 && a.luck >= 6,
+    weight: 2,
+    statBonuses: { magicPower: 2, critChance: 2 }
   }
 };
 
