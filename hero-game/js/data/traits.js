@@ -336,6 +336,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.intellect >= 6 && a.luck >= 6,
     weight: 2,
     statBonuses: { magicPower: 2, critChance: 2 }
+  },
+  skyborne: {
+    id: 'skyborne',
+    name: 'Skyborne',
+    flavor: 'You\'ve always jumped higher than you should, and landed harder than anyone standing under you would like.',
+    tags: ['fighter'],
+    secretClass: 'dragoon',
+    requirement: (a) => a.strength >= 7 && a.agility >= 7,
+    weight: 2,
+    statBonuses: { attack: 2, critChance: 1 }
   }
 };
 

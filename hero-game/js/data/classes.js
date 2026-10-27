@@ -52,6 +52,7 @@
 //   Peasant -> Witch -> ??? (tier 1 only so far)
 //   Peasant -> Dancer -> ??? (tier 1 only so far)
 //   Peasant -> Illusionist -> ??? (tier 1 only so far)
+//   Peasant -> Dragoon -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -957,6 +958,21 @@ export const CLASSES = {
     allowedWeaponTypes: ['staff', 'dagger'],
     bonusActivityIds: ['study']
   },
+  dragoon: {
+    id: 'dragoon',
+    name: 'Dragoon',
+    flavor: 'A dragoon never fights on level ground -- by the time you look up, the spear is already on its way down.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { strength: 7, agility: 7 },
+    requiredTrait: 'skyborne',
+    statScaling: { attack: 1.1, defense: 0.65, magicPower: 0.1, critChance: 0.7 },
+    allowedWeaponTypes: ['spear'],
+    bonusActivityIds: [],
+    // Every Nth round the hero's attack is a leap that deals bonus damage
+    // (see jumpMultiplier in combat.js).
+    jump: { everyNRounds: 3, damageMultiplier: 2 }
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1266,4 +1282,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon'];

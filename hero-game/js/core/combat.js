@@ -90,6 +90,14 @@ function rageMultiplier(rage, hero, state, log) {
   return rage.damageMultiplier;
 }
 
+// A class's `jump` (see classes.js, e.g. dragoon) turns every Nth round's
+// attack into a leap that multiplies the hero's damage.
+function jumpMultiplier(jump, round, log) {
+  if (!jump || round % jump.everyNRounds !== 0) return 1;
+  log.push('You leap high into the air and come crashing down, spear first!');
+  return jump.damageMultiplier;
+}
+
 // Pure function: two stat snapshots + a seed (+ optional familiar, deity and
 // class defs) in, a result out.
 export function resolveCombat(heroDerived, opponent, seed = Date.now(), familiarDef = null, deityDef = null, classDef = null) {
@@ -108,7 +116,9 @@ export function resolveCombat(heroDerived, opponent, seed = Date.now(), familiar
     for (const attacker of order) {
       const defender = attacker === hero ? foe : hero;
       if (hero.hp <= 0 || foe.hp <= 0) break;
-      const multiplier = attacker === hero && classDef ? rageMultiplier(classDef.rage, hero, rageState, log) : 1;
+      const multiplier = attacker === hero && classDef
+        ? rageMultiplier(classDef.rage, hero, rageState, log) * jumpMultiplier(classDef.jump, rounds, log)
+        : 1;
       resolveAttack(attacker, defender, rng, log, multiplier);
       if (attacker === hero && familiarDef && foe.hp > 0 && rng() < familiarDef.procChance) {
         foe.hp = Math.max(0, foe.hp - familiarDef.procDamage);
