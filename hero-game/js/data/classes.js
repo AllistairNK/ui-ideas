@@ -15,6 +15,7 @@
 //                    -> Fire Mage (tier 2 only so far)
 //                    -> Wind Mage (tier 2 only so far)
 //                    -> Space Mage (tier 2 only so far)
+//                    -> Earth Mage (tier 2 only so far)
 //   Peasant -> Rogue -> Shadowblade -> Assassin -> Nightstalker -> Wraith -> Umbral Sovereign
 //
 // Secret (SECRET_CLASS_IDS, gated by attribute reqs +/- a hidden trait):
@@ -153,7 +154,8 @@ export const CLASSES = {
       { classId: 'watermage', unlockLevel: 15 },
       { classId: 'firemage', unlockLevel: 15 },
       { classId: 'windmage', unlockLevel: 15 },
-      { classId: 'spacemage', unlockLevel: 15 }
+      { classId: 'spacemage', unlockLevel: 15 },
+      { classId: 'earthmage', unlockLevel: 15 }
     ]
   },
   conjurer: {
@@ -255,6 +257,16 @@ export const CLASSES = {
     evolvesFrom: 'mage',
     statScaling: { attack: 0.4, defense: 0.45, magicPower: 1.5, critChance: 0.7 },
     allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study']
+  },
+  earthmage: {
+    id: 'earthmage',
+    name: 'Earth Mage',
+    flavor: 'An earth mage never moves out of the way -- the ground just rises to meet whatever was coming.',
+    tier: 2,
+    evolvesFrom: 'mage',
+    statScaling: { attack: 0.45, defense: 0.9, magicPower: 1.3, critChance: 0.4 },
+    allowedWeaponTypes: ['staff', 'hammer'],
     bonusActivityIds: ['study']
   },
   warlock: {
