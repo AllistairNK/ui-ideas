@@ -2534,6 +2534,8 @@ export const SHOP_ITEM_IDS = Object.keys(ITEM_TEMPLATES).filter((id) => !ITEM_TE
 // this one number rather than every item's value.
 export const SHOP_PRICE_MULTIPLIER = 6;
 
-export function shopPrice(template) {
-  return Math.round(template.value * SHOP_PRICE_MULTIPLIER);
+// Classes with `trade.shopDiscount` (see classes.js, e.g. merchant) pay less.
+export function shopPrice(template, classDef = null) {
+  const discount = (classDef && classDef.trade && classDef.trade.shopDiscount) || 0;
+  return Math.round(template.value * SHOP_PRICE_MULTIPLIER * (1 - discount));
 }

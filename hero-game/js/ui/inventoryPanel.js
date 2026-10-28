@@ -1,4 +1,5 @@
 import { ITEM_TEMPLATES, SHOP_ITEM_IDS, shopPrice } from '../data/items.js';
+import { CLASSES } from '../data/classes.js';
 import { renderItemIconDataUrl } from '../core/itemIcon.js';
 import { attachRichTooltips } from './richTooltip.js';
 
@@ -112,7 +113,7 @@ export function renderInventoryPanel(character, handlers) {
       const template = ITEM_TEMPLATES[itemId];
       const iconUrl = renderItemIconDataUrl(itemId, 40);
       const owned = ownedTemplateIds.has(itemId);
-      const price = shopPrice(template);
+      const price = shopPrice(template, CLASSES[character.class]);
       const affordable = character.currency.gold >= price;
       const priceClass = owned ? '' : (affordable ? '' : ' shop-price-unaffordable');
       return `

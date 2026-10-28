@@ -1,5 +1,6 @@
 import { ACTIVITIES, IDLE_ELIGIBLE_ACTIVITY_IDS } from '../data/activities.js';
 import { ITEM_TEMPLATES } from '../data/items.js';
+import { CLASSES } from '../data/classes.js';
 import { addXp, computeDerivedStats, applyAttributeTraining, addApprenticeshipXp } from './character.js';
 import { addToInventory, rollLoot } from './equipment.js';
 import { grantTrait } from '../data/traits.js';
@@ -19,9 +20,13 @@ export function isActivityUnlocked(character, activityId) {
 // "15 stamina, +8xp per 20s") -- this spreads that same balance across every
 // second continuously, which is what lets stat/xp/stamina bars visibly tick
 // up in real time instead of jumping once per cycle.
-export function getActivityRates(activity) {
+//
+// Classes with `trade.goldMultiplier` (see classes.js, e.g. merchant) earn
+// more of the activity's gold reward (costs are unaffected).
+export function getActivityRates(activity, classDef = null) {
   const duration = activity.durationSeconds > 0 ? activity.durationSeconds : 1;
   const rewards = activity.rewards;
+  const goldMultiplier = (classDef && classDef.trade && classDef.trade.goldMultiplier) || 1;
   const attributeRatesPerSec = {};
   for (const [attr, amount] of Object.entries(rewards.attributeTraining || {})) {
     attributeRatesPerSec[attr] = amount / duration;
@@ -30,7 +35,7 @@ export function getActivityRates(activity) {
     staminaCostPerSec: (activity.costs.stamina || 0) / duration,
     goldCostPerSec: (activity.costs.gold || 0) / duration,
     xpPerSec: (rewards.xp || 0) / duration,
-    goldPerSec: (rewards.gold || 0) / duration,
+    goldPerSec: (rewards.gold || 0) * goldMultiplier / duration,
     staminaGainPerSec: (rewards.staminaDelta || 0) / duration,
     hpGainPerSec: (rewards.hpDelta || 0) / duration,
     attributeRatesPerSec
@@ -116,7 +121,7 @@ export function tickActivity(character, elapsedMs = 1000) {
     return null;
   }
 
-  const rates = getActivityRates(activity);
+  const rates = getActivityRates(activity, CLASSES[character.class]);
   let seconds = elapsedMs / 1000;
   if (rates.staminaCostPerSec > 0) seconds = Math.min(seconds, character.derived.stamina / rates.staminaCostPerSec);
   if (rates.goldCostPerSec > 0) seconds = Math.min(seconds, character.currency.gold / rates.goldCostPerSec);

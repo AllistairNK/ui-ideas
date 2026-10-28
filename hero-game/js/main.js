@@ -191,7 +191,7 @@ function handleBuy(itemId) {
     showToast('You already own this item.', 'error');
     return;
   }
-  const price = shopPrice(template);
+  const price = shopPrice(template, CLASSES[character.class]);
   if (character.currency.gold < price) {
     showToast('Not enough gold.', 'error');
     return;

@@ -31,7 +31,7 @@ function pct(value, max) {
 function computeLiveNumbers(character) {
   const d = character.derived;
   const currentActivity = character.activity ? ACTIVITIES[character.activity.id] : null;
-  const activityRates = currentActivity && currentActivity.durationSeconds > 0 ? getActivityRates(currentActivity) : null;
+  const activityRates = currentActivity && currentActivity.durationSeconds > 0 ? getActivityRates(currentActivity, CLASSES[character.class]) : null;
   const staminaRate = currentStaminaRatePerSec(character);
   const goldRate = activityRates ? activityRates.goldPerSec - activityRates.goldCostPerSec : 0;
 

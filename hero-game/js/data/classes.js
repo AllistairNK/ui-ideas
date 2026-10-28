@@ -53,6 +53,7 @@
 //   Peasant -> Dancer -> ??? (tier 1 only so far)
 //   Peasant -> Illusionist -> ??? (tier 1 only so far)
 //   Peasant -> Dragoon -> ??? (tier 1 only so far)
+//   Peasant -> Merchant -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -973,6 +974,21 @@ export const CLASSES = {
     // (see jumpMultiplier in combat.js).
     jump: { everyNRounds: 3, damageMultiplier: 2 }
   },
+  merchant: {
+    id: 'merchant',
+    name: 'Merchant',
+    flavor: 'A merchant never pays the asking price -- the first number anyone says out loud is just where the conversation starts.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { luck: 7, intellect: 7 },
+    requiredTrait: 'hagglersEye',
+    statScaling: { attack: 0.6, defense: 0.55, magicPower: 0.3, critChance: 0.9 },
+    allowedWeaponTypes: ['dagger', 'gun'],
+    bonusActivityIds: [],
+    // Cheaper shop prices (see shopPrice in items.js) and extra gold from
+    // timed activities (see getActivityRates in activityEngine.js).
+    trade: { shopDiscount: 0.2, goldMultiplier: 1.25 }
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1282,4 +1298,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant'];

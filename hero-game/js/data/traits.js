@@ -346,6 +346,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.strength >= 7 && a.agility >= 7,
     weight: 2,
     statBonuses: { attack: 2, critChance: 1 }
+  },
+  hagglersEye: {
+    id: 'hagglersEye',
+    name: 'Haggler\'s Eye',
+    flavor: 'You can tell what something is really worth at a glance -- and, more usefully, what the seller thinks it\'s worth.',
+    tags: ['rogue'],
+    secretClass: 'merchant',
+    requirement: (a) => a.luck >= 7 && a.intellect >= 7,
+    weight: 2,
+    statBonuses: { critChance: 2, defense: 1 }
   }
 };
 
