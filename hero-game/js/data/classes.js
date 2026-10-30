@@ -55,6 +55,7 @@
 //   Peasant -> Illusionist -> ??? (tier 1 only so far)
 //   Peasant -> Dragoon -> ??? (tier 1 only so far)
 //   Peasant -> Merchant -> ??? (tier 1 only so far)
+//   Peasant -> Avatar -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -1001,6 +1002,18 @@ export const CLASSES = {
     // timed activities (see getActivityRates in activityEngine.js).
     trade: { shopDiscount: 0.2, goldMultiplier: 1.25 }
   },
+  avatar: {
+    id: 'avatar',
+    name: 'Avatar',
+    flavor: 'An avatar doesn\'t choose an element to answer with -- whichever one the moment needs was already theirs to begin with.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { intellect: 7, agility: 6, vitality: 7 },
+    requiredTrait: 'elementalHarmony',
+    statScaling: { attack: 0.7, defense: 0.7, magicPower: 0.9, critChance: 0.7 },
+    allowedWeaponTypes: ['staff', 'gauntlet'],
+    bonusActivityIds: ['study']
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1310,4 +1323,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar'];

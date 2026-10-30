@@ -356,6 +356,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.luck >= 7 && a.intellect >= 7,
     weight: 2,
     statBonuses: { critChance: 2, defense: 1 }
+  },
+  elementalHarmony: {
+    id: 'elementalHarmony',
+    name: 'Elemental Harmony',
+    flavor: 'Fire, water, earth, air -- none of them refuse you. They never really explained why.',
+    tags: ['mage'],
+    secretClass: 'avatar',
+    requirement: (a) => a.intellect >= 7 && a.agility >= 6 && a.vitality >= 7,
+    weight: 1,
+    statBonuses: { magicPower: 2, defense: 1, attack: 1 }
   }
 };
 
