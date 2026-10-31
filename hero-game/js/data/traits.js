@@ -366,6 +366,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.intellect >= 7 && a.agility >= 6 && a.vitality >= 7,
     weight: 1,
     statBonuses: { magicPower: 2, defense: 1, attack: 1 }
+  },
+  graveWhisper: {
+    id: 'graveWhisper',
+    name: 'Grave Whisper',
+    flavor: 'The dead don\'t answer you out loud. They just stop staying where they were put.',
+    tags: ['mage'],
+    secretClass: 'necromancer',
+    requirement: (a) => a.intellect >= 7 && a.luck >= 6,
+    weight: 2,
+    statBonuses: { magicPower: 3 }
   }
 };
 

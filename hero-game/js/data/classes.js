@@ -56,6 +56,7 @@
 //   Peasant -> Dragoon -> ??? (tier 1 only so far)
 //   Peasant -> Merchant -> ??? (tier 1 only so far)
 //   Peasant -> Avatar -> ??? (tier 1 only so far)
+//   Peasant -> Necromancer -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -1014,6 +1015,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['staff', 'gauntlet'],
     bonusActivityIds: ['study']
   },
+  necromancer: {
+    id: 'necromancer',
+    name: 'Necromancer',
+    flavor: 'A necromancer never fights alone -- the grave\'s just slower to excuse itself from a conversation than the living are.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { intellect: 7, luck: 6 },
+    requiredTrait: 'graveWhisper',
+    statScaling: { attack: 0.3, defense: 0.45, magicPower: 1.3, critChance: 0.55 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study']
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1323,4 +1336,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer'];
