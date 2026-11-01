@@ -57,6 +57,7 @@
 //   Peasant -> Merchant -> ??? (tier 1 only so far)
 //   Peasant -> Avatar -> ??? (tier 1 only so far)
 //   Peasant -> Necromancer -> ??? (tier 1 only so far)
+//   Peasant -> Gunslinger -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -1027,6 +1028,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['staff', 'dagger'],
     bonusActivityIds: ['study']
   },
+  gunslinger: {
+    id: 'gunslinger',
+    name: 'Gunslinger',
+    flavor: 'A gunslinger never draws first -- they just finish first, and nobody watching can tell the difference.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { agility: 7, luck: 6 },
+    requiredTrait: 'quickdraw',
+    statScaling: { attack: 1.0, defense: 0.4, magicPower: 0.1, critChance: 1.1 },
+    allowedWeaponTypes: ['gun'],
+    bonusActivityIds: []
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1336,4 +1349,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger'];

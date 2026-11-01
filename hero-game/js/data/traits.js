@@ -376,6 +376,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.intellect >= 7 && a.luck >= 6,
     weight: 2,
     statBonuses: { magicPower: 3 }
+  },
+  quickdraw: {
+    id: 'quickdraw',
+    name: 'Quickdraw',
+    flavor: 'The shot\'s already fired by the time anyone\'s eyes catch the hand moving.',
+    tags: ['rogue'],
+    secretClass: 'gunslinger',
+    requirement: (a) => a.agility >= 7 && a.luck >= 6,
+    weight: 2,
+    statBonuses: { attack: 2, critChance: 2 }
   }
 };
 
