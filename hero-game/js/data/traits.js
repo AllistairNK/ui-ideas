@@ -386,6 +386,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.agility >= 7 && a.luck >= 6,
     weight: 2,
     statBonuses: { attack: 2, critChance: 2 }
+  },
+  boundPact: {
+    id: 'boundPact',
+    name: 'Bound Pact',
+    flavor: 'Something on the other side of the circle agreed to the terms. You\'re still not sure which of you proposed them first.',
+    tags: ['mage'],
+    secretClass: 'summoner',
+    requirement: (a) => a.intellect >= 7 && a.vitality >= 6,
+    weight: 2,
+    statBonuses: { magicPower: 2, maxHp: 4 }
   }
 };
 

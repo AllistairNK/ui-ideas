@@ -58,6 +58,7 @@
 //   Peasant -> Avatar -> ??? (tier 1 only so far)
 //   Peasant -> Necromancer -> ??? (tier 1 only so far)
 //   Peasant -> Gunslinger -> ??? (tier 1 only so far)
+//   Peasant -> Summoner -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -1040,6 +1041,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['gun'],
     bonusActivityIds: []
   },
+  summoner: {
+    id: 'summoner',
+    name: 'Summoner',
+    flavor: 'A summoner never fights the first exchange -- whatever answered the circle already has that handled.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { intellect: 7, vitality: 6 },
+    requiredTrait: 'boundPact',
+    statScaling: { attack: 0.35, defense: 0.55, magicPower: 1.15, critChance: 0.55 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study']
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1349,4 +1362,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger', 'summoner'];
