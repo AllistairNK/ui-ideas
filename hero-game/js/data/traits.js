@@ -396,6 +396,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.intellect >= 7 && a.vitality >= 6,
     weight: 2,
     statBonuses: { magicPower: 2, maxHp: 4 }
+  },
+  foolsLuck: {
+    id: 'foolsLuck',
+    name: 'Fool\'s Luck',
+    flavor: 'The bad roll somehow lands right side up every time it\'s yours to make.',
+    tags: ['rogue'],
+    secretClass: 'jester',
+    requirement: (a) => a.luck >= 8,
+    weight: 2,
+    statBonuses: { critChance: 3 }
   }
 };
 
