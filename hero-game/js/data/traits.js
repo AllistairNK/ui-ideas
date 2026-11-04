@@ -406,6 +406,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.luck >= 8,
     weight: 2,
     statBonuses: { critChance: 3 }
+  },
+  crimsonThirst: {
+    id: 'crimsonThirst',
+    name: 'Crimson Thirst',
+    flavor: 'Every wound you deal gives something back. You stopped wondering what, exactly, a while ago.',
+    tags: ['rogue'],
+    secretClass: 'vampire',
+    requirement: (a) => a.agility >= 6 && a.intellect >= 6,
+    weight: 2,
+    statBonuses: { attack: 2, maxHp: 4 }
   }
 };
 
