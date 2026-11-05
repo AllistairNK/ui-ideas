@@ -61,6 +61,7 @@
 //   Peasant -> Summoner -> ??? (tier 1 only so far)
 //   Peasant -> Jester -> ??? (tier 1 only so far)
 //   Peasant -> Vampire -> ??? (tier 1 only so far)
+//   Peasant -> Werewolf -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -1081,6 +1082,20 @@ export const CLASSES = {
     // Heals a portion of damage dealt back as HP (see lifestealMultiplier in combat.js).
     lifesteal: { percent: 0.15 }
   },
+  werewolf: {
+    id: 'werewolf',
+    name: 'Werewolf',
+    flavor: 'A werewolf never loses the fight on purpose -- the change just makes sure losing stops being an option.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { strength: 7, vitality: 6 },
+    requiredTrait: 'feralBlood',
+    statScaling: { attack: 1.05, defense: 0.6, magicPower: 0.05, critChance: 0.85 },
+    allowedWeaponTypes: ['gauntlet'],
+    bonusActivityIds: [],
+    // Bonus crit chance once HP drops below the threshold (see feralCritBonus in combat.js).
+    feral: { hpThreshold: 0.4, critChanceBonus: 20 }
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1390,4 +1405,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger', 'summoner', 'jester', 'vampire'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger', 'summoner', 'jester', 'vampire', 'werewolf'];

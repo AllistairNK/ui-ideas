@@ -416,6 +416,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.agility >= 6 && a.intellect >= 6,
     weight: 2,
     statBonuses: { attack: 2, maxHp: 4 }
+  },
+  feralBlood: {
+    id: 'feralBlood',
+    name: 'Feral Blood',
+    flavor: 'Something underneath your skin answers to the moon more than it answers to you.',
+    tags: ['fighter'],
+    secretClass: 'werewolf',
+    requirement: (a) => a.strength >= 7 && a.vitality >= 6,
+    weight: 2,
+    statBonuses: { attack: 2, maxHp: 5 }
   }
 };
 
