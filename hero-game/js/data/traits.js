@@ -426,6 +426,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.strength >= 7 && a.vitality >= 6,
     weight: 2,
     statBonuses: { attack: 2, maxHp: 5 }
+  },
+  perfectForm: {
+    id: 'perfectForm',
+    name: 'Perfect Form',
+    flavor: 'Every stance you take is already the one that wins. You just haven\'t needed to prove it to everyone yet.',
+    tags: ['rogue'],
+    secretClass: 'duelist',
+    requirement: (a) => a.agility >= 7 && a.vitality >= 6,
+    weight: 2,
+    statBonuses: { critChance: 2, attack: 1 }
   }
 };
 

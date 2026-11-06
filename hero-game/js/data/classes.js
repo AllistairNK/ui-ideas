@@ -62,6 +62,7 @@
 //   Peasant -> Jester -> ??? (tier 1 only so far)
 //   Peasant -> Vampire -> ??? (tier 1 only so far)
 //   Peasant -> Werewolf -> ??? (tier 1 only so far)
+//   Peasant -> Duelist -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -1096,6 +1097,18 @@ export const CLASSES = {
     // Bonus crit chance once HP drops below the threshold (see feralCritBonus in combat.js).
     feral: { hpThreshold: 0.4, critChanceBonus: 20 }
   },
+  duelist: {
+    id: 'duelist',
+    name: 'Duelist',
+    flavor: 'A duelist never swings twice -- the first cut was already the only one that mattered.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { agility: 7, vitality: 6 },
+    requiredTrait: 'perfectForm',
+    statScaling: { attack: 0.95, defense: 0.45, magicPower: 0.1, critChance: 1.15 },
+    allowedWeaponTypes: ['sword', 'dagger'],
+    bonusActivityIds: []
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1405,4 +1418,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger', 'summoner', 'jester', 'vampire', 'werewolf'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger', 'summoner', 'jester', 'vampire', 'werewolf', 'duelist'];
