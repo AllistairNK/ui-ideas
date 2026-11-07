@@ -436,6 +436,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.agility >= 7 && a.vitality >= 6,
     weight: 2,
     statBonuses: { critChance: 2, attack: 1 }
+  },
+  forgeTouched: {
+    id: 'forgeTouched',
+    name: 'Forge-Touched',
+    flavor: 'The metal tells you what it wants to be before the hammer ever comes down.',
+    tags: ['fighter'],
+    secretClass: 'blacksmith',
+    requirement: (a) => a.strength >= 7 && a.luck >= 6,
+    weight: 2,
+    statBonuses: { defense: 2, attack: 1 }
   }
 };
 
