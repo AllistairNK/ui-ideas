@@ -446,6 +446,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.strength >= 7 && a.luck >= 6,
     weight: 2,
     statBonuses: { defense: 2, attack: 1 }
+  },
+  trackersInstinct: {
+    id: 'trackersInstinct',
+    name: "Tracker's Instinct",
+    flavor: 'You don\'t follow the trail so much as already know where it\'s going to stop.',
+    tags: ['rogue'],
+    secretClass: 'hunter',
+    requirement: (a) => a.agility >= 7 && a.intellect >= 6,
+    weight: 2,
+    statBonuses: { attack: 2, critChance: 1 }
   }
 };
 

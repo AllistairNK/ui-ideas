@@ -64,6 +64,7 @@
 //   Peasant -> Werewolf -> ??? (tier 1 only so far)
 //   Peasant -> Duelist -> ??? (tier 1 only so far)
 //   Peasant -> Blacksmith -> ??? (tier 1 only so far)
+//   Peasant -> Hunter -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -1122,6 +1123,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['hammer', 'gauntlet'],
     bonusActivityIds: []
   },
+  hunter: {
+    id: 'hunter',
+    name: 'Hunter',
+    flavor: 'A hunter never chases the trail -- they just wait where it was always going to end up.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { agility: 7, intellect: 6 },
+    requiredTrait: 'trackersInstinct',
+    statScaling: { attack: 0.9, defense: 0.5, magicPower: 0.15, critChance: 0.85 },
+    allowedWeaponTypes: ['bow', 'dagger'],
+    bonusActivityIds: []
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1431,4 +1444,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger', 'summoner', 'jester', 'vampire', 'werewolf', 'duelist', 'blacksmith'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger', 'summoner', 'jester', 'vampire', 'werewolf', 'duelist', 'blacksmith', 'hunter'];
