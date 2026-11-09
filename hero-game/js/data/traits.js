@@ -456,6 +456,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.agility >= 7 && a.intellect >= 6,
     weight: 2,
     statBonuses: { attack: 2, critChance: 1 }
+  },
+  stoneSense: {
+    id: 'stoneSense',
+    name: 'Stone Sense',
+    flavor: 'The ground shifts a half-second before you ask it to. You stopped questioning which of you moves first.',
+    tags: ['fighter'],
+    secretClass: 'geomancer',
+    requirement: (a) => a.strength >= 7 && a.intellect >= 6,
+    weight: 2,
+    statBonuses: { defense: 2, magicPower: 2 }
   }
 };
 
