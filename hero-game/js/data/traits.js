@@ -466,6 +466,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.strength >= 7 && a.intellect >= 6,
     weight: 2,
     statBonuses: { defense: 2, magicPower: 2 }
+  },
+  zealousGaze: {
+    id: 'zealousGaze',
+    name: 'Zealous Gaze',
+    flavor: 'You don\'t raise your voice to make someone confess. You just stop blinking until they do.',
+    tags: ['fighter'],
+    secretClass: 'inquisitor',
+    requirement: (a) => a.strength >= 6 && a.luck >= 7,
+    weight: 2,
+    statBonuses: { attack: 1, critChance: 2 }
   }
 };
 
