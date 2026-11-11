@@ -476,6 +476,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.strength >= 6 && a.luck >= 7,
     weight: 2,
     statBonuses: { attack: 1, critChance: 2 }
+  },
+  stringsAttached: {
+    id: 'stringsAttached',
+    name: 'Strings Attached',
+    flavor: 'The hand that moved never looked like yours. It didn\'t need to.',
+    tags: ['mage'],
+    secretClass: 'puppeteer',
+    requirement: (a) => a.intellect >= 7 && a.agility >= 6,
+    weight: 2,
+    statBonuses: { magicPower: 2, critChance: 1 }
   }
 };
 
