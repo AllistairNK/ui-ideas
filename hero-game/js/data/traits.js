@@ -486,6 +486,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.intellect >= 7 && a.agility >= 6,
     weight: 2,
     statBonuses: { magicPower: 2, critChance: 1 }
+  },
+  wingedOath: {
+    id: 'wingedOath',
+    name: 'Winged Oath',
+    flavor: 'Something above the battlefield already marked your name down. You\'ve started fighting like you know it.',
+    tags: ['fighter'],
+    secretClass: 'valkyrie',
+    requirement: (a) => a.strength >= 6 && a.luck >= 6,
+    weight: 2,
+    statBonuses: { attack: 2, critChance: 1 }
   }
 };
 
