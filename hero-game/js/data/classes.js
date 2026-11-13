@@ -69,6 +69,7 @@
 //   Peasant -> Inquisitor -> ??? (tier 1 only so far)
 //   Peasant -> Puppeteer -> ??? (tier 1 only so far)
 //   Peasant -> Valkyrie -> ??? (tier 1 only so far)
+//   Peasant -> Reaper -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -1187,6 +1188,18 @@ export const CLASSES = {
     allowedWeaponTypes: ['spear', 'sword'],
     bonusActivityIds: []
   },
+  reaper: {
+    id: 'reaper',
+    name: 'Reaper',
+    flavor: 'A reaper never checks whether the harvest is ready -- by the time they\'ve arrived, it already was.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { agility: 7, intellect: 7 },
+    requiredTrait: 'harvestersEdge',
+    statScaling: { attack: 0.85, defense: 0.4, magicPower: 0.6, critChance: 1.0 },
+    allowedWeaponTypes: ['dagger', 'staff'],
+    bonusActivityIds: []
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1496,4 +1509,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger', 'summoner', 'jester', 'vampire', 'werewolf', 'duelist', 'blacksmith', 'hunter', 'geomancer', 'inquisitor', 'puppeteer', 'valkyrie'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger', 'summoner', 'jester', 'vampire', 'werewolf', 'duelist', 'blacksmith', 'hunter', 'geomancer', 'inquisitor', 'puppeteer', 'valkyrie', 'reaper'];

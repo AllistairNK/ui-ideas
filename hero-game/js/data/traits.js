@@ -496,6 +496,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.strength >= 6 && a.luck >= 6,
     weight: 2,
     statBonuses: { attack: 2, critChance: 1 }
+  },
+  harvestersEdge: {
+    id: 'harvestersEdge',
+    name: "Harvester's Edge",
+    flavor: 'You never have to ask whose time is up. You just already know, and you\'re rarely early.',
+    tags: ['mage'],
+    secretClass: 'reaper',
+    requirement: (a) => a.agility >= 7 && a.intellect >= 7,
+    weight: 1,
+    statBonuses: { attack: 2, critChance: 2 }
   }
 };
 
