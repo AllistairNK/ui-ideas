@@ -506,6 +506,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.agility >= 7 && a.intellect >= 7,
     weight: 1,
     statBonuses: { attack: 2, critChance: 2 }
+  },
+  packBond: {
+    id: 'packBond',
+    name: 'Pack Bond',
+    flavor: 'Something wild decided, on its own, that you were worth following. It\'s never once explained why.',
+    tags: ['rogue'],
+    secretClass: 'tamer',
+    requirement: (a) => a.vitality >= 7 && a.agility >= 6,
+    weight: 2,
+    statBonuses: { attack: 1, maxHp: 5 }
   }
 };
 
