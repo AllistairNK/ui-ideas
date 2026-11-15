@@ -71,6 +71,7 @@
 //   Peasant -> Valkyrie -> ??? (tier 1 only so far)
 //   Peasant -> Reaper -> ??? (tier 1 only so far)
 //   Peasant -> Tamer -> ??? (tier 1 only so far)
+//   Peasant -> Scholar -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -1213,6 +1214,20 @@ export const CLASSES = {
     allowedWeaponTypes: ['bow', 'gauntlet'],
     bonusActivityIds: []
   },
+  scholar: {
+    id: 'scholar',
+    name: 'Scholar',
+    flavor: 'A scholar never fights the fight in front of them -- they already won the one in the margins of the last book.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { intellect: 8 },
+    requiredTrait: 'boundlessCuriosity',
+    statScaling: { attack: 0.3, defense: 0.4, magicPower: 1.2, critChance: 0.5 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study'],
+    // Extra xp from study activities (see getActivityRates in activityEngine.js).
+    studyBonus: { xpMultiplier: 1.3 }
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1522,4 +1537,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger', 'summoner', 'jester', 'vampire', 'werewolf', 'duelist', 'blacksmith', 'hunter', 'geomancer', 'inquisitor', 'puppeteer', 'valkyrie', 'reaper', 'tamer'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger', 'summoner', 'jester', 'vampire', 'werewolf', 'duelist', 'blacksmith', 'hunter', 'geomancer', 'inquisitor', 'puppeteer', 'valkyrie', 'reaper', 'tamer', 'scholar'];

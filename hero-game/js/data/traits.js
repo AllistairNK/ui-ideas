@@ -516,6 +516,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.vitality >= 7 && a.agility >= 6,
     weight: 2,
     statBonuses: { attack: 1, maxHp: 5 }
+  },
+  boundlessCuriosity: {
+    id: 'boundlessCuriosity',
+    name: 'Boundless Curiosity',
+    flavor: 'You finish one question and three more are already waiting, impatient, behind it.',
+    tags: ['mage'],
+    secretClass: 'scholar',
+    requirement: (a) => a.intellect >= 8,
+    weight: 2,
+    statBonuses: { magicPower: 3 }
   }
 };
 
