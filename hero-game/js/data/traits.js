@@ -526,6 +526,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.intellect >= 8,
     weight: 2,
     statBonuses: { magicPower: 3 }
+  },
+  deepDelver: {
+    id: 'deepDelver',
+    name: 'Deep Delver',
+    flavor: 'You can tell a good seam from a bad one before the pick ever touches it.',
+    tags: ['fighter'],
+    secretClass: 'miner',
+    requirement: (a) => a.strength >= 6 && a.vitality >= 7,
+    weight: 2,
+    statBonuses: { defense: 2, maxHp: 5 }
   }
 };
 
