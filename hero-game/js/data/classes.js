@@ -73,6 +73,7 @@
 //   Peasant -> Tamer -> ??? (tier 1 only so far)
 //   Peasant -> Scholar -> ??? (tier 1 only so far)
 //   Peasant -> Miner -> ??? (tier 1 only so far)
+//   Peasant -> Farmer -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -1243,6 +1244,20 @@ export const CLASSES = {
     // Better odds/yield from Scavenge the Alleys (see scavengeFind in items.js).
     scavengeBonus: { weightMultiplier: 1.5 }
   },
+  farmer: {
+    id: 'farmer',
+    name: 'Farmer',
+    flavor: 'A farmer never rushes the harvest -- the ones who do are the ones replanting the same field twice.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { vitality: 6, luck: 6 },
+    requiredTrait: 'greenThumb',
+    statScaling: { attack: 0.55, defense: 0.6, magicPower: 0.2, critChance: 0.5 },
+    allowedWeaponTypes: ['hammer', 'dagger'],
+    bonusActivityIds: ['work'],
+    // Extra gold from Work (see getActivityRates in activityEngine.js).
+    workBonus: { goldMultiplier: 1.25 }
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1552,4 +1567,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger', 'summoner', 'jester', 'vampire', 'werewolf', 'duelist', 'blacksmith', 'hunter', 'geomancer', 'inquisitor', 'puppeteer', 'valkyrie', 'reaper', 'tamer', 'scholar', 'miner'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger', 'summoner', 'jester', 'vampire', 'werewolf', 'duelist', 'blacksmith', 'hunter', 'geomancer', 'inquisitor', 'puppeteer', 'valkyrie', 'reaper', 'tamer', 'scholar', 'miner', 'farmer'];

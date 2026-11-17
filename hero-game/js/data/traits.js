@@ -536,6 +536,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.strength >= 6 && a.vitality >= 7,
     weight: 2,
     statBonuses: { defense: 2, maxHp: 5 }
+  },
+  greenThumb: {
+    id: 'greenThumb',
+    name: 'Green Thumb',
+    flavor: 'Nothing grows for you because you ask nicely. It grows because you never once rushed it.',
+    tags: ['fighter'],
+    secretClass: 'farmer',
+    requirement: (a) => a.vitality >= 6 && a.luck >= 6,
+    weight: 2,
+    statBonuses: { defense: 1, maxHp: 6 }
   }
 };
 
