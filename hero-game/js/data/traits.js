@@ -546,6 +546,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.vitality >= 6 && a.luck >= 6,
     weight: 2,
     statBonuses: { defense: 1, maxHp: 6 }
+  },
+  tumblerSense: {
+    id: 'tumblerSense',
+    name: 'Tumbler Sense',
+    flavor: 'Every lock has a tell. You stopped needing to look for it a while ago -- your fingers just know.',
+    tags: ['rogue'],
+    secretClass: 'locksmith',
+    requirement: (a) => a.agility >= 8,
+    weight: 2,
+    statBonuses: { critChance: 3 }
   }
 };
 
