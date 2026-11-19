@@ -556,6 +556,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.agility >= 8,
     weight: 2,
     statBonuses: { critChance: 3 }
+  },
+  quietDevotion: {
+    id: 'quietDevotion',
+    name: 'Quiet Devotion',
+    flavor: 'You never ask to be noticed praying. Whatever\'s listening already knows you\'re there.',
+    tags: ['mage'],
+    secretClass: 'acolyte',
+    requirement: (a) => a.intellect >= 6 && a.vitality >= 6,
+    weight: 2,
+    statBonuses: { magicPower: 1, maxHp: 5 }
   }
 };
 

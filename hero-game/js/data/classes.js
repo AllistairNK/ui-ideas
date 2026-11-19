@@ -75,6 +75,7 @@
 //   Peasant -> Miner -> ??? (tier 1 only so far)
 //   Peasant -> Farmer -> ??? (tier 1 only so far)
 //   Peasant -> Locksmith -> ??? (tier 1 only so far)
+//   Peasant -> Acolyte -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -1273,6 +1274,18 @@ export const CLASSES = {
     // Better yield from Alley Scrap (see getActivityRates in activityEngine.js).
     scrapBonus: { goldMultiplier: 1.3 }
   },
+  acolyte: {
+    id: 'acolyte',
+    name: 'Acolyte',
+    flavor: 'An acolyte never prays loudly -- the ones worth answering never needed the volume.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { intellect: 6, vitality: 6 },
+    requiredTrait: 'quietDevotion',
+    statScaling: { attack: 0.4, defense: 0.55, magicPower: 0.85, critChance: 0.45 },
+    allowedWeaponTypes: ['staff', 'hammer'],
+    bonusActivityIds: ['study']
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1582,4 +1595,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger', 'summoner', 'jester', 'vampire', 'werewolf', 'duelist', 'blacksmith', 'hunter', 'geomancer', 'inquisitor', 'puppeteer', 'valkyrie', 'reaper', 'tamer', 'scholar', 'miner', 'farmer', 'locksmith'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger', 'summoner', 'jester', 'vampire', 'werewolf', 'duelist', 'blacksmith', 'hunter', 'geomancer', 'inquisitor', 'puppeteer', 'valkyrie', 'reaper', 'tamer', 'scholar', 'miner', 'farmer', 'locksmith', 'acolyte'];
