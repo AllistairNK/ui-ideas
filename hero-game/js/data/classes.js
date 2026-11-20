@@ -76,6 +76,7 @@
 //   Peasant -> Farmer -> ??? (tier 1 only so far)
 //   Peasant -> Locksmith -> ??? (tier 1 only so far)
 //   Peasant -> Acolyte -> ??? (tier 1 only so far)
+//   Peasant -> Oracle -> ??? (tier 1 only so far)
 // ---------------------------------------------------------------------------
 export const CLASSES = {
   peasant: {
@@ -1286,6 +1287,20 @@ export const CLASSES = {
     allowedWeaponTypes: ['staff', 'hammer'],
     bonusActivityIds: ['study']
   },
+  oracle: {
+    id: 'oracle',
+    name: 'Oracle',
+    flavor: 'An oracle never flinches at the blow -- they saw the shape of it long before the arm finished swinging.',
+    tier: 1,
+    unlockLevel: 5,
+    unlockAttributeReqs: { intellect: 7, luck: 7 },
+    requiredTrait: 'veiledSight',
+    statScaling: { attack: 0.3, defense: 0.5, magicPower: 1.1, critChance: 0.6 },
+    allowedWeaponTypes: ['staff', 'dagger'],
+    bonusActivityIds: ['study'],
+    // Chance to see a crit coming and avoid the extra damage (see foresightChance in combat.js).
+    foresight: { dodgeCritChance: 15 }
+  },
   webslinger: {
     id: 'webslinger',
     name: 'Webslinger',
@@ -1595,4 +1610,4 @@ export const CLASSES = {
 
 export const CLASS_CHOICE_LEVEL = 5;
 export const CLASS_CHOICES = ['fighter', 'mage', 'rogue'];
-export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger', 'summoner', 'jester', 'vampire', 'werewolf', 'duelist', 'blacksmith', 'hunter', 'geomancer', 'inquisitor', 'puppeteer', 'valkyrie', 'reaper', 'tamer', 'scholar', 'miner', 'farmer', 'locksmith', 'acolyte'];
+export const SECRET_CLASS_IDS = ['battlemage', 'warden', 'trickster', 'novicemechanic', 'webslinger', 'corpsecultivator', 'cultivator', 'archer', 'fortuneteller', 'warrior', 'ronin', 'squire', 'viking', 'shaman', 'beastmaster', 'spiritmaster', 'cleric', 'monk', 'alchemist', 'paladin', 'bard', 'druid', 'pirate', 'ninja', 'bloodmage', 'berserker', 'gladiator', 'witch', 'dancer', 'illusionist', 'dragoon', 'merchant', 'avatar', 'necromancer', 'gunslinger', 'summoner', 'jester', 'vampire', 'werewolf', 'duelist', 'blacksmith', 'hunter', 'geomancer', 'inquisitor', 'puppeteer', 'valkyrie', 'reaper', 'tamer', 'scholar', 'miner', 'farmer', 'locksmith', 'acolyte', 'oracle'];

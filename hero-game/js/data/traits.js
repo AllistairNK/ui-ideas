@@ -566,6 +566,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.intellect >= 6 && a.vitality >= 6,
     weight: 2,
     statBonuses: { magicPower: 1, maxHp: 5 }
+  },
+  veiledSight: {
+    id: 'veiledSight',
+    name: 'Veiled Sight',
+    flavor: 'The moment hasn\'t happened yet, and you\'re already tired of waiting for everyone else to catch up to it.',
+    tags: ['mage'],
+    secretClass: 'oracle',
+    requirement: (a) => a.intellect >= 7 && a.luck >= 7,
+    weight: 1,
+    statBonuses: { magicPower: 2, defense: 1 }
   }
 };
 
