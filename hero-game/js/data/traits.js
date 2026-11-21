@@ -576,6 +576,16 @@ export const HIDDEN_TRAITS = {
     requirement: (a) => a.intellect >= 7 && a.luck >= 7,
     weight: 1,
     statBonuses: { magicPower: 2, defense: 1 }
+  },
+  holyZeal: {
+    id: 'holyZeal',
+    name: 'Holy Zeal',
+    flavor: 'The cause was never the hard part. Showing up was, and you stopped finding that hard a while ago.',
+    tags: ['fighter'],
+    secretClass: 'crusader',
+    requirement: (a) => a.strength >= 7 && a.luck >= 7,
+    weight: 1,
+    statBonuses: { attack: 2, defense: 1 }
   }
 };
 
